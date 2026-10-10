@@ -1,0 +1,9 @@
+/* focus ring for shadcn components: border, a gap of page color, then a ring in --ring.
+   unlayered, so it wins over the components' built-in soft halo utilities */
+:where([data-slot]:not([data-slot="input-group-control"])):focus-visible {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px var(--ring);
+  outline: none;
+}

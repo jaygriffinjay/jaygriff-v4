@@ -1,0 +1,11 @@
+@reference "./globals.css";
+
+/* vertical rhythm for the 404 content */
+.article {
+  @apply space-y-4;
+}
+
+/* page heading, scaled down for mobile */
+.title {
+  @apply text-3xl sm:text-4xl;
+}

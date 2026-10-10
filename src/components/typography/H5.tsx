@@ -6,7 +6,7 @@ interface H5Props extends React.HTMLAttributes<HTMLHeadingElement> {
 
 export function H5({ children, className, ...props }: H5Props) {
   return (
-    <h5 className={cn("text-xl font-medium", className)} {...props}>
+    <h5 className={cn("text-heading text-xl font-medium", className)} {...props}>
       {children}
     </h5>
   );

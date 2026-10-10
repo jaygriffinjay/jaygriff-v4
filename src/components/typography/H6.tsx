@@ -6,7 +6,7 @@ interface H6Props extends React.HTMLAttributes<HTMLHeadingElement> {
 
 export function H6({ children, className, ...props }: H6Props) {
   return (
-    <h6 className={cn("text-lg font-medium", className)} {...props}>
+    <h6 className={cn("text-heading text-lg font-medium", className)} {...props}>
       {children}
     </h6>
   );

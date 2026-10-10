@@ -1,0 +1,6 @@
+@reference "../../app/globals.css";
+
+/* stack of side-info sections; right column on desktop, below content on mobile */
+.aside {
+  @apply flex flex-col gap-8;
+}

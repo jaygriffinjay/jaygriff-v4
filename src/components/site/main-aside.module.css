@@ -1,0 +1,16 @@
+@reference "../../app/globals.css";
+
+/* body copy in the About section */
+.text {
+  @apply text-muted-foreground text-sm;
+}
+
+/* link list in the Elsewhere section */
+.list {
+  @apply space-y-2;
+}
+
+/* external profile link in the Elsewhere section */
+.link {
+  @apply link;
+}

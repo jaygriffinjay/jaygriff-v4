@@ -5,8 +5,8 @@ You are an AI assistant helping build a modern full-stack web application. Follo
 - **Framework**: Next.js 16 (App Router, Server Components by default)
 - **Styling**: Tailwind CSS v4 (`@theme inline` config in globals.css)
 - **Components**: shadcn/ui (Base UI, Rhea style) + custom typography components
-- **Theming**: next-themes (light/dark/system via class on `<html>`)
-- **Colors**: oklch color space, CSS variables in `:root` and `.dark`
+- **Theming**: One theme, defined in `:root` in globals.css. The site is dark-toned (navy + blue), but there are no light/dark modes and no theme switcher.
+- **Colors**: oklch color space, single palette of CSS variables in `:root`
 - **Utilities**: `cn()` from `@/lib/utils` (clsx + tailwind-merge)
 
 ## Golden Rules
@@ -16,27 +16,31 @@ You are an AI assistant helping build a modern full-stack web application. Follo
 3. **Use `cn()` for all dynamic class logic.** Never concatenate class strings manually.
 4. **All components accept `className`.** Override defaults by passing Tailwind classes.
 5. **Server Components by default.** Only add `"use client"` when the component needs browser APIs, state, or event handlers.
-6. **Use the typography system for text and links.** Use `<H1>`, `<Paragraph>`, `<Bold>`, etc. from `@/components/typography` instead of raw text tags, and import its `Link` wrapper instead of `next/link`.
-7. **Fonts are CSS variables, not Tailwind classes.** Apply fonts via `style={{ fontFamily: "var(--font-name)" }}`. Available: `--font-geist-sans`, `--font-geist-mono`, `--font-jetbrains-mono`.
-8. **Dark mode is automatic.** Use theme colors (`text-foreground`, `bg-background`, `text-muted-foreground`, `bg-muted`, `text-primary`, `bg-primary`, `text-destructive`, etc.) and they flip automatically. For manual overrides: `className="text-black dark:text-white"`.
-9. **Shadcn components use direct imports.** No barrel file — import from the specific path: `import { Button } from "@/components/ui/button"`.
+6. **Use the typography system for text.** Use `<H1>`, `<Paragraph>`, `<Bold>`, etc. from `@/components/typography` instead of raw text tags.
+7. **Links use `next/link` directly**, styled with a CSS module class. For a standard inline text link, `@apply link;` (utility in globals.css).
+8. **Fonts are CSS variables, not Tailwind classes.** Apply fonts via `style={{ fontFamily: "var(--font-name)" }}`. Available: `--font-geist-sans`, `--font-geist-mono`, `--font-jetbrains-mono`, `--font-sekuya` (display face, used for the site name).
+9. **Use theme colors.** Use semantic tokens (`text-foreground`, `bg-background`, `text-muted-foreground`, `bg-muted`, `text-primary`, `bg-primary`, `text-destructive`, etc.). There's only one theme, so never write mode-specific styles (`dark:` variants or light-mode overrides).
+10. **Shadcn components use direct imports.** No barrel file — import from the specific path: `import { Button } from "@/components/ui/button"`.
+11. **Restyle shadcn components in their own file.** To change how a shadcn component looks site-wide, edit its Tailwind classes directly in `src/components/ui/<name>.tsx`. Don't add global CSS overrides that target `[data-slot=...]`, and don't wrap it just to restyle. (Re-adding a component with `npx shadcn add --overwrite` will discard these edits.)
 
 ## File Structure
 
 ```
 src/
   app/              # Pages and layouts (App Router)
-    fonts.ts        # Font definitions (Geist, Geist Mono, JetBrains Mono)
+    fonts.ts        # Font definitions (Geist, Geist Mono, JetBrains Mono, Sekuya)
     globals.css     # Tailwind config, theme variables, base styles
-    layout.tsx      # Root layout (ThemeProvider, TooltipProvider, fonts)
+    layout.tsx      # Root layout (TooltipProvider, fonts, site shell)
   components/
     typography/     # Custom text components (barrel export via index.ts)
     ui/             # shadcn components (direct imports, no barrel)
-    mode-toggle.tsx # Dark/light/system toggle
-    theme-provider.tsx # next-themes wrapper
   lib/
     utils.ts        # cn() utility
 ```
+
+## Workflow
+
+- Don't run `tsc`, `next build`, or lint after routine edits. The dev server and editor already surface errors, and the user checks UI changes in the browser. Only run them when asked, before a commit or deploy, or after a large multi-file refactor where breakage is likely.
 
 ## Git
 

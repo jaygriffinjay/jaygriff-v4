@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import styles from "./InlineCode.module.css";
 
 interface InlineCodeProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
@@ -6,14 +7,7 @@ interface InlineCodeProps extends React.HTMLAttributes<HTMLElement> {
 
 export function InlineCode({ children, className, ...props }: InlineCodeProps) {
   return (
-    <code
-      className={cn(
-        "bg-muted rounded-sm border px-1.5 py-0.5 text-sm",
-        className,
-      )}
-      style={{ fontFamily: "var(--font-jetbrains-mono)", ...props.style }}
-      {...props}
-    >
+    <code className={cn(styles.code, className)} {...props}>
       {children}
     </code>
   );

@@ -6,7 +6,7 @@ interface H4Props extends React.HTMLAttributes<HTMLHeadingElement> {
 
 export function H4({ children, className, ...props }: H4Props) {
   return (
-    <h4 className={cn("text-2xl font-semibold", className)} {...props}>
+    <h4 className={cn("text-heading text-2xl font-semibold", className)} {...props}>
       {children}
     </h4>
   );

@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono, JetBrains_Mono, Sekuya } from "next/font/google";
 
 export const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +17,16 @@ export const jetbrainsMono = JetBrains_Mono({
   style: ["normal", "italic"],
 });
 
-export const fontVariables = [geistSans, geistMono, jetbrainsMono]
+// display face for the site name, carried over from jaygriff v2
+export const sekuya = Sekuya({
+  variable: "--font-sekuya",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  // Next has no fallback metrics for Sekuya; skip the size-adjusted fallback instead of warning
+  adjustFontFallback: false,
+});
+
+export const fontVariables = [geistSans, geistMono, jetbrainsMono, sekuya]
   .map((f) => f.variable)
   .join(" ");

@@ -7,7 +7,7 @@ interface H1Props extends React.HTMLAttributes<HTMLHeadingElement> {
 export function H1({ children, className, ...props }: H1Props) {
   return (
     <h1
-      className={cn("text-5xl font-bold tracking-tight", className)}
+      className={cn("text-heading text-5xl font-bold tracking-tight", className)}
       {...props}
     >
       {children}

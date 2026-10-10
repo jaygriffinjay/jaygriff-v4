@@ -1,9 +1,8 @@
 import "./globals.css";
 import { fontVariables } from "./fonts";
-import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AppSidebar } from "@/components/sidebar";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { SiteHeader } from "@/components/site/header";
+import { SiteFooter } from "@/components/site/footer";
 import styles from "./layout.module.css";
 
 export default function RootLayout({
@@ -12,21 +11,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${fontVariables} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TooltipProvider>
-            <SidebarProvider className={styles.provider}>
-              <AppSidebar collapsible="none" />
-              <SidebarInset className={styles.inset}>{children}</SidebarInset>
-            </SidebarProvider>
-          </TooltipProvider>
-        </ThemeProvider>
+    // font variables live on <html> so :root theme vars like --font-mono can resolve them
+    <html lang="en" className={fontVariables}>
+      <body className={styles.body}>
+        <TooltipProvider>
+          <div className={styles.shell}>
+            <SiteHeader />
+            {children}
+          </div>
+          <SiteFooter />
+        </TooltipProvider>
       </body>
     </html>
   );

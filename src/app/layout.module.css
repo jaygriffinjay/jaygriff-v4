@@ -2,13 +2,12 @@
 
 /* ─── RootLayout (layout.tsx) ────────────────────────────────── */
 
-/* pins the sidebar+content row to exact viewport height so the sidebar never
-   grows with page content; body itself never scrolls */
-.provider {
-  @apply h-svh overflow-hidden;
+/* flex column so the shell can push the footer to the bottom of short pages */
+.body {
+  @apply flex min-h-dvh flex-col antialiased;
 }
 
-/* main content area scrolls independently of the sidebar */
-.inset {
-  @apply overflow-y-auto;
+/* centered page frame, padded in from the screen edges */
+.shell {
+  @apply mx-auto w-full max-w-5xl flex-1 px-4 pb-16 sm:px-6;
 }

@@ -1,0 +1,16 @@
+@reference "../../app/globals.css";
+
+/* one side-info section */
+.section {
+  @apply min-w-0;
+}
+
+/* small caps heading with a rule under it */
+.title {
+  @apply text-muted-foreground border-b pb-2 text-xs font-semibold tracking-wider uppercase;
+}
+
+/* section content below the heading */
+.body {
+  @apply pt-3 text-sm;
+}

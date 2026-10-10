@@ -17,12 +17,12 @@ applyTo: "**/*.module.css"
 
 3. **Every class gets a comment** explaining what element or role it styles.
 
-4. **Group classes by component** with a section comment when multiple components share one module file:
-   ```css
-   /* ─── NavMenu ─── */
-   ```
+4. **One CSS module per `.tsx` file, named after it.** `header.tsx` → `header.module.css`, `Container.tsx` → `Container.module.css`. Never import another file's module.
+   - **Same-file helpers share the file's module.** A small, unexported component that exists only to break up the main component's JSX (e.g. a `Row` used inside a `Table`) uses the module of the file it lives in.
+   - **If a helper gets exported or reused elsewhere, move it to its own file with its own module.**
+   - **Shared styles across components:** extract a component or put the value in the theme (`globals.css`), never share a module.
 
-5. **One CSS module per component folder.** Name it after the folder: `navbar/navbar.module.css`, `layout/layout.module.css`, etc.
+5. **One CSS module per route file.** `page.tsx` → `page.module.css`, `layout.tsx` → `layout.module.css`, `not-found.tsx` → `not-found.module.css`, all co-located in the same route folder. Pages never share a module, even if their styles currently match.
 
 ## Example
 

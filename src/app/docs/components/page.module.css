@@ -1,0 +1,395 @@
+@reference "../../globals.css";
+
+/* ─── ComponentsPage (page.tsx) ──────────────────────────────── */
+
+/* big obvious link to the component library page */
+.libraryBanner {
+  @apply border-primary/40 bg-primary/10 text-primary hover:bg-primary/20 mb-10 flex items-center justify-between rounded-xl border px-5 py-4 text-lg font-semibold no-underline transition-colors;
+}
+
+/* vertical rhythm between demo sections */
+.article {
+  @apply space-y-12;
+}
+
+/* page heading + lede */
+.intro {
+  @apply space-y-2;
+}
+
+/* page heading, scaled down for mobile */
+.title {
+  @apply text-3xl sm:text-4xl;
+}
+
+/* one-line description under the heading */
+.lede {
+  @apply text-muted-foreground;
+}
+
+/* one demo block; offset so anchor jumps don't hug the viewport edge */
+.section {
+  @apply scroll-mt-6 space-y-4;
+}
+
+/* demo section heading with a divider underneath */
+.sectionTitle {
+  @apply border-b pb-2 text-2xl;
+}
+
+/* stacked heading samples */
+.stack {
+  @apply space-y-3;
+}
+
+/* wrapping row of buttons/badges */
+.row {
+  @apply flex flex-wrap items-center gap-3;
+}
+
+/* label + input pair */
+.field {
+  @apply grid max-w-sm gap-2;
+}
+
+/* control with an inline label (checkbox, switch) */
+.inline {
+  @apply flex items-center gap-2;
+}
+
+/* standard text link */
+.link {
+  @apply link;
+}
+
+/* fixed-width input in the focus ring demos */
+.focusInput {
+  @apply w-48;
+}
+
+/* ─── FocusOption / SecondaryOption / CardOption (page.tsx helpers) ── */
+
+/* stack of option rows */
+.options {
+  @apply space-y-6;
+}
+
+/* one option row, separated by a rule */
+.option {
+  @apply space-y-3 border-t pt-4;
+}
+
+/* option name with its one-line note */
+.optionLabel {
+  @apply flex flex-wrap items-baseline gap-x-2;
+}
+
+/* short description after the option name */
+.optionNote {
+  @apply text-muted-foreground;
+}
+
+/* focus option: today's shadcn ring, pinned to the original bright blue */
+.focusCurrent {
+  --ring: oklch(0.66 0.18 252);
+}
+
+/* forced preview of today's ring (.forced marks controls shown focused without focus) */
+.focusCurrent .forced {
+  @apply border-ring ring-ring/30 ring-3;
+}
+
+/* focus options that draw a 2px outline; each sets its own --ring color */
+.focusOutline {
+  --ring: var(--primary);
+}
+
+.focusNeutral {
+  --ring: rgb(255 255 255 / 70%);
+}
+
+.focusIndigo {
+  --ring: var(--indigo);
+}
+
+/* crisp 2px outline with a small gap, replacing the halo */
+.focusOutline :is(button, input):focus-visible,
+.focusOutline .forced,
+.focusNeutral :is(button, input):focus-visible,
+.focusNeutral .forced,
+.focusIndigo :is(button, input):focus-visible,
+.focusIndigo .forced {
+  border-color: var(--ring);
+  box-shadow: none;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* focus option: ring in the link blue */
+.focusGap {
+  --ring: var(--primary);
+}
+
+/* border, a gap of page color, then a ring, matching the link hover */
+.focusGap :is(button, input):focus-visible,
+.focusGap .forced {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px var(--ring);
+  outline: none;
+}
+
+/* focus option: halo in the link blue */
+.focusGlow {
+  --ring: var(--primary);
+}
+
+/* faint halo and soft glow, no hard edge */
+.focusGlow :is(button, input):focus-visible,
+.focusGlow .forced {
+  border-color: color-mix(in oklch, var(--ring) 60%, transparent);
+  box-shadow:
+    0 0 0 4px color-mix(in oklch, var(--ring) 20%, transparent),
+    0 0 12px color-mix(in oklch, var(--ring) 35%, transparent);
+  outline: none;
+}
+
+/* secondary option: neutral gray */
+.secondaryGraphite {
+  --secondary: #2b2b38;
+  --secondary-foreground: #e5e5e5;
+}
+
+/* secondary option: translucent white */
+.secondaryFrost {
+  --secondary: rgb(255 255 255 / 8%);
+  --secondary-foreground: #e5e5e5;
+}
+
+/* secondary option: faint link-blue wash */
+.secondaryBlueTint {
+  --secondary: color-mix(in oklch, var(--primary) 18%, transparent);
+  --secondary-foreground: oklch(0.78 0.1 255);
+}
+
+/* secondary option: faint indigo wash */
+.secondaryIndigoTint {
+  --secondary: color-mix(in oklch, var(--indigo) 20%, transparent);
+  --secondary-foreground: oklch(0.8 0.1 280);
+}
+
+/* secondary option: solid dark blue */
+.secondaryDeepBlue {
+  --secondary: oklch(0.36 0.09 258);
+  --secondary-foreground: #e5e5e5;
+}
+
+/* card option: page color lifted a step */
+.cardTonal {
+  background: #21212d;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 6%);
+}
+
+/* card option: hairline border, no fill */
+.cardOutline {
+  background: transparent;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 10%);
+}
+
+/* card option: translucent fill with a top highlight */
+.cardGlass {
+  background: rgb(255 255 255 / 3%);
+  border-radius: 16px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 6%),
+    0 0 0 1px rgb(255 255 255 / 8%);
+}
+
+/* card option: tonal with a blue left edge */
+.cardAccentEdge {
+  background: #21212d;
+  border-radius: 8px;
+  box-shadow:
+    inset 2px 0 0 var(--primary),
+    0 0 0 1px rgb(255 255 255 / 5%);
+}
+
+/* card option: darker than the page */
+.cardSunken {
+  background: #15151d;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 5%);
+}
+
+/* ─── BlueCandidate (page.tsx helper) ────────────────────────── */
+
+/* candidate link blues; each sets --candidate for everything inside its block */
+.blueCurrent {
+  --candidate: oklch(0.66 0.18 252);
+}
+
+.blueDeepAzure {
+  --candidate: oklch(0.6 0.16 255);
+}
+
+.blueMidnight {
+  --candidate: oklch(0.55 0.15 258);
+}
+
+.blueDenim {
+  --candidate: oklch(0.6 0.13 245);
+}
+
+.blueSteel {
+  --candidate: oklch(0.62 0.11 250);
+}
+
+.blueSlate {
+  --candidate: oklch(0.6 0.09 260);
+}
+
+.blueDusk {
+  --candidate: oklch(0.62 0.14 265);
+}
+
+.blueOcean {
+  --candidate: oklch(0.6 0.12 235);
+}
+
+.blueCornflower {
+  --candidate: oklch(0.66 0.11 260);
+}
+
+.blueStorm {
+  --candidate: oklch(0.58 0.07 250);
+}
+
+/* stack of candidate blocks */
+.blueCandidates {
+  @apply space-y-12;
+}
+
+/* one candidate block, marked by a rule in its color */
+.blueCandidate {
+  @apply space-y-4 border-t-2 pt-4;
+  border-top-color: var(--candidate);
+}
+
+/* candidate name in its own color */
+.blueName {
+  @apply text-xl;
+  color: var(--candidate);
+}
+
+/* sample heading set in the candidate color */
+.blueHeading {
+  color: var(--candidate);
+}
+
+/* text link in the candidate color */
+.blueLink {
+  @apply link;
+  --link-color: var(--candidate);
+}
+
+/* plain (non-link) text in the candidate color */
+.blueText {
+  color: var(--candidate);
+}
+
+/* mock nav row, like the site nav */
+.blueNav {
+  @apply flex flex-wrap gap-x-5 border-b pb-2 text-sm font-medium;
+}
+
+/* nav link in the candidate color */
+.blueNavLink {
+  @apply link;
+  --link-color: var(--candidate);
+}
+
+/* post-meta line with links */
+.blueMeta {
+  @apply text-muted-foreground block;
+}
+
+/* ─── AccentCandidate (page.tsx helper) ──────────────────────── */
+
+/* candidate color values; each sets --candidate for everything inside its card */
+.violet {
+  --candidate: oklch(0.68 0.17 295);
+}
+
+.orchid {
+  --candidate: oklch(0.7 0.18 320);
+}
+
+.lavender {
+  --candidate: oklch(0.76 0.11 295);
+}
+
+.indigo {
+  --candidate: oklch(0.62 0.19 280);
+}
+
+/* two-up grid of candidate cards, one column on mobile */
+.candidates {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+/* card tinted with the candidate: colored top edge and faint colored border */
+.candidateCard {
+  border-color: color-mix(in oklch, var(--candidate) 35%, transparent);
+  border-top: 3px solid var(--candidate);
+}
+
+/* swatch next to the name and value */
+.swatchRow {
+  @apply flex items-center gap-3;
+}
+
+/* solid square of the candidate color */
+.swatch {
+  @apply size-9 shrink-0 rounded-md;
+  background: var(--candidate);
+}
+
+/* candidate name in its own color */
+.candidateName {
+  color: var(--candidate);
+}
+
+/* oklch value under the name */
+.candidateValue {
+  @apply text-xs;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+/* sample content inside the card */
+.candidateBody {
+  @apply space-y-3;
+}
+
+/* text link in the candidate color */
+.candidateLink {
+  @apply link;
+  --link-color: var(--candidate);
+}
+
+/* small tag pill tinted with the candidate */
+.chip {
+  @apply inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium;
+  color: var(--candidate);
+  background: color-mix(in oklch, var(--candidate) 15%, transparent);
+  border: 1px solid color-mix(in oklch, var(--candidate) 30%, transparent);
+}
+
+/* ─── ComponentsAside (page.tsx helper) ──────────────────────── */
+
+/* section jump links */
+.tocList {
+  @apply space-y-1.5;
+}

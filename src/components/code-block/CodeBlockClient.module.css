@@ -1,0 +1,140 @@
+@reference "../../app/globals.css";
+
+/* outer frame; VS Code dark+ editor background */
+.block {
+  @apply my-6 overflow-hidden rounded-lg;
+  background: #1e1e1e;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 6%);
+  font-family: var(--font-mono);
+}
+
+/* top bar: language label left, actions right */
+.header {
+  @apply flex items-center gap-3 py-1 pr-1 pl-3;
+  background: #252526;
+}
+
+/* plain-text language label in the top-left corner */
+.language {
+  @apply text-xs;
+  color: #cccccc;
+}
+
+/* file path for single-file blocks */
+.path {
+  @apply truncate text-xs;
+  color: #858585;
+}
+
+/* wrap + copy buttons */
+.actions {
+  @apply ml-auto flex items-center gap-0.5;
+}
+
+/* icon button in the header; lit up while wrap is on */
+.action {
+  color: #858585;
+
+  &:hover,
+  &[aria-pressed="true"] {
+    color: #e5e5e5;
+    background: rgb(255 255 255 / 8%);
+  }
+}
+
+/* VS Code tab strip for multi-file blocks; mobile only, the explorer takes over at sm */
+.tabs {
+  @apply flex overflow-x-auto sm:hidden;
+  background: #252526;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* single file tab; active tab joins the editor with a blue top edge */
+.tab {
+  @apply shrink-0 px-3 py-1.5 text-xs whitespace-nowrap transition-colors;
+  color: #969696;
+  background: #2d2d2d;
+  border-right: 1px solid #252526;
+
+  &:hover {
+    color: #cccccc;
+  }
+
+  &[aria-selected="true"] {
+    color: #ffffff;
+    background: #1e1e1e;
+    box-shadow: inset 0 1px 0 var(--primary);
+  }
+}
+
+/* explorer + editor row */
+.body {
+  @apply flex;
+}
+
+/* file list beside the code; replaces the tabs from sm up */
+.explorer {
+  @apply hidden w-52 shrink-0 flex-col py-2 sm:flex;
+  background: #252526;
+}
+
+/* small caps "Explorer" title */
+.explorerTitle {
+  @apply px-3 pb-2 text-[11px] tracking-wider uppercase;
+  color: #bbbbbb;
+}
+
+/* one file row in the explorer */
+.explorerItem {
+  @apply truncate px-3 py-1 text-left text-xs;
+  color: #cccccc;
+
+  &:hover {
+    background: #2a2d2e;
+  }
+
+  &[aria-current="true"] {
+    background: #37373d;
+    color: #ffffff;
+  }
+}
+
+/* scrolling editor area holding Shiki's <pre> */
+.code {
+  @apply min-w-0 flex-1 overflow-x-auto;
+
+  & :global(pre) {
+    @apply m-0 py-3 pr-4;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  & :global(code) {
+    counter-reset: line;
+  }
+
+  /* hanging indent in both modes so tab stops measure from the code, not the gutter; 3.25rem = w-8 + mr-5 */
+  & :global(.line) {
+    @apply inline-block;
+    padding-left: 3.25rem;
+    text-indent: -3.25rem;
+  }
+
+  & :global(.line)::before {
+    @apply mr-5 inline-block w-8 text-right select-none;
+    counter-increment: line;
+    content: counter(line);
+    color: #6e7681;
+    text-indent: 0;
+  }
+}
+
+/* wrap mode: long lines break instead of scrolling */
+.block[data-wrap="true"] .code :global(pre) {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

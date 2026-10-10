@@ -7,7 +7,7 @@ interface HighlightProps extends React.HTMLAttributes<HTMLElement> {
 export function Highlight({ children, className, ...props }: HighlightProps) {
   return (
     <mark
-      className={cn("bg-primary/20 text-foreground rounded-sm px-1", className)}
+      className={cn("bg-heading/35 text-foreground rounded-sm px-1", className)}
       {...props}
     >
       {children}

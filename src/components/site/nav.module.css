@@ -1,0 +1,21 @@
+@reference "../../app/globals.css";
+
+/* nav row above the page content, separated by a thin rule */
+.nav {
+  @apply border-b;
+}
+
+/* row of links; wraps on narrow screens */
+.navList {
+  @apply flex flex-wrap gap-x-5;
+}
+
+/* one nav slot; its primary underline sits on the rule when it holds the current page */
+.navItem {
+  @apply has-[[aria-current=page]]:border-primary -mb-px border-b-2 border-transparent py-3;
+}
+
+/* nav link; same blue text + hover block as every other link */
+.navLink {
+  @apply link text-sm font-medium;
+}

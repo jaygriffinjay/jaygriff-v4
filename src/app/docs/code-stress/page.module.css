@@ -1,0 +1,21 @@
+@reference "../../globals.css";
+
+/* page heading */
+.title {
+  @apply text-3xl sm:text-4xl;
+}
+
+/* intro line under the heading */
+.intro {
+  @apply text-muted-foreground mt-3;
+}
+
+/* section heading (inline code / code blocks) */
+.heading {
+  @apply mt-12 text-2xl;
+}
+
+/* label above each case */
+.subheading {
+  @apply mt-8 mb-2 text-lg;
+}

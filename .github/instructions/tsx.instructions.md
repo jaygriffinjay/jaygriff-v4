@@ -11,18 +11,20 @@ Applies to **components, pages, and layouts under `src/`** — anything that def
 
 ## Rules
 
-1. **Import the CSS module** at the top: `import styles from "./component-name.module.css";`
+1. **Import the CSS module** named after the file: `import styles from "./header.module.css";` in `header.tsx`, `import styles from "./page.module.css";` in `page.tsx`.
 2. **Use `className={styles.foo}`** on elements — never `className="bg-red-500 p-4"`.
 3. **Use `cn()` to merge external `className` props:** `cn(styles.foo, className)` so callers can override.
-4. **Create the CSS module if it doesn't exist.** One per component folder, named after the folder.
+4. **Create the CSS module if it doesn't exist.** One per `.tsx` file (components and route files like `page.tsx`, `layout.tsx`, `not-found.tsx`), named after that file. Never import another file's module.
+5. **Same-file helpers share the file's module.** Small unexported components defined in the same file use that file's `styles`. Once a helper is exported or reused, give it its own file and module.
 
 ## Example
 
 ```tsx
-import styles from "./navbar.module.css";
+// header.tsx
+import styles from "./header.module.css";
 import { cn } from "@/lib/utils";
 
-export function Navbar({ className }: { className?: string }) {
+export function SiteHeader({ className }: { className?: string }) {
   return <header className={cn(styles.header, className)}>...</header>;
 }
 ```

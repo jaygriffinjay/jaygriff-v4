@@ -16,4 +16,3 @@ export { Text } from "./Text";
 export { Blockquote } from "./Blockquote";
 export { List } from "./List";
 export { ListItem } from "./ListItem";
-export { Link } from "./Link";

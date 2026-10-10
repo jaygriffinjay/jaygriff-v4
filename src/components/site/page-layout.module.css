@@ -1,0 +1,21 @@
+@reference "../../app/globals.css";
+
+/* single column by default; aside (when present) drops below content on mobile */
+.columns {
+  @apply grid gap-12;
+}
+
+/* adds the side column on desktop when the page passes an aside */
+.columnsWithAside {
+  @apply lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-start lg:gap-16;
+}
+
+/* content column: nav row on top, page content below */
+.panel {
+  @apply min-w-0;
+}
+
+/* page content under the nav row */
+.main {
+  @apply pt-8;
+}
