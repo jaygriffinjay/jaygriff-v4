@@ -9,6 +9,8 @@ Applies to **components, pages, and layouts under `src/`** — anything that def
 
 **No inline Tailwind class strings in JSX.** All Tailwind classes live in a co-located `.module.css` file and are referenced via `styles.className`.
 
+**Exception:** `src/components/ui/` (shadcn; restyle by editing its inline classes) keeps Tailwind classes inline.
+
 ## Rules
 
 1. **Import the CSS module** named after the file: `import styles from "./header.module.css";` in `header.tsx`, `import styles from "./page.module.css";` in `page.tsx`.

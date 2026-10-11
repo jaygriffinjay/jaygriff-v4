@@ -13,7 +13,7 @@ applyTo: "**/*.module.css"
    ```
    Adjust the relative path to point to `src/app/globals.css` from the module's location.
 
-2. **Use `@apply` for all Tailwind classes** inside semantic class names.
+2. **Use `@apply` for plain Tailwind utilities; write regular CSS when you need more control.** Mix freely in one rule. In plain CSS, prefer theme variables (`var(--color-primary)`, `var(--text-sm)`) over hard-coded values.
 
 3. **Every class gets a comment** explaining what element or role it styles.
 

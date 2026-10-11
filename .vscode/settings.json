@@ -2,4 +2,5 @@
   "chat.checkpoints.enabled": true,
   "css.customData": [".vscode/tailwind.css-data.json"],
   "tailwindCSS.lint.suggestCanonicalClasses": "ignore",
+  "dbmlERDPreviewer.preferredTheme": "dark",
 }

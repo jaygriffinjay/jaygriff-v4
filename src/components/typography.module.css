@@ -1,0 +1,108 @@
+@reference "../app/globals.css";
+
+/* ─── Headings ─── */
+
+/* page title */
+.h1 {
+  @apply text-heading text-5xl font-bold tracking-tight;
+}
+
+/* section heading */
+.h2 {
+  @apply text-heading text-4xl font-bold tracking-tight;
+}
+
+/* subsection heading */
+.h3 {
+  @apply text-heading text-3xl font-semibold;
+}
+
+/* minor heading */
+.h4 {
+  @apply text-heading text-2xl font-semibold;
+}
+
+/* small heading */
+.h5 {
+  @apply text-heading text-xl font-medium;
+}
+
+/* smallest heading */
+.h6 {
+  @apply text-heading text-lg font-medium;
+}
+
+/* ─── Body text ─── */
+
+/* standard paragraph */
+.paragraph {
+  @apply text-base leading-relaxed;
+}
+
+/* fine print / secondary text */
+.small {
+  @apply text-muted-foreground text-sm;
+}
+
+/* pulled-out quotation with a primary rule on the left */
+.blockquote {
+  @apply border-primary text-muted-foreground border-l-4 pl-4 italic;
+}
+
+/* ─── Lists ─── */
+
+/* shared list spacing and indent */
+.list {
+  @apply space-y-1 pl-6;
+}
+
+/* bulleted list */
+.unordered {
+  @apply list-disc;
+}
+
+/* numbered list */
+.ordered {
+  @apply list-decimal;
+}
+
+/* ─── Inline ─── */
+
+/* strong emphasis */
+.bold {
+  @apply font-bold;
+}
+
+/* light emphasis */
+.italic {
+  @apply italic;
+}
+
+/* underline with a little breathing room under the text */
+.underline {
+  @apply underline underline-offset-2;
+}
+
+/* struck-out text */
+.strikethrough {
+  @apply line-through;
+}
+
+/* marker highlight in the heading blue */
+.highlight {
+  @apply bg-heading/35 text-foreground rounded-sm px-1;
+}
+
+/* inline code, carried over from jaygriff v2: blue mono text on a faint lifted chip */
+.inlineCode {
+  @apply rounded-sm;
+  color: var(--code);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.9em;
+  /* translucent white so the chip lifts off both the page and card backgrounds */
+  background: oklch(1 0 0 / 7%);
+  padding: 0.15em 0.4em;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 3%);
+  box-decoration-break: clone;
+  overflow-wrap: break-word;
+}
