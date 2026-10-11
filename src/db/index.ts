@@ -1,4 +1,6 @@
 import { drizzle } from "drizzle-orm/libsql";
+import type { ResultSet } from "@libsql/client";
+import type { BaseSQLiteDatabase } from "drizzle-orm/sqlite-core";
 import * as schema from "./schema";
 
 if (!process.env.DATABASE_URL) {
@@ -12,3 +14,6 @@ export const db = drizzle({
   },
   schema,
 });
+
+/** The db or a transaction, so helpers can run inside either. */
+export type Executor = BaseSQLiteDatabase<"async", ResultSet, typeof schema>;

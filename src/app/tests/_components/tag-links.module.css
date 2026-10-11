@@ -1,0 +1,11 @@
+@reference "../../globals.css";
+
+/* row of tag links */
+.tags {
+  @apply flex flex-wrap gap-x-3 gap-y-1;
+}
+
+/* one tag, linking to its feed */
+.tag {
+  @apply text-muted-foreground hover:text-foreground text-xs;
+}

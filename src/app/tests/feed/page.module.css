@@ -1,0 +1,81 @@
+@reference "../../globals.css";
+
+/* page heading */
+.title {
+  @apply text-3xl sm:text-4xl;
+}
+
+/* intro line with the item count */
+.intro {
+  @apply text-muted-foreground mt-3;
+}
+
+/* link that removes the tag filter */
+.clear {
+  @apply link;
+}
+
+/* row of type filter links */
+.filters {
+  @apply mt-6 flex flex-wrap gap-2;
+}
+
+/* one type filter */
+.filter {
+  @apply border-border text-muted-foreground hover:text-foreground rounded-md border px-3 py-1 text-sm capitalize;
+}
+
+/* the filter for the type currently shown */
+.filterActive {
+  @apply bg-muted text-foreground;
+}
+
+/* feed entries, separated by rules */
+.list {
+  @apply divide-border mt-8 flex flex-col divide-y;
+}
+
+/* one feed entry: optional cover beside the text */
+.item {
+  @apply flex gap-4 py-5;
+}
+
+/* thumbnail or hero image */
+.cover {
+  @apply bg-muted h-20 w-32 shrink-0 rounded-md object-cover;
+}
+
+/* text column of an entry */
+.body {
+  @apply min-w-0 flex-1;
+}
+
+/* type badge and date */
+.meta {
+  @apply text-muted-foreground flex flex-wrap items-center gap-2 text-xs;
+}
+
+/* date, linking to the item's own page */
+.date {
+  @apply hover:text-foreground;
+}
+
+/* entry title; links out for link posts */
+.itemTitle {
+  @apply link mt-1 inline-block text-lg font-semibold;
+}
+
+/* summary under the title */
+.description {
+  @apply text-muted-foreground mt-1 text-sm;
+}
+
+/* "via" credit on link posts */
+.via {
+  @apply text-muted-foreground mt-1 text-xs italic;
+}
+
+/* tag links under an entry */
+.tags {
+  @apply mt-2;
+}

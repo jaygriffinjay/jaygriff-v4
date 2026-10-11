@@ -1,0 +1,26 @@
+@reference "../globals.css";
+
+/* page heading */
+.title {
+  @apply text-3xl sm:text-4xl;
+}
+
+/* intro line under the heading */
+.intro {
+  @apply text-muted-foreground mt-3;
+}
+
+/* list of test pages */
+.list {
+  @apply mt-8 flex flex-col gap-6;
+}
+
+/* test page title link */
+.link {
+  @apply link text-lg font-semibold;
+}
+
+/* one-line summary under each test link */
+.description {
+  @apply text-muted-foreground mt-1 text-sm;
+}

@@ -10,6 +10,7 @@ export default defineConfig({
   out: "./drizzle",
   dbCredentials: {
     url: process.env.DATABASE_URL!,
-    authToken: process.env.DATABASE_AUTH_TOKEN,
+    // drizzle-kit rejects an unset/empty authToken, so omit it for local files
+    ...(process.env.DATABASE_AUTH_TOKEN && { authToken: process.env.DATABASE_AUTH_TOKEN }),
   },
 });

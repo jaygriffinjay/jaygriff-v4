@@ -8,8 +8,9 @@ Table content {
   status          text      [not null, default: 'draft']
   title           text      [not null]
   description     text
-  format          text      [not null, default: 'md']
-  file_path       text
+  body            text      [note: 'markdown / MDX']
+  format          text      [not null, default: 'md', note: 'md | mdx | component; component = body is a TSX file in the repo']
+  component_key   text      [note: 'registry key for the TSX body; required when format = component']
   content_hash    text
   authors         text
   authorship      text      [not null, default: 'ai-assisted', note: 'human | ai-assisted | ai-generated; only human and ai-generated get a badge']
@@ -29,10 +30,10 @@ Table content {
 
 Table content_links {
   content_id  text  [pk, ref: - content.id]
-  url         text  [not null, note: 'the page being linked to']
-  title       text
-  via_url     text  [note: 'where I found it']
-  via_title   text
+  target_url   text  [not null, note: 'the page being linked to']
+  target_title text  [note: 'that page\'s title; my own title is content.title']
+  via_url      text  [note: 'where I found it']
+  via_name     text  [note: 'who or what showed it to me, e.g. Hacker News']
 }
 
 Table content_quotes {
@@ -42,7 +43,7 @@ Table content_quotes {
   source_url  text  [note: 'optional; spoken quotes may have none']
   source_title text
   via_url     text
-  via_title   text
+  via_name    text
 }
 
 Table content_comments {
@@ -112,6 +113,7 @@ Table projects {
   title       text      [not null]
   tagline     text
   description text
+  kind        text      [not null, default: 'project', note: 'experiment | project; experiments are exploratory and may be abandoned']
   status      text      [not null, default: 'draft']
   icon        text      [note: 'lucide icon name; fallback when there is no logo asset']
   app_href    text
