@@ -1,0 +1,621 @@
+{
+  "recordedAt": "2026-10-12T17:55:52.089Z",
+  "steps": [
+    {
+      "title": "Write without a token",
+      "note": "Writes need a bearer token. Reads don't.",
+      "expect": 401,
+      "request": {
+        "method": "POST",
+        "path": "/api/content",
+        "auth": false,
+        "body": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": {
+            "message": "Unauthorized"
+          }
+        }
+      }
+    },
+    {
+      "title": "Invalid slug",
+      "note": "Input is validated with zod before anything reaches the database.",
+      "expect": 400,
+      "request": {
+        "method": "POST",
+        "path": "/api/content",
+        "auth": true,
+        "body": {
+          "slug": "Bad Slug",
+          "type": "post",
+          "title": "x"
+        }
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": {
+            "message": "Invalid body",
+            "issues": [
+              {
+                "origin": "string",
+                "code": "invalid_format",
+                "format": "regex",
+                "pattern": "/^[a-z0-9]+(?:-[a-z0-9]+)*$/",
+                "path": [
+                  "slug"
+                ],
+                "message": "Use lowercase letters, numbers and single hyphens"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "title": "Create a draft post",
+      "note": "Under the /posts section. path is derived from the parent's path plus the slug.",
+      "expect": 201,
+      "request": {
+        "method": "POST",
+        "path": "/api/content",
+        "auth": true,
+        "body": {
+          "parentId": "fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+          "slug": "scratch-write-test",
+          "type": "post",
+          "title": "Scratch"
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "data": {
+            "id": "b36a3620-7ab9-49de-9c45-609cd06ef1da",
+            "parentId": "fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+            "slug": "scratch-write-test",
+            "path": "/posts/scratch-write-test",
+            "type": "post",
+            "status": "draft",
+            "title": "Scratch",
+            "description": null,
+            "body": null,
+            "toc": null,
+            "format": "md",
+            "componentKey": null,
+            "contentHash": null,
+            "authors": null,
+            "authorship": "ai-assisted",
+            "authorshipNote": null,
+            "tags": null,
+            "projectId": null,
+            "publishedAt": null,
+            "revisedAt": null,
+            "sortOrder": 0,
+            "createdAt": "2026-10-12T17:55:45.861Z",
+            "updatedAt": "2026-10-12T17:55:45.861Z",
+            "link": null
+          }
+        }
+      }
+    },
+    {
+      "title": "Same path again",
+      "note": "The database's unique (parent_id, slug) index rejects it.",
+      "expect": 409,
+      "request": {
+        "method": "POST",
+        "path": "/api/content",
+        "auth": true,
+        "body": {
+          "parentId": "fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+          "slug": "scratch-write-test",
+          "type": "post",
+          "title": "Again"
+        }
+      },
+      "response": {
+        "status": 409,
+        "body": {
+          "error": {
+            "message": "UNIQUE constraint failed: content.parent_id, content.slug"
+          }
+        }
+      }
+    },
+    {
+      "title": "Edit title and body",
+      "note": "Changing the body recomputes the stored table of contents.",
+      "expect": 200,
+      "request": {
+        "method": "PATCH",
+        "path": "/api/content/b36a3620-7ab9-49de-9c45-609cd06ef1da",
+        "auth": true,
+        "body": {
+          "title": "Scratch, edited",
+          "body": "Intro\n\n## First heading\n\ntext"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "b36a3620-7ab9-49de-9c45-609cd06ef1da",
+            "parentId": "fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+            "slug": "scratch-write-test",
+            "path": "/posts/scratch-write-test",
+            "type": "post",
+            "status": "draft",
+            "title": "Scratch, edited",
+            "description": null,
+            "body": "Intro\n\n## First heading\n\ntext",
+            "toc": [
+              {
+                "depth": 2,
+                "text": "First heading",
+                "id": "first-heading"
+              }
+            ],
+            "format": "md",
+            "componentKey": null,
+            "contentHash": null,
+            "authors": null,
+            "authorship": "ai-assisted",
+            "authorshipNote": null,
+            "tags": null,
+            "projectId": null,
+            "publishedAt": null,
+            "revisedAt": null,
+            "sortOrder": 0,
+            "createdAt": "2026-10-12T17:55:45.861Z",
+            "updatedAt": "2026-10-12T17:55:46.732Z",
+            "link": null
+          }
+        }
+      }
+    },
+    {
+      "title": "Try to change the slug with PATCH",
+      "note": "Slug and parent only change through move, so redirects are kept.",
+      "expect": 400,
+      "request": {
+        "method": "PATCH",
+        "path": "/api/content/b36a3620-7ab9-49de-9c45-609cd06ef1da",
+        "auth": true,
+        "body": {
+          "slug": "nope"
+        }
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": {
+            "message": "Invalid body",
+            "issues": [
+              {
+                "code": "unrecognized_keys",
+                "keys": [
+                  "slug"
+                ],
+                "path": [],
+                "message": "Unrecognized key: \"slug\""
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "title": "Link fields on a post",
+      "note": "Only link content has a target URL.",
+      "expect": 400,
+      "request": {
+        "method": "PATCH",
+        "path": "/api/content/b36a3620-7ab9-49de-9c45-609cd06ef1da",
+        "auth": true,
+        "body": {
+          "link": {
+            "viaName": "x"
+          }
+        }
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": {
+            "message": "link fields only apply to link content"
+          }
+        }
+      }
+    },
+    {
+      "title": "Publish",
+      "note": "Sets status and stamps published_at.",
+      "expect": 200,
+      "request": {
+        "method": "POST",
+        "path": "/api/content/b36a3620-7ab9-49de-9c45-609cd06ef1da/publish",
+        "auth": true,
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "b36a3620-7ab9-49de-9c45-609cd06ef1da",
+            "parentId": "fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+            "slug": "scratch-write-test",
+            "path": "/posts/scratch-write-test",
+            "type": "post",
+            "status": "published",
+            "title": "Scratch, edited",
+            "description": null,
+            "body": "Intro\n\n## First heading\n\ntext",
+            "toc": [
+              {
+                "depth": 2,
+                "text": "First heading",
+                "id": "first-heading"
+              }
+            ],
+            "format": "md",
+            "componentKey": null,
+            "contentHash": null,
+            "authors": null,
+            "authorship": "ai-assisted",
+            "authorshipNote": null,
+            "tags": null,
+            "projectId": null,
+            "publishedAt": "2026-10-12T17:55:47.353Z",
+            "revisedAt": null,
+            "sortOrder": 0,
+            "createdAt": "2026-10-12T17:55:45.861Z",
+            "updatedAt": "2026-10-12T17:55:47.354Z",
+            "link": null
+          }
+        }
+      }
+    },
+    {
+      "title": "Unpublish",
+      "note": "Back to draft. published_at is kept.",
+      "expect": 200,
+      "request": {
+        "method": "POST",
+        "path": "/api/content/b36a3620-7ab9-49de-9c45-609cd06ef1da/unpublish",
+        "auth": true,
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "b36a3620-7ab9-49de-9c45-609cd06ef1da",
+            "parentId": "fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+            "slug": "scratch-write-test",
+            "path": "/posts/scratch-write-test",
+            "type": "post",
+            "status": "draft",
+            "title": "Scratch, edited",
+            "description": null,
+            "body": "Intro\n\n## First heading\n\ntext",
+            "toc": [
+              {
+                "depth": 2,
+                "text": "First heading",
+                "id": "first-heading"
+              }
+            ],
+            "format": "md",
+            "componentKey": null,
+            "contentHash": null,
+            "authors": null,
+            "authorship": "ai-assisted",
+            "authorshipNote": null,
+            "tags": null,
+            "projectId": null,
+            "publishedAt": "2026-10-12T17:55:47.353Z",
+            "revisedAt": null,
+            "sortOrder": 0,
+            "createdAt": "2026-10-12T17:55:45.861Z",
+            "updatedAt": "2026-10-12T17:55:47.645Z",
+            "link": null
+          }
+        }
+      }
+    },
+    {
+      "title": "Publish again",
+      "note": "Republishing keeps the original date.",
+      "expect": 200,
+      "request": {
+        "method": "POST",
+        "path": "/api/content/b36a3620-7ab9-49de-9c45-609cd06ef1da/publish",
+        "auth": true,
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "b36a3620-7ab9-49de-9c45-609cd06ef1da",
+            "parentId": "fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+            "slug": "scratch-write-test",
+            "path": "/posts/scratch-write-test",
+            "type": "post",
+            "status": "published",
+            "title": "Scratch, edited",
+            "description": null,
+            "body": "Intro\n\n## First heading\n\ntext",
+            "toc": [
+              {
+                "depth": 2,
+                "text": "First heading",
+                "id": "first-heading"
+              }
+            ],
+            "format": "md",
+            "componentKey": null,
+            "contentHash": null,
+            "authors": null,
+            "authorship": "ai-assisted",
+            "authorshipNote": null,
+            "tags": null,
+            "projectId": null,
+            "publishedAt": "2026-10-12T17:55:47.353Z",
+            "revisedAt": null,
+            "sortOrder": 0,
+            "createdAt": "2026-10-12T17:55:45.861Z",
+            "updatedAt": "2026-10-12T17:55:47.932Z",
+            "link": null
+          }
+        }
+      }
+    },
+    {
+      "title": "Rename",
+      "note": "Moving leaves a redirect at the old path.",
+      "expect": 200,
+      "request": {
+        "method": "POST",
+        "path": "/api/content/b36a3620-7ab9-49de-9c45-609cd06ef1da/move",
+        "auth": true,
+        "body": {
+          "slug": "scratch-moved"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "b36a3620-7ab9-49de-9c45-609cd06ef1da",
+            "parentId": "fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+            "slug": "scratch-moved",
+            "path": "/posts/scratch-moved",
+            "type": "post",
+            "status": "published",
+            "title": "Scratch, edited",
+            "description": null,
+            "body": "Intro\n\n## First heading\n\ntext",
+            "toc": [
+              {
+                "depth": 2,
+                "text": "First heading",
+                "id": "first-heading"
+              }
+            ],
+            "format": "md",
+            "componentKey": null,
+            "contentHash": null,
+            "authors": null,
+            "authorship": "ai-assisted",
+            "authorshipNote": null,
+            "tags": null,
+            "projectId": null,
+            "publishedAt": "2026-10-12T17:55:47.353Z",
+            "revisedAt": null,
+            "sortOrder": 0,
+            "createdAt": "2026-10-12T17:55:45.861Z",
+            "updatedAt": "2026-10-12T17:55:48.795Z",
+            "link": null
+          }
+        }
+      }
+    },
+    {
+      "title": "Request the old path",
+      "note": "The read API answers with where it lives now.",
+      "expect": 200,
+      "request": {
+        "method": "GET",
+        "path": "/api/content/by-path?path=/posts/scratch-write-test",
+        "auth": false,
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "redirectTo": "/posts/scratch-moved"
+        }
+      }
+    },
+    {
+      "title": "Link post without its link",
+      "note": "type link requires a link object.",
+      "expect": 400,
+      "request": {
+        "method": "POST",
+        "path": "/api/content",
+        "auth": true,
+        "body": {
+          "slug": "scratch-link",
+          "type": "link",
+          "title": "L"
+        }
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": {
+            "message": "Invalid body",
+            "issues": [
+              {
+                "code": "custom",
+                "path": [
+                  "link"
+                ],
+                "message": "link is required for type link, and only allowed there"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "title": "Create a link post",
+      "note": "The content row and its content_links row are written in one transaction.",
+      "expect": 201,
+      "request": {
+        "method": "POST",
+        "path": "/api/content",
+        "auth": true,
+        "body": {
+          "slug": "scratch-link",
+          "type": "link",
+          "title": "L",
+          "link": {
+            "targetUrl": "https://example.com",
+            "viaName": "HN"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "data": {
+            "id": "1f4f8160-9b7a-4e78-8974-736d53296341",
+            "parentId": null,
+            "slug": "scratch-link",
+            "path": "/scratch-link",
+            "type": "link",
+            "status": "draft",
+            "title": "L",
+            "description": null,
+            "body": null,
+            "toc": null,
+            "format": "md",
+            "componentKey": null,
+            "contentHash": null,
+            "authors": null,
+            "authorship": "ai-assisted",
+            "authorshipNote": null,
+            "tags": null,
+            "projectId": null,
+            "publishedAt": null,
+            "revisedAt": null,
+            "sortOrder": 0,
+            "createdAt": "2026-10-12T17:55:49.874Z",
+            "updatedAt": "2026-10-12T17:55:49.874Z",
+            "link": {
+              "contentId": "1f4f8160-9b7a-4e78-8974-736d53296341",
+              "targetUrl": "https://example.com",
+              "targetTitle": null,
+              "viaUrl": null,
+              "viaName": "HN"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Delete the link post",
+      "note": "Its content_links row goes with it.",
+      "expect": 204,
+      "request": {
+        "method": "DELETE",
+        "path": "/api/content/1f4f8160-9b7a-4e78-8974-736d53296341",
+        "auth": true,
+        "body": null
+      },
+      "response": {
+        "status": 204,
+        "body": null
+      }
+    },
+    {
+      "title": "Delete the /posts section",
+      "note": "Nodes with children can't be deleted.",
+      "expect": 409,
+      "request": {
+        "method": "DELETE",
+        "path": "/api/content/fa8f9e44-0824-43db-8e1f-b3934b02b17b",
+        "auth": true,
+        "body": null
+      },
+      "response": {
+        "status": 409,
+        "body": {
+          "error": {
+            "message": "Has 41 children; move or delete them first"
+          }
+        }
+      }
+    },
+    {
+      "title": "Delete the scratch post",
+      "note": "Its redirects go with it.",
+      "expect": 204,
+      "request": {
+        "method": "DELETE",
+        "path": "/api/content/b36a3620-7ab9-49de-9c45-609cd06ef1da",
+        "auth": true,
+        "body": null
+      },
+      "response": {
+        "status": 204,
+        "body": null
+      }
+    },
+    {
+      "title": "Request the new path",
+      "note": "Gone.",
+      "expect": 404,
+      "request": {
+        "method": "GET",
+        "path": "/api/content/by-path?path=/posts/scratch-moved",
+        "auth": false,
+        "body": null
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": {
+            "message": "Not found"
+          }
+        }
+      }
+    },
+    {
+      "title": "Request the old path",
+      "note": "The redirect went with the row.",
+      "expect": 404,
+      "request": {
+        "method": "GET",
+        "path": "/api/content/by-path?path=/posts/scratch-write-test",
+        "auth": false,
+        "body": null
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": {
+            "message": "Not found"
+          }
+        }
+      }
+    }
+  ]
+}

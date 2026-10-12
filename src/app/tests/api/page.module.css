@@ -1,0 +1,46 @@
+@reference "../../globals.css";
+
+/* page heading */
+.title {
+  @apply text-3xl sm:text-4xl;
+}
+
+/* intro paragraph under the heading */
+.intro {
+  @apply text-muted-foreground mt-3;
+}
+
+/* numbered list of recorded steps */
+.steps {
+  @apply mt-10 flex flex-col gap-12;
+}
+
+/* one step: heading, note and request/response block */
+.step {
+  @apply flex flex-col;
+}
+
+/* step title with its status badge */
+.heading {
+  @apply flex flex-wrap items-center gap-3;
+}
+
+/* step title */
+.stepTitle {
+  @apply text-xl;
+}
+
+/* one-line explanation of what the step shows */
+.note {
+  @apply text-muted-foreground mt-1 text-sm;
+}
+
+/* request/response code block */
+.code {
+  @apply mt-4;
+}
+
+/* how the record was made, under the steps */
+.footer {
+  @apply text-muted-foreground mt-12 text-sm;
+}

@@ -44,6 +44,11 @@ const tests = [
     title: "A deep docs page",
     description: "Breadcrumbs from the ancestor query, and the stored table of contents.",
   },
+  {
+    href: "/tests/api",
+    title: "Write API test run",
+    description: "Every write route exercised on a scratch post: each request and the response it got, recorded.",
+  },
 ];
 
 export default function TestsPage() {
