@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { H1, H2, Paragraph } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
-import { listProjects } from "@/db/queries";
+import { listProjects } from "@/lib/goatboat";
 import styles from "./page.module.css";
 
 export default async function ProjectsTestPage() {

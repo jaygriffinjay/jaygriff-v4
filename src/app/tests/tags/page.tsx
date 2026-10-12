@@ -1,7 +1,7 @@
 import NextLink from "next/link";
 import { H1, Paragraph } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
-import { listTags } from "@/db/queries";
+import { listTags } from "@/lib/goatboat";
 import { tagHref } from "../_components/tag-links";
 import styles from "./page.module.css";
 

@@ -2,10 +2,8 @@ import NextLink from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { H1, Paragraph } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
-import { listTree } from "@/db/queries";
+import { listTree, type TreeNode as Node } from "@/lib/goatboat";
 import styles from "./page.module.css";
-
-type Node = Awaited<ReturnType<typeof listTree>>[number];
 
 export default async function TreePage() {
   const nodes = await listTree();

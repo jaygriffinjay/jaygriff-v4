@@ -15,7 +15,7 @@ import {
 import { CodeBlock } from "@/components/code-block/CodeBlock";
 import { H1, H2, InlineCode, Paragraph } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
-import { getContentByPath } from "@/db/queries";
+import { getContentByPath } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
 import { TagLinks } from "../../_components/tag-links";
 import styles from "./page.module.css";
