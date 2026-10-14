@@ -9,8 +9,7 @@ export default function Home() {
       <article className={styles.article}>
         <H1 className={styles.title}>Hi, I&apos;m Jay</H1>
         <Paragraph>
-          Welcome to my website, where I do my work and publish it too. I document my
-          development work, share my thoughts, and maybe even post some personal stuff.
+          Welcome to my website where I do my work and publish it too! On here I document my development work, share my thoughts, and maybe even post some personal stuff.
         </Paragraph>
       </article>
     </PageLayout>

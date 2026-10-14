@@ -5,6 +5,11 @@ import styles from "./page.module.css";
 
 const docs = [
   {
+    href: "/docs/mvp",
+    title: "MVP slices",
+    description: "The order of work: one usable feature at a time.",
+  },
+  {
     href: "/docs/routes-as-data",
     title: "Routes as data",
     description: "Proposal: give every page, including TSX ones, a row in the content database.",

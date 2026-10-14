@@ -43,6 +43,18 @@ src/
 
 - Don't run `tsc`, `next build`, or lint after routine edits. The dev server and editor already surface errors, and the user checks UI changes in the browser. Only run them when asked, before a commit or deploy, or after a large multi-file refactor where breakage is likely.
 
+## Content and goatboat
+
+- **This site is read-only.** All content comes from the goatboat API (`../goatboat`) through `@/lib/goatboat`. Never add database access, write calls or admin features here; those belong in goatboat.
+- `app/[...path]` renders goatboat pages by path with `MarkdownRenderer`. Drafts render only in local dev.
+- `GOATBOAT_URL` (not a secret) points at production or a local goatboat. The site holds no secrets.
+
+## Working with Jay
+
+- Build in small slices that work end to end (see `../goatboat/docs/mvp.md`). Prefer simple over clever; don't build infrastructure ahead of need.
+- Ask before large changes, schema changes, deletions, commits and pushes. Explain what you're about to do in plain terms.
+- Don't merge in ideas that weren't asked for. Propose them separately.
+
 ## Git
 
 - Never add a `Co-authored-by` trailer (or any Copilot attribution) to commit messages.
