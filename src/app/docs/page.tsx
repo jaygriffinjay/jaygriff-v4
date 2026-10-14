@@ -5,6 +5,11 @@ import styles from "./page.module.css";
 
 const docs = [
   {
+    href: "/docs/routes-as-data",
+    title: "Routes as data",
+    description: "Proposal: give every page, including TSX ones, a row in the content database.",
+  },
+  {
     href: "/docs/components",
     title: "Theme lab",
     description: "Color, link, card, and focus-ring experiments for the site theme.",

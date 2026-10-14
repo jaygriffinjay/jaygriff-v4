@@ -1,0 +1,21 @@
+@reference "../globals.css";
+
+/* draft/private badge above the title, local dev only */
+.draft {
+  @apply mb-4;
+}
+
+/* page title */
+.title {
+  @apply text-3xl sm:text-4xl;
+}
+
+/* summary under the title */
+.description {
+  @apply text-muted-foreground mt-3;
+}
+
+/* rendered markdown body */
+.body {
+  @apply mt-8;
+}

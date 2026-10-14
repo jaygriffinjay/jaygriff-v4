@@ -1,0 +1,36 @@
+@reference "../../app/globals.css";
+
+/* body wrapper: vertical rhythm between blocks, with more room above headings */
+.markdown {
+  & > * + * {
+    @apply mt-5;
+  }
+
+  & > :is(h2, h3, h4, h5, h6) {
+    @apply mt-10 scroll-mt-24;
+  }
+
+  & > :is(h2, h3, h4, h5, h6) + * {
+    @apply mt-3;
+  }
+}
+
+/* inline and internal links */
+.link {
+  @apply link;
+}
+
+/* table cells wrap instead of forcing horizontal scroll */
+.cell {
+  @apply align-top whitespace-normal;
+}
+
+/* horizontal rule between sections */
+.rule {
+  @apply border-border my-10;
+}
+
+/* images inside the body */
+.image {
+  @apply h-auto max-w-full rounded-lg;
+}
