@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { H1, Paragraph } from "@/components/typography";
@@ -18,12 +17,6 @@ const withoutLeadingTitle = (body: string) => body.replace(/^\s*#\s+[^\n]*\n?/, 
 async function load(params: Props["params"]) {
   const { path } = await params;
   return getContentByPath(`/${path.join("/")}`);
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const result = await load(params);
-  if (!result || "redirectTo" in result || !isVisible(result.item)) return {};
-  return { title: result.item.title, description: result.item.description ?? undefined };
 }
 
 export default async function ContentPage({ params }: Props) {

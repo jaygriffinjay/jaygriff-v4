@@ -2,7 +2,8 @@ import NextLink from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { H1, Paragraph } from "@/components/typography";
+import { Paragraph } from "@/components/typography";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { contentTypes, listContent, type FeedItem } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
@@ -30,9 +31,9 @@ export default async function FeedPage({
 
   return (
     <PageLayout>
-      <H1 className={styles.title}>{tag ? `#${tag}` : "Feed"}</H1>
+      <PageHeader />
       <Paragraph className={styles.intro}>
-        Published content from the database, newest first. {items.length} items.{" "}
+        {tag && `#${tag} · `}{items.length} items.{" "}
         {tag && (
           <NextLink href={feedHref(type)} className={styles.clear}>
             Clear tag

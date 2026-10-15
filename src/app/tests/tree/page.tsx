@@ -1,6 +1,7 @@
 import NextLink from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { H1, Paragraph } from "@/components/typography";
+import { Paragraph } from "@/components/typography";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { listTree, type TreeNode as Node } from "@/lib/goatboat";
 import styles from "./page.module.css";
@@ -17,10 +18,8 @@ export default async function TreePage() {
 
   return (
     <PageLayout>
-      <H1 className={styles.title}>Content tree</H1>
-      <Paragraph className={styles.intro}>
-        Every node under its parent, in sibling order. {nodes.length} nodes.
-      </Paragraph>
+      <PageHeader />
+      <Paragraph className={styles.intro}>{nodes.length} nodes.</Paragraph>
       <Branch parentId={null} childrenOf={childrenOf} />
     </PageLayout>
   );

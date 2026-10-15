@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { H1, H2, Paragraph } from "@/components/typography";
+import { H2, Paragraph } from "@/components/typography";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { listProjects } from "@/lib/goatboat";
 import styles from "./page.module.css";
@@ -10,10 +11,8 @@ export default async function ProjectsTestPage() {
 
   return (
     <PageLayout>
-      <H1 className={styles.title}>Projects</H1>
-      <Paragraph className={styles.intro}>
-        Every project and experiment in the database, any status. {projects.length} rows.
-      </Paragraph>
+      <PageHeader />
+      <Paragraph className={styles.intro}>{projects.length} rows.</Paragraph>
 
       <ul className={styles.grid}>
         {projects.map((project) => (

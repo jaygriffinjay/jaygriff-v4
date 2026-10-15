@@ -1,7 +1,6 @@
 import { CodeBlock } from "@/components/code-block/CodeBlock";
 import {
   Bold,
-  H1,
   H2,
   H3,
   InlineCode,
@@ -10,6 +9,7 @@ import {
   Paragraph,
 } from "@/components/typography";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import styles from "./page.module.css";
 
@@ -87,12 +87,7 @@ function DataTable({ head, rows }: { head: Row; rows: Row[] }) {
 export default function RoutesAsDataPage() {
   return (
     <PageLayout>
-      <H1 className={styles.title}>Routes as data</H1>
-      <Paragraph className={styles.intro}>
-        A proposal, not built yet. Every page on the site gets a row in the content database, including the ones
-        written as TSX in the repo, so the nav, breadcrumbs, sitemap and feeds can all come from one query
-        instead of from the file system and hand-edited lists.
-      </Paragraph>
+      <PageHeader />
 
       <H2 className={styles.section}>The problem</H2>
       <Paragraph>

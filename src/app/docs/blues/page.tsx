@@ -1,5 +1,6 @@
 import NextLink from "next/link";
-import { H1, H2, H3, InlineCode, Paragraph, Small } from "@/components/typography";
+import { H2, H3, InlineCode, Paragraph, Small } from "@/components/typography";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import styles from "./page.module.css";
 
@@ -15,11 +16,7 @@ const blues = [
 export default function BluesPage() {
   return (
     <PageLayout>
-      <H1 className={styles.title}>Blue tester</H1>
-      <Paragraph className={styles.intro}>
-        Each block uses one candidate blue for its heading, links, and a plain-text phrase.
-        Everything else is the real site theme.
-      </Paragraph>
+      <PageHeader />
 
       <div className={styles.list}>
         {blues.map((blue) => (

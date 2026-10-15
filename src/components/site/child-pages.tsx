@@ -1,14 +1,12 @@
 import NextLink from "next/link";
 import { Paragraph } from "@/components/typography";
-import { getPage, isVisible } from "@/lib/page-meta";
+import { getCurrentPage, isVisible } from "@/lib/page-meta";
 import { cn } from "@/lib/utils";
 import styles from "./child-pages.module.css";
 
-type ChildPagesProps = { path: string; className?: string };
-
-/** Links to a page's children in goatboat, in sibling order. */
-export async function ChildPages({ path, className }: ChildPagesProps) {
-  const page = await getPage(path);
+/** Links to the current page's children in goatboat, in sibling order. */
+export async function ChildPages({ className }: { className?: string }) {
+  const page = await getCurrentPage();
   const children = page?.children.filter(isVisible) ?? [];
   if (!children.length) return null;
 

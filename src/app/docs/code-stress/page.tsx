@@ -1,4 +1,5 @@
-import { H1, H2, H3, InlineCode, List, ListItem, Paragraph } from "@/components/typography";
+import { H2, H3, InlineCode, List, ListItem, Paragraph } from "@/components/typography";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { CodeBlock } from "@/components/code-block/CodeBlock";
 import {
@@ -27,10 +28,7 @@ const longHash = "sha512-AbCdEfGhIjKlMnOpQrStUvWxYz0123456789AbCdEfGhIjKlMnOpQrS
 export default function CodeStressPage() {
   return (
     <PageLayout>
-      <H1 className={styles.title}>Code stress test</H1>
-      <Paragraph className={styles.intro}>
-        Content that is too long, too deep, or too weird. Check it on a phone width too.
-      </Paragraph>
+      <PageHeader />
 
       <H2 className={styles.heading}>Inline code</H2>
 

@@ -37,6 +37,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { Aside } from "@/components/site/aside";
 import { AsideSection } from "@/components/site/aside-section";
@@ -316,12 +317,7 @@ export default function ComponentsPage() {
         <span aria-hidden>→</span>
       </NextLink>
       <article className={styles.article}>
-        <header className={styles.intro}>
-          <H1 className={styles.title}>Components</H1>
-          <Paragraph className={styles.lede}>
-            Every typography and UI component in one place, rendered with the site theme.
-          </Paragraph>
-        </header>
+        <PageHeader className={styles.intro} />
 
         <Section id="headings" title="Headings">
           <div className={styles.stack}>

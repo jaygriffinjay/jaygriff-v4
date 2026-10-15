@@ -1,4 +1,5 @@
-import { H1, H2, Paragraph, Small } from "@/components/typography";
+import { H2, Small } from "@/components/typography";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { CodeBlock } from "@/components/code-block/CodeBlock";
 import { sampleProject } from "../code-blocks/sample-files";
@@ -33,11 +34,7 @@ export default function CodeFontsPage() {
   return (
     <PageLayout>
       <div className={testFontVariables}>
-        <H1 className={styles.title}>Code fonts</H1>
-        <Paragraph className={styles.intro}>
-          The same snippet at different sizes and in different monospace fonts. Look at 0 vs O,
-          l vs 1, braces, and how wide each line runs.
-        </Paragraph>
+        <PageHeader />
 
         <H2 className={styles.heading}>Sizes (JetBrains Mono)</H2>
         {sizes.map((size) => (

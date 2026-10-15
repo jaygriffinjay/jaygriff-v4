@@ -75,6 +75,7 @@ export type ContentItem = {
   status: Status;
   title: string;
   description: string | null;
+  intro: string | null;
   body: string | null;
   toc: TocEntry[] | null;
   format: "md" | "mdx" | "component";
@@ -88,6 +89,9 @@ export type ContentItem = {
   publishedAt: string | null;
   revisedAt: string | null;
   sortOrder: number;
+  source: "db" | "approute";
+  file: string | null;
+  missingSince: string | null;
   createdAt: string;
   updatedAt: string;
   link: { contentId: string; targetUrl: string; targetTitle: string | null; viaUrl: string | null; viaName: string | null } | null;

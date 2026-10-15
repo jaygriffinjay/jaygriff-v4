@@ -1,7 +1,8 @@
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { CodeBlock } from "@/components/code-block/CodeBlock";
-import { H1, H2, InlineCode, Paragraph } from "@/components/typography";
+import { H2, InlineCode, Paragraph } from "@/components/typography";
+import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import run from "./recorded-run.json";
 import styles from "./page.module.css";
@@ -28,11 +29,9 @@ function requestText({ method, path, auth, body }: Step["request"]) {
 export default function ApiRunPage() {
   return (
     <PageLayout>
-      <H1 className={styles.title}>Write API test run</H1>
+      <PageHeader />
       <Paragraph className={styles.intro}>
-        Every write route in goatboat&apos;s content API, exercised on one scratch post that gets deleted at the
-        end. Recorded {format(new Date(run.recordedAt), "MMM d, yyyy 'at' HH:mm")}. This site only reads, so
-        this is a record of a run, not a live call.
+        Recorded {format(new Date(run.recordedAt), "MMM d, yyyy 'at' HH:mm")}.
       </Paragraph>
 
       <ol className={styles.steps}>

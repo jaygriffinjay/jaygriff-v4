@@ -3,7 +3,11 @@ import { fontVariables } from "./fonts";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
+import { currentPageMetadata } from "@/lib/page-meta";
 import styles from "./layout.module.css";
+
+// Every page's <head> comes from its goatboat row, found by the current path
+export const generateMetadata = currentPageMetadata;
 
 export default function RootLayout({
   children,
