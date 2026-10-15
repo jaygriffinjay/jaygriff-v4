@@ -1,0 +1,104 @@
+@reference "../../app/globals.css";
+
+/* big blue hamburger beside the site name; phones only. Negative margins keep it from making the title row taller */
+.trigger {
+  @apply text-primary hover:bg-muted focus-visible:focus-ring -my-2 -mr-2 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md p-2 sm:hidden [&>svg]:size-9;
+}
+
+/* full-screen overlay holding the menu; padded like the page shell + header so the top row lines up */
+.overlay {
+  @apply bg-background fixed inset-0 z-50 flex flex-col gap-10 overflow-y-auto px-4 pt-8 pb-10 transition-[opacity,transform] duration-200 ease-out data-ending-style:-translate-y-2 data-ending-style:opacity-0 data-starting-style:-translate-y-2 data-starting-style:opacity-0 motion-reduce:transition-none;
+}
+
+/* name on the left, close button on the right, same as the header's title row */
+.top {
+  @apply flex items-center justify-between gap-4;
+}
+
+/* dialog title for screen readers; the name carries the top row visually */
+.srOnly {
+  @apply sr-only;
+}
+
+/* tagline under the name, matching the header's */
+.tagline {
+  @apply text-muted-foreground mt-1 text-sm font-semibold tracking-wider uppercase;
+}
+
+/* site footer at the bottom of the menu, bleeding to the overlay's edges */
+.footer {
+  @apply -mx-4 -mb-10 mt-auto;
+}
+
+/* site name, matching the header: Sekuya, white at rest, links home */
+.name {
+  @apply link text-3xl font-normal;
+  font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
+  color: #fff;
+}
+
+/* close (×) button; same size and spot as the hamburger it replaces */
+.close {
+  @apply text-primary hover:bg-muted focus-visible:focus-ring -my-2 -mr-2 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md p-2 [&>svg]:size-9;
+}
+
+/* the main nav, stacked against a thin rule; the vertical twin of the desktop nav's bottom rule */
+.navList {
+  @apply flex flex-col border-l;
+}
+
+/* one nav slot; its primary bar sits on the rule when it holds the current page */
+.navItem {
+  @apply has-[[aria-current=page]]:border-primary -ml-px border-l-2 border-transparent py-2 pl-5;
+}
+
+/* big nav link; same blue text + hover block as every other link */
+.navLink {
+  @apply link text-3xl font-semibold tracking-tight;
+}
+
+/* "You are here" block under the nav */
+.here {
+  @apply border-t pt-6;
+}
+
+/* its label */
+.hereLabel {
+  @apply text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase;
+}
+
+/* the full trail, top level first */
+.trail {
+  @apply flex flex-col gap-2;
+}
+
+/* one level of the trail, indented by its depth */
+.crumb {
+  @apply relative;
+}
+
+.crumb[data-depth="1"] {
+  @apply pl-4;
+}
+
+.crumb[data-depth="2"] {
+  @apply pl-8;
+}
+
+.crumb[data-depth="3"] {
+  @apply pl-12;
+}
+
+.crumb[data-depth="4"] {
+  @apply pl-16;
+}
+
+/* a level above the current page */
+.crumbLink {
+  @apply link text-base;
+}
+
+/* the page you're on */
+.crumbCurrent {
+  @apply text-foreground text-base font-semibold;
+}

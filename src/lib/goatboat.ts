@@ -114,10 +114,24 @@ async function get<T>(path: string, params?: Record<string, string | number | un
     if (value !== undefined) url.searchParams.set(key, String(value));
   }
 
-  const res = await fetch(url);
+  let res: Response;
+  try {
+    res = await fetch(url);
+  } catch (err) {
+    throw new Error(`Can't reach goatboat at ${url.origin}`, { cause: err });
+  }
   if (res.status === 404) return null;
-  const json = await res.json();
-  if (!res.ok) throw new Error(`goatboat ${url.pathname}: ${json.error?.message ?? res.status}`);
+
+  const text = await res.text();
+  let json: { error?: { message?: string } } | undefined;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    // Error pages from the host come back as HTML or plain text, not our JSON
+  }
+  if (!res.ok || !json) {
+    throw new Error(`goatboat ${url.pathname}: ${json?.error?.message ?? `${res.status} ${res.statusText}`}`);
+  }
   return json as T;
 }
 

@@ -3,6 +3,7 @@ import { fontVariables } from "./fonts";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
+import { MobileMenuProvider } from "@/components/site/mobile-menu";
 import { currentPageMetadata } from "@/lib/page-meta";
 import styles from "./layout.module.css";
 
@@ -19,11 +20,13 @@ export default function RootLayout({
     <html lang="en" className={fontVariables}>
       <body className={styles.body}>
         <TooltipProvider>
-          <div className={styles.shell}>
-            <SiteHeader />
-            {children}
-          </div>
-          <SiteFooter />
+          <MobileMenuProvider>
+            <div className={styles.shell}>
+              <SiteHeader />
+              {children}
+            </div>
+            <SiteFooter />
+          </MobileMenuProvider>
         </TooltipProvider>
       </body>
     </html>

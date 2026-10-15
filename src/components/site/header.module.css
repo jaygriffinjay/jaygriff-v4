@@ -2,17 +2,22 @@
 
 /* intro block above the nav and page content */
 .header {
-  @apply py-8 sm:py-10;
+  @apply py-8;
+}
+
+/* site name on the left, phone menu button on the right */
+.titleRow {
+  @apply flex items-center justify-between gap-4;
 }
 
 /* site name in Sekuya, white at rest; links home with the same blue hover block as other links */
 .title {
-  @apply link text-3xl font-normal sm:text-4xl;
+  @apply link text-3xl font-normal;
   font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
   color: #fff;
 }
 
 /* small caps line under the site name */
 .tagline {
-  @apply text-muted-foreground mt-1 text-xs font-semibold tracking-wider uppercase sm:text-sm;
+  @apply text-muted-foreground mt-1 text-sm font-semibold tracking-wider uppercase;
 }

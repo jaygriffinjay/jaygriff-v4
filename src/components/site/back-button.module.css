@@ -1,0 +1,16 @@
+@reference "../../app/globals.css";
+
+/* text-style button: arrow plus where the click goes */
+.backLink {
+  @apply link focus-visible:focus-ring inline-flex cursor-pointer items-center gap-2 rounded-sm text-lg font-medium;
+}
+
+/* arrow that nudges toward where you're going on hover */
+.arrow {
+  @apply inline-block transition-transform duration-200 motion-reduce:transition-none;
+}
+
+.backLink:hover .arrow,
+.backLink:focus-visible .arrow {
+  @apply -translate-x-1 motion-reduce:translate-x-0;
+}

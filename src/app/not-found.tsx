@@ -1,21 +1,18 @@
-import NextLink from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { H1, Paragraph } from "@/components/typography";
-import { Button } from "@/components/ui/button";
+import { BackButton } from "@/components/site/back-button";
 import { PageLayout } from "@/components/site/page-layout";
-import { MainAside } from "@/components/site/main-aside";
 import styles from "./not-found.module.css";
 
+// Next reuses this page for every client-side 404, so nothing here may depend on the current URL
 export default function NotFound() {
   return (
-    <PageLayout aside={<MainAside />}>
+    <PageLayout hideBreadcrumbs>
       <article className={styles.article}>
-        <H1 className={styles.title}>Page not found</H1>
-        <Paragraph>That page doesn&apos;t exist, or it moved.</Paragraph>
-        <Button nativeButton={false} render={<NextLink href="/" />}>
-          <ArrowLeft data-icon="inline-start" />
-          Back to home
-        </Button>
+        <H1 className={styles.title}>Nothing here</H1>
+        <Paragraph className={styles.message}>
+          This page doesn&apos;t work, doesn&apos;t exist, or wandered off somewhere.
+        </Paragraph>
+        <BackButton />
       </article>
     </PageLayout>
   );

@@ -1,0 +1,21 @@
+@reference "../../app/globals.css";
+
+/* thin strip right under the nav rule */
+.breadcrumbs {
+  @apply py-2;
+}
+
+/* smaller than body text so the strip stays quiet */
+.list {
+  @apply text-xs;
+}
+
+/* the "…" crumb keeps its size while titles shrink */
+.overflow {
+  @apply shrink-0;
+}
+
+/* one crumb's title; long ones cut off with "…", full title on hover */
+.title {
+  @apply block max-w-[11rem] truncate;
+}

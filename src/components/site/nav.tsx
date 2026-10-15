@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
-import { navRoutes } from "./routes";
+import { isActiveRoute, navRoutes } from "./routes";
 import styles from "./nav.module.css";
 
 interface SiteNavProps {
@@ -17,8 +17,7 @@ export function SiteNav({ className }: SiteNavProps) {
     <nav aria-label="Primary" className={cn(styles.nav, className)}>
       <ul className={styles.navList}>
         {navRoutes.map((route) => {
-          const isActive =
-            route.href === "/" ? pathname === "/" : pathname.startsWith(route.href);
+          const isActive = isActiveRoute(route.href, pathname);
 
           return (
             <li key={route.href} className={styles.navItem}>

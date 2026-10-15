@@ -1,11 +1,16 @@
 @reference "./globals.css";
 
-/* vertical rhythm for the 404 content */
+/* centers the message in the space under the nav */
 .article {
-  @apply space-y-4;
+  @apply flex min-h-[60vh] flex-col items-center justify-center gap-4 text-center;
 }
 
-/* page heading, scaled down for mobile */
+/* page heading */
 .title {
   @apply text-3xl sm:text-4xl;
+}
+
+/* one-line explanation under the heading */
+.message {
+  @apply text-muted-foreground max-w-sm;
 }

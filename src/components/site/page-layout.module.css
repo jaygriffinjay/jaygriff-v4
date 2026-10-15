@@ -10,9 +10,19 @@
   @apply lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-start lg:gap-16;
 }
 
+/* side column; stays its desktop width (16rem) when it drops below the content */
+.aside {
+  @apply w-full max-w-64 min-w-0;
+}
+
 /* content column: nav row on top, page content below */
 .panel {
   @apply min-w-0;
+}
+
+/* nav row and breadcrumb strip; phones get the mobile menu instead */
+.desktopNav {
+  @apply hidden sm:block;
 }
 
 /* page content under the nav row */

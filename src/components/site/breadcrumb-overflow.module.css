@@ -1,0 +1,16 @@
+@reference "../../app/globals.css";
+
+/* the "…" button that opens the hidden part of the trail */
+.trigger {
+  @apply hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-sm transition-colors;
+}
+
+/* compact popover sized to its links, not the trigger */
+.menu {
+  @apply w-auto max-w-56 min-w-0 rounded-lg p-1;
+}
+
+/* one hidden crumb: small blue link, truncated, quiet highlight on hover or keyboard focus */
+.item {
+  @apply text-primary focus:bg-muted focus:text-foreground block min-h-0 cursor-pointer truncate rounded-md px-2 py-1 text-xs;
+}

@@ -5,7 +5,6 @@ import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Bar, BarChart, XAxis } from "recharts";
-import { PageLayout } from "@/components/site/page-layout";
 import {
   H1,
   H2,
@@ -246,7 +245,7 @@ export function LibraryClient({ header }: { header: React.ReactNode }) {
   const form = useForm({ defaultValues: { username: "" } });
 
   return (
-    <PageLayout>
+    <>
       <NextLink href="/docs/components" className={styles.banner}>
         <span>← Back to the theme lab (color &amp; style experiments)</span>
       </NextLink>
@@ -860,6 +859,6 @@ export function LibraryClient({ header }: { header: React.ReactNode }) {
           </Carousel>
         </Demo>
       </Section>
-    </PageLayout>
+    </>
   );
 }
