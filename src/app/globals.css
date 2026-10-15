@@ -69,8 +69,8 @@ body {
   --radius: 0.625rem;
   /* page background from jaygriff v2 */
   --background: #1a1a24;
-  /* body text: brighter than jaygriff v2's #cccccc */
-  --foreground: #ebebeb;
+  /* body text: a soft gray so headings (--heading) sit a step brighter */
+  --foreground: #c0c0c8;
   /* "Tonal": page color lifted a step */
   --card: #21212d;
   --card-foreground: #ebebeb;

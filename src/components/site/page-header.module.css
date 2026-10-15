@@ -14,3 +14,8 @@
 .intro {
   @apply text-muted-foreground mt-3;
 }
+
+/* rule closing off the header from the page body */
+.separator {
+  @apply mt-6;
+}
