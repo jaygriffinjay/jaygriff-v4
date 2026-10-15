@@ -20,9 +20,9 @@
   @apply sr-only;
 }
 
-/* tagline under the name, matching the header's */
+/* tagline under the name, matching the header's: exactly as wide as the name */
 .tagline {
-  @apply text-muted-foreground mt-1 text-sm font-semibold tracking-wider uppercase;
+  @apply text-muted-foreground mt-1 text-xs font-semibold tracking-[0.032em] uppercase;
 }
 
 /* site footer at the bottom of the menu, bleeding to the overlay's edges */
