@@ -1,0 +1,16 @@
+@reference "../../app/globals.css";
+
+/* wraps the page heading and intro */
+.header {
+  @apply flex flex-col;
+}
+
+/* page heading */
+.title {
+  @apply text-3xl sm:text-4xl;
+}
+
+/* intro line under the heading */
+.intro {
+  @apply text-muted-foreground mt-3;
+}
