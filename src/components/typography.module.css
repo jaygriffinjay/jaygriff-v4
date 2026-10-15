@@ -24,12 +24,12 @@
 
 /* small heading */
 .h5 {
-  @apply text-heading text-lg font-medium;
+  @apply text-heading text-base font-medium;
 }
 
 /* smallest heading */
 .h6 {
-  @apply text-heading text-base font-medium;
+  @apply text-heading text-sm font-medium;
 }
 
 /* ─── Body text ─── */
