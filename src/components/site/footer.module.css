@@ -37,7 +37,7 @@
 
 /* compact uppercase footer column heading */
 .columnTitle {
-  @apply text-foreground text-xs font-semibold tracking-widest whitespace-nowrap uppercase;
+  @apply text-heading text-xs font-semibold tracking-widest whitespace-nowrap uppercase;
 }
 
 /* footer links use the shared site link treatment at compact navigation size */

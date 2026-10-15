@@ -17,7 +17,7 @@ export function BreadcrumbOverflow({ crumbs }: { crumbs: Crumb[] }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={styles.trigger} aria-label="Show hidden pages">
-        <BreadcrumbEllipsis />
+        <BreadcrumbEllipsis className={styles.ellipsis} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className={styles.menu}>
         {crumbs.map((crumb) => (

@@ -19,5 +19,5 @@
 
 /* small caps line under the site name; letter-spacing tuned so it runs exactly as wide as the name */
 .tagline {
-  @apply text-muted-foreground mt-1 text-xs font-semibold tracking-[0.032em] uppercase;
+  @apply text-heading mt-1 text-xs font-semibold tracking-[0.032em] uppercase;
 }

@@ -1,8 +1,14 @@
 @reference "../../app/globals.css";
 
-/* the "…" button that opens the hidden part of the trail */
+/* the "…" button that opens the hidden part of the trail; same gray link fill as the crumbs */
 .trigger {
-  @apply hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-sm transition-colors;
+  @apply link cursor-pointer;
+  --link-color: var(--muted-foreground);
+}
+
+/* the dots, boxed to the crumbs' line height so the hover fill matches theirs */
+.ellipsis {
+  @apply h-5 w-5;
 }
 
 /* compact popover sized to its links, not the trigger */
@@ -10,7 +16,7 @@
   @apply w-auto max-w-56 min-w-0 rounded-lg p-1;
 }
 
-/* one hidden crumb: small blue link, truncated, quiet highlight on hover or keyboard focus */
+/* one hidden crumb: gray like the trail, truncated, standard menu highlight on hover or keyboard focus */
 .item {
-  @apply text-primary focus:bg-muted focus:text-foreground block min-h-0 cursor-pointer truncate rounded-md px-2 py-1 text-xs;
+  @apply text-muted-foreground focus:bg-accent focus:text-accent-foreground block min-h-0 cursor-pointer truncate rounded-md px-2 py-1 text-sm;
 }

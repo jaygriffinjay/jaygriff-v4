@@ -5,9 +5,9 @@
   @apply py-2;
 }
 
-/* smaller than body text so the strip stays quiet */
+/* a touch smaller than body text so the strip stays quiet */
 .list {
-  @apply text-xs;
+  @apply text-sm;
 }
 
 /* the "…" crumb keeps its size while titles shrink */

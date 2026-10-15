@@ -47,7 +47,7 @@ function BreadcrumbLink({
     defaultTagName: "a",
     props: mergeProps<"a">(
       {
-        className: cn("rounded-sm transition-colors hover:text-foreground focus-visible:focus-ring", className),
+        className: cn("link [--link-color:var(--muted-foreground)]", className),
       },
       props
     ),
@@ -101,7 +101,7 @@ function BreadcrumbEllipsis({
       role="presentation"
       aria-hidden="true"
       className={cn(
-        "flex size-5 items-center justify-center [&>svg]:size-4",
+        "flex size-5 items-center justify-center [&>svg]:size-4 [&>svg]:translate-y-1",
         className
       )}
       {...props}

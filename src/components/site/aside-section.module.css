@@ -7,7 +7,7 @@
 
 /* small caps heading with a rule under it */
 .title {
-  @apply text-muted-foreground border-b pb-2 text-xs font-semibold tracking-wider uppercase;
+  @apply text-heading border-b pb-2 text-xs font-semibold tracking-wider uppercase;
 }
 
 /* section content below the heading */

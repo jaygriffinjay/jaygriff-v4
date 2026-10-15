@@ -22,7 +22,7 @@
 
 /* tagline under the name, matching the header's: exactly as wide as the name */
 .tagline {
-  @apply text-muted-foreground mt-1 text-xs font-semibold tracking-[0.032em] uppercase;
+  @apply text-heading mt-1 text-xs font-semibold tracking-[0.032em] uppercase;
 }
 
 /* site footer at the bottom of the menu, bleeding to the overlay's edges */
@@ -64,7 +64,7 @@
 
 /* its label */
 .hereLabel {
-  @apply text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase;
+  @apply text-heading mb-3 text-xs font-medium tracking-widest uppercase;
 }
 
 /* the full trail, top level first */

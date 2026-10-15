@@ -68,9 +68,9 @@
 
 /* ─── Inline ─── */
 
-/* strong emphasis */
+/* strong emphasis, a step brighter than body text (same as headings) */
 .bold {
-  @apply font-bold;
+  @apply text-heading font-bold;
 }
 
 /* light emphasis */
@@ -88,9 +88,9 @@
   @apply line-through;
 }
 
-/* marker highlight in the heading blue */
+/* marker highlight: a faint blue tint (like Copilot's chat bubbles) with text a step brighter */
 .highlight {
-  @apply bg-heading/35 text-foreground rounded-sm px-1;
+  @apply bg-primary/20 text-heading rounded-sm px-1;
 }
 
 /* inline code, carried over from jaygriff v2: blue mono text on a faint lifted chip */
