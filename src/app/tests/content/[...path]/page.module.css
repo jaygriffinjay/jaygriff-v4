@@ -7,7 +7,7 @@
 
 /* item title */
 .title {
-  @apply mt-3 text-3xl sm:text-4xl;
+  @apply mt-3 text-title;
 }
 
 /* summary under the title */

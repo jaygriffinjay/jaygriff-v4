@@ -40,6 +40,18 @@
   --font-sans: var(--font-geist-sans);
   /* preflight uses this for every <code>/<pre>/<kbd>, so all code renders in JetBrains Mono */
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Fluid heading sizes: phone size at a 375px viewport, growing smoothly to the desktop size at 1024px */
+  --text-title: clamp(1.75rem, 1.461rem + 1.233vw, 2.25rem); /* 28 → 36px, page titles */
+  --text-title--line-height: 1.2;
+  --text-h1: clamp(2rem, 1.711rem + 1.233vw, 2.5rem); /* 32 → 40px */
+  --text-h1--line-height: 1.1;
+  --text-h2: clamp(1.5rem, 1.283rem + 0.925vw, 1.875rem); /* 24 → 30px */
+  --text-h2--line-height: 1.2;
+  --text-h3: clamp(1.25rem, 1.106rem + 0.616vw, 1.5rem); /* 20 → 24px */
+  --text-h3--line-height: 1.3;
+  --text-h4: clamp(1.125rem, 1.053rem + 0.308vw, 1.25rem); /* 18 → 20px */
+  --text-h4--line-height: 1.35;
 }
 
 /* matches overscroll/bounce areas to the page */

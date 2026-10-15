@@ -19,7 +19,7 @@
 
 /* page heading, scaled down for mobile */
 .title {
-  @apply text-3xl sm:text-4xl;
+  @apply text-title;
 }
 
 /* one-line description under the heading */
