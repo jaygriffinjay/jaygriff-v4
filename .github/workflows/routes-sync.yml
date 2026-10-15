@@ -1,0 +1,37 @@
+name: Sync routes to goatboat
+
+# Tells goatboat which code pages exist whenever pages change on main
+on:
+  push:
+    branches: [main]
+    paths: ["src/app/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: routes-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Get goatboat write token
+        uses: bitwarden/sm-action@v3
+        with:
+          access_token: ${{ secrets.BWS_ACCESS_TOKEN }}
+          secrets: |
+            57b21685-0fbd-4cc1-8776-b4e400615696 > GOATBOAT_WRITE_TOKEN
+
+      - name: Sync routes
+        run: node scripts/routes-sync.mts
+        env:
+          GOATBOAT_URL: https://goatboat-henna.vercel.app
