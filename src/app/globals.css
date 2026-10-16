@@ -41,6 +41,11 @@
   /* preflight uses this for every <code>/<pre>/<kbd>, so all code renders in JetBrains Mono */
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
+  /* Layout widths. Content matches the page frame, so it fills it; with an aside, content shrinks to make room */
+  --container-content: 60rem;
+  --container-aside: 16rem;
+  --container-page: 60rem;
+
   /* Fluid heading sizes: phone size at a 375px viewport, growing smoothly to the desktop size at 1024px */
   --text-title: clamp(1.625rem, 1.264rem + 1.541vw, 2.25rem); /* 26 → 36px, page titles */
   --text-title--line-height: 1.2;

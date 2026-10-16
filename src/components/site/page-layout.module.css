@@ -7,17 +7,17 @@
 
 /* adds the side column on desktop when the page passes an aside */
 .columnsWithAside {
-  @apply lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-start lg:gap-16;
+  @apply lg:grid-cols-[minmax(0,var(--container-content))_var(--container-aside)] lg:items-start lg:gap-16;
 }
 
-/* side column; stays its desktop width (16rem) when it drops below the content */
+/* side column; stays its desktop width when it drops below the content */
 .aside {
-  @apply w-full max-w-64 min-w-0;
+  @apply w-full max-w-aside min-w-0;
 }
 
-/* content column: nav row on top, page content below */
+/* content column: nav row on top, page content below; same width with or without an aside */
 .panel {
-  @apply min-w-0;
+  @apply max-w-content min-w-0;
 }
 
 /* nav row and breadcrumb strip; phones get the mobile menu instead */
