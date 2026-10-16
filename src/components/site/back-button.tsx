@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import NextLink from "next/link";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import styles from "./back-button.module.css";
@@ -14,15 +15,19 @@ export function BackButton({ className }: { className?: string }) {
   useEffect(() => setCanGoBack(window.history.length > 1), []);
 
   return (
-    <button
-      type="button"
+    <NextLink
+      href="/"
       className={cn(styles.backLink, className)}
-      onClick={() => (canGoBack ? router.back() : router.push("/"))}
+      onClick={(e) => {
+        if (!canGoBack) return;
+        e.preventDefault();
+        router.back();
+      }}
     >
       <span className={styles.arrow} aria-hidden="true">
         ←
-      </span>
+      </span>{" "}
       {canGoBack ? "Take me back" : "Take me home"}
-    </button>
+    </NextLink>
   );
 }
