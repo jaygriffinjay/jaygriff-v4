@@ -99,10 +99,16 @@ export type ContentItem = {
   assets: Asset[];
 };
 
+export type PageLink = Pick<ContentItem, "path" | "type" | "title" | "description" | "publishedAt">;
+
 export type ContentPage = {
   item: ContentItem;
   breadcrumbs: { id: string; title: string; path: string }[];
   children: Pick<ContentItem, "id" | "path" | "type" | "status" | "title" | "description">[];
+  // Optional until every goatboat deploy sends them
+  prev?: PageLink | null;
+  next?: PageLink | null;
+  related?: PageLink[];
 };
 
 async function get<T>(path: string, params?: Record<string, string | number | undefined>) {

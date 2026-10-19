@@ -22,6 +22,7 @@ You are an AI assistant helping build a modern full-stack web application. Follo
 9. **Use theme colors.** Use semantic tokens (`text-foreground`, `bg-background`, `text-muted-foreground`, `bg-muted`, `text-primary`, `bg-primary`, `text-destructive`, etc.). There's only one theme, so never write mode-specific styles (`dark:` variants or light-mode overrides).
 10. **Shadcn components use direct imports.** No barrel file — import from the specific path: `import { Button } from "@/components/ui/button"`.
 11. **Restyle shadcn components in their own file.** To change how a shadcn component looks site-wide, edit its Tailwind classes directly in `src/components/ui/<name>.tsx`. Don't add global CSS overrides that target `[data-slot=...]`, and don't wrap it just to restyle. (Re-adding a component with `npx shadcn add --overwrite` will discard these edits.) Focusable components use `focus-visible:focus-ring` (utility in `src/styles/focus.css`) instead of shadcn's default halo.
+12. **Don't escape apostrophes or quotes in JSX text.** Write `doesn't`, never `doesn&apos;t` (or `&quot;`, `&#39;`). It isn't needed and makes the text harder to read and edit.
 
 ## File Structure
 

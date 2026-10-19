@@ -1,0 +1,26 @@
+@reference "../../app/globals.css";
+
+/* block under the page content */
+.section {
+  @apply mt-16;
+}
+
+/* small caps section label, like the aside headings */
+.heading {
+  @apply text-heading border-b pb-2 text-xs font-semibold tracking-wider uppercase;
+}
+
+/* stack of related pages */
+.list {
+  @apply mt-4 flex flex-col gap-4;
+}
+
+/* related page title */
+.link {
+  @apply link font-medium;
+}
+
+/* one-line summary under each title */
+.description {
+  @apply text-muted-foreground mt-1 text-sm;
+}

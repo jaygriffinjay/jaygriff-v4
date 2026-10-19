@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
 import { Dialog } from "@base-ui/react/dialog";
@@ -27,6 +27,74 @@ export function ReportCrumbs({ crumbs }: { crumbs: Crumb[] }) {
   const { setCrumbs } = useContext(CrumbsContext);
   useEffect(() => setCrumbs(crumbs), [crumbs, setCrumbs]);
   return null;
+}
+
+/** The current page's full trail, with a curved arrow from the word "here" to the page you're on. */
+function HereTrail({ crumbs }: { crumbs: Crumb[] }) {
+  const boxRef = useRef<HTMLElement>(null);
+  const hereRef = useRef<HTMLSpanElement>(null);
+  const currentRef = useRef<HTMLSpanElement>(null);
+  // useId can contain characters that break url(#…), so keep just the safe ones
+  const [path, setPath] = useState<string | null>(null);
+
+  // The arrow's ends depend on rendered text, so measure after layout and again on resize
+  useLayoutEffect(() => {
+    const box = boxRef.current;
+    const here = hereRef.current;
+    const current = currentRef.current;
+    if (!box || !here || !current) return;
+
+    const draw = () => {
+      const b = box.getBoundingClientRect();
+      const h = here.getBoundingClientRect();
+      const c = current.getBoundingClientRect();
+      const start = { x: h.right - b.left + 6, y: h.top + h.height / 2 - b.top };
+      const end = { x: c.right - b.left + 8, y: c.top + c.height / 2 - b.top };
+      // Out from "here", round a semicircle on the right, back in to the title, then a fixed left-pointing head
+      const x = Math.max(start.x, end.x) + 12;
+      const r = (end.y - start.y) / 2;
+      setPath(
+        `M ${start.x} ${start.y} H ${x} A ${r} ${r} 0 0 1 ${x} ${end.y} H ${end.x}` +
+          ` M ${end.x + 6} ${end.y - 5} L ${end.x} ${end.y} L ${end.x + 6} ${end.y + 5}`,
+      );
+    };
+
+    draw();
+    const observer = new ResizeObserver(draw);
+    observer.observe(box);
+    return () => observer.disconnect();
+  }, [crumbs]);
+
+  return (
+    <nav ref={boxRef} aria-label="You are here" className={styles.here}>
+      <p className={styles.hereLabel}>
+        You are <span ref={hereRef}>here</span>
+      </p>
+      <ol className={styles.trail}>
+        {crumbs.map((crumb, i) => {
+          const isCurrent = i === crumbs.length - 1;
+          return (
+            <li key={crumb.path} className={styles.crumb} data-depth={Math.min(i, 4)}>
+              {isCurrent ? (
+                <span ref={currentRef} aria-current="page" className={styles.crumbCurrent}>
+                  {crumb.title}
+                </span>
+              ) : (
+                <NextLink href={crumb.path} className={styles.crumbLink}>
+                  {crumb.title}
+                </NextLink>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+      {path && (
+        <svg className={styles.arrow} aria-hidden="true">
+          <path d={path} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+    </nav>
+  );
 }
 
 /** Phone-only hamburger that opens a full-screen overlay with the nav, where you are, and the footer. */
@@ -75,6 +143,8 @@ export function MobileMenu({
             {tagline && <Paragraph className={styles.tagline}>{tagline}</Paragraph>}
           </div>
 
+          {crumbs.length > 1 && <HereTrail crumbs={crumbs} />}
+
           <nav aria-label="Primary">
             <ul className={styles.navList}>
               {navRoutes.map((route) => {
@@ -93,30 +163,6 @@ export function MobileMenu({
               })}
             </ul>
           </nav>
-
-          {crumbs.length > 1 && (
-            <nav aria-label="You are here" className={styles.here}>
-              <p className={styles.hereLabel}>You are here</p>
-              <ol className={styles.trail}>
-                {crumbs.map((crumb, i) => {
-                  const isCurrent = i === crumbs.length - 1;
-                  return (
-                    <li key={crumb.path} className={styles.crumb} data-depth={Math.min(i, 4)}>
-                      {isCurrent ? (
-                        <span aria-current="page" className={styles.crumbCurrent}>
-                          {crumb.title}
-                        </span>
-                      ) : (
-                        <NextLink href={crumb.path} className={styles.crumbLink}>
-                          {crumb.title}
-                        </NextLink>
-                      )}
-                    </li>
-                  );
-                })}
-              </ol>
-            </nav>
-          )}
 
           {footer && <div className={styles.footer}>{footer}</div>}
         </Dialog.Popup>

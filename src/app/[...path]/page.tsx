@@ -2,6 +2,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { H1, Paragraph } from "@/components/typography";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
+import { ChildPages } from "@/components/site/child-pages";
 import { PageLayout } from "@/components/site/page-layout";
 import { getContentByPath, type ContentItem } from "@/lib/goatboat";
 import styles from "./page.module.css";
@@ -37,6 +38,7 @@ export default async function ContentPage({ params }: Props) {
       <H1 className={styles.title}>{item.title}</H1>
       {item.description && <Paragraph className={styles.description}>{item.description}</Paragraph>}
       {item.body && <MarkdownRenderer className={styles.body} source={withoutLeadingTitle(item.body)} />}
+      <ChildPages />
     </PageLayout>
   );
 }

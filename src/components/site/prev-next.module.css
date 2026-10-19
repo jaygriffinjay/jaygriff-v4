@@ -1,0 +1,31 @@
+@reference "../../app/globals.css";
+
+/* two links side by side under the page, previous on the left and next on the right */
+.nav {
+  @apply mt-16 grid gap-4 border-t pt-6 sm:grid-cols-2;
+}
+
+/* one neighbour: a bordered box, all of it clickable; border turns blue on hover */
+.item {
+  @apply hover:border-primary focus-visible:focus-ring flex min-w-0 flex-col gap-1 border p-4 transition-colors;
+}
+
+/* previous sits in the left column */
+.prev {
+  @apply sm:col-start-1;
+}
+
+/* next sits in the right column, right-aligned; on phones it stacks above previous */
+.next {
+  @apply order-first sm:order-none sm:col-start-2 sm:items-end sm:text-right;
+}
+
+/* small caps "← Previous" / "Next →" */
+.label {
+  @apply text-heading text-xs font-semibold tracking-wider uppercase;
+}
+
+/* the neighbour's title in link blue; the box border is the only hover effect */
+.title {
+  @apply text-primary max-w-full truncate font-medium;
+}

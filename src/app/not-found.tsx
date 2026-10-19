@@ -6,7 +6,7 @@ import styles from "./not-found.module.css";
 // Next reuses this page for every client-side 404, so nothing here may depend on the current URL
 export default function NotFound() {
   return (
-    <PageLayout hideBreadcrumbs>
+    <PageLayout outsideTree>
       <article className={styles.article}>
         <H1 className={styles.title}>Nothing here</H1>
         <Paragraph className={styles.message}>

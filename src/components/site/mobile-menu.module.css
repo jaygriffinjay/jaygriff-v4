@@ -57,9 +57,14 @@
   @apply link text-3xl font-semibold tracking-tight;
 }
 
-/* "You are here" block under the nav */
+/* "You are here" block above the nav, ruled off from it; positions the arrow */
 .here {
-  @apply border-t pt-6;
+  @apply relative border-b pb-6;
+}
+
+/* curved arrow from "here" to the current page, drawn over the block */
+.arrow {
+  @apply text-primary pointer-events-none absolute inset-0 size-full overflow-visible;
 }
 
 /* its label */

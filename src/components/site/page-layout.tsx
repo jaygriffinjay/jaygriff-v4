@@ -2,19 +2,21 @@ import { cn } from "@/lib/utils";
 import { Breadcrumbs, getCrumbs } from "./breadcrumbs";
 import { ReportCrumbs } from "./mobile-menu";
 import { SiteNav } from "./nav";
+import { PrevNext } from "./prev-next";
+import { RelatedPages } from "./related-pages";
 import styles from "./page-layout.module.css";
 
 interface PageLayoutProps {
   children: React.ReactNode;
   /** Page-specific side column; right of the content on desktop, below it on mobile. */
   aside?: React.ReactNode;
-  /** Hide the breadcrumb trail, e.g. on pages with no place in the tree. */
-  hideBreadcrumbs?: boolean;
+  /** For pages with no place in the tree (the 404): no breadcrumbs, related pages or prev/next. */
+  outsideTree?: boolean;
   className?: string;
 }
 
-export async function PageLayout({ children, aside, hideBreadcrumbs, className }: PageLayoutProps) {
-  const crumbs = hideBreadcrumbs ? [] : await getCrumbs();
+export async function PageLayout({ children, aside, outsideTree, className }: PageLayoutProps) {
+  const crumbs = outsideTree ? [] : await getCrumbs();
 
   return (
     <div className={cn(styles.columns, aside && styles.columnsWithAside, className)}>
@@ -22,10 +24,12 @@ export async function PageLayout({ children, aside, hideBreadcrumbs, className }
         <ReportCrumbs crumbs={crumbs} />
         <div className={styles.desktopNav}>
           <SiteNav />
-          {!hideBreadcrumbs && <Breadcrumbs />}
+          {!outsideTree && <Breadcrumbs />}
         </div>
         <main className={styles.main}>
           {children}
+          {!outsideTree && <RelatedPages />}
+          {!outsideTree && <PrevNext />}
         </main>
       </div>
       {aside && <div className={styles.aside}>{aside}</div>}
