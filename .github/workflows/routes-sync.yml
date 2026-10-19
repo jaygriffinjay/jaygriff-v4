@@ -24,12 +24,12 @@ jobs:
         with:
           node-version: 24
 
-      - name: Get goatboat write token
+      - name: Get goatboat sync token
         uses: bitwarden/sm-action@v3.0.1
         with:
           access_token: ${{ secrets.BWS_ACCESS_TOKEN }}
           secrets: |
-            57b21685-0fbd-4cc1-8776-b4e400615696 > GOATBOAT_WRITE_TOKEN
+            57b21685-0fbd-4cc1-8776-b4e400615696 > GOATBOAT_SYNC_TOKEN
 
       - name: Sync routes
         run: node scripts/routes-sync.mts

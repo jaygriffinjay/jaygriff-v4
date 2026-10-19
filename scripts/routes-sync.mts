@@ -27,9 +27,9 @@ if (dryRun) {
 }
 
 const base = process.env.GOATBOAT_URL;
-const token = process.env.GOATBOAT_WRITE_TOKEN;
+const token = process.env.GOATBOAT_SYNC_TOKEN;
 if (!base || !token) {
-  console.error("GOATBOAT_URL and GOATBOAT_WRITE_TOKEN must be set");
+  console.error("GOATBOAT_URL and GOATBOAT_SYNC_TOKEN must be set");
   process.exit(1);
 }
 

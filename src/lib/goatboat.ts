@@ -114,6 +114,8 @@ export type ContentPage = {
 async function get<T>(path: string, params?: Record<string, string | number | undefined>) {
   const base = process.env.GOATBOAT_URL;
   if (!base) throw new Error("GOATBOAT_URL is not set");
+  const token = process.env.GOATBOAT_READ_TOKEN;
+  if (!token) throw new Error("GOATBOAT_READ_TOKEN is not set");
 
   const url = new URL(`/api${path}`, base);
   for (const [key, value] of Object.entries(params ?? {})) {
@@ -122,7 +124,7 @@ async function get<T>(path: string, params?: Record<string, string | number | un
 
   let res: Response;
   try {
-    res = await fetch(url);
+    res = await fetch(url, { headers: { authorization: `Bearer ${token}` } });
   } catch (err) {
     throw new Error(`Can't reach goatboat at ${url.origin}`, { cause: err });
   }

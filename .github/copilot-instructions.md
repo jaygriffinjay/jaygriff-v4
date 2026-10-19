@@ -48,7 +48,7 @@ src/
 
 - **This site is read-only.** All content comes from the goatboat API (`../goatboat`) through `@/lib/goatboat`. Never add database access, write calls or admin features here; those belong in goatboat.
 - `app/[...path]` renders goatboat pages by path with `MarkdownRenderer`. Drafts render only in local dev.
-- `GOATBOAT_URL` (not a secret) points at production or a local goatboat. The site holds no secrets.
+- `GOATBOAT_URL` (not a secret) points at production or a local goatboat. `GOATBOAT_READ_TOKEN` is the site's one secret: server-side only, never `NEXT_PUBLIC_`, and read-only on goatboat's side.
 
 ## Working with Jay
 
