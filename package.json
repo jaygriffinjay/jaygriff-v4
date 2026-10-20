@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "GOATBOAT_READ_TOKEN=$(BWS_ACCESS_TOKEN=\"${BWS_ACCESS_TOKEN:-$(security find-generic-password -s bws -w)}\" bws secret get 0755c806-00d1-42bc-b493-b4e4010ba70d --output json | jq -r .value) next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
