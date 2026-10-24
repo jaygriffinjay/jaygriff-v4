@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "routes:sync": "BWS_ACCESS_TOKEN=\"${BWS_ACCESS_TOKEN:-$(security find-generic-password -s bws -w)}\" bws run --project-id d4cdbd23-db9c-4051-b23d-b4e10148fce7 -- node --env-file-if-exists=.env.local scripts/routes-sync.mts",
-    "routes:sync:dry": "node scripts/routes-sync.mts --dry-run"
+    "routes:sync:dry": "node scripts/routes-sync.mts --dry-run",
+    "routes:stamp": "node scripts/routes-stamp.mts",
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

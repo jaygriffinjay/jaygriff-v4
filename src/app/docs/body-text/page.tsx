@@ -1,3 +1,4 @@
+// goatboat: b590afa7-fe47-40b5-8777-b084e357f208
 import NextLink from "next/link";
 import { H2, InlineCode, Paragraph, Small } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";

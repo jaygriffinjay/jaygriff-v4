@@ -1,3 +1,4 @@
+// goatboat: 1c8a29b9-27ec-40d3-a4dd-93e34f10741a
 import NextLink from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Paragraph } from "@/components/typography";

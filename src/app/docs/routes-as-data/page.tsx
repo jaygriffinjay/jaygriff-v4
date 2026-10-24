@@ -1,3 +1,4 @@
+// goatboat: d5e3b8eb-8ac8-4997-9465-d3538c2a751e
 import { CodeBlock } from "@/components/code-block/CodeBlock";
 import {
   Bold,

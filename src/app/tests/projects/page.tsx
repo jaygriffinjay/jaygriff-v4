@@ -1,3 +1,4 @@
+// goatboat: 1b18a0c8-c204-43a1-8fa3-d03a24d4a4f2
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { H2, Paragraph } from "@/components/typography";

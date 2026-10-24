@@ -1,29 +1,25 @@
-// Tells goatboat which code pages exist: every src/app/**/page.tsx, as { path, file }.
+// Tells goatboat which code pages exist: every src/app/**/page.tsx, as { id, path, file }.
 // Goatboat owns everything else about them. Run with --dry-run to print the list without sending it.
-import { readdirSync } from "node:fs";
+import { findAppRoutes } from "./approutes.mts";
 
 const dryRun = process.argv.includes("--dry-run");
 
-const pageFile = /(^|\/)page\.(tsx|ts|jsx|js)$/;
-
-const approutes = readdirSync("src/app", { recursive: true, encoding: "utf8" })
-  .filter((file) => pageFile.test(file))
-  .flatMap((file) => {
-    const segments = file.split("/").slice(0, -1);
-    // Dynamic segments aren't pages, and _folders are private
-    if (segments.some((s) => s.startsWith("[") || s.startsWith("_"))) return [];
-    // Route groups like (site) add nothing to the URL
-    const path = "/" + segments.filter((s) => !/^\(.*\)$/.test(s)).join("/");
-    // The home page has no slug, so it can't be a row yet
-    if (path === "/") return [];
-    return [{ path, file: `src/app/${file}` }];
-  })
-  .sort((a, b) => a.path.localeCompare(b.path));
+const approutes = findAppRoutes();
 
 if (dryRun) {
-  for (const route of approutes) console.log(`${route.path.padEnd(32)} ${route.file}`);
+  for (const route of approutes)
+    console.log(`${route.path.padEnd(32)} ${(route.id ?? "(no id)").padEnd(36)}  ${route.file}`);
   console.log(`\n${approutes.length} pages (dry run, nothing sent)`);
   process.exit(0);
+}
+
+// Without an id, a moved folder would look like a new page
+const unstamped = approutes.filter((r) => !r.id);
+if (unstamped.length) {
+  console.error(
+    `These pages have no goatboat id on their first line. Run npm run routes:stamp and commit:\n  ${unstamped.map((r) => r.file).join("\n  ")}`,
+  );
+  process.exit(1);
 }
 
 const base = process.env.GOATBOAT_URL;

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Gives new page files a goatboat id before they're committed
+exec node scripts/routes-stamp.mts --stage
