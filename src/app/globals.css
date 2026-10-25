@@ -59,13 +59,16 @@
   --text-h4--line-height: 1.4;
 }
 
-/* matches overscroll/bounce areas to the page */
+/* matches any overscroll area to the page, and turns off the rubber-band bounce */
 html {
   background: var(--background);
+  overscroll-behavior: none;
 }
 
 body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  /* Safari reads the bounce setting from body as well as html */
+  overscroll-behavior: none;
 }
 
 /* the theme: dark navy + electric blue (hsl(210 100% 60%)) carried over from jaygriff v2 */
