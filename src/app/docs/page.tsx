@@ -5,7 +5,7 @@ import { PageLayout } from "@/components/site/page-layout";
 
 export default function DocsPage() {
   return (
-    <PageLayout>
+    <PageLayout hideRelated>
       <PageHeader />
       <ChildPages />
     </PageLayout>

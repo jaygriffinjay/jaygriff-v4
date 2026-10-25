@@ -13,10 +13,12 @@ interface PageLayoutProps {
   aside?: React.ReactNode;
   /** For pages with no place in the tree (the 404): no breadcrumbs, related pages or prev/next. */
   outsideTree?: boolean;
+  /** Section index pages list their children instead, so they turn related pages off. */
+  hideRelated?: boolean;
   className?: string;
 }
 
-export async function PageLayout({ children, aside, outsideTree, className }: PageLayoutProps) {
+export async function PageLayout({ children, aside, outsideTree, hideRelated, className }: PageLayoutProps) {
   // The 404 page renders at the requested path, so it must not check that path again
   if (!outsideTree) await requireVisible();
   const crumbs = outsideTree ? [] : await getCrumbs();
@@ -31,7 +33,7 @@ export async function PageLayout({ children, aside, outsideTree, className }: Pa
         </div>
         <main className={styles.main}>
           {children}
-          {!outsideTree && <RelatedPages />}
+          {!outsideTree && !hideRelated && <RelatedPages />}
           {!outsideTree && <PrevNext />}
         </main>
       </div>

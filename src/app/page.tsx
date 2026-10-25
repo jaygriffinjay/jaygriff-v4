@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <PageLayout aside={<MainAside />}>
+    <PageLayout aside={<MainAside />} hideRelated>
       <article className={styles.article}>
         <H1 className={styles.title}>Hi, I&apos;m Jay</H1>
         <Paragraph>
