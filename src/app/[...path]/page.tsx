@@ -4,13 +4,11 @@ import { H1, Paragraph } from "@/components/typography";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { ChildPages } from "@/components/site/child-pages";
 import { PageLayout } from "@/components/site/page-layout";
-import { getContentByPath, type ContentItem } from "@/lib/goatboat";
+import { getContentByPath } from "@/lib/goatboat";
+import { isVisible } from "@/lib/page-meta";
 import styles from "./page.module.css";
 
 type Props = { params: Promise<{ path: string[] }> };
-
-// Drafts are only rendered locally; in production they don't exist
-const isVisible = (item: ContentItem) => item.status === "published" || process.env.NODE_ENV === "development";
 
 // The page shows the row's title, so a leading "# Title" in the body would repeat it
 const withoutLeadingTitle = (body: string) => body.replace(/^\s*#\s+[^\n]*\n?/, "");

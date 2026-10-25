@@ -16,6 +16,7 @@ import { CodeBlock } from "@/components/code-block/CodeBlock";
 import { H1, H2, InlineCode, Paragraph } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
 import { getContentByPath } from "@/lib/goatboat";
+import { isVisible } from "@/lib/page-meta";
 import { cn } from "@/lib/utils";
 import { TagLinks } from "../../_components/tag-links";
 import styles from "./page.module.css";
@@ -30,7 +31,9 @@ export default async function ContentPage({ params }: { params: Promise<{ path: 
   if (!result) notFound();
   if ("redirectTo" in result) permanentRedirect(BASE + result.redirectTo);
 
-  const { item, breadcrumbs, children } = result;
+  const { item, breadcrumbs } = result;
+  if (!isVisible(item)) notFound();
+  const children = result.children.filter(isVisible);
   const hero = item.assets.find((a) => a.role === "hero");
   const gallery = item.assets.filter((a) => a.role === "gallery");
 

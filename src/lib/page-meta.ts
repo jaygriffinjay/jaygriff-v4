@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 import { cache } from "react";
 import { getContentByPath, type ContentItem } from "@/lib/goatboat";
 
@@ -13,19 +14,30 @@ export async function currentPath() {
 }
 
 /**
- * The goatboat row for the current path, or null. Code pages are live whatever their status; markdown drafts aren't.
+ * The goatboat row for the current path, in any status, or null.
  * If goatboat fails, returns null so code pages still render with fallbacks. Cached so one render logs once.
  */
-export const getCurrentPage = cache(async () => {
+const getCurrentRow = cache(async () => {
   try {
     const result = await getContentByPath(await currentPath());
-    if (!result || "redirectTo" in result) return null;
-    return result.item.source === "approute" || isVisible(result.item) ? result : null;
+    return !result || "redirectTo" in result ? null : result;
   } catch (err) {
     console.error(err);
     return null;
   }
 });
+
+/** The goatboat row for the current path if it's visible, or null. */
+export const getCurrentPage = cache(async () => {
+  const page = await getCurrentRow();
+  return page && isVisible(page.item) ? page : null;
+});
+
+/** 404s when the current path's row isn't visible, so code pages obey their status too. Paths with no row render. */
+export async function requireVisible() {
+  const page = await getCurrentRow();
+  if (page && !isVisible(page.item)) notFound();
+}
 
 export const titleFromPath = (path: string) => {
   const slug = path.slice(path.lastIndexOf("/") + 1);

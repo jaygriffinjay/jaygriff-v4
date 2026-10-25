@@ -5,10 +5,11 @@ import { H2, Paragraph } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { listProjects } from "@/lib/goatboat";
+import { isVisible } from "@/lib/page-meta";
 import styles from "./page.module.css";
 
 export default async function ProjectsTestPage() {
-  const projects = await listProjects();
+  const projects = (await listProjects()).filter(isVisible);
 
   return (
     <PageLayout>

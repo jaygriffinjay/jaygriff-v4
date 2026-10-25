@@ -5,10 +5,11 @@ import { Paragraph } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { listTree, type TreeNode as Node } from "@/lib/goatboat";
+import { isVisible } from "@/lib/page-meta";
 import styles from "./page.module.css";
 
 export default async function TreePage() {
-  const nodes = await listTree();
+  const nodes = (await listTree()).filter(isVisible);
 
   const childrenOf = new Map<string | null, Node[]>();
   for (const node of nodes) {

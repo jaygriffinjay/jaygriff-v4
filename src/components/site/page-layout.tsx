@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { requireVisible } from "@/lib/page-meta";
 import { Breadcrumbs, getCrumbs } from "./breadcrumbs";
 import { ReportCrumbs } from "./mobile-menu";
 import { SiteNav } from "./nav";
@@ -16,6 +17,8 @@ interface PageLayoutProps {
 }
 
 export async function PageLayout({ children, aside, outsideTree, className }: PageLayoutProps) {
+  // The 404 page renders at the requested path, so it must not check that path again
+  if (!outsideTree) await requireVisible();
   const crumbs = outsideTree ? [] : await getCrumbs();
 
   return (
