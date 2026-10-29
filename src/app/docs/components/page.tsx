@@ -40,33 +40,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
-import { Aside } from "@/components/site/aside";
-import { AsideSection } from "@/components/site/aside-section";
 import { cn } from "@/lib/utils";
 import styles from "./page.module.css";
-
-const sections = [
-  { id: "headings", title: "Headings" },
-  { id: "text", title: "Text" },
-  { id: "links", title: "Links" },
-  { id: "blues", title: "Blue candidates" },
-  { id: "accents", title: "Accent candidates" },
-  { id: "lists", title: "Lists & quotes" },
-  { id: "buttons", title: "Buttons" },
-  { id: "focus", title: "Focus rings" },
-  { id: "secondary-options", title: "Secondary options" },
-  { id: "badges", title: "Badges" },
-  { id: "cards", title: "Cards & alerts" },
-  { id: "card-options", title: "Card options" },
-  { id: "forms", title: "Form controls" },
-  { id: "tabs", title: "Tabs" },
-];
-
-interface SectionProps {
-  id: string;
-  title: string;
-  children: React.ReactNode;
-}
 
 // purple candidates for a second theme color, kept at roughly the blue's lightness so they pair evenly
 const accentCandidates = [
@@ -283,36 +258,13 @@ function AccentCandidate({ name, value, className }: AccentCandidateProps) {
   );
 }
 
-function Section({ id, title, children }: SectionProps) {
-  return (
-    <section id={id} className={styles.section}>
-      <H2 className={styles.sectionTitle}>{title}</H2>
-      {children}
-    </section>
-  );
-}
-
-function ComponentsAside() {
-  return (
-    <Aside>
-      <AsideSection title="On this page">
-        <ul className={styles.tocList}>
-          {sections.map((section) => (
-            <li key={section.id}>
-              <NextLink href={`#${section.id}`} className={styles.link}>
-                {section.title}
-              </NextLink>
-            </li>
-          ))}
-        </ul>
-      </AsideSection>
-    </Aside>
-  );
+function Section({ children }: { children: React.ReactNode }) {
+  return <section className={styles.section}>{children}</section>;
 }
 
 export default function ComponentsPage() {
   return (
-    <PageLayout aside={<ComponentsAside />} asideOnMobile="top">
+    <PageLayout>
       <NextLink href="/docs/components/library" className={styles.libraryBanner}>
         <span>Component library: every component with the real theme</span>
         <span aria-hidden>→</span>
@@ -320,7 +272,8 @@ export default function ComponentsPage() {
       <article className={styles.article}>
         <PageHeader className={styles.intro} />
 
-        <Section id="headings" title="Headings">
+        <Section>
+          <H2 className={styles.sectionTitle}>Headings</H2>
           <div className={styles.stack}>
             <H1>Heading 1</H1>
             <H2>Heading 2</H2>
@@ -331,7 +284,8 @@ export default function ComponentsPage() {
           </div>
         </Section>
 
-        <Section id="text" title="Text">
+        <Section>
+          <H2 className={styles.sectionTitle}>Text</H2>
           <Paragraph>
             A paragraph with <Bold>bold</Bold>, <Italic>italic</Italic>,{" "}
             <Underline>underlined</Underline>, <Strikethrough>struck</Strikethrough>, and{" "}
@@ -345,7 +299,8 @@ export default function ComponentsPage() {
           <Small>Small text for captions and metadata.</Small>
         </Section>
 
-        <Section id="links" title="Links">
+        <Section>
+          <H2 className={styles.sectionTitle}>Links</H2>
           <Paragraph>
             Links are just a color until you hover them, like{" "}
             <NextLink href="/" className={styles.link}>
@@ -363,7 +318,8 @@ export default function ComponentsPage() {
           </Paragraph>
         </Section>
 
-        <Section id="blues" title="Blue candidates">
+        <Section>
+          <H2 className={styles.sectionTitle}>Blue candidates</H2>
           <Paragraph className={styles.lede}>
             Darker and moodier blues for links, headings, and nav. Hover a link to see its fill.
           </Paragraph>
@@ -374,7 +330,8 @@ export default function ComponentsPage() {
           </div>
         </Section>
 
-        <Section id="accents" title="Accent candidates">
+        <Section>
+          <H2 className={styles.sectionTitle}>Accent candidates</H2>
           <Paragraph className={styles.lede}>
             Possible second theme colors, shown on links, cards, and tags next to the blue.
           </Paragraph>
@@ -385,7 +342,8 @@ export default function ComponentsPage() {
           </div>
         </Section>
 
-        <Section id="lists" title="Lists & quotes">
+        <Section>
+          <H2 className={styles.sectionTitle}>Lists & quotes</H2>
           <List>
             <ListItem>Unordered item one</ListItem>
             <ListItem>Unordered item two</ListItem>
@@ -401,7 +359,8 @@ export default function ComponentsPage() {
           </Blockquote>
         </Section>
 
-        <Section id="buttons" title="Buttons">
+        <Section>
+          <H2 className={styles.sectionTitle}>Buttons</H2>
           <div className={styles.row}>
             <Button>Default</Button>
             <Button variant="secondary">Secondary</Button>
@@ -419,7 +378,8 @@ export default function ComponentsPage() {
           </div>
         </Section>
 
-        <Section id="focus" title="Focus rings">
+        <Section>
+          <H2 className={styles.sectionTitle}>Focus rings</H2>
           <Paragraph>
             A focus ring is the outline that appears around a button, input, or link when you
             reach it with the <Kbd>Tab</Kbd> key. Clicking doesn&apos;t show it. It tells
@@ -446,7 +406,8 @@ export default function ComponentsPage() {
           </div>
         </Section>
 
-        <Section id="secondary-options" title="Secondary options">
+        <Section>
+          <H2 className={styles.sectionTitle}>Secondary options</H2>
           <Paragraph className={styles.lede}>
             Secondary is the fill for secondary buttons and badges.
           </Paragraph>
@@ -457,7 +418,8 @@ export default function ComponentsPage() {
           </div>
         </Section>
 
-        <Section id="badges" title="Badges">
+        <Section>
+          <H2 className={styles.sectionTitle}>Badges</H2>
           <div className={styles.row}>
             <Badge>Default</Badge>
             <Badge variant="secondary">Secondary</Badge>
@@ -466,7 +428,8 @@ export default function ComponentsPage() {
           </div>
         </Section>
 
-        <Section id="cards" title="Cards & alerts">
+        <Section>
+          <H2 className={styles.sectionTitle}>Cards & alerts</H2>
           <Card>
             <CardHeader>
               <CardTitle>Card title</CardTitle>
@@ -489,7 +452,8 @@ export default function ComponentsPage() {
           </Alert>
         </Section>
 
-        <Section id="card-options" title="Card options">
+        <Section>
+          <H2 className={styles.sectionTitle}>Card options</H2>
           <div className={styles.candidates}>
             {cardOptions.map((option) => (
               <CardOption key={option.name} {...option} />
@@ -497,7 +461,8 @@ export default function ComponentsPage() {
           </div>
         </Section>
 
-        <Section id="forms" title="Form controls">
+        <Section>
+          <H2 className={styles.sectionTitle}>Form controls</H2>
           <div className={styles.field}>
             <Label htmlFor="demo-email">Email</Label>
             <Input id="demo-email" type="email" placeholder="you@example.com" />
@@ -520,7 +485,8 @@ export default function ComponentsPage() {
           </Paragraph>
         </Section>
 
-        <Section id="tabs" title="Tabs">
+        <Section>
+          <H2 className={styles.sectionTitle}>Tabs</H2>
           <Tabs defaultValue="one">
             <TabsList>
               <TabsTrigger value="one">First</TabsTrigger>
