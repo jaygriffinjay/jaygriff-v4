@@ -1,120 +1,84 @@
 "use client";
 
-import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
 import { Dialog } from "@base-ui/react/dialog";
 import { MenuIcon, XIcon } from "lucide-react";
-import { Paragraph } from "@/components/typography";
+import { useActiveHeading } from "@/hooks/use-active-heading";
+import type { TocEntry } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
-import type { Crumb } from "./breadcrumbs";
-import { isActiveRoute, navRoutes } from "./routes";
+import { TocList } from "./table-of-contents";
 import styles from "./mobile-menu.module.css";
 
-// The menu lives in the header (root layout), but crumbs belong to each page, so pages report them here
-const CrumbsContext = createContext<{ crumbs: Crumb[]; setCrumbs: (crumbs: Crumb[]) => void }>({
-  crumbs: [],
-  setCrumbs: () => {},
+type PageToc = { title: string; titleId: string; entries: TocEntry[] };
+
+// The menu lives in the header (root layout), but the headings belong to each page, so pages report them here
+const MenuContext = createContext<{
+  toc: PageToc | null;
+  setToc: (toc: PageToc | null) => void;
+}>({
+  toc: null,
+  setToc: () => {},
 });
 
 export function MobileMenuProvider({ children }: { children: React.ReactNode }) {
-  const [crumbs, setCrumbs] = useState<Crumb[]>([]);
-  return <CrumbsContext.Provider value={{ crumbs, setCrumbs }}>{children}</CrumbsContext.Provider>;
+  const [toc, setToc] = useState<PageToc | null>(null);
+  return <MenuContext.Provider value={{ toc, setToc }}>{children}</MenuContext.Provider>;
 }
 
-/** Rendered by each page so the header's menu shows that page's trail. */
-export function ReportCrumbs({ crumbs }: { crumbs: Crumb[] }) {
-  const { setCrumbs } = useContext(CrumbsContext);
-  useEffect(() => setCrumbs(crumbs), [crumbs, setCrumbs]);
+/** Rendered with a page's table of contents so the header's menu lists the same title and headings. */
+export function ReportToc({ title, titleId, entries }: PageToc) {
+  const { setToc } = useContext(MenuContext);
+  useEffect(() => {
+    setToc({ title, titleId, entries });
+    return () => setToc(null);
+  }, [title, titleId, entries, setToc]);
   return null;
 }
 
-/** The current page's full trail, with a curved arrow from the word "here" to the page you're on. */
-function HereTrail({ crumbs }: { crumbs: Crumb[] }) {
-  const boxRef = useRef<HTMLElement>(null);
-  const hereRef = useRef<HTMLSpanElement>(null);
-  const currentRef = useRef<HTMLSpanElement>(null);
-  // useId can contain characters that break url(#…), so keep just the safe ones
-  const [path, setPath] = useState<string | null>(null);
-
-  // The arrow's ends depend on rendered text, so measure after layout and again on resize
-  useLayoutEffect(() => {
-    const box = boxRef.current;
-    const here = hereRef.current;
-    const current = currentRef.current;
-    if (!box || !here || !current) return;
-
-    const draw = () => {
-      const b = box.getBoundingClientRect();
-      const h = here.getBoundingClientRect();
-      const c = current.getBoundingClientRect();
-      const start = { x: h.right - b.left + 6, y: h.top + h.height / 2 - b.top };
-      const end = { x: c.right - b.left + 8, y: c.top + c.height / 2 - b.top };
-      // Out from "here", round a semicircle on the right, back in to the title, then a fixed left-pointing head
-      const x = Math.max(start.x, end.x) + 12;
-      const r = (end.y - start.y) / 2;
-      setPath(
-        `M ${start.x} ${start.y} H ${x} A ${r} ${r} 0 0 1 ${x} ${end.y} H ${end.x}` +
-          ` M ${end.x + 6} ${end.y - 5} L ${end.x} ${end.y} L ${end.x + 6} ${end.y + 5}`,
-      );
-    };
-
-    draw();
-    const observer = new ResizeObserver(draw);
-    observer.observe(box);
-    return () => observer.disconnect();
-  }, [crumbs]);
-
-  return (
-    <nav ref={boxRef} aria-label="You are here" className={styles.here}>
-      <p className={styles.hereLabel}>
-        You are <span ref={hereRef}>here</span>
-      </p>
-      <ol className={styles.trail}>
-        {crumbs.map((crumb, i) => {
-          const isCurrent = i === crumbs.length - 1;
-          return (
-            <li key={crumb.path} className={styles.crumb} data-depth={Math.min(i, 4)}>
-              {isCurrent ? (
-                <span ref={currentRef} aria-current="page" className={styles.crumbCurrent}>
-                  {crumb.title}
-                </span>
-              ) : (
-                <NextLink href={crumb.path} className={styles.crumbLink}>
-                  {crumb.title}
-                </NextLink>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-      {path && (
-        <svg className={styles.arrow} aria-hidden="true">
-          <path d={path} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      )}
-    </nav>
-  );
-}
-
-/** Phone-only hamburger that opens a full-screen overlay with the nav, where you are, and the footer. */
+/** Phone-only hamburger that opens a full-screen overlay with the page's headings and the footer. */
 export function MobileMenu({
-  tagline,
   footer,
   className,
 }: {
-  tagline?: string;
   footer?: React.ReactNode;
   className?: string;
 }) {
   const pathname = usePathname();
-  const { crumbs } = useContext(CrumbsContext);
+  const { toc } = useContext(MenuContext);
+  // Tracked here, where it keeps running while the menu is closed, so the list is already right when it opens
+  const [activeId] = useActiveHeading(
+    toc?.titleId ?? "",
+    toc?.entries.map((entry) => entry.id) ?? [],
+  );
   const [open, setOpen] = useState(false);
+  // A heading picked in the menu is scrolled to once the overlay has finished closing and released the page
+  const pendingId = useRef<string | null>(null);
+  const pendingTop = useRef(false);
+
+  const scrollToPending = (isOpen: boolean) => {
+    const id = pendingId.current;
+    if (isOpen || !id) return;
+    pendingId.current = null;
+    window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${id}`);
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    if (pendingTop.current) window.scrollTo({ top: 0, behavior });
+    else document.getElementById(id)?.scrollIntoView({ behavior });
+  };
+
+  // Picking a heading closes the menu first; the page scrolls once it has closed
+  const goTo = (id: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    pendingId.current = id;
+    pendingTop.current = id === toc?.titleId;
+    setOpen(false);
+  };
 
   // Following any link inside the menu lands on a new page, so close it then
   useEffect(() => setOpen(false), [pathname]);
 
-  // Past Tailwind's sm breakpoint the hamburger is hidden and the desktop nav shows, so the overlay can't stay open
+  // Past Tailwind's sm breakpoint the hamburger is hidden, so the overlay can't stay open
   useEffect(() => {
     const wide = window.matchMedia("(min-width: 40rem)");
     const closeIfWide = () => wide.matches && setOpen(false);
@@ -123,46 +87,29 @@ export function MobileMenu({
   }, []);
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root open={open} onOpenChange={setOpen} onOpenChangeComplete={scrollToPending}>
       <Dialog.Trigger className={cn(styles.trigger, className)} aria-label="Open menu">
         <MenuIcon aria-hidden="true" />
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Popup className={styles.overlay}>
-          <div>
-            <div className={styles.top}>
-              <Dialog.Title className={styles.srOnly}>Menu</Dialog.Title>
-              <NextLink href="/" className={styles.name} onClick={() => setOpen(false)}>
-                Jay Griffin
-              </NextLink>
-              <Dialog.Close className={styles.close} aria-label="Close menu">
-                <XIcon aria-hidden="true" />
-              </Dialog.Close>
-            </div>
-            {tagline && <Paragraph className={styles.tagline}>{tagline}</Paragraph>}
+          <div className={styles.top}>
+            <Dialog.Title className={styles.srOnly}>Menu</Dialog.Title>
+            <NextLink href="/" className={styles.name} onClick={() => setOpen(false)}>
+              Jay Griffin
+            </NextLink>
+            <Dialog.Close className={styles.close} aria-label="Close menu">
+              <XIcon aria-hidden="true" />
+            </Dialog.Close>
           </div>
 
-          {crumbs.length > 1 && <HereTrail crumbs={crumbs} />}
-
-          <nav aria-label="Primary">
-            <ul className={styles.navList}>
-              {navRoutes.map((route) => {
-                const isActive = isActiveRoute(route.href, pathname);
-                return (
-                  <li key={route.href} className={styles.navItem}>
-                    <NextLink
-                      href={route.href}
-                      aria-current={isActive ? "page" : undefined}
-                      className={styles.navLink}
-                    >
-                      {route.label}
-                    </NextLink>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+          {toc && (
+            <section>
+              <p className={styles.tocHeading}>On this page</p>
+              <TocList title={toc.title} titleId={toc.titleId} entries={toc.entries} activeId={activeId} goTo={goTo} />
+            </section>
+          )}
 
           {footer && <div className={styles.footer}>{footer}</div>}
         </Dialog.Popup>

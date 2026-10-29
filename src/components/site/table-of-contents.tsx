@@ -1,13 +1,11 @@
 "use client";
 
 import NextLink from "next/link";
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, type MouseEvent } from "react";
+import { useActiveHeading } from "@/hooks/use-active-heading";
 import type { TocEntry } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
 import styles from "./table-of-contents.module.css";
-
-// Scroll distance in px that still counts as the top of the page
-const AT_TOP = 40;
 
 export function TableOfContents({
   title,
@@ -18,7 +16,10 @@ export function TableOfContents({
   titleId: string;
   entries: TocEntry[];
 }) {
-  const [activeId, setActiveId] = useState(titleId);
+  const [activeId, setActiveId] = useActiveHeading(
+    titleId,
+    entries.map((entry) => entry.id),
+  );
 
   // Sections aren't history entries: Back and Forward stay for pages, so the hash replaces the current entry
   const goTo = (id: string) => (event: MouseEvent<HTMLAnchorElement>) => {
@@ -52,38 +53,26 @@ export function TableOfContents({
   useEffect(() => {
     if (window.location.hash === `#${titleId}`)
       window.scrollTo({ top: 0, behavior: "auto" });
-    const headings = [titleId, ...entries.map((entry) => entry.id)]
-      .map((id) => document.getElementById(id))
-      .filter((heading): heading is HTMLElement => heading !== null);
-    if (!headings.length) return;
+  }, [titleId]);
 
-    const observer = new IntersectionObserver(
-      (observations) => {
-        // At the top of the page the title is current, even if the first heading is already in view
-        if (window.scrollY < AT_TOP) return setActiveId(titleId);
-        const visible = observations
-          .filter((observation) => observation.isIntersecting)
-          .sort(
-            (a, b) =>
-              a.boundingClientRect.top - b.boundingClientRect.top,
-          )[0];
-        if (visible) setActiveId(visible.target.id);
-      },
-      { rootMargin: "-12% 0px -72% 0px", threshold: 0 },
-    );
-    headings.forEach((heading) => observer.observe(heading));
+  return <TocList title={title} titleId={titleId} entries={entries} activeId={activeId} goTo={goTo} />;
+}
 
-    // Scrolling back up leaves the first heading's band without any heading entering it
-    const onScroll = () => {
-      if (window.scrollY < AT_TOP) setActiveId(titleId);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, [entries, titleId]);
-
+/** The title and headings as links, with the current one marked. Shared by the side column and the mobile menu. */
+export function TocList({
+  title,
+  titleId,
+  entries,
+  activeId,
+  goTo,
+}: {
+  title: string;
+  titleId: string;
+  entries: TocEntry[];
+  activeId: string;
+  /** Click handler for the link to a heading id. */
+  goTo: (id: string) => (event: MouseEvent<HTMLAnchorElement>) => void;
+}) {
   return (
     <nav aria-label="On this page">
       <ol className={styles.list}>

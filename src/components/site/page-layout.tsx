@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { getCurrentPage, requireVisible } from "@/lib/page-meta";
-import { Breadcrumbs, getCrumbs } from "./breadcrumbs";
-import { ReportCrumbs } from "./mobile-menu";
+import { Breadcrumbs } from "./breadcrumbs";
 import { SiteNav } from "./nav";
 import { PageToc } from "./page-toc";
 import { PrevNext } from "./prev-next";
@@ -34,7 +33,6 @@ export async function PageLayout({
 }: PageLayoutProps) {
   // The 404 page renders at the requested path, so it must not check that path again
   if (!outsideTree) await requireVisible();
-  const crumbs = outsideTree ? [] : await getCrumbs();
   const item = outsideTree || ownAside ? null : (await getCurrentPage())?.item;
   const autoToc = item?.toc && item.toc.length >= MIN_AUTO_TOC ? item : null;
   const aside = ownAside ?? (autoToc && <PageToc title={autoToc.title} entries={autoToc.toc!} />);
@@ -44,8 +42,7 @@ export async function PageLayout({
   return (
     <div className={cn(styles.columns, aside && styles.columnsWithAside, className)}>
       <div className={cn(styles.panel, aside && styles.panelWithAside)}>
-        <ReportCrumbs crumbs={crumbs} />
-        <div className={styles.desktopNav}>
+        <div className={styles.navRow}>
           <SiteNav />
           {!outsideTree && <Breadcrumbs />}
         </div>

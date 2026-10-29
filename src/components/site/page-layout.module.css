@@ -27,7 +27,7 @@
     grid-template-areas: "nav aside" "main aside";
   }
 
-  .panelWithAside .desktopNav {
+  .panelWithAside .navRow {
     grid-area: nav;
   }
 
@@ -46,9 +46,9 @@
   @apply max-w-content min-w-0;
 }
 
-/* nav row and breadcrumb strip; phones get the mobile menu instead */
-.desktopNav {
-  @apply hidden sm:block;
+/* nav row and breadcrumb strip, at every width */
+.navRow {
+  @apply block;
 }
 
 /* page content under the nav row */
