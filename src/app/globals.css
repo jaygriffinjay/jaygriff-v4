@@ -66,6 +66,13 @@ html {
   overscroll-behavior: none;
 }
 
+/* the phone header is stuck to the top, so jumps to a heading stop below it */
+@media (width < 40rem) {
+  html {
+    scroll-padding-top: 5rem;
+  }
+}
+
 body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   /* Safari reads the bounce setting from body as well as html */

@@ -1,8 +1,15 @@
 @reference "../../app/globals.css";
 
-/* intro block above the nav and page content */
+/* phones: a slim bar stuck to the top with the name and menu button, full width past the shell's padding; from sm up, the intro block above the nav */
 .header {
-  @apply py-8;
+  @apply bg-background sticky top-0 z-40 -mx-4 px-4 py-3 sm:static sm:mx-0 sm:px-0 sm:py-8;
+}
+
+/* phones: a soft fade under the bar, so content slides out from beneath it instead of being cut off */
+.header::after {
+  content: "";
+  background: linear-gradient(to bottom, var(--background), transparent);
+  @apply pointer-events-none absolute inset-x-0 top-full h-4 sm:hidden;
 }
 
 /* site name on the left, phone menu button on the right */
@@ -15,9 +22,4 @@
   @apply link text-3xl font-normal;
   font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
   color: #fff;
-}
-
-/* small caps line under the site name; letter-spacing tuned so it runs exactly as wide as the name */
-.tagline {
-  @apply text-heading mt-1 text-xs font-semibold tracking-[0.032em] uppercase;
 }
