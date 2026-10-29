@@ -312,7 +312,7 @@ function ComponentsAside() {
 
 export default function ComponentsPage() {
   return (
-    <PageLayout aside={<ComponentsAside />}>
+    <PageLayout aside={<ComponentsAside />} asideOnMobile="top">
       <NextLink href="/docs/components/library" className={styles.libraryBanner}>
         <span>Component library: every component with the real theme</span>
         <span aria-hidden>→</span>

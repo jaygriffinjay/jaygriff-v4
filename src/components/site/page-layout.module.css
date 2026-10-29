@@ -2,20 +2,22 @@
 
 /* single column by default */
 .columns {
-  @apply grid gap-12;
+  @apply grid;
 }
 
-/* nav, aside and article stack in that order on smaller viewports */
+/* with an aside: one column in DOM order, so the aside's place in the JSX is its place on mobile */
 .columnsWithAside {
-  @apply grid grid-cols-1 items-start gap-6;
-  grid-template-areas: "nav" "aside" "main";
+  @apply grid-cols-1 items-start gap-6;
 }
 
-/* the nav isn't in this layout below sm; the site header already provides it */
-@media (width < 40rem) {
-  .columnsWithAside {
-    grid-template-areas: "aside" "main";
-  }
+/* nav, aside and article become grid items of the layout */
+.panelWithAside {
+  display: contents;
+}
+
+/* side column; in the flow at full width on small screens */
+.aside {
+  @apply w-full min-w-0;
 }
 
 /* article and sticky aside sit side by side on desktop */
@@ -24,22 +26,18 @@
     @apply grid-cols-[minmax(0,var(--container-content))_var(--container-aside)] gap-x-16 gap-y-0;
     grid-template-areas: "nav aside" "main aside";
   }
-}
 
-/* expose nav, aside and article as grid items without duplicating the aside */
-.columnsWithAside .panel {
-  display: contents;
-}
+  .panelWithAside .desktopNav {
+    grid-area: nav;
+  }
 
-/* side column: full width above the article on small screens, sticky rail on desktop */
-.aside {
-  @apply w-full min-w-0;
-  grid-area: aside;
-}
+  .panelWithAside .main {
+    grid-area: main;
+  }
 
-@media (width >= 64rem) {
   .aside {
     @apply sticky top-6 max-h-[calc(100dvh-3rem)] max-w-aside overflow-y-auto;
+    grid-area: aside;
   }
 }
 
@@ -56,12 +54,4 @@
 /* page content under the nav row */
 .main {
   @apply pt-8;
-}
-
-.columnsWithAside .desktopNav {
-  grid-area: nav;
-}
-
-.columnsWithAside .main {
-  grid-area: main;
 }

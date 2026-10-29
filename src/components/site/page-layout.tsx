@@ -9,8 +9,10 @@ import styles from "./page-layout.module.css";
 
 interface PageLayoutProps {
   children: React.ReactNode;
-  /** Page-specific side column; right of the content on desktop, after navigation on mobile. */
+  /** Page-specific side column: a sticky right rail on desktop. */
   aside?: React.ReactNode;
+  /** Where the aside goes when the page is one column: above the article (a table of contents) or below it. */
+  asideOnMobile?: "top" | "bottom";
   /** For pages with no place in the tree (the 404): no breadcrumbs, related pages or prev/next. */
   outsideTree?: boolean;
   /** Section index pages list their children instead, so they turn related pages off. */
@@ -18,25 +20,34 @@ interface PageLayoutProps {
   className?: string;
 }
 
-export async function PageLayout({ children, aside, outsideTree, hideRelated, className }: PageLayoutProps) {
+export async function PageLayout({
+  children,
+  aside,
+  asideOnMobile = "bottom",
+  outsideTree,
+  hideRelated,
+  className,
+}: PageLayoutProps) {
   // The 404 page renders at the requested path, so it must not check that path again
   if (!outsideTree) await requireVisible();
   const crumbs = outsideTree ? [] : await getCrumbs();
+  const asideBlock = aside && <div className={styles.aside}>{aside}</div>;
 
   return (
     <div className={cn(styles.columns, aside && styles.columnsWithAside, className)}>
-      <div className={styles.panel}>
+      <div className={cn(styles.panel, aside && styles.panelWithAside)}>
         <ReportCrumbs crumbs={crumbs} />
         <div className={styles.desktopNav}>
           <SiteNav />
           {!outsideTree && <Breadcrumbs />}
         </div>
-        {aside && <div className={styles.aside}>{aside}</div>}
+        {asideOnMobile === "top" && asideBlock}
         <main className={styles.main}>
           {children}
           {!outsideTree && !hideRelated && <RelatedPages />}
           {!outsideTree && <PrevNext />}
         </main>
+        {asideOnMobile === "bottom" && asideBlock}
       </div>
     </div>
   );

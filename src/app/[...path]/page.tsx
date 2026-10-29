@@ -45,6 +45,7 @@ export default async function ContentPage({ params }: Props) {
           </Aside>
         ) : undefined
       }
+      asideOnMobile="top"
     >
       {item.status !== "published" && (
         <Badge variant="outline" className={styles.draft}>
