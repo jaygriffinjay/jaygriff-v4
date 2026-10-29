@@ -2,7 +2,7 @@
 
 /* entries, separated by rules */
 .list {
-  @apply divide-border mt-4 flex flex-col divide-y;
+  @apply divide-separator mt-4 flex flex-col divide-y;
 }
 
 /* shown when there are no entries */

@@ -13,6 +13,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-separator: var(--separator);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -106,6 +107,8 @@ body {
   /* translucent white so lines and fields read on both page and card */
   --border: rgb(255 255 255 / 10%);
   --input: rgb(255 255 255 / 15%);
+  /* rules between page regions: the primary blue, faded into the background */
+  --separator: color-mix(in oklch, var(--primary) 25%, transparent);
   /* focus ring color; drawn as a "gap ring" in styles/focus.css */
   --ring: var(--primary);
 }

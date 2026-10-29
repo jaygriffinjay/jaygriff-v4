@@ -2,7 +2,7 @@
 
 /* nav row above the page content, separated by a thin rule */
 .nav {
-  @apply border-b;
+  @apply border-separator border-b;
 }
 
 /* row of links; wraps on narrow screens */

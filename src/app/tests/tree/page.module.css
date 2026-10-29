@@ -17,7 +17,7 @@
 
 /* nested list, indented with a guide line */
 .branch {
-  @apply border-border mt-1 ml-2 flex flex-col gap-1 border-l pl-4;
+  @apply border-separator mt-1 ml-2 flex flex-col gap-1 border-l pl-4;
 }
 
 /* one row: title, badges, path */

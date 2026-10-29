@@ -32,7 +32,7 @@
 
 /* feed entries, separated by rules */
 .list {
-  @apply divide-border mt-8 flex flex-col divide-y;
+  @apply divide-separator mt-8 flex flex-col divide-y;
 }
 
 /* one feed entry: optional cover beside the text */

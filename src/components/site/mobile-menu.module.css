@@ -59,7 +59,7 @@
 
 /* "You are here" block above the nav, ruled off from it; positions the arrow */
 .here {
-  @apply relative border-b pb-6;
+  @apply border-separator relative border-b pb-6;
 }
 
 /* curved arrow from "here" to the current page, drawn over the block */

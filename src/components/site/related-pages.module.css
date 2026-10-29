@@ -7,7 +7,7 @@
 
 /* small caps section label, like the aside headings */
 .heading {
-  @apply text-heading border-b pb-2 text-xs font-semibold tracking-wider uppercase;
+  @apply text-heading border-separator border-b pb-2 text-xs font-semibold tracking-wider uppercase;
 }
 
 /* stack of related pages */

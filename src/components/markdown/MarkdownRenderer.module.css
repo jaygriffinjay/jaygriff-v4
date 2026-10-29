@@ -27,7 +27,7 @@
 
 /* horizontal rule between sections */
 .rule {
-  @apply border-border my-10;
+  @apply border-separator my-10;
 }
 
 /* images inside the body */

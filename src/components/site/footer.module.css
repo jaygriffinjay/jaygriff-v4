@@ -2,7 +2,7 @@
 
 /* full-width band under the page shell */
 .footer {
-  @apply border-border w-full border-t;
+  @apply border-separator w-full border-t;
 }
 
 /* a centered column: mark, then link groups */
