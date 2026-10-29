@@ -2,11 +2,9 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { H1, Paragraph } from "@/components/typography";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
-import { Aside } from "@/components/site/aside";
-import { AsideSection } from "@/components/site/aside-section";
 import { ChildPages } from "@/components/site/child-pages";
 import { PageLayout } from "@/components/site/page-layout";
-import { TableOfContents } from "@/components/site/table-of-contents";
+import { PageToc } from "@/components/site/page-toc";
 import { getContentByPath } from "@/lib/goatboat";
 import { isVisible } from "@/lib/page-meta";
 import { slugifyHeading } from "@/lib/slugify-heading";
@@ -32,19 +30,7 @@ export default async function ContentPage({ params }: Props) {
 
   return (
     <PageLayout
-      aside={
-        item.toc?.length ? (
-          <Aside>
-            <AsideSection title="On this page">
-              <TableOfContents
-                title={item.title}
-                titleId={slugifyHeading(item.title)}
-                entries={item.toc}
-              />
-            </AsideSection>
-          </Aside>
-        ) : undefined
-      }
+      aside={item.toc?.length ? <PageToc title={item.title} entries={item.toc} /> : undefined}
       asideOnMobile="top"
     >
       {item.status !== "published" && (

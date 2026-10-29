@@ -1,14 +1,15 @@
-// Tells goatboat which code pages exist: every src/app/**/page.tsx, as { id, path, file }.
+// Tells goatboat which code pages exist: every src/app/**/page.tsx, as { id, path, file, toc }.
 // Goatboat owns everything else about them. Run with --dry-run to print the list without sending it.
 import { findAppRoutes } from "./approutes.mts";
+import { extractHeadings } from "./headings.mts";
 
 const dryRun = process.argv.includes("--dry-run");
 
-const approutes = findAppRoutes();
+const approutes = findAppRoutes().map((route) => ({ ...route, toc: extractHeadings(route.file) }));
 
 if (dryRun) {
   for (const route of approutes)
-    console.log(`${route.path.padEnd(32)} ${(route.id ?? "(no id)").padEnd(36)}  ${route.file}`);
+    console.log(`${route.path.padEnd(32)} ${(route.id ?? "(no id)").padEnd(36)}  ${String(route.toc.length).padStart(2)} headings  ${route.file}`);
   console.log(`\n${approutes.length} pages (dry run, nothing sent)`);
   process.exit(0);
 }

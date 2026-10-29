@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
-import { requireVisible } from "@/lib/page-meta";
+import { getCurrentPage, requireVisible } from "@/lib/page-meta";
 import { Breadcrumbs, getCrumbs } from "./breadcrumbs";
 import { ReportCrumbs } from "./mobile-menu";
 import { SiteNav } from "./nav";
+import { PageToc } from "./page-toc";
 import { PrevNext } from "./prev-next";
 import { RelatedPages } from "./related-pages";
 import styles from "./page-layout.module.css";
@@ -20,10 +21,13 @@ interface PageLayoutProps {
   className?: string;
 }
 
+// A page without its own aside gets a table of contents from the headings goatboat holds for it
+const MIN_AUTO_TOC = 2;
+
 export async function PageLayout({
   children,
-  aside,
-  asideOnMobile = "bottom",
+  aside: ownAside,
+  asideOnMobile: ownAsideOnMobile = "bottom",
   outsideTree,
   hideRelated,
   className,
@@ -31,6 +35,10 @@ export async function PageLayout({
   // The 404 page renders at the requested path, so it must not check that path again
   if (!outsideTree) await requireVisible();
   const crumbs = outsideTree ? [] : await getCrumbs();
+  const item = outsideTree || ownAside ? null : (await getCurrentPage())?.item;
+  const autoToc = item?.toc && item.toc.length >= MIN_AUTO_TOC ? item : null;
+  const aside = ownAside ?? (autoToc && <PageToc title={autoToc.title} entries={autoToc.toc!} />);
+  const asideOnMobile = ownAside ? ownAsideOnMobile : "top";
   const asideBlock = aside && <div className={styles.aside}>{aside}</div>;
 
   return (

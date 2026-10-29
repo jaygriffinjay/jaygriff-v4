@@ -1,30 +1,35 @@
+import { slugifyHeading } from "@/lib/slugify-heading";
 import { cn } from "@/lib/utils";
 import styles from "./typography.module.css";
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
+
+// Text headings get an anchor id, which the sync's table of contents (scripts/headings.mts) links to
+const headingId = ({ id, children }: HeadingProps) =>
+  id ?? (typeof children === "string" ? slugifyHeading(children) || undefined : undefined);
 
 export function H1({ className, ...props }: HeadingProps) {
   return <h1 className={cn(styles.h1, className)} {...props} />;
 }
 
 export function H2({ className, ...props }: HeadingProps) {
-  return <h2 className={cn(styles.h2, className)} {...props} />;
+  return <h2 id={headingId(props)} className={cn(styles.h2, className)} {...props} />;
 }
 
 export function H3({ className, ...props }: HeadingProps) {
-  return <h3 className={cn(styles.h3, className)} {...props} />;
+  return <h3 id={headingId(props)} className={cn(styles.h3, className)} {...props} />;
 }
 
 export function H4({ className, ...props }: HeadingProps) {
-  return <h4 className={cn(styles.h4, className)} {...props} />;
+  return <h4 id={headingId(props)} className={cn(styles.h4, className)} {...props} />;
 }
 
 export function H5({ className, ...props }: HeadingProps) {
-  return <h5 className={cn(styles.h5, className)} {...props} />;
+  return <h5 id={headingId(props)} className={cn(styles.h5, className)} {...props} />;
 }
 
 export function H6({ className, ...props }: HeadingProps) {
-  return <h6 className={cn(styles.h6, className)} {...props} />;
+  return <h6 id={headingId(props)} className={cn(styles.h6, className)} {...props} />;
 }
 
 export function Paragraph({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {

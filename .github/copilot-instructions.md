@@ -55,6 +55,7 @@ src/
 - Build in small slices that work end to end (see `../goatboat/docs/mvp.md`). Prefer simple over clever; don't build infrastructure ahead of need.
 - Ask before large changes, schema changes, deletions, commits and pushes. Explain what you're about to do in plain terms.
 - Don't merge in ideas that weren't asked for. Propose them separately.
+- Don't track or assume the state of goatboat proposals (approved, pending, rejected). Jay manages them; check live only when it matters to the task.
 
 ## Git
 
