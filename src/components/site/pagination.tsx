@@ -3,6 +3,7 @@ import { pageHref } from "@/lib/page-href";
 import { cn } from "@/lib/utils";
 import { PageJump } from "./page-jump";
 import styles from "./pagination.module.css";
+import { StepLink, StepLinks } from "./step-links";
 
 type PaginationProps = {
   page: number;
@@ -18,21 +19,13 @@ function visiblePages(page: number, count: number) {
   return pages.flatMap((p, i) => (i > 0 && p - pages[i - 1] > 1 ? (["gap", p] as const) : [p]));
 }
 
-/** Numbered page links with newer and older steps, for a newest-first list. */
+/** Numbered page links with previous and next steps. */
 export function Pagination({ page, pageCount, basePath, className }: PaginationProps) {
   if (pageCount <= 1) return null;
   const href = (p: number) => pageHref(basePath, p);
 
   return (
     <nav aria-label="Pagination" className={cn(styles.nav, className)}>
-      {page > 1 ? (
-        <NextLink href={href(page - 1)} rel="prev" className={styles.step}>
-          ← Newer
-        </NextLink>
-      ) : (
-        <span />
-      )}
-
       <ol className={styles.pages}>
         {visiblePages(page, pageCount).map((p, i) =>
           p === "gap" ? (
@@ -63,13 +56,14 @@ export function Pagination({ page, pageCount, basePath, className }: PaginationP
         )}
       </ol>
 
-      {page < pageCount ? (
-        <NextLink href={href(page + 1)} rel="next" className={styles.step}>
-          Older →
-        </NextLink>
-      ) : (
-        <span />
-      )}
+      <StepLinks>
+        {page > 1 && (
+          <StepLink direction="prev" rel="prev" href={href(page - 1)} label="← Previous" title={`Page ${page - 1}`} />
+        )}
+        {page < pageCount && (
+          <StepLink direction="next" rel="next" href={href(page + 1)} label="Next →" title={`Page ${page + 1}`} />
+        )}
+      </StepLinks>
     </nav>
   );
 }

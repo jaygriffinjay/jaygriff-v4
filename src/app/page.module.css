@@ -15,7 +15,7 @@
   @apply mt-12;
 }
 
-/* link on to the full feed */
+/* room between the feed and the link on to the full feed */
 .more {
-  @apply link mt-6 inline-block text-sm;
+  @apply mt-6;
 }

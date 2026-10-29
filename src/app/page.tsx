@@ -1,8 +1,8 @@
-import NextLink from "next/link";
 import { H1, H2, Paragraph } from "@/components/typography";
 import { Feed } from "@/components/site/feed";
 import { PageLayout } from "@/components/site/page-layout";
 import { MainAside } from "@/components/site/main-aside";
+import { StepLink, StepLinks } from "@/components/site/step-links";
 import { listContent } from "@/lib/goatboat";
 import styles from "./page.module.css";
 
@@ -27,9 +27,9 @@ export default async function Home() {
         <section aria-labelledby="latest-heading" className={styles.latest}>
           <H2 id="latest-heading">Latest</H2>
           <Feed items={latest} />
-          <NextLink href="/new" className={styles.more}>
-            Everything new →
-          </NextLink>
+          <StepLinks className={styles.more}>
+            <StepLink direction="next" href="/new" label="The full feed" title="Everything new →" />
+          </StepLinks>
         </section>
       )}
     </PageLayout>
