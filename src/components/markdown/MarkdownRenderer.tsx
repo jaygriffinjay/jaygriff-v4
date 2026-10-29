@@ -19,16 +19,9 @@ import {
   Strikethrough,
 } from "@/components/typography";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { slugifyHeading } from "@/lib/slugify-heading";
 import { cn } from "@/lib/utils";
 import styles from "./MarkdownRenderer.module.css";
-
-// Must match goatboat's slugifyHeading, or TOC links won't land on these ids
-const slugifyHeading = (text: string) =>
-  text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\p{L}\p{N}\s-]/gu, "")
-    .replace(/\s+/g, "-");
 
 function textOf(node: Element | ElementContent | undefined): string {
   if (!node) return "";

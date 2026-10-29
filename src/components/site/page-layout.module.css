@@ -1,18 +1,46 @@
 @reference "../../app/globals.css";
 
-/* single column by default; aside (when present) drops below content on mobile */
+/* single column by default */
 .columns {
   @apply grid gap-12;
 }
 
-/* adds the side column on desktop when the page passes an aside */
+/* nav, aside and article stack in that order on smaller viewports */
 .columnsWithAside {
-  @apply lg:grid-cols-[minmax(0,var(--container-content))_var(--container-aside)] lg:items-start lg:gap-16;
+  @apply grid grid-cols-1 items-start gap-6;
+  grid-template-areas: "nav" "aside" "main";
 }
 
-/* side column; stays its desktop width when it drops below the content */
+/* the nav isn't in this layout below sm; the site header already provides it */
+@media (width < 40rem) {
+  .columnsWithAside {
+    grid-template-areas: "aside" "main";
+  }
+}
+
+/* article and sticky aside sit side by side on desktop */
+@media (width >= 64rem) {
+  .columnsWithAside {
+    @apply grid-cols-[minmax(0,var(--container-content))_var(--container-aside)] gap-x-16 gap-y-0;
+    grid-template-areas: "nav aside" "main aside";
+  }
+}
+
+/* expose nav, aside and article as grid items without duplicating the aside */
+.columnsWithAside .panel {
+  display: contents;
+}
+
+/* side column: full width above the article on small screens, sticky rail on desktop */
 .aside {
-  @apply w-full max-w-aside min-w-0;
+  @apply w-full min-w-0;
+  grid-area: aside;
+}
+
+@media (width >= 64rem) {
+  .aside {
+    @apply sticky top-6 max-h-[calc(100dvh-3rem)] max-w-aside overflow-y-auto;
+  }
 }
 
 /* content column: nav row on top, page content below; same width with or without an aside */
@@ -28,4 +56,12 @@
 /* page content under the nav row */
 .main {
   @apply pt-8;
+}
+
+.columnsWithAside .desktopNav {
+  grid-area: nav;
+}
+
+.columnsWithAside .main {
+  grid-area: main;
 }

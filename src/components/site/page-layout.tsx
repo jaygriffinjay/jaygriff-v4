@@ -9,7 +9,7 @@ import styles from "./page-layout.module.css";
 
 interface PageLayoutProps {
   children: React.ReactNode;
-  /** Page-specific side column; right of the content on desktop, below it on mobile. */
+  /** Page-specific side column; right of the content on desktop, after navigation on mobile. */
   aside?: React.ReactNode;
   /** For pages with no place in the tree (the 404): no breadcrumbs, related pages or prev/next. */
   outsideTree?: boolean;
@@ -31,13 +31,13 @@ export async function PageLayout({ children, aside, outsideTree, hideRelated, cl
           <SiteNav />
           {!outsideTree && <Breadcrumbs />}
         </div>
+        {aside && <div className={styles.aside}>{aside}</div>}
         <main className={styles.main}>
           {children}
           {!outsideTree && !hideRelated && <RelatedPages />}
           {!outsideTree && <PrevNext />}
         </main>
       </div>
-      {aside && <div className={styles.aside}>{aside}</div>}
     </div>
   );
 }

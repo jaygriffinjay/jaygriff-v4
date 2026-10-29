@@ -1,0 +1,21 @@
+@reference "../../app/globals.css";
+
+/* nested headings sit beneath their parent section */
+.nested {
+  @apply pl-3;
+}
+
+/* TOC link, muted until hovered or active */
+.link {
+  @apply text-muted-foreground block border-l border-transparent py-1 pl-2 text-sm hover:text-primary;
+}
+
+/* section currently crossing the reading position */
+.active {
+  @apply text-primary border-primary font-medium;
+}
+
+/* compact vertical list of document sections */
+.list {
+  @apply flex flex-col;
+}
