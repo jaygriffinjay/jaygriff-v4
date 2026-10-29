@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type KeyboardEvent } from "react";
 import { pageHref } from "@/lib/page-href";
@@ -15,7 +16,7 @@ type PageJumpProps = {
   children: React.ReactNode;
 };
 
-/** A button that becomes a box for typing a page number: Enter goes there; Escape or clicking away cancels. */
+/** A button that becomes a box for typing a page number: Enter (or Go, on touch screens) goes there; Escape or clicking away cancels. */
 export function PageJump({ pageCount, basePath, label, current, className, children }: PageJumpProps) {
   const router = useRouter();
   const [editing, setEditing] = useState(false);
@@ -43,7 +44,14 @@ export function PageJump({ pageCount, basePath, label, current, className, child
   }
 
   return (
-    <form onSubmit={go}>
+    <form
+      onSubmit={go}
+      className={styles.form}
+      // Moving focus onto the Go button isn't clicking away
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setEditing(false);
+      }}
+    >
       <input
         name="page"
         type="number"
@@ -51,16 +59,25 @@ export function PageJump({ pageCount, basePath, label, current, className, child
         max={pageCount}
         step={1}
         inputMode="numeric"
+        enterKeyHint="go"
         required
         autoFocus
         aria-label={`Go to page, 1 to ${pageCount}`}
         placeholder={`1–${pageCount}`}
         className={styles.input}
-        onBlur={() => setEditing(false)}
         onKeyDown={(event: KeyboardEvent) => {
           if (event.key === "Escape") setEditing(false);
         }}
       />
+      {/* Phone number pads have no Return key. Tapping must not move focus off the input, which would cancel the edit first */}
+      <button
+        type="submit"
+        aria-label="Go to page"
+        className={styles.go}
+        onMouseDown={(event) => event.preventDefault()}
+      >
+        <ArrowRightIcon aria-hidden="true" />
+      </button>
     </form>
   );
 }

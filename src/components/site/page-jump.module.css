@@ -1,9 +1,32 @@
 @reference "../../app/globals.css";
 
-/* page-number box that replaces a page button while typing; sized like a page link; focus only turns the border blue */
+/* the number box and, on touch screens, a Go arrow, joined into one control; the border turns blue while typing */
+.form {
+  @apply border-border bg-background focus-within:border-primary flex items-stretch overflow-hidden rounded-md border;
+}
+
+/* touch screens only: their number pads have no Return key to submit with */
+.go {
+  display: none;
+}
+
+@media (hover: none) {
+  .go {
+    @apply border-border text-primary active:bg-primary active:text-primary-foreground inline-flex items-center justify-center border-l px-2 [&>svg]:size-4;
+  }
+}
+
+/* page-number box that replaces a page button while typing; sized like a page link */
 .input {
-  @apply border-border bg-background text-foreground focus-visible:border-primary w-20 rounded-md border px-2 py-1 text-center text-sm outline-none;
+  @apply text-foreground w-20 bg-transparent px-2 py-1 text-center text-sm outline-none;
   appearance: textfield;
+}
+
+/* iOS zooms into any field under 16px and stays zoomed afterwards, so touch screens get 16px */
+@media (hover: none) {
+  .input {
+    @apply py-0.5 text-base;
+  }
 }
 
 /* the browser's up and down steppers are redundant next to the page links */
