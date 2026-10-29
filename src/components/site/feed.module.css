@@ -1,0 +1,51 @@
+@reference "../../app/globals.css";
+
+/* entries, separated by rules */
+.list {
+  @apply divide-border mt-4 flex flex-col divide-y;
+}
+
+/* shown when there are no entries */
+.empty {
+  @apply text-muted-foreground mt-4;
+}
+
+/* one entry: optional cover beside the text */
+.item {
+  @apply flex gap-4 py-5;
+}
+
+/* thumbnail or hero image */
+.cover {
+  @apply bg-muted h-20 w-32 shrink-0 rounded-md object-cover;
+}
+
+/* text column of an entry */
+.body {
+  @apply min-w-0 flex-1;
+}
+
+/* type badge and date */
+.meta {
+  @apply text-muted-foreground flex flex-wrap items-center gap-2 text-xs;
+}
+
+/* date, linking to the item's own page */
+.date {
+  @apply hover:text-foreground;
+}
+
+/* entry title; links out for link posts */
+.title {
+  @apply link mt-1 inline-block text-lg font-semibold;
+}
+
+/* summary under the title */
+.description {
+  @apply text-muted-foreground mt-1 text-sm;
+}
+
+/* "via" credit on link posts */
+.via {
+  @apply text-muted-foreground mt-1 text-xs italic;
+}

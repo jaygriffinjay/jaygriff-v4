@@ -143,8 +143,17 @@ async function get<T>(path: string, params?: Record<string, string | number | un
   return json as T;
 }
 
-export async function listContent(query: { type?: ContentType; tag?: string; limit?: number } = {}) {
+type FeedQuery = { type?: ContentType | "all"; tag?: string; limit?: number; offset?: number };
+
+/** Published content, newest first. Without a type, pages are left out; "all" includes them. */
+export async function listContent(query: FeedQuery = {}) {
   return (await get<{ data: FeedItem[] }>("/content", query))?.data ?? [];
+}
+
+/** One page of the feed with how many rows match in all, for paging. */
+export async function listFeed(query: FeedQuery = {}) {
+  const res = await get<{ data: FeedItem[]; total: number }>("/content", query);
+  return { items: res?.data ?? [], total: res?.total ?? 0 };
 }
 
 /** The page at a path, `{ redirectTo }` if it moved, or null if nothing lives there. */

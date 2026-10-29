@@ -9,3 +9,13 @@
 .title {
   @apply text-title;
 }
+
+/* the latest-posts feed under the intro */
+.latest {
+  @apply mt-12;
+}
+
+/* link on to the full feed */
+.more {
+  @apply link mt-6 inline-block text-sm;
+}

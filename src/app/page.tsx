@@ -1,9 +1,20 @@
-import { H1, Paragraph } from "@/components/typography";
+import NextLink from "next/link";
+import { H1, H2, Paragraph } from "@/components/typography";
+import { Feed } from "@/components/site/feed";
 import { PageLayout } from "@/components/site/page-layout";
 import { MainAside } from "@/components/site/main-aside";
+import { listContent } from "@/lib/goatboat";
 import styles from "./page.module.css";
 
-export default function Home() {
+const LATEST = 10;
+
+export default async function Home() {
+  // The feed is an extra, so the intro still shows if goatboat is down
+  const latest = await listContent({ limit: LATEST }).catch((err) => {
+    console.error(err);
+    return [];
+  });
+
   return (
     <PageLayout aside={<MainAside />} hideRelated>
       <article className={styles.article}>
@@ -12,6 +23,15 @@ export default function Home() {
           Welcome to my website where I do my work and publish it too! On here I document my development work, share my thoughts, and maybe even post some personal stuff.
         </Paragraph>
       </article>
+      {latest.length > 0 && (
+        <section aria-labelledby="latest-heading" className={styles.latest}>
+          <H2 id="latest-heading">Latest</H2>
+          <Feed items={latest} />
+          <NextLink href="/new" className={styles.more}>
+            Everything new →
+          </NextLink>
+        </section>
+      )}
     </PageLayout>
   );
 }
