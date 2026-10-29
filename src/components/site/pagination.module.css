@@ -1,0 +1,35 @@
+@reference "../../app/globals.css";
+
+/* newer step, page numbers and older step on one row; empty spans keep the numbers centered */
+.nav {
+  @apply mt-8 grid grid-cols-[1fr_auto_1fr] items-center gap-3;
+}
+
+/* the run of page numbers */
+.pages {
+  @apply flex items-center gap-1;
+}
+
+/* one page number */
+.page {
+  @apply border-border text-muted-foreground hover:text-foreground block min-w-9 rounded-md border px-3 py-1 text-center text-sm;
+}
+
+/* the page being viewed; click it to type a page number */
+.current {
+  @apply bg-muted text-foreground cursor-pointer;
+}
+
+/* the gap between runs of page numbers; click it to type a page number */
+.gap {
+  @apply text-muted-foreground hover:text-foreground cursor-pointer rounded-md px-2 py-1 text-sm;
+}
+
+/* newer and older links; older sits at the right edge */
+.step {
+  @apply link text-sm;
+}
+
+.step[rel="next"] {
+  @apply justify-self-end;
+}

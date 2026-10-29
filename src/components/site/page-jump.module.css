@@ -1,0 +1,14 @@
+@reference "../../app/globals.css";
+
+/* page-number box that replaces a page button while typing; sized like a page link; focus only turns the border blue */
+.input {
+  @apply border-border bg-background text-foreground focus-visible:border-primary w-20 rounded-md border px-2 py-1 text-center text-sm outline-none;
+  appearance: textfield;
+}
+
+/* the browser's up and down steppers are redundant next to the page links */
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
