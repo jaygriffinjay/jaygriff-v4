@@ -1,8 +1,8 @@
 @reference "../../app/globals.css";
 
-/* nav row above the page content, separated by a thin rule */
+/* nav row above the page content */
 .nav {
-  @apply border-separator border-b;
+  @apply block;
 }
 
 /* row of links; wraps on narrow screens */
@@ -10,9 +10,9 @@
   @apply flex flex-wrap gap-x-5;
 }
 
-/* one nav slot; its primary underline sits on the rule when it holds the current page */
+/* one nav slot; its primary underline sits just under the link when it holds the current page */
 .navItem {
-  @apply has-[[aria-current=page]]:border-primary -mb-px border-b-2 border-transparent py-3;
+  @apply has-[[aria-current=page]]:border-primary border-b-2 border-transparent pt-3 pb-1;
 }
 
 /* nav link; same blue text + hover block as every other link */

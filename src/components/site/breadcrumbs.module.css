@@ -1,6 +1,6 @@
 @reference "../../app/globals.css";
 
-/* thin strip right under the nav rule */
+/* thin strip right under the nav */
 .breadcrumbs {
   @apply py-2;
 }

@@ -8,23 +8,40 @@ import { MenuIcon, XIcon } from "lucide-react";
 import { useActiveHeading } from "@/hooks/use-active-heading";
 import type { TocEntry } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
+import { BreadcrumbTrail, type Crumb } from "./breadcrumb-trail";
+import { SiteNav } from "./nav";
 import { TocList } from "./table-of-contents";
 import styles from "./mobile-menu.module.css";
 
 type PageToc = { title: string; titleId: string; entries: TocEntry[] };
 
-// The menu lives in the header (root layout), but the headings belong to each page, so pages report them here
+// The menu lives in the header (root layout), but the headings and breadcrumbs belong to each page, so pages report them here
 const MenuContext = createContext<{
   toc: PageToc | null;
   setToc: (toc: PageToc | null) => void;
+  crumbs: Crumb[] | null;
+  setCrumbs: (crumbs: Crumb[] | null) => void;
 }>({
   toc: null,
   setToc: () => {},
+  crumbs: null,
+  setCrumbs: () => {},
 });
 
 export function MobileMenuProvider({ children }: { children: React.ReactNode }) {
   const [toc, setToc] = useState<PageToc | null>(null);
-  return <MenuContext.Provider value={{ toc, setToc }}>{children}</MenuContext.Provider>;
+  const [crumbs, setCrumbs] = useState<Crumb[] | null>(null);
+  return <MenuContext.Provider value={{ toc, setToc, crumbs, setCrumbs }}>{children}</MenuContext.Provider>;
+}
+
+/** Rendered with a page's breadcrumbs so the header's menu shows the same trail. */
+export function ReportCrumbs({ crumbs }: { crumbs: Crumb[] }) {
+  const { setCrumbs } = useContext(MenuContext);
+  useEffect(() => {
+    setCrumbs(crumbs);
+    return () => setCrumbs(null);
+  }, [crumbs, setCrumbs]);
+  return null;
 }
 
 /** Rendered with a page's table of contents so the header's menu lists the same title and headings. */
@@ -46,7 +63,7 @@ export function MobileMenu({
   className?: string;
 }) {
   const pathname = usePathname();
-  const { toc } = useContext(MenuContext);
+  const { toc, crumbs } = useContext(MenuContext);
   // Tracked here, where it keeps running while the menu is closed, so the list is already right when it opens
   const [activeId] = useActiveHeading(
     toc?.titleId ?? "",
@@ -104,8 +121,13 @@ export function MobileMenu({
             </Dialog.Close>
           </div>
 
+          <div>
+            <SiteNav />
+            {crumbs && <BreadcrumbTrail crumbs={crumbs} />}
+          </div>
+
           {toc && (
-            <section>
+            <section className={styles.toc}>
               <p className={styles.tocHeading}>On this page</p>
               <TocList title={toc.title} titleId={toc.titleId} entries={toc.entries} activeId={activeId} goTo={goTo} />
             </section>

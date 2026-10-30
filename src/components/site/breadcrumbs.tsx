@@ -1,5 +1,6 @@
 import { currentPath, getCurrentPage, titleFromPath } from "@/lib/page-meta";
 import { BreadcrumbTrail, type Crumb } from "./breadcrumb-trail";
+import { ReportCrumbs } from "./mobile-menu";
 
 export type { Crumb };
 
@@ -21,5 +22,11 @@ export async function getCrumbs(): Promise<Crumb[]> {
 
 /** The trail under the nav. */
 export async function Breadcrumbs({ className }: { className?: string }) {
-  return <BreadcrumbTrail crumbs={await getCrumbs()} className={className} />;
+  const crumbs = await getCrumbs();
+  return (
+    <>
+      <ReportCrumbs crumbs={crumbs} />
+      <BreadcrumbTrail crumbs={crumbs} className={className} />
+    </>
+  );
 }
