@@ -1,17 +1,16 @@
 @reference "../../app/globals.css";
 
-/* outer frame; VS Code dark+ editor background */
+/* outer frame; VS Code dark+ editor background. No margin of its own: the page body sets the gaps */
 .block {
-  @apply my-6 overflow-hidden rounded-lg;
+  @apply overflow-hidden rounded-lg;
   background: #1e1e1e;
   box-shadow: 0 0 0 1px rgb(255 255 255 / 6%);
   font-family: var(--font-mono);
 }
 
-/* top bar: language label left, actions right */
+/* top bar: language label left, actions right; same background as the editor */
 .header {
   @apply flex items-center gap-3 py-1 pr-1 pl-3;
-  background: #252526;
 }
 
 /* plain-text language label in the top-left corner */
@@ -103,13 +102,15 @@
   }
 }
 
-/* scrolling editor area holding Shiki's <pre> */
+/* scrolling editor area holding Shiki's <pre>; slim blue scrollbar */
 .code {
   @apply min-w-0 flex-1 overflow-x-auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--primary) 70%, transparent) transparent;
 
   & :global(pre) {
     @apply m-0 py-3 pr-4;
-    font-size: 15px;
+    @apply text-codeblock;
     line-height: 1.6;
   }
 

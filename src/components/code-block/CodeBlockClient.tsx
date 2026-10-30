@@ -57,7 +57,7 @@ export function CodeBlockClient({ files, className }: CodeBlockClientProps) {
     <figure className={cn(styles.block, className)} data-wrap={wrap}>
       <div className={styles.header}>
         <span className={styles.language}>{active.language}</span>
-        {!isMultiFile && active.path && <span className={styles.path}>{active.path}</span>}
+        {active.path && <span className={styles.path}>{active.path}</span>}
 
         <div className={styles.actions}>
           {(overflows || wrap) && (
@@ -110,6 +110,7 @@ export function CodeBlockClient({ files, className }: CodeBlockClientProps) {
                 key={file.key}
                 type="button"
                 aria-current={index === activeIndex ? "true" : undefined}
+                title={file.path}
                 className={styles.explorerItem}
                 onClick={() => setActiveIndex(index)}
               >
