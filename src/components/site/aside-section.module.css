@@ -5,8 +5,8 @@
   @apply min-w-0;
 }
 
-/* small caps heading with a rule under it */
-.title {
+/* small caps heading with a rule under it; nested under .section so it outranks the H2 size whatever order the CSS loads in */
+.section .title {
   @apply text-heading border-separator border-b pb-2 text-xs font-semibold tracking-wider uppercase;
 }
 
