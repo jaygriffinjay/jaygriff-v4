@@ -30,14 +30,31 @@
   @apply ml-auto flex items-center gap-0.5;
 }
 
-/* icon button in the header; lit up while wrap is on */
+/* icon button in the header; hidden until the block is hovered or focused, lit up while wrap is on */
 .action {
+  @apply rounded-md;
   color: #858585;
+  opacity: 0;
+  transition: opacity 150ms;
 
   &:hover,
   &[aria-pressed="true"] {
     color: #e5e5e5;
     background: rgb(255 255 255 / 8%);
+  }
+}
+
+/* wrap stays visible while wrapping, so it's clear the code is wrapped */
+.block:hover .action,
+.block:focus-within .action,
+.action[aria-pressed="true"] {
+  opacity: 1;
+}
+
+/* no hover on touch screens, so the buttons stay visible there */
+@media (hover: none) {
+  .action {
+    opacity: 1;
   }
 }
 
