@@ -48,16 +48,21 @@
   --container-page: 60rem;
 
   /* Fluid heading sizes: phone size at a 375px viewport, growing smoothly to the desktop size at 1024px */
-  --text-title: clamp(1.625rem, 1.264rem + 1.541vw, 2.25rem); /* 26 → 36px, page titles */
+  --text-title: clamp(1.375rem, 0.869rem + 2.157vw, 2.25rem); /* 22 → 36px, page titles */
   --text-title--line-height: 1.2;
-  --text-h1: clamp(1.875rem, 1.514rem + 1.541vw, 2.5rem); /* 30 → 40px */
+  --text-h1: clamp(1.5rem, 0.922rem + 2.465vw, 2.5rem); /* 24 → 40px */
   --text-h1--line-height: 1.1;
-  --text-h2: clamp(1.25rem, 0.889rem + 1.541vw, 1.875rem); /* 20 → 30px */
+  --text-h2: clamp(1.125rem, 0.692rem + 1.849vw, 1.875rem); /* 18 → 30px */
   --text-h2--line-height: 1.25;
-  --text-h3: clamp(1.125rem, 0.908rem + 0.925vw, 1.5rem); /* 18 → 24px */
+  --text-h3: clamp(1.0625rem, 0.81rem + 1.079vw, 1.5rem); /* 17 → 24px */
   --text-h3--line-height: 1.3;
   --text-h4: clamp(1rem, 0.856rem + 0.616vw, 1.25rem); /* 16 → 20px */
   --text-h4--line-height: 1.4;
+
+  /* Space around headings on the same 375px to 1024px scale: above a section heading, and between a heading and what follows */
+  --spacing-heading-above: clamp(1.75rem, 1.317rem + 1.849vw, 2.5rem); /* 28 → 40px */
+  --spacing-heading-below: clamp(0.5rem, 0.356rem + 0.616vw, 0.75rem); /* 8 → 12px */
+  --spacing-block: clamp(0.875rem, 0.658rem + 0.925vw, 1.25rem); /* 14 → 20px, between paragraphs and other blocks */
 }
 
 /* matches any overscroll area to the page, and turns off the rubber-band bounce */

@@ -3,15 +3,15 @@
 /* body wrapper: vertical rhythm between blocks, with more room above headings */
 .markdown {
   & > * + * {
-    @apply mt-5;
+    @apply mt-block;
   }
 
   & > :is(h2, h3, h4, h5, h6) {
-    @apply mt-10 scroll-mt-24;
+    @apply mt-heading-above scroll-mt-24;
   }
 
   & > :is(h2, h3, h4, h5, h6) + * {
-    @apply mt-3;
+    @apply mt-heading-below;
   }
 }
 

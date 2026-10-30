@@ -12,7 +12,7 @@
 
 /* intro line under the heading */
 .intro {
-  @apply text-muted-foreground mt-3;
+  @apply text-muted-foreground mt-heading-below;
 }
 
 /* rule closing off the header from the page body */
