@@ -33,26 +33,24 @@ const fonts = [
 
 export default function CodeFontsPage() {
   return (
-    <PageLayout>
-      <div className={testFontVariables}>
-        <PageHeader />
+    <PageLayout className={testFontVariables}>
+      <PageHeader />
 
-        <H2 className={styles.heading}>Sizes (JetBrains Mono)</H2>
-        {sizes.map((size) => (
-          <section key={size.label} className={cn(styles.sample, size.className)}>
-            <Small className={styles.label}>{size.label}</Small>
-            <CodeBlock code={sample} language="tsx" className={styles.block} />
-          </section>
-        ))}
+      <H2>Sizes (JetBrains Mono)</H2>
+      {sizes.map((size) => (
+        <section key={size.label} className={cn(styles.sample, size.className)}>
+          <Small className={styles.label}>{size.label}</Small>
+          <CodeBlock code={sample} language="tsx" className={styles.block} />
+        </section>
+      ))}
 
-        <H2 className={styles.heading}>Fonts at 15px</H2>
-        {fonts.map((font) => (
-          <section key={font.label} className={cn(styles.sample, font.className)}>
-            <Small className={styles.label}>{font.label}</Small>
-            <CodeBlock code={sample} language="tsx" className={styles.block} />
-          </section>
-        ))}
-      </div>
+      <H2>Fonts at 15px</H2>
+      {fonts.map((font) => (
+        <section key={font.label} className={cn(styles.sample, font.className)}>
+          <Small className={styles.label}>{font.label}</Small>
+          <CodeBlock code={sample} language="tsx" className={styles.block} />
+        </section>
+      ))}
     </PageLayout>
   );
 }

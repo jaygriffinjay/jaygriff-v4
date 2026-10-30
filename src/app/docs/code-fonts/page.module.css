@@ -10,11 +10,6 @@
   @apply text-muted-foreground mt-3;
 }
 
-/* section heading (sizes / fonts) */
-.heading {
-  @apply mt-10 text-xl;
-}
-
 /* candidate name above each block */
 .label {
   @apply text-muted-foreground mt-6 block text-sm;

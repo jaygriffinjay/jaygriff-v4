@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { getCurrentPage, requireVisible } from "@/lib/page-meta";
+import { PageBody } from "@/components/layout/PageBody";
 import { Breadcrumbs } from "./breadcrumbs";
 import { SiteNav } from "./nav";
 import { PageToc } from "./page-toc";
@@ -48,7 +49,7 @@ export async function PageLayout({
         </div>
         {asideOnMobile === "top" && asideBlock}
         <main className={styles.main}>
-          {children}
+          <PageBody>{children}</PageBody>
           {!outsideTree && !hideRelated && <RelatedPages />}
           {!outsideTree && <PrevNext />}
         </main>

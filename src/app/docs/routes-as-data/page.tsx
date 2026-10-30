@@ -90,13 +90,13 @@ export default function RoutesAsDataPage() {
     <PageLayout>
       <PageHeader />
 
-      <H2 className={styles.section}>The problem</H2>
+      <H2>The problem</H2>
       <Paragraph>
         The site has two kinds of pages, and only one of them is data. Pages stored in the database have a title,
         a parent, tags and a publish date, so breadcrumbs and feeds already work for them. Pages written as{" "}
         <InlineCode>page.tsx</InlineCode> files in the repo have none of that. They exist only as folders.
       </Paragraph>
-      <List className={styles.list}>
+      <List>
         <ListItem>The nav is a hand-edited array, so every new section means editing code.</ListItem>
         <ListItem>
           Breadcrumbs can&apos;t label <InlineCode>/docs/code-stress</InlineCode>, because nothing says it&apos;s
@@ -108,7 +108,7 @@ export default function RoutesAsDataPage() {
         </ListItem>
       </List>
 
-      <H2 className={styles.section}>The idea</H2>
+      <H2>The idea</H2>
       <Paragraph>
         A TSX page keeps rendering from the repo, exactly as it does now. What changes is that it also gets a row
         in the database holding its <Bold>metadata</Bold>: title, parent, tags, visibility, position in the nav.
@@ -123,34 +123,34 @@ export default function RoutesAsDataPage() {
         ]}
       />
 
-      <H2 className={styles.section}>One tree per site</H2>
+      <H2>One tree per site</H2>
       <Paragraph>
         A path like <InlineCode>/docs</InlineCode> only means something on a particular site, and the plan is for
         one database to serve several sites. So a new <InlineCode>sites</InlineCode> table, a{" "}
         <InlineCode>site_id</InlineCode> on every content row, and paths that are unique per site instead of
         globally. Every existing row becomes part of the <InlineCode>jaygriff</InlineCode> site.
       </Paragraph>
-      <CodeBlock className={styles.code} code={schema} language="ts" filename="schema.ts (additions)" />
+      <CodeBlock code={schema} language="ts" filename="schema.ts (additions)" />
 
-      <H2 className={styles.section}>The sync</H2>
-      <H3 className={styles.subsection}>1. Discover</H3>
+      <H2>The sync</H2>
+      <H3>1. Discover</H3>
       <Paragraph>
         A script in the site walks <InlineCode>src/app</InlineCode> and turns every{" "}
         <InlineCode>page.tsx</InlineCode> into a path, following Next&apos;s own rules.
       </Paragraph>
-      <CodeBlock className={styles.code} code={discovered} language="text" filename="discovery" />
+      <CodeBlock code={discovered} language="text" filename="discovery" />
 
-      <H3 className={styles.subsection}>2. Read metadata from code</H3>
+      <H3>2. Read metadata from code</H3>
       <Paragraph>
         Each page&apos;s <InlineCode>export const metadata = {"{ title, description }"}</InlineCode> is
         Next&apos;s own convention, so it also gives the page a real <InlineCode>&lt;title&gt;</InlineCode> and
         description for search engines. The script reads it from the source text without running the page.
       </Paragraph>
 
-      <H3 className={styles.subsection}>3. Send the full list to goatboat</H3>
-      <CodeBlock className={styles.code} code={payload} language="http" filename="request.http" />
+      <H3>3. Send the full list to goatboat</H3>
+      <CodeBlock code={payload} language="http" filename="request.http" />
 
-      <H3 className={styles.subsection}>4. Goatboat reconciles</H3>
+      <H3>4. Goatboat reconciles</H3>
       <DataTable
         head={["Case", "What happens"]}
         rows={[
@@ -161,7 +161,7 @@ export default function RoutesAsDataPage() {
         ]}
       />
 
-      <H2 className={styles.section}>Who owns what</H2>
+      <H2>Who owns what</H2>
       <Paragraph>
         This is the rule that keeps the sync safe to run any number of times: code decides whether a page exists;
         the database decides everything said about it.
@@ -177,9 +177,9 @@ export default function RoutesAsDataPage() {
         ]}
       />
 
-      <H2 className={styles.section}>What the site gets</H2>
-      <CodeBlock className={styles.code} code={navQuery} language="ts" filename="usage.ts" />
-      <List className={styles.list}>
+      <H2>What the site gets</H2>
+      <CodeBlock code={navQuery} language="ts" filename="usage.ts" />
+      <List>
         <ListItem>
           <Bold>Nav</Bold> from top-level rows marked for the nav, ordered in goatboat.
         </ListItem>
@@ -196,9 +196,9 @@ export default function RoutesAsDataPage() {
         </ListItem>
       </List>
 
-      <H2 className={styles.section}>Open questions</H2>
+      <H2>Open questions</H2>
       <Paragraph>Things worth deciding before building, and where the design could be wrong.</Paragraph>
-      <List className={styles.list}>
+      <List>
         <ListItem>
           <Bold>Title drift.</Bold> After creation the database owns the title, so renaming a page in its{" "}
           <InlineCode>metadata</InlineCode> won&apos;t change the row. The page&apos;s{" "}
@@ -228,7 +228,7 @@ export default function RoutesAsDataPage() {
         </ListItem>
       </List>
 
-      <H2 className={styles.section}>Alternatives considered</H2>
+      <H2>Alternatives considered</H2>
       <DataTable
         head={["Alternative", "Why not"]}
         rows={[

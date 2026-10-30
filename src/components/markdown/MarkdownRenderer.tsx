@@ -20,7 +20,6 @@ import {
 } from "@/components/typography";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { slugifyHeading } from "@/lib/slugify-heading";
-import { cn } from "@/lib/utils";
 import styles from "./MarkdownRenderer.module.css";
 
 function textOf(node: Element | ElementContent | undefined): string {
@@ -83,13 +82,11 @@ function createComponents(): Components {
   };
 }
 
-/** Renders a markdown body with the site's own components. Raw HTML in the source is dropped. */
-export function MarkdownRenderer({ source, className }: { source: string; className?: string }) {
+/** Renders a markdown body with the site's own components, as direct children of the page's PageBody. Raw HTML in the source is dropped. */
+export function MarkdownRenderer({ source }: { source: string }) {
   return (
-    <div className={cn(styles.markdown, className)}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={createComponents()} skipHtml>
-        {source}
-      </ReactMarkdown>
-    </div>
+    <ReactMarkdown remarkPlugins={[remarkGfm]} components={createComponents()} skipHtml>
+      {source}
+    </ReactMarkdown>
   );
 }

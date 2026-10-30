@@ -16,7 +16,6 @@ import {
   unicode,
   unknownLanguage,
 } from "./samples";
-import styles from "./page.module.css";
 
 const longIdentifier =
   "useAbstractSingletonProxyFactoryBeanNotificationPreferencesManagerWithRetryAndExponentialBackoff";
@@ -31,25 +30,25 @@ export default function CodeStressPage() {
     <PageLayout>
       <PageHeader />
 
-      <H2 className={styles.heading}>Inline code</H2>
+      <H2>Inline code</H2>
 
-      <H3 className={styles.subheading}>Long identifier mid-sentence</H3>
+      <H3>Long identifier mid-sentence</H3>
       <Paragraph>
         Call <InlineCode>{longIdentifier}</InlineCode> once per render and pass the result down.
       </Paragraph>
 
-      <H3 className={styles.subheading}>Long URL</H3>
+      <H3>Long URL</H3>
       <Paragraph>
         The endpoint is <InlineCode>{longUrl}</InlineCode>, which returns paginated results.
       </Paragraph>
 
-      <H3 className={styles.subheading}>Long path and hash</H3>
+      <H3>Long path and hash</H3>
       <Paragraph>
         Open <InlineCode>{longPath}</InlineCode> and compare its integrity hash{" "}
         <InlineCode>{longHash}</InlineCode> against the lockfile.
       </Paragraph>
 
-      <H3 className={styles.subheading}>Many short ones in a row</H3>
+      <H3>Many short ones in a row</H3>
       <Paragraph>
         <InlineCode>a</InlineCode> <InlineCode>b</InlineCode> <InlineCode>useState</InlineCode>{" "}
         <InlineCode>useEffect</InlineCode> <InlineCode>useMemo</InlineCode>{" "}
@@ -61,7 +60,7 @@ export default function CodeStressPage() {
         <InlineCode>useActionState</InlineCode>
       </Paragraph>
 
-      <H3 className={styles.subheading}>Whitespace, symbols, and unicode</H3>
+      <H3>Whitespace, symbols, and unicode</H3>
       <Paragraph>
         <InlineCode>{"<div className={cn(\"a\", b && \"c\")} />"}</InlineCode>,{" "}
         <InlineCode>{"a   b    c     (multiple spaces)"}</InlineCode>,{" "}
@@ -69,7 +68,7 @@ export default function CodeStressPage() {
         <InlineCode>{"=> !== ?? ||= &&= ..."}</InlineCode>
       </Paragraph>
 
-      <H3 className={styles.subheading}>In a list</H3>
+      <H3>In a list</H3>
       <List>
         <ListItem>
           <InlineCode>{longIdentifier}</InlineCode>
@@ -79,43 +78,43 @@ export default function CodeStressPage() {
         </ListItem>
       </List>
 
-      <H3 className={styles.subheading}>
+      <H3>
         In a heading: <InlineCode>{longIdentifier}</InlineCode>
       </H3>
 
-      <H2 className={styles.heading}>Code blocks</H2>
+      <H2>Code blocks</H2>
 
-      <H3 className={styles.subheading}>Long identifiers and a long path</H3>
+      <H3>Long identifiers and a long path</H3>
       <CodeBlock files={[longIdentifiers]} />
 
-      <H3 className={styles.subheading}>Long strings (URL, base64, template)</H3>
+      <H3>Long strings (URL, base64, template)</H3>
       <CodeBlock files={[longStrings]} />
 
-      <H3 className={styles.subheading}>Minified, one giant line</H3>
+      <H3>Minified, one giant line</H3>
       <CodeBlock files={[minified]} />
 
-      <H3 className={styles.subheading}>Deep nesting</H3>
+      <H3>Deep nesting</H3>
       <CodeBlock files={[deepNesting]} />
 
-      <H3 className={styles.subheading}>Unicode, emoji, tabs, trailing whitespace</H3>
+      <H3>Unicode, emoji, tabs, trailing whitespace</H3>
       <CodeBlock files={[unicode]} />
 
-      <H3 className={styles.subheading}>Long shell command</H3>
+      <H3>Long shell command</H3>
       <CodeBlock files={[shellCommand]} />
 
-      <H3 className={styles.subheading}>Long JSON values</H3>
+      <H3>Long JSON values</H3>
       <CodeBlock files={[longJson]} />
 
-      <H3 className={styles.subheading}>Unknown language</H3>
+      <H3>Unknown language</H3>
       <CodeBlock files={[unknownLanguage]} />
 
-      <H3 className={styles.subheading}>One character, no path</H3>
+      <H3>One character, no path</H3>
       <CodeBlock files={[oneLine]} />
 
-      <H3 className={styles.subheading}>12 files with long names</H3>
+      <H3>12 files with long names</H3>
       <CodeBlock files={manyFiles} />
 
-      <H3 className={styles.subheading}>1,200 lines (four-digit line numbers)</H3>
+      <H3>1,200 lines (four-digit line numbers)</H3>
       <CodeBlock files={[manyLines]} />
     </PageLayout>
   );

@@ -40,7 +40,7 @@ export default async function ContentPage({ params }: Props) {
       )}
       <H1 id={slugifyHeading(item.title)} className={styles.title}>{item.title}</H1>
       {item.description && <Paragraph className={styles.description}>{item.description}</Paragraph>}
-      {item.body && <MarkdownRenderer className={styles.body} source={withoutLeadingTitle(item.body)} />}
+      {item.body && <MarkdownRenderer source={withoutLeadingTitle(item.body)} />}
       <ChildPages />
     </PageLayout>
   );

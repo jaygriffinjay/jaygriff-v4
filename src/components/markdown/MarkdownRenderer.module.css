@@ -1,20 +1,5 @@
 @reference "../../app/globals.css";
 
-/* body wrapper: vertical rhythm between blocks, with more room above headings */
-.markdown {
-  & > * + * {
-    @apply mt-block;
-  }
-
-  & > :is(h2, h3, h4, h5, h6) {
-    @apply mt-heading-above scroll-mt-24;
-  }
-
-  & > :is(h2, h3, h4, h5, h6) + * {
-    @apply mt-heading-below;
-  }
-}
-
 /* inline and internal links */
 .link {
   @apply link;

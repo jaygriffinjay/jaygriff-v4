@@ -12,11 +12,6 @@
 
 /* summary under the title */
 .description {
-  @apply text-muted-foreground mt-3;
-}
-
-/* rendered markdown body */
-.body {
-  @apply mt-8;
+  @apply text-muted-foreground;
 }
 

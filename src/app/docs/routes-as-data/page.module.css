@@ -10,32 +10,12 @@
   @apply text-muted-foreground mt-3;
 }
 
-/* section headings */
-.section {
-  @apply mt-12 mb-3 text-2xl;
-}
-
-/* numbered sub-steps inside a section */
-.subsection {
-  @apply mt-6 mb-2 text-lg;
-}
-
-/* prose lists */
-.list {
-  @apply mt-3;
-}
-
 /* comparison tables */
 .table {
-  @apply mt-4 text-sm;
+  @apply text-sm;
 }
 
 /* table cells wrap instead of forcing horizontal scroll */
 .cell {
   @apply align-top whitespace-normal;
-}
-
-/* code examples */
-.code {
-  @apply mt-4;
 }

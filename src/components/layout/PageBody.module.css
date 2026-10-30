@@ -1,0 +1,17 @@
+@reference "../../app/globals.css";
+
+/* vertical rhythm between a page's blocks, with more room above headings */
+.body {
+  & > * + * {
+    @apply mt-flow;
+  }
+
+  /* phones already offset jumps for the sticky header (scroll-padding on html), so this only adds a little there */
+  & > :is(h2, h3, h4, h5, h6) {
+    @apply mt-heading-above scroll-mt-4 sm:scroll-mt-24;
+  }
+
+  & > :is(h2, h3, h4, h5, h6) + * {
+    @apply mt-heading-below;
+  }
+}

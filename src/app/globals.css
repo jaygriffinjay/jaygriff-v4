@@ -62,7 +62,10 @@
   /* Space around headings on the same 375px to 1024px scale: above a section heading, and between a heading and what follows */
   --spacing-heading-above: clamp(1.75rem, 1.317rem + 1.849vw, 2.5rem); /* 28 → 40px */
   --spacing-heading-below: clamp(0.5rem, 0.356rem + 0.616vw, 0.75rem); /* 8 → 12px */
-  --spacing-block: clamp(0.875rem, 0.658rem + 0.925vw, 1.25rem); /* 14 → 20px, between paragraphs and other blocks */
+  --spacing-flow: clamp(0.75rem, 0.461rem + 1.233vw, 1.25rem); /* 12 → 20px, between paragraphs and other blocks; not named "block", which Tailwind reads as inline-block's size */
+
+  /* Code block text on the same scale; not named "code", which is already the inline code color */
+  --text-codeblock: clamp(0.75rem, 0.678rem + 0.308vw, 0.875rem); /* 12 → 14px */
 }
 
 /* matches any overscroll area to the page, and turns off the rubber-band bounce */
