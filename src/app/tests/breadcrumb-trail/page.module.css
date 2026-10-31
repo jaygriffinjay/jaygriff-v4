@@ -1,0 +1,11 @@
+@reference "../../globals.css";
+
+/* a plain list of test links */
+.list {
+  @apply flex flex-col gap-2;
+}
+
+/* standard inline link */
+.link {
+  @apply link;
+}
