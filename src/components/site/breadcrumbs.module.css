@@ -5,17 +5,12 @@
   @apply py-2;
 }
 
-/* a touch smaller than body text so the strip stays quiet */
+/* a touch smaller than body text so the strip stays quiet; wraps to more lines rather than hiding any crumb */
 .list {
-  @apply text-sm;
+  @apply flex-wrap gap-y-1 text-sm;
 }
 
-/* the "…" crumb keeps its size while titles shrink */
-.overflow {
-  @apply shrink-0;
-}
-
-/* one crumb's title; long ones cut off with "…", full title on hover */
-.title {
-  @apply block max-w-[11rem] truncate;
+/* the page you're on: plain text, a little heavier than the links */
+.current {
+  @apply font-medium;
 }
