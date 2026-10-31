@@ -1,0 +1,46 @@
+@reference "../globals.css";
+
+/* portrait above the page title, centred */
+.portrait {
+  @apply border-border mx-auto block aspect-square size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;
+}
+
+/* title block in the same centred column as everything below it, so its separator doesn't run the full page width */
+.header {
+  @apply mx-auto w-full max-w-2xl items-center text-center;
+}
+
+/* section headings line up with the centred column below them */
+.heading {
+  @apply mx-auto w-full max-w-2xl;
+}
+
+/* narrative bio: paragraphs at the page's own rhythm, in a centred reading column */
+.bio {
+  @apply gap-flow mx-auto flex w-full max-w-2xl flex-col leading-relaxed;
+}
+
+/* stack of question cards in the same centred column; the default accordion frame is dropped so each question is its own card */
+.accordion {
+  @apply mx-auto max-w-2xl gap-2 overflow-visible rounded-none border-0;
+}
+
+/* one question card; the border brightens to the accent colour on hover */
+.item {
+  @apply border-border hover:border-primary rounded-2xl border transition-colors;
+}
+
+/* the question row, which is the hit target for the whole card */
+.question {
+  @apply text-base font-semibold hover:no-underline;
+}
+
+/* answer text, inside the panel's own padding */
+.answer {
+  @apply text-muted-foreground leading-relaxed;
+}
+
+/* inline link inside an answer */
+.link {
+  @apply link;
+}
