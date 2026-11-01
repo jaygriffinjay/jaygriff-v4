@@ -1,0 +1,151 @@
+@reference "../globals.css";
+
+/* everything below the header, in one left-aligned column */
+.page {
+  @apply flex flex-col gap-8;
+}
+
+/* the usage statuses, as one small wrapped row of chips */
+.key {
+  @apply text-muted-foreground flex flex-wrap items-center gap-2 text-xs;
+}
+
+/* one status as a chip: bordered, and the border turns blue on hover like the site's other interactive cards; opens its meaning */
+.keyButton {
+  @apply border-border hover:border-primary hover:text-foreground focus-visible:focus-ring inline-flex cursor-pointer items-center gap-1.5 rounded-full border bg-transparent px-2.5 py-1 transition-colors;
+}
+
+/* the small info mark on every chip: the usual sign that there's more to read */
+.keyInfo {
+  @apply size-3 opacity-60;
+}
+
+/* the meaning, in a small card that matches the site's corner radius */
+.keyPopover {
+  @apply w-64 gap-0 rounded-lg p-3 text-sm;
+}
+
+/* asterisk after a tool name; its colour is the status. Hues are spread around the wheel and avoid the red/green/amber trio, which colour-blind readers can't tell apart */
+.statusMark {
+  @apply cursor-default text-lg leading-none font-bold;
+}
+
+/* occasional: emerald */
+.markOccasional {
+  @apply text-emerald-400;
+}
+
+/* benched: amber */
+.markBenched {
+  @apply text-amber-400;
+}
+
+/* dabbled: pink */
+.markDabbled {
+  @apply text-pink-400;
+}
+
+/* shelved: slate, faded because it's put away; red would read as an error */
+.markShelved {
+  @apply text-slate-400;
+}
+
+/* wishlist: sky */
+.markWishlist {
+  @apply text-sky-400;
+}
+
+/* one category: heading, then its tools */
+.sectionBody {
+  @apply w-full;
+}
+
+/* category heading; offset so a jump from the contents lands clear of the sticky header */
+.sectionHeading {
+  @apply mb-3 scroll-mt-4 sm:scroll-mt-24;
+}
+
+/* two side-by-side stacks. Each column is its own flow, so opening a card on one side can't move the other the way a shared grid row would */
+.toolGrid {
+  @apply grid w-full grid-cols-1 items-start gap-x-8 md:grid-cols-2;
+}
+
+/* one column of tools */
+.toolColumn {
+  @apply flex flex-col gap-1;
+}
+
+/* a tool: small logo on the left, name and line on the right; the same padding with or without a note, so logos line up down the column */
+.toolCard {
+  @apply flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors duration-200;
+}
+
+/* every row tints on hover; there are no borders */
+.toolCard:hover {
+  @apply bg-muted/50;
+}
+
+/* a tool with a note: the card stacks its row above the note, and the padding moves to the row */
+.toolCardNoted {
+  @apply flex-col items-stretch gap-0 p-0;
+}
+
+/* a card stays tinted while open, so the note reads as part of it */
+.toolCardOpen {
+  @apply bg-muted/40;
+}
+
+/* the clickable row of a card with a note */
+.toolTrigger {
+  @apply focus-visible:focus-ring flex w-full cursor-pointer items-center gap-3 rounded-lg bg-transparent px-3 py-2.5 text-left;
+}
+
+/* shows the row opens */
+.toolChevron {
+  @apply text-muted-foreground ml-auto size-4 shrink-0 transition-transform;
+}
+
+/* chevron flipped while open */
+.toolChevronOpen {
+  @apply rotate-180;
+}
+
+/* the opened note, indented to line up under the tool's name */
+.toolNote {
+  @apply text-muted-foreground m-0 pr-3 pb-3 pl-16 text-sm leading-relaxed;
+}
+
+/* fixed-size box the logo sits in */
+.toolLogo {
+  @apply relative flex size-10 shrink-0 items-center justify-center;
+}
+
+/* logo, kept inside its box */
+.toolLogoImg {
+  @apply max-h-full max-w-full object-contain;
+}
+
+/* turns a dark logo white so it shows on the dark background */
+.toolLogoInvert {
+  filter: brightness(0) invert(1);
+}
+
+/* name and line stacked */
+.toolBody {
+  @apply flex min-w-0 flex-col;
+}
+
+/* tool name */
+.toolTitle {
+  @apply block text-sm leading-tight;
+}
+
+/* the short line under the name */
+.toolDescription {
+  @apply text-muted-foreground m-0 text-sm leading-snug;
+}
+
+/* text for screen readers only, after a status mark */
+.srOnly {
+  @apply sr-only;
+}
