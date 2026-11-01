@@ -76,6 +76,20 @@ const ABOUT_ME = [
     ),
   },
   {
+    question: "What do you use to build software?",
+    answer: (
+      <>
+        Languages, frameworks, editors, and everything else I reach for is
+        listed in{" "}
+        <NextLink href="/my-stack" className={styles.link}>
+          my stack
+        </NextLink>
+        , along with what I actually use each one for and what I've moved on
+        from.
+      </>
+    ),
+  },
+  {
     question: "Will AI replace you?",
     answer: (
       <>
