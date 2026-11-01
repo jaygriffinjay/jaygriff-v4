@@ -1,4 +1,5 @@
-import { Geist, Geist_Mono, JetBrains_Mono, Sekuya } from "next/font/google";
+import { Geist, Geist_Mono, Sekuya } from "next/font/google";
+import localFont from "next/font/local";
 
 export const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,10 +12,13 @@ export const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const jetbrainsMono = JetBrains_Mono({
+export const jetbrainsMono = localFont({
   variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
+  // self-hosted from JetBrains' release: Google's subsets drop the box-drawing, block and arrow glyphs
+  src: [
+    { path: "./fonts/JetBrainsMono-Variable.woff2", weight: "100 800", style: "normal" },
+    { path: "./fonts/JetBrainsMono-Italic-Variable.woff2", weight: "100 800", style: "italic" },
+  ],
 });
 
 // display face for the site name, carried over from jaygriff v2
