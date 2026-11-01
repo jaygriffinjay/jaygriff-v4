@@ -140,4 +140,11 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  /* JetBrains Mono's ligatures turn == and => into single wide glyphs; code shows the characters as typed */
+  code,
+  pre,
+  kbd,
+  samp {
+    font-variant-ligatures: none;
+  }
 }
