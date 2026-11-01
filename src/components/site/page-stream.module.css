@@ -1,0 +1,72 @@
+@reference "../../app/globals.css";
+
+/* the whole stream; day groups one after another */
+.stream {
+  @apply flex flex-col gap-12;
+}
+
+/* one day: its heading, then its entries */
+.day {
+  @apply flex flex-col gap-4;
+}
+
+/* a day's entries, split by a hairline with room on both sides */
+.entries {
+  @apply divide-separator flex flex-col divide-y;
+
+  & > * {
+    @apply py-6;
+  }
+
+  & > :first-child {
+    @apply pt-0;
+  }
+
+  /* the last entry's padding would add to the gap before the next day */
+  & > :last-child {
+    @apply pb-0;
+  }
+}
+
+/* one entry: title, opening, what's left, tag line */
+.entry {
+  @apply flex min-w-0 flex-col gap-3;
+}
+
+/* the rendered opening, spaced like a page body */
+.opening {
+  & > * + * {
+    @apply mt-flow;
+  }
+}
+
+/* entry title, word count and tag links */
+.link {
+  @apply link;
+}
+
+/* </> before a code page's title */
+.glyph {
+  @apply mr-2 inline size-[0.9em] align-[-0.1em];
+}
+
+/* time · project · tags, wrapping onto more lines when long */
+.tagLine {
+  @apply flex flex-wrap items-center gap-x-2 gap-y-1;
+}
+
+/* one item on the tag line with the dot before it */
+.part {
+  @apply inline-flex items-center gap-2;
+}
+
+/* the entry's time, a permalink that only lights up on hover */
+.quietLink {
+  @apply link;
+  --link-color: var(--muted-foreground);
+}
+
+/* #hashtags, spaced apart */
+.tags {
+  @apply inline-flex flex-wrap gap-x-2;
+}
