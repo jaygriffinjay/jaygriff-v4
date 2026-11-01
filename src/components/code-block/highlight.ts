@@ -10,6 +10,8 @@ import {
 import type { CodeFile } from "./types";
 
 const THEME = "dark-plus";
+// the browser's default tab-size, which the code block doesn't change
+const TAB_SIZE = 8;
 
 const EXTENSION_LANGUAGES: Record<string, string> = {
   ts: "typescript",
@@ -50,6 +52,20 @@ export async function highlight(code: string, language: string): Promise<ReactNo
     await highlighter.loadLanguage(lang);
   }
 
-  const hast = highlighter.codeToHast(code, { lang, theme: THEME });
+  const sourceLines = code.split(/\r?\n/);
+  const hast = highlighter.codeToHast(code, {
+    lang,
+    theme: THEME,
+    transformers: [
+      {
+        // each line's indentation in columns, so wrapped rows can hang at it (see .line in CodeBlockClient.module.css)
+        line(node, lineNumber) {
+          const leading = /^[ \t]*/.exec(sourceLines[lineNumber - 1] ?? "")?.[0] ?? "";
+          const columns = [...leading].reduce((sum, c) => sum + (c === "\t" ? TAB_SIZE : 1), 0);
+          if (columns) node.properties.style = `--indent:${columns}`;
+        },
+      },
+    ],
+  });
   return toJsxRuntime(hast, { Fragment, jsx, jsxs }) as ReactNode;
 }
