@@ -1,0 +1,6 @@
+/* small, bold, all-caps label: the heading over aside sections, the footer columns, the contents bar, the Previous/Next labels.
+   @apply caps-label in a module class. The letter spacing is --tracking-wider; set --caps-tracking on the class to widen it. */
+@utility caps-label {
+  @apply text-heading text-xs font-semibold uppercase;
+  letter-spacing: var(--caps-tracking, var(--tracking-wider));
+}

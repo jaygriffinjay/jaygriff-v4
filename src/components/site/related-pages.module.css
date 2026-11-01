@@ -7,7 +7,7 @@
 
 /* small caps section label, like the aside headings; nested under .section so it outranks the H2 size whatever order the CSS loads in */
 .section .heading {
-  @apply text-heading border-separator border-b pb-2 text-xs font-semibold tracking-wider uppercase;
+  @apply caps-label border-separator border-b pb-2;
 }
 
 /* stack of related pages */

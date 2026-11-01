@@ -22,7 +22,7 @@
 
 /* small caps "← Previous" / "Next →" */
 .label {
-  @apply text-heading text-xs font-semibold tracking-wider uppercase;
+  @apply caps-label;
 }
 
 /* the destination's title in link blue; the box border is the only hover effect */

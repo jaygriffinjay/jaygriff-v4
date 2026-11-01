@@ -44,5 +44,5 @@
 
 /* "On this page" label; same small caps and rule as the desktop side column's heading */
 .tocHeading {
-  @apply text-heading border-separator mb-3 border-b pb-2 text-xs font-semibold tracking-wider uppercase;
+  @apply caps-label border-separator mb-3 border-b pb-2;
 }

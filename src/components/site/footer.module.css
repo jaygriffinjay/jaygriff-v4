@@ -35,9 +35,10 @@
   @apply flex shrink-0 flex-col gap-3;
 }
 
-/* compact uppercase footer column heading */
+/* compact uppercase footer column heading, spaced wider than the other caps labels */
 .columnTitle {
-  @apply text-heading text-xs font-semibold tracking-widest whitespace-nowrap uppercase;
+  @apply caps-label whitespace-nowrap;
+  --caps-tracking: var(--tracking-widest);
 }
 
 /* footer links use the shared site link treatment at compact navigation size */

@@ -3,6 +3,7 @@
 @import "tw-animate-css";
 @import "../styles/link.css";
 @import "../styles/focus.css";
+@import "../styles/caps-label.css";
 
 /* shadcn components ship dark: variants; the theme is dark-toned, so they always apply */
 @custom-variant dark (&);
