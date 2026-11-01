@@ -163,7 +163,7 @@ function Questions({ items }: { items: Entry[] }) {
 
 export default function AboutPage() {
   return (
-    <PageLayout hideRelated>
+    <PageLayout hideRelated hideToc>
       <Image
         src="/images/me2.jpg"
         alt="Jay Griffin"
@@ -172,7 +172,7 @@ export default function AboutPage() {
         priority
         className={styles.portrait}
       />
-      <PageHeader className={styles.header} />
+      <PageHeader className={styles.header} intro="A bit about how I got here, plus a Q&A for fun." />
 
       <div className={styles.bio}>
         <Paragraph>

@@ -18,6 +18,8 @@ interface PageLayoutProps {
   outsideTree?: boolean;
   /** Section index pages list their children instead, so they turn related pages off. */
   hideRelated?: boolean;
+  /** Pages whose headings aren't worth navigating (a short bio) turn the automatic table of contents off. */
+  hideToc?: boolean;
   className?: string;
 }
 
@@ -30,11 +32,12 @@ export async function PageLayout({
   asideOnMobile: ownAsideOnMobile = "bottom",
   outsideTree,
   hideRelated,
+  hideToc,
   className,
 }: PageLayoutProps) {
   // The 404 page renders at the requested path, so it must not check that path again
   if (!outsideTree) await requireVisible();
-  const item = outsideTree || ownAside ? null : (await getCurrentPage())?.item;
+  const item = outsideTree || ownAside || hideToc ? null : (await getCurrentPage())?.item;
   const autoToc = item?.toc && item.toc.length >= MIN_AUTO_TOC ? item : null;
   const aside = ownAside ?? (autoToc && <PageToc title={autoToc.title} entries={autoToc.toc!} />);
   const asideOnMobile = ownAside ? ownAsideOnMobile : "top";
