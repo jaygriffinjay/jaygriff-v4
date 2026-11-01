@@ -2,6 +2,7 @@
 
 import NextLink from "next/link";
 import { useEffect, type MouseEvent } from "react";
+import { flushSync } from "react-dom";
 import { useActiveHeading } from "@/hooks/use-active-heading";
 import type { TocEntry } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
@@ -11,10 +12,13 @@ export function TableOfContents({
   title,
   titleId,
   entries,
+  onNavigate,
 }: {
   title: string;
   titleId: string;
   entries: TocEntry[];
+  /** Called when a link is followed, before the page scrolls; a container that collapses can do so first. */
+  onNavigate?: () => void;
 }) {
   const [activeId, setActiveId] = useActiveHeading(
     titleId,
@@ -37,6 +41,8 @@ export function TableOfContents({
     if (!heading && id !== titleId) return;
 
     event.preventDefault();
+    // Collapsing moves the page, so it has to land before the scroll is measured
+    if (onNavigate) flushSync(onNavigate);
     window.history.replaceState(
       null,
       "",
