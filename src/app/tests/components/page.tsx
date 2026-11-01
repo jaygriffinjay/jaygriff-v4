@@ -265,7 +265,7 @@ function Section({ children }: { children: React.ReactNode }) {
 export default function ComponentsPage() {
   return (
     <PageLayout>
-      <NextLink href="/docs/components/library" className={styles.libraryBanner}>
+      <NextLink href="/tests/components/library" className={styles.libraryBanner}>
         <span>Component library: every component with the real theme</span>
         <span aria-hidden>→</span>
       </NextLink>
@@ -311,7 +311,7 @@ export default function ComponentsPage() {
               my GitHub
             </NextLink>
             . A link that wraps across lines keeps its highlight on every line:{" "}
-            <NextLink href="/docs/components" className={styles.link}>
+            <NextLink href="/tests/components" className={styles.link}>
               this deliberately long link text should wrap onto a second line on most screens
             </NextLink>
             .

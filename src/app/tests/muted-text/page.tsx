@@ -54,7 +54,7 @@ function Sample({ name, className }: { name: string; className: string }) {
       <H2 className={styles.h2}>Related pages</H2>
       <ul className={styles.list}>
         <li>
-          <NextLink href="/docs/blues" className={styles.listLink}>
+          <NextLink href="/tests/blues" className={styles.listLink}>
             Blue tester
           </NextLink>
           <Paragraph className={cn(styles.muted, styles.description)}>
@@ -62,7 +62,7 @@ function Sample({ name, className }: { name: string; className: string }) {
           </Paragraph>
         </li>
         <li>
-          <NextLink href="/docs/code-blocks" className={styles.listLink}>
+          <NextLink href="/tests/code-blocks" className={styles.listLink}>
             Code blocks
           </NextLink>
           <Paragraph className={cn(styles.muted, styles.description)}>

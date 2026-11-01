@@ -31,18 +31,18 @@ export default function BluesPage() {
             <H2 className={styles.h2}>A big heading in this blue</H2>
             <H3 className={styles.h3}>
               A smaller heading with{" "}
-              <NextLink href="/docs/blues" className={styles.link}>
+              <NextLink href="/tests/blues" className={styles.link}>
                 a link inside it
               </NextLink>
             </H3>
 
             <Paragraph>
               Body text with{" "}
-              <NextLink href="/docs/blues" className={styles.link}>
+              <NextLink href="/tests/blues" className={styles.link}>
                 an inline link
               </NextLink>{" "}
               and{" "}
-              <NextLink href="/docs/blues" className={styles.link}>
+              <NextLink href="/tests/blues" className={styles.link}>
                 a longer link that keeps going for a while
               </NextLink>
               , next to some <InlineCode>inline code</InlineCode>.{" "}
@@ -51,7 +51,7 @@ export default function BluesPage() {
 
             <Small className={styles.meta}>
               Posted Oct 10, 2026 in{" "}
-              <NextLink href="/docs/blues" className={styles.link}>
+              <NextLink href="/tests/blues" className={styles.link}>
                 design
               </NextLink>
             </Small>
