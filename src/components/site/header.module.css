@@ -1,15 +1,15 @@
 @reference "../../app/globals.css";
 
-/* phones: a slim bar stuck to the top with the name and menu button, full width past the shell's padding; from sm up, the intro block above the nav */
+/* below the wide breakpoint: a slim bar stuck to the top with the name and menu button, full width past the shell's padding; from there up, the intro block above the nav */
 .header {
-  @apply bg-background sticky top-0 z-40 -mx-4 px-4 py-3 sm:static sm:mx-0 sm:px-0 sm:py-8;
+  @apply bg-background sticky top-0 z-40 -mx-4 px-4 py-3 wide:static wide:mx-0 wide:px-0 wide:py-8;
 }
 
-/* phones: a soft fade under the bar, so content slides out from beneath it instead of being cut off */
+/* below the wide breakpoint: a soft fade under the bar, so content slides out from beneath it instead of being cut off */
 .header::after {
   content: "";
   background: linear-gradient(to bottom, var(--background), transparent);
-  @apply pointer-events-none absolute inset-x-0 top-full h-4 sm:hidden;
+  @apply pointer-events-none absolute inset-x-0 top-full h-4 wide:hidden;
 }
 
 /* site name on the left, phone menu button on the right */

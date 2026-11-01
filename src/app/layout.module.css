@@ -9,5 +9,5 @@
 
 /* centered page frame, padded in from the screen edges; max width is the page frame plus that padding */
 .shell {
-  @apply mx-auto w-full max-w-[calc(var(--container-page)+3rem)] flex-1 px-4 pb-16 sm:px-6;
+  @apply mx-auto w-full max-w-[calc(var(--container-page)+3rem)] flex-1 px-4 pb-16 wide:px-6;
 }

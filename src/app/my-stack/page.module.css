@@ -62,7 +62,7 @@
 
 /* category heading; offset so a jump from the contents lands clear of the sticky header */
 .sectionHeading {
-  @apply mb-3 scroll-mt-4 sm:scroll-mt-24;
+  @apply mb-3 scroll-mt-4 wide:scroll-mt-24;
 }
 
 /* two side-by-side stacks. Each column is its own flow, so opening a card on one side can't move the other the way a shared grid row would */

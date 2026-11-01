@@ -95,9 +95,9 @@ export function MobileMenu({
   // Following any link inside the menu lands on a new page, so close it then
   useEffect(() => setOpen(false), [pathname]);
 
-  // Past Tailwind's sm breakpoint the hamburger is hidden, so the overlay can't stay open
+  // Past the wide breakpoint (56rem, set in globals.css) the hamburger is hidden, so the overlay can't stay open
   useEffect(() => {
-    const wide = window.matchMedia("(min-width: 40rem)");
+    const wide = window.matchMedia("(min-width: 56rem)");
     const closeIfWide = () => wide.matches && setOpen(false);
     wide.addEventListener("change", closeIfWide);
     return () => wide.removeEventListener("change", closeIfWide);
