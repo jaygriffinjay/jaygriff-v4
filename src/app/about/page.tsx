@@ -178,15 +178,17 @@ function Questions({ items }: { items: Entry[] }) {
 export default function AboutPage() {
   return (
     <PageLayout hideRelated hideToc>
-      <Image
-        src="/images/me2.jpg"
-        alt="Jay Griffin"
-        width={200}
-        height={200}
-        priority
-        className={styles.portrait}
-      />
-      <PageHeader className={styles.header} intro="A bit about how I got here, plus a Q&A for fun." />
+      <div className={styles.top}>
+        <Image
+          src="/images/me2.jpg"
+          alt="Jay Griffin"
+          width={200}
+          height={200}
+          priority
+          className={styles.portrait}
+        />
+        <PageHeader className={styles.header} intro="A bit about how I got here, plus a Q&A for fun." />
+      </div>
 
       <div className={styles.bio}>
         <Paragraph>

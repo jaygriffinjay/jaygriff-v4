@@ -1,28 +1,33 @@
 @reference "../globals.css";
 
-/* portrait above the page title, centred */
+/* portrait, title and intro centred together over the content below, which stays left-aligned; the width matches it, so the separator ends where the content does */
+.top {
+  @apply gap-flow flex w-full max-w-2xl flex-col items-center text-center;
+}
+
+/* portrait above the page title */
 .portrait {
-  @apply border-border mx-auto block aspect-square size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;
+  @apply border-border block aspect-square size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;
 }
 
-/* title block in the same centred column as everything below it, so its separator doesn't run the full page width */
+/* the header fills the block, so its separator spans the content width instead of shrinking to the text */
 .header {
-  @apply mx-auto w-full max-w-2xl items-center text-center;
+  @apply w-full;
 }
 
-/* section headings line up with the centred column below them */
+/* section headings share the reading width of the content below them */
 .heading {
-  @apply mx-auto w-full max-w-2xl;
+  @apply w-full max-w-2xl;
 }
 
-/* narrative bio: paragraphs at the page's own rhythm, in a centred reading column */
+/* narrative bio: paragraphs at the page's own rhythm, at a reading width */
 .bio {
-  @apply gap-flow mx-auto flex w-full max-w-2xl flex-col leading-relaxed;
+  @apply gap-flow flex w-full max-w-2xl flex-col leading-relaxed;
 }
 
-/* stack of question cards in the same centred column; the default accordion frame is dropped so each question is its own card */
+/* stack of question cards at the same reading width; the default accordion frame is dropped so each question is its own card */
 .accordion {
-  @apply mx-auto max-w-2xl gap-2 overflow-visible rounded-none border-0;
+  @apply max-w-2xl gap-2 overflow-visible rounded-none border-0;
 }
 
 /* one question card; the border brightens to the accent colour on hover */
