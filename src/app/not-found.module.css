@@ -5,12 +5,7 @@
   @apply flex flex-col items-center gap-4 py-16 text-center;
 }
 
-/* page heading */
-.title {
-  @apply text-title;
-}
-
-/* one-line explanation under the heading */
+/* one-line explanation under the heading, kept narrow */
 .message {
-  @apply text-muted-foreground max-w-sm;
+  @apply max-w-sm;
 }

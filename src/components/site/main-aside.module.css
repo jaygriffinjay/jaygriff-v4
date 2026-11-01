@@ -1,10 +1,5 @@
 @reference "../../app/globals.css";
 
-/* body copy in the About section */
-.text {
-  @apply text-muted-foreground text-sm;
-}
-
 /* link list in the Elsewhere section */
 .list {
   @apply space-y-2;

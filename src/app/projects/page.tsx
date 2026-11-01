@@ -1,7 +1,7 @@
 // goatboat: 0322d4be-659c-4b3f-b219-b8d2e754134f
 import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { H2, Paragraph } from "@/components/typography";
+import { H2, Lead, Paragraph } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { listProjects, type Project } from "@/lib/goatboat";
@@ -22,7 +22,7 @@ export default async function ProjectsPage() {
           ))}
         </ul>
       ) : (
-        <Paragraph className={styles.empty}>Nothing here yet.</Paragraph>
+        <Lead className={styles.empty}>Nothing here yet.</Lead>
       )}
     </PageLayout>
   );
@@ -38,7 +38,7 @@ function ProjectEntry({ project }: { project: Project }) {
   return (
     <li className={styles.item}>
       <H2 className={styles.name}>{project.title}</H2>
-      {project.tagline && <Paragraph className={styles.tagline}>{project.tagline}</Paragraph>}
+      {project.tagline && <Lead>{project.tagline}</Lead>}
       {project.description && <Paragraph>{project.description}</Paragraph>}
 
       {(links.length > 0 || project.tags?.length) && (

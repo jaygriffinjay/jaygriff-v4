@@ -1,6 +1,6 @@
 import { notFound, permanentRedirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { H1, Paragraph } from "@/components/typography";
+import { Lead, Title } from "@/components/typography";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { ChildPages } from "@/components/site/child-pages";
 import { PageLayout } from "@/components/site/page-layout";
@@ -38,8 +38,8 @@ export default async function ContentPage({ params }: Props) {
           {item.status} · only visible in local dev
         </Badge>
       )}
-      <H1 id={slugifyHeading(item.title)} className={styles.title}>{item.title}</H1>
-      {item.description && <Paragraph className={styles.description}>{item.description}</Paragraph>}
+      <Title id={slugifyHeading(item.title)}>{item.title}</Title>
+      {item.description && <Lead>{item.description}</Lead>}
       {item.body && <MarkdownRenderer source={withoutLeadingTitle(item.body)} />}
       <ChildPages />
     </PageLayout>

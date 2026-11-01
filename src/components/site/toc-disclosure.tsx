@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import { ChevronDownIcon } from "lucide-react";
-import { H2 } from "@/components/typography";
+import { CapsLabel } from "@/components/typography";
 import type { TocEntry } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
 import { TableOfContents } from "./table-of-contents";
@@ -23,7 +23,9 @@ export function TocDisclosure({
 
   return (
     <section className={styles.section}>
-      <H2 className={styles.heading}>On this page</H2>
+      <h2 className={styles.heading}>
+        <CapsLabel>On this page</CapsLabel>
+      </h2>
 
       <button
         type="button"
@@ -32,7 +34,7 @@ export function TocDisclosure({
         aria-controls={panelId}
         onClick={() => setOpen((value) => !value)}
       >
-        <span className={styles.toggleLabel}>On this page</span>
+        <CapsLabel>On this page</CapsLabel>
         <span className={styles.toggleCount}>
           {entries.length} {entries.length === 1 ? "section" : "sections"}
         </span>

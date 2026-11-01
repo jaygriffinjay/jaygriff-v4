@@ -1,4 +1,5 @@
 import NextLink from "next/link";
+import { CapsLabel } from "@/components/typography";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import styles from "./footer.module.css";
@@ -57,7 +58,9 @@ export function SiteFooter({ className }: SiteFooterProps) {
         <div className={styles.columns}>
           {columns.map((column) => (
             <nav key={column.title} className={styles.column} aria-label={column.title}>
-              <span className={styles.columnTitle}>{column.title}</span>
+              <CapsLabel className={styles.columnTitle}>
+                {column.title}
+              </CapsLabel>
               {column.links.map(({ label, href }) =>
                 href.startsWith("/") ? (
                   <NextLink key={href} href={href} className={styles.link}>

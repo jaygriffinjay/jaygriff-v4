@@ -1,4 +1,4 @@
-import { H1, Paragraph } from "@/components/typography";
+import { Lead, Title } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
 import { currentPath, getCurrentPage, titleFromPath } from "@/lib/page-meta";
 import { cn } from "@/lib/utils";
@@ -20,8 +20,8 @@ export async function PageHeader({
 
   return (
     <header className={cn(styles.header, className)}>
-      <H1 className={styles.title}>{title}</H1>
-      {intro && <Paragraph className={styles.intro}>{intro}</Paragraph>}
+      <Title>{title}</Title>
+      {intro && <Lead className={styles.intro}>{intro}</Lead>}
       {separator && <Separator className={styles.separator} />}
     </header>
   );

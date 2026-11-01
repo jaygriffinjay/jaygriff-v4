@@ -1,4 +1,4 @@
-import { H1, Paragraph } from "@/components/typography";
+import { Lead, Title } from "@/components/typography";
 import { BackButton } from "@/components/site/back-button";
 import { PageLayout } from "@/components/site/page-layout";
 import styles from "./not-found.module.css";
@@ -8,10 +8,10 @@ export default function NotFound() {
   return (
     <PageLayout outsideTree>
       <article className={styles.article}>
-        <H1 className={styles.title}>Nothing here</H1>
-        <Paragraph className={styles.message}>
-          This page doesn&apos;t work, doesn&apos;t exist, or wandered off somewhere.
-        </Paragraph>
+        <Title>Nothing here</Title>
+        <Lead className={styles.message}>
+          This page doesn't work, doesn't exist, or wandered off somewhere.
+        </Lead>
         <BackButton />
       </article>
     </PageLayout>

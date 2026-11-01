@@ -1,4 +1,5 @@
 import NextLink from "next/link";
+import { CapsLabel } from "@/components/typography";
 import { cn } from "@/lib/utils";
 import styles from "./step-links.module.css";
 
@@ -21,7 +22,7 @@ type StepLinkProps = {
 export function StepLink({ direction, href, label, title, rel }: StepLinkProps) {
   return (
     <NextLink href={href} rel={rel} className={cn(styles.item, styles[direction])}>
-      <span className={styles.label}>{label}</span>
+      <CapsLabel>{label}</CapsLabel>
       <span className={styles.title}>{title}</span>
     </NextLink>
   );

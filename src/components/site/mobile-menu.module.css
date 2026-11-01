@@ -42,7 +42,7 @@
   @apply text-primary hover:bg-muted focus-visible:focus-ring -my-2 -mr-2 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md p-2 [&>svg]:size-9;
 }
 
-/* "On this page" label; same small caps and rule as the desktop side column's heading */
+/* "On this page" label with a rule under it and room before the list */
 .tocHeading {
-  @apply caps-label border-separator mb-3 border-b pb-2;
+  @apply border-separator mb-3 border-b pb-2;
 }

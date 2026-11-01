@@ -6,6 +6,7 @@ import NextLink from "next/link";
 import { Dialog } from "@base-ui/react/dialog";
 import { MenuIcon, XIcon } from "lucide-react";
 import { useActiveHeading } from "@/hooks/use-active-heading";
+import { CapsLabel } from "@/components/typography";
 import type { TocEntry } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
 import { BreadcrumbTrail, type Crumb } from "./breadcrumb-trail";
@@ -128,7 +129,9 @@ export function MobileMenu({
 
           {toc && (
             <section className={styles.toc}>
-              <p className={styles.tocHeading}>On this page</p>
+              <h2 className={styles.tocHeading}>
+                <CapsLabel>On this page</CapsLabel>
+              </h2>
               <TocList title={toc.title} titleId={toc.titleId} entries={toc.entries} activeId={activeId} goTo={goTo} />
             </section>
           )}

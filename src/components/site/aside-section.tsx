@@ -1,4 +1,4 @@
-import { H2 } from "@/components/typography";
+import { CapsLabel } from "@/components/typography";
 import { cn } from "@/lib/utils";
 import styles from "./aside-section.module.css";
 
@@ -12,7 +12,9 @@ interface AsideSectionProps {
 export function AsideSection({ title, children, className }: AsideSectionProps) {
   return (
     <section className={cn(styles.section, className)}>
-      <H2 className={styles.title}>{title}</H2>
+      <h2 className={styles.heading}>
+        <CapsLabel>{title}</CapsLabel>
+      </h2>
       <div className={styles.body}>{children}</div>
     </section>
   );

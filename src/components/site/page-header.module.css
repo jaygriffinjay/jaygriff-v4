@@ -5,14 +5,9 @@
   @apply flex flex-col;
 }
 
-/* page heading */
-.title {
-  @apply text-title;
-}
-
-/* intro line under the heading */
+/* gap between the heading and the intro */
 .intro {
-  @apply text-muted-foreground mt-heading-below;
+  @apply mt-heading-below;
 }
 
 /* rule closing off the header from the page body */

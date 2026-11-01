@@ -2,7 +2,12 @@
 
 /* ─── Headings ─── */
 
-/* page title */
+/* the page's own title (Title), a step smaller than a markdown h1 */
+.title {
+  @apply text-heading text-title font-bold tracking-tight;
+}
+
+/* h1 inside content */
 .h1 {
   @apply text-heading text-h1 font-bold tracking-tight;
 }
@@ -37,6 +42,23 @@
 /* standard paragraph */
 .paragraph {
   @apply text-base leading-relaxed;
+}
+
+/* muted paragraph at body size (Lead) */
+.lead {
+  @apply text-muted-foreground text-base leading-relaxed;
+}
+
+/* small muted paragraph (Muted) */
+.muted {
+  @apply text-muted-foreground text-sm;
+}
+
+/* ─── Labels ─── */
+
+/* small, bold, all-caps label (CapsLabel) */
+.capsLabel {
+  @apply text-heading block text-xs font-semibold tracking-widest uppercase;
 }
 
 /* fine print / secondary text */

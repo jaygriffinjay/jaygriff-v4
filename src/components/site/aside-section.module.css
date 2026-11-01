@@ -5,9 +5,9 @@
   @apply min-w-0;
 }
 
-/* small caps heading with a rule under it; nested under .section so it outranks the H2 size whatever order the CSS loads in */
-.section .title {
-  @apply caps-label border-separator border-b pb-2;
+/* rule under the section's caps label */
+.heading {
+  @apply border-separator border-b pb-2;
 }
 
 /* section content below the heading */

@@ -24,6 +24,13 @@ applyTo: "**/*.module.css"
 
 5. **One CSS module per route file.** `page.tsx` → `page.module.css`, `layout.tsx` → `layout.module.css`, `not-found.tsx` → `not-found.module.css`, all co-located in the same route folder. Pages never share a module, even if their styles currently match.
 
+## Never fight another component's styles
+
+Two single-class rules setting the same property on one element tie, and whichever CSS chunk loads last wins. That order changes between page loads, so the page flickers between the two. Don't fix it with `:where()`, nesting or `!important`; don't set the property twice.
+
+- **Text style belongs to typography.** A class passed to a typography component (`Title`, `H2`, `Paragraph`, `CapsLabel`, …) sets layout only: margin, width, borders, scroll offset. Never font size, weight, family, tracking, case or color. Need a different look? Add a component to `src/components/typography.tsx`, don't restyle an `H2` into something else.
+- **`PageBody` owns the vertical margin between a page's blocks.** A block directly inside it never sets its own `mt-*`/`mb-*`/`my-*`. For extra room, use padding (`pt-8`), which adds to the flow margin instead of replacing it.
+
 ## Example
 
 ```css

@@ -2,14 +2,14 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { Paragraph } from "@/components/typography";
+import { Italic, Lead, Muted } from "@/components/typography";
 import type { FeedItem } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
 import styles from "./feed.module.css";
 
 /** Content rows as a list, in the order given: cover, type, date, title and summary. */
 export function Feed({ items, className }: { items: FeedItem[]; className?: string }) {
-  if (!items.length) return <Paragraph className={styles.empty}>Nothing here yet.</Paragraph>;
+  if (!items.length) return <Lead className={styles.empty}>Nothing here yet.</Lead>;
 
   return (
     <ul className={cn(styles.list, className)}>
@@ -54,8 +54,12 @@ function FeedEntry({ item }: { item: FeedItem }) {
           </NextLink>
         )}
 
-        {item.description && <Paragraph className={styles.description}>{item.description}</Paragraph>}
-        {item.viaName && <Paragraph className={styles.via}>via {item.viaName}</Paragraph>}
+        {item.description && <Muted className={styles.description}>{item.description}</Muted>}
+        {item.viaName && (
+          <Muted className={styles.via}>
+            <Italic>via {item.viaName}</Italic>
+          </Muted>
+        )}
       </div>
     </li>
   );

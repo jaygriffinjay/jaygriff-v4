@@ -8,6 +8,11 @@ type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 const headingId = ({ id, children }: HeadingProps) =>
   id ?? (typeof children === "string" ? slugifyHeading(children) || undefined : undefined);
 
+/** The page's own title: an h1 at the title size, a step under H1, which is for h1s inside markdown. */
+export function Title({ className, ...props }: HeadingProps) {
+  return <h1 className={cn(styles.title, className)} {...props} />;
+}
+
 export function H1({ className, ...props }: HeadingProps) {
   return <h1 className={cn(styles.h1, className)} {...props} />;
 }
@@ -34,6 +39,21 @@ export function H6({ className, ...props }: HeadingProps) {
 
 export function Paragraph({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
   return <p className={cn(styles.paragraph, className)} {...props} />;
+}
+
+/** Muted paragraph at body size: the intro under a title, a tagline, an empty-state line. */
+export function Lead({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+  return <p className={cn(styles.lead, className)} {...props} />;
+}
+
+/** Small muted paragraph: a one-line summary in a list, side-column copy. */
+export function Muted({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+  return <p className={cn(styles.muted, className)} {...props} />;
+}
+
+/** Small, bold, all-caps label: side-column headings, footer columns, Previous/Next. Wrap it in an h2 where it heads a section. */
+export function CapsLabel({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
+  return <span className={cn(styles.capsLabel, className)} {...props} />;
 }
 
 export function Small({ className, ...props }: React.HTMLAttributes<HTMLElement>) {

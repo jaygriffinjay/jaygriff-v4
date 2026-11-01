@@ -20,11 +20,6 @@
   @apply order-first sm:order-none sm:col-start-2 sm:items-end sm:text-right;
 }
 
-/* small caps "← Previous" / "Next →" */
-.label {
-  @apply caps-label;
-}
-
 /* the destination's title in link blue; the box border is the only hover effect */
 .title {
   @apply text-primary max-w-full truncate font-medium;

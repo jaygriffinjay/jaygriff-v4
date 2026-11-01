@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import { Paragraph } from "@/components/typography";
+import { Muted } from "@/components/typography";
 import { Aside } from "./aside";
 import { AsideSection } from "./aside-section";
 import styles from "./main-aside.module.css";
@@ -9,10 +9,10 @@ export function MainAside() {
   return (
     <Aside>
       <AsideSection title="About">
-        <Paragraph className={styles.text}>
-          I&apos;m Jay, a self-taught software developer. This is where I build things and
+        <Muted>
+          I'm Jay, a self-taught software developer. This is where I build things and
           write about them.
-        </Paragraph>
+        </Muted>
       </AsideSection>
 
       <AsideSection title="Elsewhere">

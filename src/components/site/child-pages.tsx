@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import { Paragraph } from "@/components/typography";
+import { Muted } from "@/components/typography";
 import { getCurrentPage, isVisible } from "@/lib/page-meta";
 import { cn } from "@/lib/utils";
 import styles from "./child-pages.module.css";
@@ -17,7 +17,7 @@ export async function ChildPages({ className }: { className?: string }) {
           <NextLink href={child.path} className={styles.link}>
             {child.title}
           </NextLink>
-          {child.description && <Paragraph className={styles.description}>{child.description}</Paragraph>}
+          {child.description && <Muted className={styles.description}>{child.description}</Muted>}
         </li>
       ))}
     </ul>

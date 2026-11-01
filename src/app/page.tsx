@@ -1,4 +1,4 @@
-import { H1, H2, Paragraph } from "@/components/typography";
+import { H2, Paragraph, Title } from "@/components/typography";
 import { Feed } from "@/components/site/feed";
 import { PageLayout } from "@/components/site/page-layout";
 import { MainAside } from "@/components/site/main-aside";
@@ -18,7 +18,7 @@ export default async function Home() {
   return (
     <PageLayout aside={<MainAside />} hideRelated>
       <article className={styles.article}>
-        <H1 className={styles.title}>Hi, I&apos;m Jay</H1>
+        <Title>Hi, I'm Jay</Title>
         <Paragraph>
           Welcome to my website where I do my work and publish it too! On here I document my development work, share my thoughts, and maybe even post some personal stuff.
         </Paragraph>

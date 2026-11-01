@@ -5,19 +5,14 @@
   @apply min-w-0;
 }
 
-/* "On this page" heading with a rule under it, only beside the article; nested under .section so it outranks the H2 size whatever order the CSS loads in */
-.section .heading {
-  @apply caps-label border-separator hidden border-b pb-2 wide:block;
+/* "On this page" heading with a rule under it, only beside the article */
+.heading {
+  @apply border-separator hidden border-b pb-2 wide:block;
 }
 
 /* below the wide breakpoint, a one-line bar that opens the list */
 .toggle {
   @apply border-border hover:border-primary focus-visible:focus-ring flex w-full cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors wide:hidden;
-}
-
-/* "On this page" on the bar, in the same small caps as the aside headings */
-.toggleLabel {
-  @apply caps-label;
 }
 
 /* how many sections the list holds */

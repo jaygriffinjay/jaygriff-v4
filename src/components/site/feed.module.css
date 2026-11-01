@@ -7,7 +7,7 @@
 
 /* shown when there are no entries */
 .empty {
-  @apply text-muted-foreground mt-4;
+  @apply mt-4;
 }
 
 /* one entry: optional cover beside the text */
@@ -40,12 +40,12 @@
   @apply link mt-1 inline-block text-lg font-semibold;
 }
 
-/* summary under the title */
+/* gap between the title and its summary */
 .description {
-  @apply text-muted-foreground mt-1 text-sm;
+  @apply mt-1;
 }
 
-/* "via" credit on link posts */
+/* gap above the "via" credit on link posts */
 .via {
-  @apply text-muted-foreground mt-1 text-xs italic;
+  @apply mt-1;
 }

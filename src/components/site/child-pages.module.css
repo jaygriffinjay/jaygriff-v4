@@ -10,7 +10,7 @@
   @apply link text-lg font-semibold;
 }
 
-/* one-line summary under each child link */
+/* gap between each child link and its summary */
 .description {
-  @apply text-muted-foreground mt-1 text-sm;
+  @apply mt-1;
 }

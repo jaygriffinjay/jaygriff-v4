@@ -5,9 +5,9 @@
   @apply mt-16;
 }
 
-/* small caps section label, like the aside headings; nested under .section so it outranks the H2 size whatever order the CSS loads in */
-.section .heading {
-  @apply caps-label border-separator border-b pb-2;
+/* rule under the "Related" caps label */
+.heading {
+  @apply border-separator border-b pb-2;
 }
 
 /* stack of related pages */
@@ -20,7 +20,7 @@
   @apply link font-medium;
 }
 
-/* one-line summary under each title */
+/* gap between each title and its summary */
 .description {
-  @apply text-muted-foreground mt-1 text-sm;
+  @apply mt-1;
 }

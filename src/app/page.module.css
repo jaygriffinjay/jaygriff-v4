@@ -5,14 +5,9 @@
   @apply space-y-4;
 }
 
-/* page heading, scaled down for mobile */
-.title {
-  @apply text-title;
-}
-
-/* the latest-posts feed under the intro */
+/* extra room above the latest-posts feed; padding, because PageBody owns the margin between blocks */
 .latest {
-  @apply mt-12;
+  @apply pt-8;
 }
 
 /* room between the feed and the link on to the full feed */
