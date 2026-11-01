@@ -60,7 +60,7 @@
 
 /* VS Code tab strip for multi-file blocks; mobile only, the explorer takes over at sm */
 .tabs {
-  @apply flex overflow-x-auto sm:hidden;
+  @apply flex overflow-x-auto overscroll-x-none sm:hidden;
   background: #252526;
   scrollbar-width: none;
 
@@ -119,9 +119,9 @@
   }
 }
 
-/* scrolling editor area holding Shiki's <pre>; slim blue scrollbar */
+/* scrolling editor area holding Shiki's <pre>; slim blue scrollbar. Sideways overscroll is off so the code doesn't bounce at its ends, while up and down still scroll the page */
 .code {
-  @apply min-w-0 flex-1 overflow-x-auto;
+  @apply min-w-0 flex-1 overflow-x-auto overscroll-x-none;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in oklch, var(--primary) 70%, transparent) transparent;
 
