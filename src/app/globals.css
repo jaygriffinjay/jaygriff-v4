@@ -83,7 +83,7 @@ html {
 /* the phone header is stuck to the top, so jumps to a heading stop below it */
 @media (width < 56rem) {
   html {
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4rem;
   }
 }
 
