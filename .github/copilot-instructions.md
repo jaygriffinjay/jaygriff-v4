@@ -50,6 +50,12 @@ src/
 - `app/[...path]` renders goatboat pages by path with `MarkdownRenderer`. Drafts render only in local dev.
 - `GOATBOAT_URL` (not a secret) points at production or a local goatboat. `GOATBOAT_READ_TOKEN` is the site's one secret: server-side only, never `NEXT_PUBLIC_`, and read-only on goatboat's side.
 
+## Scratch
+
+- `scratch/` (gitignored) is a shared scratchpad: plans we're discussing, one markdown file per topic, plus any temp files or scripts. Use it instead of `/tmp`. Plans that touch both repos live in `../goatboat/scratch/`.
+- Jay edits plans directly; Before implementing a plan, read the file again: his edits are the final say.
+- Text search skips gitignored files, so search `scratch/` with ignored files included, or read the file directly.
+
 ## Working with Jay
 
 - Build in small slices that work end to end (see `../goatboat/docs/mvp.md`). Prefer simple over clever; don't build infrastructure ahead of need.

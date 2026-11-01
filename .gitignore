@@ -44,3 +44,6 @@ next-env.d.ts
 # local database
 local.db*
 .playwright-mcp/
+
+# shared scratchpad for plans and temp files (see copilot-instructions.md)
+/scratch/
