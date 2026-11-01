@@ -30,14 +30,14 @@
   @apply border-border hover:border-primary rounded-2xl border transition-colors;
 }
 
-/* the question row, which is the hit target for the whole card */
+/* the question row, which is the hit target for the whole card; while open it gives 8px back to the answer's top padding, so the layout stays put */
 .question {
-  @apply text-base font-semibold hover:no-underline;
+  @apply aria-expanded:pb-2 text-base font-semibold hover:no-underline;
 }
 
-/* answer text, inside the panel's own padding */
+/* answer text; the top padding leaves room for a link's hover block, which the panel's overflow clipping would otherwise cut off */
 .answer {
-  @apply text-muted-foreground leading-relaxed;
+  @apply text-muted-foreground pt-2 leading-relaxed;
 }
 
 /* inline link inside an answer */
