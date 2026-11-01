@@ -5,6 +5,8 @@ import { PageLayout } from "@/components/site/page-layout";
 import { CodeBlock } from "@/components/code-block/CodeBlock";
 import {
   deepNesting,
+  hugeExplorer,
+  longFileNames,
   longIdentifiers,
   longJson,
   longStrings,
@@ -113,6 +115,12 @@ export default function CodeStressPage() {
 
       <H3>12 files with long names</H3>
       <CodeBlock files={manyFiles} />
+
+      <H3>60 files in the explorer</H3>
+      <CodeBlock files={hugeExplorer} />
+
+      <H3>Very long file names in the explorer</H3>
+      <CodeBlock files={longFileNames} />
 
       <H3>1,200 lines (four-digit line numbers)</H3>
       <CodeBlock files={[manyLines]} />

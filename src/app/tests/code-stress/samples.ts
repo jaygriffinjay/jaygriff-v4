@@ -112,3 +112,31 @@ export const manyFiles: CodeFile[] = Array.from({ length: 12 }, (_, i) => ({
   path: longName(i + 1),
   content: `export function ComponentNumber${i + 1}WithAVeryLongName() {\n  return null;\n}\n`,
 }));
+
+const extensions = ["ts", "tsx", "css", "json", "md"];
+
+// far more files than the explorer is tall
+export const hugeExplorer: CodeFile[] = Array.from({ length: 60 }, (_, i) => {
+  const extension = extensions[i % extensions.length];
+  return {
+    path: `src/module-${String(i + 1).padStart(2, "0")}/file-${i + 1}.${extension}`,
+    content: `// file ${i + 1} of 60\n`,
+  };
+});
+
+// the file names themselves are long, mixed with short ones, so truncation shows against normal rows
+export const longFileNames: CodeFile[] = [
+  { path: "a.ts", content: "export const a = 1;\n" },
+  {
+    path: "src/useAbstractSingletonProxyFactoryBeanNotificationPreferencesManagerWithRetryAndExponentialBackoff.ts",
+    content: "export {};\n",
+  },
+  { path: "index.ts", content: "export * from \"./a\";\n" },
+  {
+    path: "2026-11-01-meeting-notes-about-the-quarterly-planning-session-final-final-v3-REALLY-final.md",
+    content: "# Notes\n",
+  },
+  { path: "really_long_snake_case_file_name_with_no_hyphens_or_dots_until_the_very_end.py", content: "pass\n" },
+  { path: "日本語のとても長いファイル名で折り返しと省略を確認する.ts", content: "export {};\n" },
+  { path: "x.css", content: ".x {}\n" },
+];
