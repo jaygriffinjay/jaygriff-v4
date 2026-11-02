@@ -1,5 +1,6 @@
 // goatboat: 0322d4be-659c-4b3f-b219-b8d2e754134f
 import { ExternalLink } from "lucide-react";
+import NextLink from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { H2, Lead, Paragraph } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";
@@ -37,7 +38,11 @@ function ProjectEntry({ project }: { project: Project }) {
 
   return (
     <li className={styles.item}>
-      <H2 className={styles.name}>{project.title}</H2>
+      <H2 className={styles.name}>
+        <NextLink href={`/projects/${project.slug}`} className={styles.nameLink}>
+          {project.title}
+        </NextLink>
+      </H2>
       {project.tagline && <Lead>{project.tagline}</Lead>}
       {project.description && <Paragraph>{project.description}</Paragraph>}
 

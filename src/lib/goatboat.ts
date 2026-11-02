@@ -164,7 +164,14 @@ export async function getContentByPath(path: string) {
   return "redirectTo" in res ? res : res.data;
 }
 
-export type DocsPage = { path: string; title: string; description: string | null };
+export type DocsPage = {
+  path: string;
+  title: string;
+  description: string | null;
+  publishedAt?: string | null;
+  updatedAt?: string;
+  source?: "db" | "approute";
+};
 export type DocsSection = { slug: string; title: string; pages: DocsPage[] };
 export type DocsNav = { project: { slug: string; title: string; tagline: string | null }; sections: DocsSection[] };
 

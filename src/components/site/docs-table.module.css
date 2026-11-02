@@ -1,0 +1,132 @@
+@reference "../../app/globals.css";
+
+/* filters, the count line, then the table */
+.wrap {
+  @apply flex flex-col gap-4;
+}
+
+/* search box, then the three chip rows */
+.filters {
+  @apply flex flex-col gap-2;
+}
+
+/* magnifier beside the search input */
+.search {
+  @apply mb-1 flex items-center gap-2;
+}
+
+/* the magnifier */
+.searchIcon {
+  @apply text-muted-foreground size-4 shrink-0;
+}
+
+/* one filter: its label, then its chips, wrapping on narrow screens */
+.filterRow {
+  @apply flex flex-wrap items-center gap-1.5;
+}
+
+/* "Project", "Section", "Kind", in a fixed width so the chips line up */
+.filterLabel {
+  @apply w-16 shrink-0;
+}
+
+/* one filter choice */
+.chip {
+  @apply border-border text-muted-foreground hover:border-primary hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-full border px-2.5 py-0.5 text-xs transition-colors;
+}
+
+/* the choice in effect */
+.chipActive {
+  @apply border-primary bg-primary text-primary-foreground hover:text-primary-foreground;
+}
+
+/* how many pages and the sort in effect, with the reset on the right */
+.status {
+  @apply flex flex-wrap items-center justify-between gap-2;
+}
+
+/* back to newest first */
+.reset {
+  @apply text-muted-foreground hover:text-foreground focus-visible:focus-ring inline-flex cursor-pointer items-center gap-1 rounded-md text-xs;
+}
+
+/* the × on the reset */
+.resetIcon {
+  @apply size-3.5;
+}
+
+/* the table spans the column */
+.table {
+  @apply w-full;
+}
+
+/* a column heading that sorts the table */
+.sortButton {
+  @apply hover:text-foreground focus-visible:focus-ring inline-flex cursor-pointer items-center gap-1 rounded-sm;
+}
+
+/* a heading the table is sorted by */
+.sortActive {
+  @apply text-foreground;
+}
+
+/* which way a sorted column runs */
+.arrow {
+  @apply size-3.5;
+}
+
+/* where a column sits in a multi-column sort */
+.sortIndex {
+  @apply bg-muted text-muted-foreground rounded-sm px-1 text-[0.65rem] leading-4 tabular-nums;
+}
+
+/* page title, and on phones where it lives; wraps only on phones */
+.pageCell {
+  @apply whitespace-normal wide:whitespace-nowrap;
+}
+
+/* page title link */
+.title {
+  @apply link font-medium;
+}
+
+/* </> before a code page's title */
+.glyph {
+  @apply mr-1.5 inline size-[0.9em] align-[-0.1em];
+}
+
+/* summary header, only when there's room */
+.descriptionHead {
+  @apply hidden w-full wide:table-cell;
+}
+
+/* one-line summary taking the spare width, cut with an ellipsis; max-w-0 lets it shrink instead of widening the table */
+.description {
+  @apply text-muted-foreground hidden max-w-0 truncate wide:table-cell;
+}
+
+/* project and section under the title on phones, where those columns are hidden */
+.narrowMeta {
+  @apply wide:hidden;
+}
+
+/* project and section columns: as narrow as their content, and only when there's room */
+.fit {
+  @apply hidden w-px whitespace-nowrap wide:table-cell;
+}
+
+/* project or section in a row, filtering the table to it */
+.quiet {
+  @apply link cursor-pointer;
+  --link-color: var(--muted-foreground);
+}
+
+/* date column, as narrow as the date and kept on one line */
+.date {
+  @apply text-muted-foreground w-px text-right whitespace-nowrap tabular-nums;
+}
+
+/* the date column not leading the sort, only when there's room for both */
+.wideDate {
+  @apply hidden wide:table-cell;
+}
