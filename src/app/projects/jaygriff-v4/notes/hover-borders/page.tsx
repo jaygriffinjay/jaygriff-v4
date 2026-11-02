@@ -13,7 +13,7 @@ const candidates = [
   { name: "Slate", value: "oklch(0.52 0.06 260)", note: "Darker and greyer; blue only as a tint.", className: styles.slate },
   { name: "Primary 60%", value: "primary mixed 60% into the page", note: "Today's blue, faded toward the background.", className: styles.primary60 },
   { name: "Primary 40%", value: "primary mixed 40% into the page", note: "Fainter; close to the separator color.", className: styles.primary40 },
-  { name: "Indigo", value: "var(--indigo)", note: "The second theme color.", className: styles.indigo },
+  { name: "Indigo", value: "oklch(0.62 0.19 280)", note: "The theme's old second color.", className: styles.indigo },
   { name: "Neutral", value: "foreground at 45%", note: "No blue at all; a brighter border.", className: styles.neutral },
 ];
 

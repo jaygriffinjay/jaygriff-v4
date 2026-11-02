@@ -109,7 +109,7 @@
 }
 
 .focusIndigo {
-  --ring: var(--indigo);
+  --ring: oklch(0.62 0.19 280);
 }
 
 /* crisp 2px outline with a small gap, replacing the halo */
@@ -175,7 +175,7 @@
 
 /* secondary option: faint indigo wash */
 .secondaryIndigoTint {
-  --secondary: color-mix(in oklch, var(--indigo) 20%, transparent);
+  --secondary: color-mix(in oklch, oklch(0.62 0.19 280) 20%, transparent);
   --secondary-foreground: oklch(0.8 0.1 280);
 }
 

@@ -128,7 +128,7 @@
 }
 
 .indigo {
-  --sample-color: var(--indigo);
+  --sample-color: oklch(0.62 0.19 280);
 }
 
 .dusty1 {

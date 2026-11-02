@@ -24,7 +24,7 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
-  --color-indigo: var(--indigo);
+  --color-violet: var(--violet);
   --color-code: var(--code);
   --color-heading: var(--heading);
   --color-popover-foreground: var(--popover-foreground);
@@ -111,8 +111,8 @@ body {
   --primary-foreground: oklch(0.17 0.025 245);
   /* heading color: a touch dimmer than body text so headings don't glare, and never blue so they can't be mistaken for links */
   --heading: #d6d6dc;
-  /* second theme color, alongside the blue primary */
-  --indigo: oklch(0.62 0.19 280);
+  /* second theme color, alongside the blue primary: goatboat's dark-mode primary, a different hue from the link blue so accent headings can't be mistaken for links */
+  --violet: oklch(0.68 0.19 293);
   /* inline code blue; same as primary for now, kept separate so they can diverge */
   --code: #58a6ff;
   /* "Graphite": neutral gray for secondary buttons and badges */

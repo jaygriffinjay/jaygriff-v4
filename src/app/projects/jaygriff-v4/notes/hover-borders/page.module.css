@@ -39,7 +39,7 @@
 
 /* the second theme color */
 .indigo {
-  --hover-border: var(--indigo);
+  --hover-border: oklch(0.62 0.19 280);
 }
 
 /* body text color, half strength: no blue */
