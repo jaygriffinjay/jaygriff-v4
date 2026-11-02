@@ -10,17 +10,17 @@
   @apply flex items-center justify-center gap-1;
 }
 
-/* one page number; on hover it fills blue with a ring, like a link */
+/* one page number: plain text, with a soft highlight behind it on hover */
 .page {
-  @apply border-border text-muted-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground hover:outline-primary block min-w-9 rounded-md border px-3 py-1 text-center text-sm transition-colors hover:outline-2 hover:outline-offset-2;
+  @apply text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:focus-ring block min-w-9 rounded-md px-3 py-1 text-center text-sm transition-colors;
 }
 
-/* the page being viewed; click it to type a page number. Filled blue always, with no hover ring */
+/* the page being viewed, filled solid blue; click it to type a page number */
 .current {
-  @apply bg-primary text-primary-foreground border-primary cursor-pointer hover:outline-0;
+  @apply bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground cursor-pointer font-semibold;
 }
 
 /* the gap between runs of page numbers; click it to type a page number */
 .gap {
-  @apply text-muted-foreground hover:text-foreground cursor-pointer rounded-md px-2 py-1 text-sm;
+  @apply text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-md px-2 py-1 text-sm transition-colors;
 }
