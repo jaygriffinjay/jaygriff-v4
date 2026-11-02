@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   // Lets a phone on the home network load the dev server by the laptop's address
   allowedDevOrigins: ["192.168.*.*"],
+  // Next 16 only serves the qualities listed here; 100 is for the portrait
+  images: { qualities: [75, 100] },
   experimental: {
     agentUpgrade: "security",
   },

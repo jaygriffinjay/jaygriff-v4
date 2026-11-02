@@ -1,18 +1,13 @@
 // goatboat: fb29872b-df86-4340-82d7-97b7ffcb6a4c
 import Image from "next/image";
 import NextLink from "next/link";
-import { H2, Paragraph } from "@/components/typography";
+import { H2, Paragraph, Small } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/ui/accordion";
+import { QuestionList, type Question } from "@/components/site/question-list";
 import styles from "./page.module.css";
 
-const ABOUT_ME = [
+const ABOUT_ME: Question[] = [
   {
     question: "What's your background?",
     answer: (
@@ -43,7 +38,11 @@ const ABOUT_ME = [
         Currently I'm spending significant time on this website — building
         new features, improving the framework, and writing. I'm also
         actively working on AI-native dev tools and workflows, AI-native apps,
-        and data analysis apps.
+        and data analysis apps. The newest work shows up first in the{" "}
+        <NextLink href="/docs" className={styles.link}>
+          docs
+        </NextLink>
+        .
       </>
     ),
   },
@@ -51,7 +50,7 @@ const ABOUT_ME = [
     question: "What do you actually want to be doing?",
     answer: (
       <>
-        I want to ship and run my own webapps end-to-end from conception to production. I also love working on this site, which is a content platform, documentation system, and testbed for webapps and larger-scale backends all at once.
+        I want to ship and run my own webapps end-to-end, from conception to production, and eventually build software businesses that support my life and work indefinitely. I'd also love to work with talented developers and learn from them. In the meantime I love working on this site, which is a content platform, documentation system, and testbed for webapps and larger-scale backends all at once.
       </>
     ),
   },
@@ -61,17 +60,24 @@ const ABOUT_ME = [
       <>
         Currently no. I'm looking for a full-time role, and I'm also
         interested in selling my own software products. I want to focus on those
-        things right now, but maybe in the future.
+        things right now, but maybe in the future. If you have a role in mind,
+        my email and resume are on the{" "}
+        <NextLink href="/contact" className={styles.link}>
+          contact page
+        </NextLink>
+        .
       </>
     ),
   },
   {
-    question: "What's your end goal?",
+    question: "How do I get in touch?",
     answer: (
       <>
-        I want to create my own software businesses to support my life and work
-        indefinitely. I'd also love to work with talented developers and
-        learn from them.
+        Email is best. It's on the{" "}
+        <NextLink href="/contact" className={styles.link}>
+          contact page
+        </NextLink>
+        , next to my resume, GitHub and LinkedIn.
       </>
     ),
   },
@@ -125,14 +131,40 @@ const ABOUT_ME = [
   },
 ];
 
-const ABOUT_SITE = [
+const ABOUT_SITE: Question[] = [
+  {
+    question: "Where should I start?",
+    answer: (
+      <>
+        Depends what you're after.{" "}
+        <NextLink href="/posts" className={styles.link}>
+          Posts
+        </NextLink>{" "}
+        are my writing.{" "}
+        <NextLink href="/projects" className={styles.link}>
+          Projects
+        </NextLink>{" "}
+        are the things I build, each with its own docs.{" "}
+        <NextLink href="/docs" className={styles.link}>
+          Docs
+        </NextLink>{" "}
+        lists every doc and test across all of them, newest first, if you want
+        to see how things are made.
+      </>
+    ),
+  },
   {
     question: "What is this site?",
     answer: (
       <>
         A custom-built web app that serves as both my workspace and publishing
         platform. It's the container for a lot of my other apps, because I
-        can build them in this repo and then host and demo them here.
+        can build them in this repo and then host and demo them here. The site
+        is a{" "}
+        <NextLink href="/projects/jaygriff-v4" className={styles.link}>
+          project
+        </NextLink>{" "}
+        itself, with its own docs.
       </>
     ),
   },
@@ -146,6 +178,11 @@ const ABOUT_SITE = [
         run inside this repo rather than being linked out to. So it's a
         publishing platform, a CMS, a portfolio, and a testbed for the framework
         I keep reusing — all at once, which is exactly why I keep working on it.
+        The database and API are their own project,{" "}
+        <NextLink href="/projects/goatboat" className={styles.link}>
+          goatboat
+        </NextLink>
+        .
       </>
     ),
   },
@@ -160,19 +197,8 @@ const ABOUT_SITE = [
   },
 ];
 
-type Entry = { question: string; answer: React.ReactNode };
-
-function Questions({ items }: { items: Entry[] }) {
-  return (
-    <Accordion multiple className={styles.accordion}>
-      {items.map(({ question, answer }) => (
-        <AccordionItem key={question} value={question} className={styles.item}>
-          <AccordionTrigger className={styles.question}>{question}</AccordionTrigger>
-          <AccordionContent className={styles.answer}>{answer}</AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
-  );
+function Questions({ items }: { items: Question[] }) {
+  return <QuestionList items={items} className={styles.questions} />;
 }
 
 export default function AboutPage() {
@@ -184,6 +210,7 @@ export default function AboutPage() {
           alt="Jay Griffin"
           width={200}
           height={200}
+          quality={100}
           priority
           className={styles.portrait}
         />
@@ -210,6 +237,22 @@ export default function AboutPage() {
           those years of playing Paint as a child, you might think I managed
           to produce at least a few decent pieces of artwork. You would be wrong. All I ever managed to create in Paint were artistic abominations.
         </Paragraph>
+        <figure className={styles.painting}>
+          <Image
+            src="/images/paint3.png"
+            alt="A Microsoft Paint drawing by Jay"
+            width={538}
+            height={372}
+            // Paint art loses its hard edges to Next's WebP/AVIF re-encode, so serve the PNG as-is
+            unoptimized
+            // The largest thing on the page, so it shouldn't wait to load
+            loading="eager"
+            className={styles.paintingImage}
+          />
+          <figcaption>
+            <Small>Exhibit A.</Small>
+          </figcaption>
+        </figure>
         <Paragraph>
           So what was I doing then? Well, I liked playing with the tools themselves more than I liked drawing pictures with them. I remember the spray paint and the paint bucket the most. I loved resizing the spray paint and just…
           spraying. I was very interested in how it randomly fills in pixels then eventually fills in perfectly.
@@ -228,7 +271,7 @@ export default function AboutPage() {
           and at scale.
         </Paragraph>
         <Paragraph>
-          Despite the power and ease of computers, it remains difficult to make something truly useful and impactful with them. I now work on software almost every single day trying to do that.
+          Despite the power and ease of using computers, it remains difficult to make something truly useful and impactful with them. I now work on software almost every single day trying to do that.
         </Paragraph>
       </div>
 

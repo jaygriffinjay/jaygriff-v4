@@ -1,8 +1,8 @@
 @reference "../globals.css";
 
-/* portrait, title and intro centred together over the content below, which stays left-aligned; the width matches it, so the separator ends where the content does */
+/* portrait, title and intro centred on the page over the content below, which stays left-aligned within the same width */
 .top {
-  @apply gap-flow flex w-full max-w-2xl flex-col items-center text-center;
+  @apply gap-flow mx-auto flex w-full max-w-2xl flex-col items-center text-center;
 }
 
 /* portrait above the page title */
@@ -15,34 +15,29 @@
   @apply w-full;
 }
 
-/* section headings share the reading width of the content below them */
+/* section headings share the reading width of the content below them, centred on the page */
 .heading {
-  @apply w-full max-w-2xl;
+  @apply mx-auto w-full max-w-2xl;
 }
 
-/* narrative bio: paragraphs at the page's own rhythm, at a reading width */
+/* narrative bio: paragraphs at the page's own rhythm, at a reading width centred on the page */
 .bio {
-  @apply gap-flow flex w-full max-w-2xl flex-col leading-relaxed;
+  @apply gap-flow mx-auto flex w-full max-w-2xl flex-col leading-relaxed;
 }
 
-/* stack of question cards at the same reading width; the default accordion frame is dropped so each question is its own card */
-.accordion {
-  @apply max-w-2xl gap-2 overflow-visible rounded-none border-0;
+/* the Paint drawing in the story, centred, with its caption under it */
+.painting {
+  @apply my-2 flex flex-col items-center gap-2 text-center;
 }
 
-/* one question card; the border brightens to the accent colour on hover */
-.item {
-  @apply border-border hover:border-primary rounded-2xl border transition-colors;
+/* the drawing at its own size or smaller, kept blocky when scaled */
+.paintingImage {
+  @apply h-auto w-auto max-w-full [image-rendering:pixelated];
 }
 
-/* the question row, which is the hit target for the whole card; while open it gives 8px back to the answer's top padding, so the layout stays put */
-.question {
-  @apply aria-expanded:pb-2 text-base font-semibold hover:no-underline;
-}
-
-/* answer text; the top padding leaves room for a link's hover block, which the panel's overflow clipping would otherwise cut off */
-.answer {
-  @apply text-muted-foreground pt-2 leading-relaxed;
+/* the questions at the same reading width, centred on the page */
+.questions {
+  @apply mx-auto w-full max-w-2xl;
 }
 
 /* inline link inside an answer */

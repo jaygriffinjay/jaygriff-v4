@@ -1,0 +1,41 @@
+@reference "../../app/globals.css";
+
+/* the questions, one under another */
+.list {
+  @apply flex flex-col;
+}
+
+/* the question's heading wrapper, which Base UI renders as an h3 */
+.header {
+  @apply m-0;
+}
+
+/* the whole question row is the button: text, then the chevron at the end */
+.trigger {
+  @apply text-heading hover:text-primary focus-visible:focus-ring flex w-full cursor-pointer items-center justify-between gap-4 rounded-sm py-2.5 text-left transition-colors;
+}
+
+/* the question text */
+.question {
+  @apply text-base font-semibold;
+}
+
+/* chevron at the end of the question */
+.chevron {
+  @apply text-muted-foreground size-4 shrink-0 transition-transform duration-200;
+}
+
+/* the chevron turned over while the answer is open */
+.trigger[aria-expanded="true"] .chevron {
+  @apply rotate-180;
+}
+
+/* the answer's sliding box; the side padding and matching negative margin leave room for a link's hover block, which the clipping would otherwise cut */
+.panel {
+  @apply -mx-1 h-(--accordion-panel-height) overflow-hidden px-1 transition-[height] duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none;
+}
+
+/* the answer, with room under it before the next question */
+.answer {
+  @apply pb-4;
+}
