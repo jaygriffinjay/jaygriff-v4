@@ -2,7 +2,7 @@
 
 /* the bar at the top of a notes page: which project's notes, and the section you're in */
 .bar {
-  @apply border-border hover:border-primary focus-visible:focus-ring mt-4 flex w-full cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors;
+  @apply border-border hover:border-hover focus-visible:focus-ring mt-4 flex w-full cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors;
 }
 
 /* "Notes", the project, then the section, stacked */

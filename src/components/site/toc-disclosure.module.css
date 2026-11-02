@@ -22,7 +22,7 @@
 
 /* below the wide breakpoint, a one-line bar that opens the list in a panel */
 .toggle {
-  @apply border-border hover:border-primary focus-visible:focus-ring flex w-full cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors wide:hidden;
+  @apply border-border hover:border-hover focus-visible:focus-ring flex w-full cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors wide:hidden;
 }
 
 /* how many sections the list holds */

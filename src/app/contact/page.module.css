@@ -17,7 +17,7 @@
 
 /* one destination: icon, label, arrow; the whole row is the link */
 .row {
-  @apply border-border bg-card hover:border-primary focus-visible:focus-ring grid min-h-20 w-full max-w-lg grid-cols-[3.25rem_1fr_3.25rem] items-center rounded-full border px-3 transition-colors;
+  @apply border-border bg-card hover:border-hover focus-visible:focus-ring grid min-h-20 w-full max-w-lg grid-cols-[3.25rem_1fr_3.25rem] items-center rounded-full border px-3 transition-colors;
 }
 
 /* round icon at the start of the row */

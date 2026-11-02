@@ -14,6 +14,7 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-separator: var(--separator);
+  --color-hover: var(--hover);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -129,6 +130,8 @@ body {
   --input: rgb(255 255 255 / 15%);
   /* rules between page regions: the primary blue, faded into the background */
   --separator: color-mix(in oklch, var(--primary) 25%, transparent);
+  /* border of a hovered card, pill or bar: GitHub's emphasis blue, a step deeper than --primary */
+  --hover: #388bfd;
   /* focus ring color; drawn as a "gap ring" in styles/focus.css */
   --ring: var(--primary);
 }

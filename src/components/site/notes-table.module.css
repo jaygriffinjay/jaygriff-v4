@@ -32,7 +32,7 @@
 
 /* one filter choice */
 .chip {
-  @apply border-border text-muted-foreground hover:border-primary hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-full border px-2.5 py-0.5 text-xs transition-colors;
+  @apply border-border text-muted-foreground hover:border-hover hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-full border px-2.5 py-0.5 text-xs transition-colors;
 }
 
 /* the choice in effect */
