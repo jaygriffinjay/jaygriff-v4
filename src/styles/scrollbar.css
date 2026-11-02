@@ -1,0 +1,6 @@
+/* slim blue scrollbar for anything that scrolls sideways (code blocks, tables).
+   use as `@apply scrollbar-blue` in a module, or the class in a shadcn component */
+@utility scrollbar-blue {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--primary) 70%, transparent) transparent;
+}
