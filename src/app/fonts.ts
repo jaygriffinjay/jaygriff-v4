@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Sekuya } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
 export const geistSans = Geist({
@@ -21,14 +21,13 @@ export const jetbrainsMono = localFont({
   ],
 });
 
-// display face for the site name, carried over from jaygriff v2
-export const sekuya = Sekuya({
+// display face for the site name, carried over from jaygriff v2; self-hosted because
+// next/font/google has no fallback metrics for it and warns on every build
+export const sekuya = localFont({
   variable: "--font-sekuya",
-  subsets: ["latin"],
+  src: "./fonts/Sekuya-Regular.ttf",
   weight: "400",
   display: "swap",
-  // Next has no fallback metrics for Sekuya; skip the size-adjusted fallback instead of warning
-  adjustFontFallback: false,
 });
 
 export const fontVariables = [geistSans, geistMono, jetbrainsMono, sekuya]
