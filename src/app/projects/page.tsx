@@ -36,7 +36,7 @@ function ProjectEntry({ project }: { project: Project }) {
   ].filter((link): link is { label: string; href: string } => !!link.href);
 
   return (
-    <li className={styles.item}>
+    <li id={project.slug} className={styles.item}>
       <H2 className={styles.name}>{project.title}</H2>
       {project.tagline && <Lead>{project.tagline}</Lead>}
       {project.description && <Paragraph>{project.description}</Paragraph>}

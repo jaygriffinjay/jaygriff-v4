@@ -21,7 +21,7 @@ export function BreadcrumbTrail({ crumbs, className }: { crumbs: Crumb[]; classN
     <Breadcrumb className={cn(styles.breadcrumbs, className)}>
       <BreadcrumbList className={styles.list}>
         {crumbs.map((crumb, i) => (
-          <Fragment key={crumb.path}>
+          <Fragment key={`${i}-${crumb.path}`}>
             {i > 0 && <BreadcrumbSeparator />}
             <BreadcrumbItem>
               {i === crumbs.length - 1 ? (

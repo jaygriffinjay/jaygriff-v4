@@ -10,9 +10,9 @@
   @apply flex flex-wrap gap-x-5;
 }
 
-/* one nav slot; its primary underline sits just under the link when it holds the current page */
+/* one nav slot; the bottom padding keeps the height the old underline border had */
 .navItem {
-  @apply has-[[aria-current=page]]:border-primary border-b-2 border-transparent pt-3 pb-1;
+  @apply pt-3 pb-1.5;
 }
 
 /* nav link; same blue text + hover block as every other link */

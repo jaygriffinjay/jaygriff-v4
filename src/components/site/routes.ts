@@ -9,7 +9,3 @@ export const navRoutes = [
   { label: "Docs", href: "/docs" },
   { label: "Tests", href: "/tests" },
 ];
-
-/** Whether a nav link holds the given page: Home only on "/", sections for everything under them. */
-export const isActiveRoute = (href: string, pathname: string) =>
-  href === "/" ? pathname === "/" : pathname.startsWith(href);

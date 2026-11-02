@@ -1,0 +1,71 @@
+@reference "../../app/globals.css";
+
+/* the bar at the top of a docs page: which project's docs, and the section you're in */
+.bar {
+  @apply border-border hover:border-primary focus-visible:focus-ring mt-4 flex w-full cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors;
+}
+
+/* "Docs", the project, then the section, stacked */
+.barText {
+  @apply flex min-w-0 flex-col gap-0.5;
+}
+
+/* the project name, the biggest thing in the bar */
+.project {
+  @apply truncate text-lg leading-tight;
+}
+
+/* the section you're in, under the project */
+.section {
+  @apply block truncate;
+}
+
+/* shows the bar opens a list */
+.barIcon {
+  @apply text-muted-foreground ml-auto size-5 shrink-0;
+}
+
+/* the sections, one after another */
+.sections {
+  @apply flex flex-col gap-5;
+}
+
+/* one section: its heading, then its pages */
+.group {
+  @apply flex flex-col gap-2;
+}
+
+/* the section you're in, marked by a rule down its left */
+.groupCurrent {
+  @apply border-primary -ml-3 border-l-2 pl-[calc(0.75rem-2px)];
+}
+
+/* section heading with a rule under it */
+.groupHeading {
+  @apply border-separator border-b pb-2;
+}
+
+/* the section's pages */
+.pages {
+  @apply flex flex-col gap-0.5;
+}
+
+/* one page: title, then its description */
+.page {
+  @apply hover:bg-muted focus-visible:focus-ring flex flex-col gap-0.5 rounded-md px-2 py-1.5;
+}
+
+/* the page being read */
+.pageCurrent {
+  @apply bg-muted;
+}
+
+/* page title in the link color */
+.pageTitle {
+  @apply text-primary font-medium;
+}
+
+/* the page's one-line summary, cut to two lines */
+.pageDescription {
+  @apply line-clamp-2;
+}

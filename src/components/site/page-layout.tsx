@@ -1,7 +1,9 @@
 import { cn } from "@/lib/utils";
+import { getCurrentDocs } from "@/lib/docs";
 import { getCurrentPage, requireVisible } from "@/lib/page-meta";
 import { PageBody } from "@/components/layout/PageBody";
 import { Breadcrumbs } from "./breadcrumbs";
+import { DocsBar } from "./docs-bar";
 import { SiteNav } from "./nav";
 import { PageToc } from "./page-toc";
 import { PrevNext } from "./prev-next";
@@ -42,6 +44,7 @@ export async function PageLayout({
   const aside = ownAside ?? (autoToc && <PageToc title={autoToc.title} entries={autoToc.toc!} />);
   const asideOnMobile = ownAside ? ownAsideOnMobile : "top";
   const asideBlock = aside && <div className={styles.aside}>{aside}</div>;
+  const docs = outsideTree ? null : await getCurrentDocs();
 
   return (
     <div className={cn(styles.columns, aside && styles.columnsWithAside, className)}>
@@ -49,6 +52,7 @@ export async function PageLayout({
         <div className={styles.navRow}>
           <SiteNav />
           {!outsideTree && <Breadcrumbs />}
+          {docs && <DocsBar nav={docs.nav} sectionSlug={docs.item.section?.slug ?? null} />}
         </div>
         {asideOnMobile === "top" && asideBlock}
         <main className={styles.main}>

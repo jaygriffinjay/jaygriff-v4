@@ -1,3 +1,4 @@
+import { docsStart, getCurrentDocs } from "@/lib/docs";
 import { currentPath, getCurrentPage, titleFromPath } from "@/lib/page-meta";
 import { BreadcrumbTrail, type Crumb } from "./breadcrumb-trail";
 import { ReportCrumbs } from "./mobile-menu";
@@ -14,8 +15,21 @@ const crumbsFromPath = (path: string): Crumb[] =>
       return { title: titleFromPath(crumbPath), path: crumbPath };
     });
 
-/** Section › … › current page for the current URL, from its goatboat row. */
+/** Section › … › current page for the current URL, from its goatboat row. A docs page's trail is Projects › project › Docs › section › page. */
 export async function getCrumbs(): Promise<Crumb[]> {
+  const docs = await getCurrentDocs();
+  if (docs) {
+    const { nav, item } = docs;
+    const section = nav.sections.find((s) => s.slug === item.section?.slug);
+    return [
+      { title: "Projects", path: "/projects" },
+      // No page per project yet, so its entry on the projects list
+      { title: nav.project.title, path: `/projects#${nav.project.slug}` },
+      { title: "Docs", path: docsStart(nav)?.path ?? "/docs" },
+      ...(section ? [{ title: section.title, path: section.pages[0].path }] : []),
+      { title: item.title, path: item.path },
+    ];
+  }
   const page = await getCurrentPage();
   return page?.breadcrumbs ?? crumbsFromPath(await currentPath());
 }

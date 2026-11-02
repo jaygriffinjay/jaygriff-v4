@@ -96,6 +96,7 @@ export type ContentItem = {
   updatedAt: string;
   link: { contentId: string; targetUrl: string; targetTitle: string | null; viaUrl: string | null; viaName: string | null } | null;
   project: { slug: string; title: string } | null;
+  section: { slug: string; title: string } | null;
   assets: Asset[];
 };
 
@@ -161,6 +162,15 @@ export async function getContentByPath(path: string) {
   const res = await get<{ data: ContentPage } | { redirectTo: string }>("/content/by-path", { path });
   if (!res) return null;
   return "redirectTo" in res ? res : res.data;
+}
+
+export type DocsPage = { path: string; title: string; description: string | null };
+export type DocsSection = { slug: string; title: string; pages: DocsPage[] };
+export type DocsNav = { project: { slug: string; title: string; tagline: string | null }; sections: DocsSection[] };
+
+/** A project's docs: its sections in order, each with its published pages in order. */
+export async function getDocsNav(project: string) {
+  return (await get<{ data: DocsNav }>(`/docs/${encodeURIComponent(project)}`))?.data ?? null;
 }
 
 export async function listTags() {

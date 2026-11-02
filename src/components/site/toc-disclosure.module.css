@@ -5,12 +5,22 @@
   @apply min-w-0;
 }
 
-/* "On this page" heading with a rule under it, only beside the article */
-.heading {
-  @apply border-separator hidden border-b pb-2 wide:block;
+/* heading and list beside the article; hidden on a phone, where the bar stands in */
+.beside {
+  @apply hidden wide:block;
 }
 
-/* below the wide breakpoint, a one-line bar that opens the list */
+/* "On this page" heading with a rule under it */
+.heading {
+  @apply border-separator border-b pb-2;
+}
+
+/* the list under the heading */
+.list {
+  @apply pt-3 text-sm;
+}
+
+/* below the wide breakpoint, a one-line bar that opens the list in a panel */
 .toggle {
   @apply border-border hover:border-primary focus-visible:focus-ring flex w-full cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors wide:hidden;
 }
@@ -20,22 +30,7 @@
   @apply text-muted-foreground ml-auto text-xs;
 }
 
-/* shows the bar opens */
+/* shows the bar opens a panel */
 .chevron {
-  @apply text-muted-foreground size-4 shrink-0 transition-transform;
-}
-
-/* chevron flipped while open */
-.chevronOpen {
-  @apply rotate-180;
-}
-
-/* the list: closed on a phone until the bar is tapped, always shown beside the article */
-.panel {
-  @apply hidden pt-2 text-sm wide:block wide:pt-3;
-}
-
-/* the list while open; declared after .panel so it wins */
-.panelOpen {
-  @apply block;
+  @apply text-muted-foreground size-4 shrink-0;
 }
