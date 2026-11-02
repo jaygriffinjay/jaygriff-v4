@@ -1,0 +1,112 @@
+@reference "../../../../globals.css";
+
+/* ─── Page layout ─── */
+
+/* one idea: name, note, then the sample */
+.idea {
+  @apply flex flex-col gap-1 pt-4;
+}
+
+/* the mock buttons, stacked like the bars on a phone */
+.sample {
+  @apply mt-2 flex flex-col gap-3;
+}
+
+/* two buttons stacked, each at its own width */
+.stack {
+  @apply flex flex-col items-start gap-2;
+}
+
+/* two buttons in a row, wrapping when there isn't room */
+.row {
+  @apply flex flex-wrap gap-2;
+}
+
+/* ─── Shared bits ─── */
+
+/* trailing chevron that shows a button opens a panel */
+.icon {
+  @apply text-muted-foreground size-4 shrink-0;
+}
+
+/* small muted detail at the end of a slim bar */
+.slimMeta {
+  @apply text-muted-foreground ml-auto text-xs;
+}
+
+/* ─── Today ─── */
+
+/* today's notes bar: full width, three lines */
+.todayBar {
+  @apply border-border hover:border-hover flex w-full cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-left transition-colors;
+}
+
+/* today's stacked label, project and section */
+.todayText {
+  @apply flex min-w-0 flex-col gap-0.5;
+}
+
+/* today's project name */
+.todayProject {
+  @apply truncate text-lg leading-tight;
+}
+
+/* today's chevron */
+.todayIcon {
+  @apply text-muted-foreground ml-auto size-5 shrink-0;
+}
+
+/* today's contents bar, for scale */
+.tocBar {
+  @apply border-border hover:border-hover flex w-full cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors;
+}
+
+/* ─── 1. Slim bar ─── */
+
+/* the notes bar at the contents bar's size */
+.slimBar {
+  @apply border-border hover:border-hover flex w-full cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors;
+}
+
+/* ─── 2, 3, 7. Pills ─── */
+
+/* auto-width pill: icon and label */
+.pill {
+  @apply border-border text-foreground hover:border-hover inline-flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm transition-colors [&>svg:first-child]:size-4 [&>svg:first-child]:text-muted-foreground;
+}
+
+/* project name in the breadcrumb chip */
+.chipProject {
+  @apply font-semibold;
+}
+
+/* the slash between project and section */
+.chipSlash {
+  @apply text-muted-foreground;
+}
+
+/* ─── 4. Rounded rects ─── */
+
+/* auto-width button with card-like corners */
+.rect {
+  @apply border-border text-foreground hover:border-hover inline-flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-1.5 text-sm transition-colors;
+}
+
+/* ─── 5. Split row ─── */
+
+/* one full-width bar holding two halves, divided by a rule */
+.split {
+  @apply border-border grid grid-cols-2 divide-x divide-border overflow-hidden rounded-lg border;
+}
+
+/* one half of the split bar */
+.splitHalf {
+  @apply text-foreground hover:bg-muted flex cursor-pointer items-center justify-center gap-2 px-3 py-2 text-sm transition-colors [&>svg]:size-4 [&>svg]:text-muted-foreground;
+}
+
+/* ─── 6. Text controls ─── */
+
+/* no box: muted text and an icon that brighten on hover */
+.textControl {
+  @apply text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center gap-1.5 text-sm transition-colors [&>svg]:size-4;
+}

@@ -5,9 +5,9 @@
   @apply fixed inset-0 z-50 bg-black/60 transition-opacity duration-200 data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none;
 }
 
-/* the panel: centred, nearly full width on a phone, scrolling inside when long */
+/* the panel: centred, nearly full width on a phone, scrolling inside when long; overscroll-none stops iOS rubber-banding the panel */
 .panel {
-  @apply bg-background border-border fixed top-1/2 left-1/2 z-50 flex max-h-[85dvh] w-[min(36rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 flex-col gap-6 overflow-y-auto overscroll-contain rounded-xl border p-5 shadow-2xl transition-[opacity,scale] duration-200 ease-out data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 motion-reduce:transition-none;
+  @apply bg-background border-border fixed top-1/2 left-1/2 z-50 flex max-h-[85dvh] w-[min(36rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 flex-col gap-6 overflow-y-auto overscroll-none rounded-xl border p-5 shadow-2xl transition-[opacity,scale] duration-200 ease-out data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 motion-reduce:transition-none;
 }
 
 /* eyebrow, title and subtitle on the left, close on the right */

@@ -47,13 +47,24 @@ export async function PageLayout({
   const notes = outsideTree ? null : await getCurrentNotes();
 
   return (
-    <div className={cn(styles.columns, aside && styles.columnsWithAside, className)}>
+    <div
+      className={cn(
+        styles.columns,
+        aside && styles.columnsWithAside,
+        aside && notes && styles.columnsWithNotes,
+        className,
+      )}
+    >
       <div className={cn(styles.panel, aside && styles.panelWithAside)}>
         <div className={styles.navRow}>
           <SiteNav />
           {!outsideTree && <Breadcrumbs />}
-          {notes && <NotesBar nav={notes.nav} sectionSlug={notes.item.section?.slug ?? null} />}
         </div>
+        {notes && (
+          <div className={styles.notes}>
+            <NotesBar nav={notes.nav} />
+          </div>
+        )}
         {asideOnMobile === "top" && asideBlock}
         <main className={styles.main}>
           <PageBody>{children}</PageBody>

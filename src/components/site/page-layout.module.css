@@ -24,11 +24,15 @@
 @media (width >= 56rem) {
   .columnsWithAside {
     @apply grid-cols-[minmax(0,var(--container-content))_var(--container-aside)] gap-x-8 gap-y-0;
-    grid-template-areas: "nav aside" "main aside";
+    grid-template-areas: "nav aside" "notes aside" "main aside";
   }
 
   .panelWithAside .navRow {
     grid-area: nav;
+  }
+
+  .panelWithAside .notes {
+    grid-area: notes;
   }
 
   .panelWithAside .main {
@@ -57,6 +61,37 @@
 /* nav row and breadcrumb strip, at every width */
 .navRow {
   @apply block;
+}
+
+/* the notes button under the nav row */
+.notes {
+  @apply min-w-0 pt-4;
+}
+
+/* a notes page with an aside on a phone: the notes button and the contents button share one row under the nav */
+@media (width < 56rem) {
+  .columnsWithNotes {
+    @apply grid-cols-[auto_1fr] gap-x-5 gap-y-4;
+    grid-template-areas: "nav nav" "notes aside" "main main";
+  }
+
+  .columnsWithNotes .navRow {
+    grid-area: nav;
+  }
+
+  /* the row gap spaces it here */
+  .columnsWithNotes .notes {
+    @apply pt-0;
+    grid-area: notes;
+  }
+
+  .columnsWithNotes .aside {
+    grid-area: aside;
+  }
+
+  .columnsWithNotes .main {
+    grid-area: main;
+  }
 }
 
 /* page content under the nav row */

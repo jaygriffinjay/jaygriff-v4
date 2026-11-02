@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronsUpDownIcon } from "lucide-react";
+import { ListIcon } from "lucide-react";
 import { useActiveHeading } from "@/hooks/use-active-heading";
 import { useJumpAfterClose } from "@/hooks/use-jump-after-close";
 import { CapsLabel } from "@/components/typography";
@@ -46,9 +46,8 @@ export function TocDisclosure({
         triggerClassName={styles.toggle}
         trigger={
           <>
-            <CapsLabel>On this page</CapsLabel>
-            <span className={styles.toggleCount}>{count}</span>
-            <ChevronsUpDownIcon aria-hidden="true" className={styles.chevron} />
+            <ListIcon aria-hidden="true" className={styles.toggleIcon} />
+            On this page
           </>
         }
         eyebrow="On this page"

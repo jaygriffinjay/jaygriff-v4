@@ -20,17 +20,13 @@
   @apply pt-3 text-sm;
 }
 
-/* below the wide breakpoint, a one-line bar that opens the list in a panel */
+/* below the wide breakpoint, opens the list in a panel: muted text and an icon at rest, the standard link's blue block on hover */
 .toggle {
-  @apply border-border hover:border-hover focus-visible:focus-ring flex w-full cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors wide:hidden;
+  @apply link inline-flex cursor-pointer items-center gap-1.5 text-sm wide:hidden;
+  color: var(--muted-foreground);
 }
 
-/* how many sections the list holds */
-.toggleCount {
-  @apply text-muted-foreground ml-auto text-xs;
-}
-
-/* shows the bar opens a panel */
-.chevron {
-  @apply text-muted-foreground size-4 shrink-0;
+/* the icon before the label */
+.toggleIcon {
+  @apply size-4 shrink-0;
 }
