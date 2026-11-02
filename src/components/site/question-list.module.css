@@ -30,12 +30,12 @@
   @apply rotate-180;
 }
 
-/* the answer's sliding box; the side padding and matching negative margin leave room for a link's hover block, which the clipping would otherwise cut */
+/* the answer's sliding box. A link's hover block and ring reach about 7px past the text, so 8px of padding on the sides and top (cancelled by negative margins) keeps the clipping clear of them; the top strip overlaps the question, so it lets taps through */
 .panel {
-  @apply -mx-1 h-(--accordion-panel-height) overflow-hidden px-1 transition-[height] duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none;
+  @apply pointer-events-none -mx-2 -mt-2 h-(--accordion-panel-height) overflow-hidden px-2 pt-2 transition-[height] duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none;
 }
 
-/* the answer, with room under it before the next question */
+/* the answer, with room under it before the next question; takes taps again inside the panel */
 .answer {
-  @apply pb-4;
+  @apply pointer-events-auto pb-4;
 }
