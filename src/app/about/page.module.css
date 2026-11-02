@@ -15,11 +15,6 @@
   @apply w-full;
 }
 
-/* section headings share the reading width of the content below them, centred on the page */
-.heading {
-  @apply mx-auto w-full max-w-2xl;
-}
-
 /* narrative bio: paragraphs at the page's own rhythm, at a reading width centred on the page */
 .bio {
   @apply gap-flow mx-auto flex w-full max-w-2xl flex-col leading-relaxed;
@@ -33,11 +28,6 @@
 /* the drawing at its own size or smaller, kept blocky when scaled */
 .paintingImage {
   @apply h-auto w-auto max-w-full [image-rendering:pixelated];
-}
-
-/* the questions at the same reading width, centred on the page */
-.questions {
-  @apply mx-auto w-full max-w-2xl;
 }
 
 /* inline link inside an answer */

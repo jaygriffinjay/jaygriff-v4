@@ -1,10 +1,11 @@
 // goatboat: fb29872b-df86-4340-82d7-97b7ffcb6a4c
 import Image from "next/image";
 import NextLink from "next/link";
-import { H2, Paragraph, Small } from "@/components/typography";
+import { Paragraph, Small } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
-import { QuestionList, type Question } from "@/components/site/question-list";
+import { type Question } from "@/components/site/question-list";
+import { Faq } from "./faq";
 import styles from "./page.module.css";
 
 const ABOUT_ME: Question[] = [
@@ -157,14 +158,11 @@ const ABOUT_SITE: Question[] = [
     question: "What is this site?",
     answer: (
       <>
-        A custom-built web app that serves as both my workspace and publishing
-        platform. It's the container for a lot of my other apps, because I
-        can build them in this repo and then host and demo them here. The site
-        is a{" "}
+        A website that serves as both my workspace and publishing
+        platform. I've always wanted my own corner of the internet where I have control over my data and I can do whatever I want. To learn more about the site itself, see the{" "}
         <NextLink href="/projects/jaygriff-v4" className={styles.link}>
-          project
-        </NextLink>{" "}
-        itself, with its own notes.
+          meta project page
+        </NextLink>.
       </>
     ),
   },
@@ -172,13 +170,7 @@ const ABOUT_SITE: Question[] = [
     question: "What's under the hood?",
     answer: (
       <>
-        More than a website. There's a content pipeline that syncs markdown
-        and TSX files into a database, which also models my projects and the
-        tools I use, and an admin area for editing all of it. Several of my apps
-        run inside this repo rather than being linked out to. So it's a
-        publishing platform, a CMS, a portfolio, and a testbed for the framework
-        I keep reusing — all at once, which is exactly why I keep working on it.
-        The database and API are their own project,{" "}
+        More than a website. I created and maintain a content database, CMS, API, MCP server, and admin interface in order to organize and manage my projects and notes. The backend powering this website is a separate project I call{" "}
         <NextLink href="/projects/goatboat" className={styles.link}>
           goatboat
         </NextLink>
@@ -196,10 +188,6 @@ const ABOUT_SITE: Question[] = [
     ),
   },
 ];
-
-function Questions({ items }: { items: Question[] }) {
-  return <QuestionList items={items} className={styles.questions} />;
-}
 
 export default function AboutPage() {
   return (
@@ -275,11 +263,12 @@ export default function AboutPage() {
         </Paragraph>
       </div>
 
-      <H2 className={styles.heading}>About me</H2>
-      <Questions items={ABOUT_ME} />
-
-      <H2 className={styles.heading}>About this site</H2>
-      <Questions items={ABOUT_SITE} />
+      <Faq
+        sections={[
+          { heading: "About me", items: ABOUT_ME },
+          { heading: "About this site", items: ABOUT_SITE },
+        ]}
+      />
     </PageLayout>
   );
 }

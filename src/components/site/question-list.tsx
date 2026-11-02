@@ -9,9 +9,27 @@ import styles from "./question-list.module.css";
 export type Question = { question: string; answer: React.ReactNode };
 
 /** Questions as plain headings with a chevron; tapping one reveals its answer underneath. No cards or rules. */
-export function QuestionList({ items, className }: { items: Question[]; className?: string }) {
+export function QuestionList({
+  items,
+  open,
+  onOpenChange,
+  className,
+}: {
+  items: Question[];
+  /** Which questions are open, by question text; leave out to let the list manage itself. */
+  open?: string[];
+  onOpenChange?: (open: string[]) => void;
+  className?: string;
+}) {
   return (
-    <Accordion.Root multiple className={cn(styles.list, className)}>
+    <Accordion.Root
+      multiple
+      value={open}
+      onValueChange={onOpenChange}
+      // Closed answers stay in the server HTML for crawlers, and find-in-page opens them
+      hiddenUntilFound
+      className={cn(styles.list, className)}
+    >
       {items.map(({ question, answer }) => (
         <Accordion.Item key={question} value={question}>
           <Accordion.Header className={styles.header}>

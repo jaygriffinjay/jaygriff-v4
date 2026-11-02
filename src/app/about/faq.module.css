@@ -1,0 +1,21 @@
+@reference "../globals.css";
+
+/* one question section at the reading width, centred on the page */
+.section {
+  @apply mx-auto flex w-full max-w-2xl flex-col gap-2;
+}
+
+/* section heading on the left, the expand/collapse control on the right, sharing the heading's baseline */
+.headingRow {
+  @apply flex items-baseline justify-between gap-4;
+}
+
+/* section heading in the link blue, to stand apart from the white questions */
+.heading {
+  @apply text-primary;
+}
+
+/* expand/collapse control: just muted text and an icon, brightening on hover */
+.toggle {
+  @apply text-muted-foreground hover:text-foreground focus-visible:focus-ring inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-sm bg-transparent text-sm transition-colors [&>svg]:size-3.5;
+}
