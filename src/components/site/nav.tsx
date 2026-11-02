@@ -1,7 +1,15 @@
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
-import { navRoutes } from "./routes";
 import styles from "./nav.module.css";
+
+const navRoutes = [
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects" },
+  { label: "Posts", href: "/posts" },
+  { label: "Notes", href: "/notes" },
+  { label: "About", href: "/about" },
+
+];
 
 // No current-page mark: the breadcrumbs say where you are
 export function SiteNav({ className }: { className?: string }) {
