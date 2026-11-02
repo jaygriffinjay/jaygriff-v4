@@ -7,6 +7,12 @@
   @apply text-heading text-title font-bold tracking-tight;
 }
 
+/* a page title that is my name (NameTitle), in Sekuya like the site name in the header */
+.nameTitle {
+  @apply text-heading text-title font-normal;
+  font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
+}
+
 /* h1 inside content */
 .h1 {
   @apply text-heading text-h1 font-bold tracking-tight;

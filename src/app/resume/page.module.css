@@ -1,0 +1,81 @@
+@reference "../globals.css";
+
+/* name and contact row, centred above the sections */
+.header {
+  @apply flex flex-col items-center gap-3 text-center;
+}
+
+/* contact links, wrapping on narrow screens instead of overflowing */
+.contact {
+  @apply text-muted-foreground flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm;
+}
+
+/* one contact entry: its leading dot plus the link, kept together when wrapping */
+.contactItem {
+  @apply flex items-center gap-x-3;
+}
+
+/* separator dot, outside the link so the hover block never covers it */
+.dot {
+  @apply text-muted-foreground;
+}
+
+/* a contact link */
+.contactLink {
+  @apply link;
+}
+
+/* section title on the left, link to the fuller version on the site on the right */
+.sectionHeader {
+  @apply border-border mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b pb-1;
+}
+
+/* link to the fuller version of a section */
+.sectionLink {
+  @apply link text-sm;
+}
+
+/* a project, job or degree */
+.entry {
+  @apply mb-5 last:mb-0;
+}
+
+/* entry title and dates on one line, stacking when there isn't room */
+.entryHeader {
+  @apply flex flex-wrap items-baseline justify-between gap-x-4;
+}
+
+/* the "— Personal Platform" half of an entry title */
+.tagline {
+  @apply text-muted-foreground font-normal;
+}
+
+/* dates beside an entry title, never wrapping */
+.dates {
+  @apply shrink-0;
+}
+
+/* achievement list under an entry */
+.bullets {
+  @apply mt-1;
+}
+
+/* label/value pairs, stacked on mobile and two columns from sm up */
+.skills {
+  @apply space-y-1;
+}
+
+/* one skill category */
+.skillRow {
+  @apply flex flex-col gap-x-2 sm:flex-row;
+}
+
+/* fixed-width label column so the values line up across rows */
+.skillLabel {
+  @apply text-foreground font-semibold sm:w-32 sm:shrink-0;
+}
+
+/* the comma-separated list of skills */
+.skillItems {
+  @apply text-muted-foreground;
+}
