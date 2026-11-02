@@ -1,0 +1,32 @@
+import NextLink from "next/link";
+import { notFound } from "next/navigation";
+import { Lead, Paragraph, Title } from "@/components/typography";
+import { PageLayout } from "@/components/site/page-layout";
+import { getDocsNav, listProjects } from "@/lib/goatboat";
+import { isVisible } from "@/lib/page-meta";
+import styles from "./page.module.css";
+
+type Props = { params: Promise<{ slug: string }> };
+
+/** A project's home: what it is, and the way into its docs. */
+export default async function ProjectPage({ params }: Props) {
+  const { slug } = await params;
+  const project = (await listProjects()).find((p) => p.slug === slug);
+  if (!project || !isVisible(project)) notFound();
+  const hasDocs = !!(await getDocsNav(slug))?.sections.length;
+
+  return (
+    <PageLayout hideRelated hideToc>
+      <Title>{project.title}</Title>
+      {project.tagline && <Lead>{project.tagline}</Lead>}
+      {project.description && <Paragraph>{project.description}</Paragraph>}
+      {hasDocs && (
+        <Paragraph>
+          <NextLink href={`/projects/${slug}/docs`} className={styles.link}>
+            Read the docs →
+          </NextLink>
+        </Paragraph>
+      )}
+    </PageLayout>
+  );
+}

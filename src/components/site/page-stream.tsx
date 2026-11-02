@@ -74,7 +74,7 @@ function TagLine({ item }: { item: ContentItem }) {
     item.tags?.length && (
       <span className={styles.tags}>
         {item.tags.map((tag) => (
-          <NextLink key={tag} href={`/tests/feed?tag=${tag}`} className={styles.link}>
+          <NextLink key={tag} href={`/projects/goatboat/docs/feed?tag=${tag}`} className={styles.link}>
             #{tag}
           </NextLink>
         ))}

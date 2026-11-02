@@ -1,4 +1,4 @@
-import { docsStart, getCurrentDocs } from "@/lib/docs";
+import { getCurrentDocs } from "@/lib/docs";
 import { currentPath, getCurrentPage, titleFromPath } from "@/lib/page-meta";
 import { BreadcrumbTrail, type Crumb } from "./breadcrumb-trail";
 import { ReportCrumbs } from "./mobile-menu";
@@ -23,9 +23,8 @@ export async function getCrumbs(): Promise<Crumb[]> {
     const section = nav.sections.find((s) => s.slug === item.section?.slug);
     return [
       { title: "Projects", path: "/projects" },
-      // No page per project yet, so its entry on the projects list
-      { title: nav.project.title, path: `/projects#${nav.project.slug}` },
-      { title: "Docs", path: docsStart(nav)?.path ?? "/docs" },
+      { title: nav.project.title, path: `/projects/${nav.project.slug}` },
+      { title: "Docs", path: `/projects/${nav.project.slug}/docs` },
       ...(section ? [{ title: section.title, path: section.pages[0].path }] : []),
       { title: item.title, path: item.path },
     ];

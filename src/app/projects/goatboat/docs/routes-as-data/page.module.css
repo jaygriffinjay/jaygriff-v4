@@ -1,0 +1,21 @@
+@reference "../../../../globals.css";
+
+/* page heading */
+.title {
+  @apply text-title;
+}
+
+/* "a proposal" paragraph under the heading */
+.intro {
+  @apply text-muted-foreground mt-3;
+}
+
+/* comparison tables */
+.table {
+  @apply text-sm;
+}
+
+/* table cells wrap instead of forcing horizontal scroll */
+.cell {
+  @apply align-top whitespace-normal;
+}
