@@ -58,10 +58,10 @@ export function Pagination({ page, pageCount, basePath, className }: PaginationP
 
       <StepLinks>
         {page > 1 && (
-          <StepLink direction="prev" rel="prev" href={href(page - 1)} label="← Previous" title={`Page ${page - 1}`} />
+          <StepLink direction="prev" rel="prev" href={href(page - 1)} label="Previous" title={`Page ${page - 1}`} />
         )}
         {page < pageCount && (
-          <StepLink direction="next" rel="next" href={href(page + 1)} label="Next →" title={`Page ${page + 1}`} />
+          <StepLink direction="next" rel="next" href={href(page + 1)} label="Next" title={`Page ${page + 1}`} />
         )}
       </StepLinks>
     </nav>

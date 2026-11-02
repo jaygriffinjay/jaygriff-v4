@@ -28,7 +28,7 @@ export default async function Home() {
           <H2 id="latest-heading">Latest</H2>
           <Feed items={latest} />
           <StepLinks className={styles.more}>
-            <StepLink direction="next" href="/new" label="The full feed" title="Everything new →" />
+            <StepLink direction="next" href="/new" label="The full feed" title="Everything new" />
           </StepLinks>
         </section>
       )}

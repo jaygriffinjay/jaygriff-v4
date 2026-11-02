@@ -24,8 +24,8 @@ export async function PrevNext({ className }: { className?: string }) {
   return (
     <nav aria-label="Previous and next" className={cn(styles.nav, className)}>
       <StepLinks>
-        {prev && <StepLink direction="prev" href={prev.path} label="← Previous" title={prev.title} />}
-        {next && <StepLink direction="next" href={next.path} label="Next →" title={next.title} />}
+        {prev && <StepLink direction="prev" href={prev.path} label="Previous" title={prev.title} />}
+        {next && <StepLink direction="next" href={next.path} label="Next" title={next.title} />}
       </StepLinks>
     </nav>
   );

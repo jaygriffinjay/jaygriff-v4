@@ -1,26 +1,46 @@
 @reference "../../app/globals.css";
 
-/* previous and next side by side, previous on the left and next on the right */
-.grid {
-  @apply grid gap-4 sm:grid-cols-2;
+/* previous at the left edge, next at the right, across the content width */
+.row {
+  @apply flex items-center justify-between gap-8;
 }
 
-/* one neighbour: a bordered box, all of it clickable; border turns blue on hover */
+/* one neighbour: the whole thing is one standard link, so hover fills it all with the blue block; shrinks and wraps only when both won't fit */
 .item {
-  @apply border-separator hover:border-hover focus-visible:focus-ring flex min-w-0 flex-col gap-1 border p-4 transition-colors;
+  @apply link inline-flex min-w-0 items-center gap-3;
 }
 
-/* previous sits in the left column */
+/* previous: arrow on the left, text reading away from it */
 .prev {
-  @apply sm:col-start-1;
+  @apply text-left;
 }
 
-/* next sits in the right column, right-aligned; on phones it stacks above previous */
+/* next: arrow on the right, text right-aligned toward it; stays at the right edge even on its own */
 .next {
-  @apply order-first sm:order-none sm:col-start-2 sm:items-end sm:text-right;
+  @apply ml-auto flex-row-reverse text-right;
 }
 
-/* the destination's title in link blue; the box border is the only hover effect */
+/* bold chevron; takes the link's color, blue at rest and dark on hover */
+.arrow {
+  @apply size-6 shrink-0;
+}
+
+/* label over title */
+.text {
+  @apply flex min-w-0 flex-col gap-0.5;
+}
+
+/* "PREVIOUS" or "NEXT": heading white at rest */
+.label {
+  color: var(--heading);
+}
+
+/* on hover the label goes dark with the rest of the link */
+.item:is(:hover, :focus-visible) .label {
+  color: inherit;
+}
+
+/* the destination's title, wrapping rather than cut short; takes the link's color */
 .title {
-  @apply text-primary max-w-full truncate font-medium;
+  @apply text-sm font-medium text-balance;
 }
