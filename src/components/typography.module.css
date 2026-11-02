@@ -1,136 +1,133 @@
 @reference "../app/globals.css";
 
-/* ─── Headings ─── */
+/* Everything here is in the components layer, so any page or component module (unlayered) overrides it whatever the load order */
+@layer components {
+  /* ─── Headings ─── */
 
-/* the page's own title (Title), a step smaller than a markdown h1 */
-.title {
-  @apply text-heading text-title font-bold tracking-tight;
-}
+  /* the page's own title (Title), a step smaller than a markdown h1 */
+  .title {
+    @apply text-heading text-title font-bold tracking-tight;
+  }
 
-/* a page title that is my name (NameTitle), in Sekuya like the site name in the header */
-.nameTitle {
-  @apply text-heading text-title font-normal;
-  font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
-}
+  /* h1 inside content */
+  .h1 {
+    @apply text-heading text-h1 font-bold tracking-tight;
+  }
 
-/* h1 inside content */
-.h1 {
-  @apply text-heading text-h1 font-bold tracking-tight;
-}
+  /* section heading */
+  .h2 {
+    @apply text-heading text-h2 font-bold tracking-tight;
+  }
 
-/* section heading */
-.h2 {
-  @apply text-heading text-h2 font-bold tracking-tight;
-}
+  /* subsection heading */
+  .h3 {
+    @apply text-heading text-h3 font-semibold;
+  }
 
-/* subsection heading */
-.h3 {
-  @apply text-heading text-h3 font-semibold;
-}
+  /* minor heading */
+  .h4 {
+    @apply text-heading text-h4 font-semibold;
+  }
 
-/* minor heading */
-.h4 {
-  @apply text-heading text-h4 font-semibold;
-}
+  /* small heading */
+  .h5 {
+    @apply text-heading text-base font-medium;
+  }
 
-/* small heading */
-.h5 {
-  @apply text-heading text-base font-medium;
-}
+  /* smallest heading */
+  .h6 {
+    @apply text-heading text-sm font-medium;
+  }
 
-/* smallest heading */
-.h6 {
-  @apply text-heading text-sm font-medium;
-}
+  /* ─── Body text ─── */
 
-/* ─── Body text ─── */
+  /* standard paragraph */
+  .paragraph {
+    @apply text-base leading-relaxed;
+  }
 
-/* standard paragraph */
-.paragraph {
-  @apply text-base leading-relaxed;
-}
+  /* muted paragraph at body size (Lead) */
+  .lead {
+    @apply text-muted-foreground text-base leading-relaxed;
+  }
 
-/* muted paragraph at body size (Lead) */
-.lead {
-  @apply text-muted-foreground text-base leading-relaxed;
-}
+  /* small muted paragraph (Muted) */
+  .muted {
+    @apply text-muted-foreground text-sm;
+  }
 
-/* small muted paragraph (Muted) */
-.muted {
-  @apply text-muted-foreground text-sm;
-}
+  /* ─── Labels ─── */
 
-/* ─── Labels ─── */
+  /* small, bold, all-caps label (CapsLabel) */
+  .capsLabel {
+    @apply text-heading block text-xs font-semibold tracking-widest uppercase;
+  }
 
-/* small, bold, all-caps label (CapsLabel) */
-.capsLabel {
-  @apply text-heading block text-xs font-semibold tracking-widest uppercase;
-}
+  /* fine print / secondary text */
+  .small {
+    @apply text-muted-foreground text-sm;
+  }
 
-/* fine print / secondary text */
-.small {
-  @apply text-muted-foreground text-sm;
-}
+  /* pulled-out quotation with a primary rule on the left */
+  .blockquote {
+    @apply border-primary text-muted-foreground border-l-4 pl-4 italic;
+  }
 
-/* pulled-out quotation with a primary rule on the left */
-.blockquote {
-  @apply border-primary text-muted-foreground border-l-4 pl-4 italic;
-}
+  /* ─── Lists ─── */
 
-/* ─── Lists ─── */
+  /* shared list spacing and indent */
+  .list {
+    @apply space-y-1 pl-6 leading-relaxed;
+  }
 
-/* shared list spacing and indent */
-.list {
-  @apply space-y-1 pl-6 leading-relaxed;
-}
+  /* bulleted list */
+  .unordered {
+    @apply list-disc;
+  }
 
-/* bulleted list */
-.unordered {
-  @apply list-disc;
-}
+  /* numbered list */
+  .ordered {
+    @apply list-decimal;
+  }
 
-/* numbered list */
-.ordered {
-  @apply list-decimal;
-}
+  /* ─── Inline ─── */
 
-/* ─── Inline ─── */
+  /* strong emphasis, a step brighter than body text (same as headings) */
+  .bold {
+    @apply text-heading font-bold;
+  }
 
-/* strong emphasis, a step brighter than body text (same as headings) */
-.bold {
-  @apply text-heading font-bold;
-}
+  /* light emphasis */
+  .italic {
+    @apply italic;
+  }
 
-/* light emphasis */
-.italic {
-  @apply italic;
-}
+  /* underline with a little breathing room under the text */
+  .underline {
+    @apply underline underline-offset-2;
+  }
 
-/* underline with a little breathing room under the text */
-.underline {
-  @apply underline underline-offset-2;
-}
+  /* struck-out text */
+  .strikethrough {
+    @apply line-through;
+  }
 
-/* struck-out text */
-.strikethrough {
-  @apply line-through;
-}
+  /* marker highlight: a faint blue tint (like Copilot's chat bubbles) with text a step brighter */
+  .highlight {
+    @apply bg-primary/20 text-heading rounded-sm px-1;
+  }
 
-/* marker highlight: a faint blue tint (like Copilot's chat bubbles) with text a step brighter */
-.highlight {
-  @apply bg-primary/20 text-heading rounded-sm px-1;
-}
-
-/* inline code, carried over from jaygriff v2: blue mono text on a faint lifted chip */
-.inlineCode {
-  @apply rounded-sm;
-  color: var(--code);
-  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
-  font-size: 0.9em;
-  /* translucent white so the chip lifts off both the page and card backgrounds */
-  background: oklch(1 0 0 / 7%);
-  padding: 0.01em 0.15em;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 3%);
-  box-decoration-break: clone;
-  overflow-wrap: break-word;
+  /* inline code, carried over from jaygriff v2: blue mono text on a faint lifted chip */
+  .inlineCode {
+    @apply rounded-sm;
+    color: var(--code);
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+    font-size: 0.9em;
+    /* translucent white so the chip lifts off both the page and card backgrounds */
+    background: oklch(1 0 0 / 7%);
+    padding: 0.01em 0.15em;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 3%);
+    box-decoration-break: clone;
+    overflow-wrap: break-word;
+  }
 }

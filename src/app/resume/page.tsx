@@ -1,6 +1,6 @@
 // goatboat: 28bc7ae3-fe0e-4af8-804d-c105bbea568e
 import NextLink from "next/link";
-import { H3, H4, List, ListItem, NameTitle, Small } from "@/components/typography";
+import { H3, H4, List, ListItem, Small, Title } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
 import { CONTACT, EDUCATION, EXPERIENCE, NAME, PROJECTS, SKILLS } from "./resume-data";
 import styles from "./page.module.css";
@@ -10,7 +10,7 @@ export default function ResumePage() {
   return (
     <PageLayout hideRelated hideToc>
       <header className={styles.header}>
-        <NameTitle>{NAME}</NameTitle>
+        <Title className={styles.name}>{NAME}</Title>
         <div className={styles.contact}>
           {CONTACT.map(({ label, href }, index) => (
             <span key={href} className={styles.contactItem}>

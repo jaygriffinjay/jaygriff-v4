@@ -5,6 +5,12 @@
   @apply flex flex-col items-center gap-3 text-center;
 }
 
+/* my name in Sekuya, like the site name in the header */
+.name {
+  @apply font-normal;
+  font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
+}
+
 /* contact links, wrapping on narrow screens instead of overflowing */
 .contact {
   @apply text-muted-foreground flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm;

@@ -1,6 +1,10 @@
 @reference "../../app/globals.css";
 
-.container {
-  @apply mx-auto w-full px-4 mt-16 mb-80 max-sm:mb-48;
-  max-width: 640px;
+/* in the components layer so a caller's class (a wider max-width, different margins) always wins */
+@layer components {
+  /* centred reading column with room above and below */
+  .container {
+    @apply mx-auto w-full px-4 mt-16 mb-80 max-sm:mb-48;
+    max-width: 640px;
+  }
 }

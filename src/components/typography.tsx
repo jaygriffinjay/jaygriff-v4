@@ -13,11 +13,6 @@ export function Title({ className, ...props }: HeadingProps) {
   return <h1 className={cn(styles.title, className)} {...props} />;
 }
 
-/** A page title that is my name, in the site name's Sekuya font. */
-export function NameTitle({ className, ...props }: HeadingProps) {
-  return <h1 className={cn(styles.nameTitle, className)} {...props} />;
-}
-
 export function H1({ className, ...props }: HeadingProps) {
   return <h1 className={cn(styles.h1, className)} {...props} />;
 }

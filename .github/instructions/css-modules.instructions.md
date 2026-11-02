@@ -28,7 +28,8 @@ applyTo: "**/*.module.css"
 
 Two single-class rules setting the same property on one element tie, and whichever CSS chunk loads last wins. That order changes between page loads, so the page flickers between the two. Don't fix it with `:where()`, nesting or `!important`; don't set the property twice.
 
-- **Text style belongs to typography.** A class passed to a typography component (`Title`, `H2`, `Paragraph`, `CapsLabel`, …) sets layout only: margin, width, borders, scroll offset. Never font size, weight, family, tracking, case or color. Need a different look? Add a component to `src/components/typography.tsx`, don't restyle an `H2` into something else.
+- **Typography is the exception: modules override it.** `typography.module.css` sits in `@layer components`, and unlayered CSS beats any layer, so a class passed to a typography component (`Title`, `H2`, `Paragraph`, …) always wins, whatever the load order. For a one-off look (a blue heading on one page, a different font on one title), set it in the page's own module. Only add to `typography.tsx` when a style is reused across the site.
+- **Keep shared components' own modules out of layers** unless they're meant to be overridden the same way; two unlayered modules still tie.
 - **`PageBody` owns the vertical margin between a page's blocks.** A block directly inside it never sets its own `mt-*`/`mb-*`/`my-*`. For extra room, use padding (`pt-8`), which adds to the flow margin instead of replacing it.
 
 ## Example
