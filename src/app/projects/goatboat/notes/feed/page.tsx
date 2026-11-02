@@ -18,7 +18,7 @@ const feedHref = (type?: string, tag?: string) => {
   if (type) params.set("type", type);
   if (tag) params.set("tag", tag);
   const query = params.toString();
-  return query ? `/projects/goatboat/docs/feed?${query}` : "/projects/goatboat/docs/feed";
+  return query ? `/projects/goatboat/notes/feed?${query}` : "/projects/goatboat/notes/feed";
 };
 
 export default async function FeedPage({
@@ -65,7 +65,7 @@ export default async function FeedPage({
 }
 
 function FeedEntry({ item }: { item: FeedItem }) {
-  const permalink = `/projects/goatboat/docs/content${item.path}`;
+  const permalink = `/projects/goatboat/notes/content${item.path}`;
 
   return (
     <li className={styles.item}>

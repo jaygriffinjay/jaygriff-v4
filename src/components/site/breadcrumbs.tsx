@@ -1,4 +1,4 @@
-import { getCurrentDocs } from "@/lib/docs";
+import { getCurrentNotes } from "@/lib/notes";
 import { currentPath, getCurrentPage, titleFromPath } from "@/lib/page-meta";
 import { BreadcrumbTrail, type Crumb } from "./breadcrumb-trail";
 import { ReportCrumbs } from "./mobile-menu";
@@ -15,16 +15,16 @@ const crumbsFromPath = (path: string): Crumb[] =>
       return { title: titleFromPath(crumbPath), path: crumbPath };
     });
 
-/** Section › … › current page for the current URL, from its goatboat row. A docs page's trail is Projects › project › Docs › section › page. */
+/** Section › … › current page for the current URL, from its goatboat row. A notes page's trail is Projects › project › Notes › section › page. */
 export async function getCrumbs(): Promise<Crumb[]> {
-  const docs = await getCurrentDocs();
-  if (docs) {
-    const { nav, item } = docs;
+  const notes = await getCurrentNotes();
+  if (notes) {
+    const { nav, item } = notes;
     const section = nav.sections.find((s) => s.slug === item.section?.slug);
     return [
       { title: "Projects", path: "/projects" },
       { title: nav.project.title, path: `/projects/${nav.project.slug}` },
-      { title: "Docs", path: `/projects/${nav.project.slug}/docs` },
+      { title: "Notes", path: `/projects/${nav.project.slug}/notes` },
       ...(section ? [{ title: section.title, path: section.pages[0].path }] : []),
       { title: item.title, path: item.path },
     ];

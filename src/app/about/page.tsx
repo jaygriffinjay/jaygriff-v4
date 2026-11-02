@@ -35,12 +35,12 @@ const ABOUT_ME: Question[] = [
     question: "What are you focused on right now?",
     answer: (
       <>
-        Currently I'm spending significant time on this website — building
+        Currently I'm spending significant time on this website - building
         new features, improving the framework, and writing. I'm also
         actively working on AI-native dev tools and workflows, AI-native apps,
-        and data analysis apps. The newest work shows up first in the{" "}
-        <NextLink href="/docs" className={styles.link}>
-          docs
+        and data analysis apps. My newest work often shows up first in{" "}
+        <NextLink href="/notes" className={styles.link}>
+          my notes
         </NextLink>
         .
       </>
@@ -50,7 +50,7 @@ const ABOUT_ME: Question[] = [
     question: "What do you actually want to be doing?",
     answer: (
       <>
-        I want to ship and run my own webapps end-to-end, from conception to production, and eventually build software businesses that support my life and work indefinitely. I'd also love to work with talented developers and learn from them. In the meantime I love working on this site, which is a content platform, documentation system, and testbed for webapps and larger-scale backends all at once.
+        I want to build apps end-to-end, from conception to production, and grow them into a software business that supports my life and work indefinitely. I’d also love to work with talented developers and learn from them. In the meantime, when I'm not working on my paid apps, I also like to work on my own software projects and experiments. 
       </>
     ),
   },
@@ -144,11 +144,11 @@ const ABOUT_SITE: Question[] = [
         <NextLink href="/projects" className={styles.link}>
           Projects
         </NextLink>{" "}
-        are the things I build, each with its own docs.{" "}
-        <NextLink href="/docs" className={styles.link}>
-          Docs
+        are the things I build, each with its own notes.{" "}
+        <NextLink href="/notes" className={styles.link}>
+          Notes
         </NextLink>{" "}
-        lists every doc and test across all of them, newest first, if you want
+        lists every note and test across all of them, newest first, if you want
         to see how things are made.
       </>
     ),
@@ -164,7 +164,7 @@ const ABOUT_SITE: Question[] = [
         <NextLink href="/projects/jaygriff-v4" className={styles.link}>
           project
         </NextLink>{" "}
-        itself, with its own docs.
+        itself, with its own notes.
       </>
     ),
   },

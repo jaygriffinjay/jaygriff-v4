@@ -11,7 +11,7 @@ import { isVisible } from "@/lib/page-meta";
 import { excerpt, plainExcerpt, wordsIn } from "@/lib/excerpt";
 import styles from "./page.module.css";
 
-const SAMPLE_PARENTS = ["/projects/goatboat/docs", "/projects/jaygriff-v4/docs"];
+const SAMPLE_PARENTS = ["/projects/goatboat/notes", "/projects/jaygriff-v4/notes"];
 
 async function loadEntries() {
   const parents = await Promise.all(SAMPLE_PARENTS.map((path) => getContentByPath(path)));
@@ -272,7 +272,7 @@ function TagList({ item, style }: { item: ContentItem; style: Delims["tags"] }) 
       {tags.map((tag, i) => (
         <span key={tag}>
           {style === "comma" && i > 0 && ", "}
-          <NextLink href={`/projects/goatboat/docs/feed?tag=${tag}`} className={styles.tagLink}>
+          <NextLink href={`/projects/goatboat/notes/feed?tag=${tag}`} className={styles.tagLink}>
             {style === "hash" ? `#${tag}` : tag}
           </NextLink>
         </span>

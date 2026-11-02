@@ -246,7 +246,7 @@ export function LibraryClient({ header }: { header: React.ReactNode }) {
 
   return (
     <>
-      <NextLink href="/projects/jaygriff-v4/docs/components" className={styles.banner}>
+      <NextLink href="/projects/jaygriff-v4/notes/components" className={styles.banner}>
         <span>← Back to the theme lab (color &amp; style experiments)</span>
       </NextLink>
 
@@ -764,7 +764,7 @@ export function LibraryClient({ header }: { header: React.ReactNode }) {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink href="/projects/jaygriff-v4/docs/components">Components</BreadcrumbLink>
+                <BreadcrumbLink href="/projects/jaygriff-v4/notes/components">Components</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>

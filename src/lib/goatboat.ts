@@ -164,7 +164,7 @@ export async function getContentByPath(path: string) {
   return "redirectTo" in res ? res : res.data;
 }
 
-export type DocsPage = {
+export type NotesPage = {
   path: string;
   title: string;
   description: string | null;
@@ -172,12 +172,12 @@ export type DocsPage = {
   updatedAt?: string;
   source?: "db" | "approute";
 };
-export type DocsSection = { slug: string; title: string; pages: DocsPage[] };
-export type DocsNav = { project: { slug: string; title: string; tagline: string | null }; sections: DocsSection[] };
+export type NotesSection = { slug: string; title: string; pages: NotesPage[] };
+export type NotesNav = { project: { slug: string; title: string; tagline: string | null }; sections: NotesSection[] };
 
-/** A project's docs: its sections in order, each with its published pages in order. */
-export async function getDocsNav(project: string) {
-  return (await get<{ data: DocsNav }>(`/docs/${encodeURIComponent(project)}`))?.data ?? null;
+/** A project's notes: its sections in order, each with its published pages in order. */
+export async function getNotesNav(project: string) {
+  return (await get<{ data: NotesNav }>(`/notes/${encodeURIComponent(project)}`))?.data ?? null;
 }
 
 export async function listTags() {

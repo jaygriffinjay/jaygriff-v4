@@ -5,13 +5,13 @@ import { usePathname } from "next/navigation";
 import NextLink from "next/link";
 import { ChevronsUpDownIcon } from "lucide-react";
 import { Bold, CapsLabel, Small } from "@/components/typography";
-import type { DocsNav } from "@/lib/goatboat";
+import type { NotesNav } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
 import { NavPanel } from "./nav-panel";
-import styles from "./docs-bar.module.css";
+import styles from "./notes-bar.module.css";
 
-/** Names the project whose docs you're reading; opens a panel with all of its sections and pages. */
-export function DocsBar({ nav, sectionSlug }: { nav: DocsNav; sectionSlug: string | null }) {
+/** Names the project whose notes you're reading; opens a panel with all of its sections and pages. */
+export function NotesBar({ nav, sectionSlug }: { nav: NotesNav; sectionSlug: string | null }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const section = nav.sections.find((s) => s.slug === sectionSlug);
@@ -27,7 +27,7 @@ export function DocsBar({ nav, sectionSlug }: { nav: DocsNav; sectionSlug: strin
       trigger={
         <>
           <span className={styles.barText}>
-            <CapsLabel>Docs</CapsLabel>
+            <CapsLabel>Notes</CapsLabel>
             <span className={styles.project}>
               <Bold>{nav.project.title}</Bold>
             </span>
@@ -36,12 +36,12 @@ export function DocsBar({ nav, sectionSlug }: { nav: DocsNav; sectionSlug: strin
           <ChevronsUpDownIcon aria-hidden="true" className={styles.barIcon} />
         </>
       }
-      eyebrow="Docs"
+      eyebrow="Notes"
       title={nav.project.title}
       subtitle={nav.project.tagline}
-      closeLabel="Close docs"
+      closeLabel="Close notes"
     >
-      <nav aria-label={`${nav.project.title} docs`} className={styles.sections}>
+      <nav aria-label={`${nav.project.title} notes`} className={styles.sections}>
         {nav.sections.map((s) => (
           <section key={s.slug} className={cn(styles.group, s.slug === sectionSlug && styles.groupCurrent)}>
             <h3 className={styles.groupHeading}>

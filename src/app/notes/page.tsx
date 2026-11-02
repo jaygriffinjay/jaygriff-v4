@@ -1,12 +1,12 @@
 // goatboat: b455ec91-16d1-41f1-a222-a7097ea66c25
-import { DocsTable, type DocsRow } from "@/components/site/docs-table";
+import { NotesTable, type NotesRow } from "@/components/site/notes-table";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
-import { allDocsPages, listAllDocs } from "@/lib/docs";
+import { allNotesPages, listAllNotes } from "@/lib/notes";
 
-/** Every docs page and test across projects, as one table to search, filter and sort. */
-export default async function DocsPage() {
-  const rows: DocsRow[] = allDocsPages(await listAllDocs()).map((page) => ({
+/** Every notes page and test across projects, as one table to search, filter and sort. */
+export default async function NotesPage() {
+  const rows: NotesRow[] = allNotesPages(await listAllNotes()).map((page) => ({
     path: page.path,
     title: page.title,
     description: page.description,
@@ -20,7 +20,7 @@ export default async function DocsPage() {
   return (
     <PageLayout hideRelated hideToc>
       <PageHeader />
-      <DocsTable rows={rows} />
+      <NotesTable rows={rows} />
     </PageLayout>
   );
 }

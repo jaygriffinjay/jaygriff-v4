@@ -1,15 +1,15 @@
-import { docsSequence, getCurrentDocs } from "@/lib/docs";
+import { notesSequence, getCurrentNotes } from "@/lib/notes";
 import { getCurrentPage } from "@/lib/page-meta";
 import { cn } from "@/lib/utils";
 import { StepLink, StepLinks } from "./step-links";
 import styles from "./prev-next.module.css";
 
-/** Docs pages step through their project's docs in nav order; other pages through their goatboat siblings. */
+/** Notes pages step through their project's notes in nav order; other pages through their goatboat siblings. */
 async function neighbours() {
-  const docs = await getCurrentDocs();
-  if (docs) {
-    const pages = docsSequence(docs.nav);
-    const i = pages.findIndex((p) => p.path === docs.item.path);
+  const notes = await getCurrentNotes();
+  if (notes) {
+    const pages = notesSequence(notes.nav);
+    const i = pages.findIndex((p) => p.path === notes.item.path);
     if (i >= 0) return { prev: pages[i - 1], next: pages[i + 1] };
   }
   const page = await getCurrentPage();

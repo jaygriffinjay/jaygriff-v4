@@ -6,5 +6,5 @@ export const navRoutes = [
   { label: "Projects", href: "/projects" },
   { label: "Posts", href: "/posts" },
   { label: "About", href: "/about" },
-  { label: "Docs", href: "/docs" },
+  { label: "Notes", href: "/notes" },
 ];

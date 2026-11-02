@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { TagLinks } from "../../_components/tag-links";
 import styles from "./page.module.css";
 
-const BASE = "/projects/goatboat/docs/content";
+const BASE = "/projects/goatboat/notes/content";
 
 const formatDate = (iso: string | null) => (iso ? format(new Date(iso), "MMM d, yyyy") : "—");
 
@@ -42,7 +42,7 @@ export default async function ContentPage({ params }: { params: Promise<{ path: 
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink render={<NextLink href="/projects/goatboat/docs/tree" />}>Tree</BreadcrumbLink>
+            <BreadcrumbLink render={<NextLink href="/projects/goatboat/notes/tree" />}>Tree</BreadcrumbLink>
           </BreadcrumbItem>
           {breadcrumbs.map((crumb, i) => (
             <Fragment key={crumb.id}>

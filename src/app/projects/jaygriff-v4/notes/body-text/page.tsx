@@ -41,7 +41,7 @@ function Sample({ name, className }: { name: string; className: string }) {
       <Paragraph className={styles.body}>
         The site syncs its code pages to goatboat on every push, so titles, descriptions and the breadcrumb
         trail all come from one place. Read the{" "}
-        <NextLink href="/docs/mvp" className={styles.link}>
+        <NextLink href="/projects/goatboat/notes/mvp" className={styles.link}>
           MVP plan
         </NextLink>{" "}
         for the order of work.

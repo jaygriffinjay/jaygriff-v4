@@ -45,7 +45,7 @@ function Sample({ name, className }: { name: string; className: string }) {
       <Paragraph className={styles.body}>
         The site syncs its code pages to goatboat on every push, so titles and descriptions come from one
         place. Read the{" "}
-        <NextLink href="/docs/mvp" className={styles.link}>
+        <NextLink href="/projects/goatboat/notes/mvp" className={styles.link}>
           MVP plan
         </NextLink>{" "}
         for the order of work.
@@ -54,7 +54,7 @@ function Sample({ name, className }: { name: string; className: string }) {
       <H2 className={styles.h2}>Related pages</H2>
       <ul className={styles.list}>
         <li>
-          <NextLink href="/projects/jaygriff-v4/docs/blues" className={styles.listLink}>
+          <NextLink href="/projects/jaygriff-v4/notes/blues" className={styles.listLink}>
             Blue tester
           </NextLink>
           <Paragraph className={cn(styles.muted, styles.description)}>
@@ -62,7 +62,7 @@ function Sample({ name, className }: { name: string; className: string }) {
           </Paragraph>
         </li>
         <li>
-          <NextLink href="/projects/jaygriff-v4/docs/code-blocks" className={styles.listLink}>
+          <NextLink href="/projects/jaygriff-v4/notes/code-blocks" className={styles.listLink}>
             Code blocks
           </NextLink>
           <Paragraph className={cn(styles.muted, styles.description)}>

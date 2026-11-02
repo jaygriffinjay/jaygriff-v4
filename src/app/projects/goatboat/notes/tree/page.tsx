@@ -36,7 +36,7 @@ function Branch({ parentId, childrenOf }: { parentId: string | null; childrenOf:
       {nodes.map((node) => (
         <li key={node.id}>
           <div className={styles.node}>
-            <NextLink href={`/projects/goatboat/docs/content${node.path}`} className={styles.link}>
+            <NextLink href={`/projects/goatboat/notes/content${node.path}`} className={styles.link}>
               {node.title}
             </NextLink>
             <Badge variant="outline">{node.type}</Badge>

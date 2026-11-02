@@ -23,9 +23,9 @@ import { Muted } from "@/components/typography";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import styles from "./docs-table.module.css";
+import styles from "./notes-table.module.css";
 
-export type DocsRow = {
+export type NotesRow = {
   path: string;
   title: string;
   description: string | null;
@@ -51,7 +51,7 @@ const dateOf = (iso: string) =>
     ? new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "America/Chicago" })
     : "—";
 
-const helper = createColumnHelper<typeof features, DocsRow>();
+const helper = createColumnHelper<typeof features, NotesRow>();
 // ISO dates sort correctly as text; dates start newest first
 const columns = helper.columns([
   helper.accessor("title", { sortFn: "alphanumeric", filterFn: "includesString" }),
@@ -74,10 +74,10 @@ const HEADERS: Record<string, string> = {
 const NEWEST: SortingState = [{ id: "publishedAt", desc: true }];
 
 /**
- * Every docs page and test in one table, all in the browser: search, filter by project, section and kind,
+ * Every notes page and test in one table, all in the browser: search, filter by project, section and kind,
  * and sort by several columns at once. Each column heading tapped adds to the sort, in order.
  */
-export function DocsTable({ rows }: { rows: DocsRow[] }) {
+export function NotesTable({ rows }: { rows: NotesRow[] }) {
   const [sorting, setSorting] = useState<SortingState>(NEWEST);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");

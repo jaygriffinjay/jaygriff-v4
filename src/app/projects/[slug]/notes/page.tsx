@@ -3,18 +3,18 @@ import { notFound } from "next/navigation";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { H2, Lead, Muted, Title } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
-import { getContentByPath, getDocsNav, listProjects } from "@/lib/goatboat";
+import { getContentByPath, getNotesNav, listProjects } from "@/lib/goatboat";
 import { isVisible } from "@/lib/page-meta";
 import styles from "./page.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
 
-/** A project's docs home: its README, then every section and its pages. */
-export default async function ProjectDocsPage({ params }: Props) {
+/** A project's notes home: its README, then every section and its pages. */
+export default async function ProjectNotesPage({ params }: Props) {
   const { slug } = await params;
   const [project, nav] = await Promise.all([
     listProjects().then((all) => all.find((p) => p.slug === slug)),
-    getDocsNav(slug),
+    getNotesNav(slug),
   ]);
   if (!project || !isVisible(project)) notFound();
 
@@ -25,7 +25,7 @@ export default async function ProjectDocsPage({ params }: Props) {
 
   return (
     <PageLayout hideRelated hideToc>
-      <Title>{project.title} docs</Title>
+      <Title>{project.title} notes</Title>
       {project.tagline && <Lead>{project.tagline}</Lead>}
       {readmeBody && (
         <div className={styles.readme}>
@@ -49,7 +49,7 @@ export default async function ProjectDocsPage({ params }: Props) {
           </section>
         ))
       ) : (
-        <Lead>No docs yet.</Lead>
+        <Lead>No notes yet.</Lead>
       )}
     </PageLayout>
   );

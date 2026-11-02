@@ -6,7 +6,7 @@ import { PageLayout } from "@/components/site/page-layout";
 import { currentPath } from "@/lib/page-meta";
 import styles from "./page.module.css";
 
-const BASE = "/projects/jaygriff-v4/docs/breadcrumb-trail";
+const BASE = "/projects/jaygriff-v4/notes/breadcrumb-trail";
 
 // Any depth renders, so every crumb in the trail is a working link
 const presets = [

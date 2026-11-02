@@ -76,7 +76,7 @@ function Sample({ name, className }: { name: string; className: string }) {
       <H3 className={styles.h3}>What the sync does</H3>
       <Paragraph>
         New folders arrive as drafts and missing ones are flagged, never deleted. Read the{" "}
-        <NextLink href="/docs/mvp" className={styles.link}>
+        <NextLink href="/projects/goatboat/notes/mvp" className={styles.link}>
           MVP plan
         </NextLink>{" "}
         for the order of work.

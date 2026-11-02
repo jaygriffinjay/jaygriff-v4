@@ -5,7 +5,7 @@ import { XIcon } from "lucide-react";
 import { CapsLabel, H2, Muted } from "@/components/typography";
 import styles from "./nav-panel.module.css";
 
-/** A bar that opens a centred panel for in-page navigation: the project's docs, the page's contents. */
+/** A bar that opens a centred panel for in-page navigation: the project's notes, the page's contents. */
 export function NavPanel({
   open,
   onOpenChange,
@@ -25,7 +25,7 @@ export function NavPanel({
   triggerClassName?: string;
   /** What the bar shows. */
   trigger: React.ReactNode;
-  /** Small caps line above the title, e.g. "Docs". */
+  /** Small caps line above the title, e.g. "Notes". */
   eyebrow: string;
   title: string;
   subtitle?: string | null;
