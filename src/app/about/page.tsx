@@ -10,21 +10,18 @@ import styles from "./page.module.css";
 
 const ABOUT_ME: Question[] = [
   {
-    question: "What's your background?",
+    question: "Who are you?",
     answer: (
       <>
-        I have a bachelor's degree in agricultural economics, a
-        master's degree in accounting, and I worked in public tax
-        accounting before transitioning to software development. I've also
-        worked as a professional mover and driver.
+        I'm Jay, a software developing person. This is my website, and that's a picture of me up there at the top of the page. I do other things too, like running, hiking, reading, and writing. 
       </>
     ),
   },
   {
-    question: "What kind of developer are you?",
+    question: "What kind of development do you do?",
     answer: (
       <>
-        I build full-stack TypeScript webapps on Vite or Next.js. I also do lots of backend work: working with APIs and cloud services, performance optimization, data modelling, asset pipelines, and the framework and dev tooling I built. Most of it is on this site or linked from{" "}
+        I often build full-stack TypeScript apps with Next.js, usually in the form of a website. To do this I work with many an API, cloud service, or JavaScript library. I also constantly worry about performance, security, and scalability, despite my apps' general lack of need for any of those things. Further, I often find myself wrangling data, whether that's gathering it, modeling it, analyzing it, or making it look pretty. If you want to see what I've made, check out my{" "}
         <NextLink href="/projects" className={styles.link}>
           projects
         </NextLink>
@@ -33,13 +30,25 @@ const ABOUT_ME: Question[] = [
     ),
   },
   {
+    question: "What do you use to build software?",
+    answer: (
+      <>
+        Many of the tools I use to make software are listed in{" "}
+        <NextLink href="/my-stack" className={styles.link}>
+          my stack
+        </NextLink>, along with what I've moved on from.
+      </>
+    ),
+  },
+  {
     question: "What are you focused on right now?",
     answer: (
       <>
-        Currently I'm spending significant time on this website - building
-        new features, improving the framework, and writing. I'm also
-        actively working on AI-native dev tools and workflows, AI-native apps,
-        and data analysis apps. My newest work often shows up first in{" "}
+        Currently I'm spending significant time on this website in order to get it to the point that it meets my standards. This website is one of my most important tools for developing software, as it helps me organize my work. Alongside it I'm building{" "}
+        <NextLink href="/projects/goatboat" className={styles.link}>
+          goatboat
+        </NextLink>
+        , the database, CMS, API, and MCP server that powers this site. When I'm not working on those, I also spend time vibecoding a whole lot of random stuff. My newest work often shows up first in{" "}
         <NextLink href="/notes" className={styles.link}>
           my notes
         </NextLink>
@@ -48,10 +57,21 @@ const ABOUT_ME: Question[] = [
     ),
   },
   {
-    question: "What do you actually want to be doing?",
+    question: "What are you focused on long term?",
     answer: (
       <>
-        I want to build apps end-to-end, from conception to production, and grow them into a software business that supports my life and work indefinitely. I’d also love to work with talented developers and learn from them. In the meantime, when I'm not working on my paid apps, I also like to work on my own software projects and experiments. 
+        I want to build and maintain my own thoughtful apps end-to-end, from conception to production. I want to do so inside a software business that supports my life and work indefinitely. Once said business equilibrium is established, I'd like to continue developing my ideas and contributing to projects I find meaningful.
+      </>
+    ),
+  },
+  {
+    question: "What's your background?",
+    answer: (
+      <>
+        I have a bachelor's degree in agricultural economics, a
+        master's degree in accounting, and I worked in public tax
+        accounting before transitioning to software development. I've also
+        worked as a professional mover and driver.
       </>
     ),
   },
@@ -79,20 +99,6 @@ const ABOUT_ME: Question[] = [
           contact page
         </NextLink>
         , next to my resume, GitHub and LinkedIn.
-      </>
-    ),
-  },
-  {
-    question: "What do you use to build software?",
-    answer: (
-      <>
-        Languages, frameworks, editors, and everything else I reach for is
-        listed in{" "}
-        <NextLink href="/my-stack" className={styles.link}>
-          my stack
-        </NextLink>
-        , along with what I actually use each one for and what I've moved on
-        from.
       </>
     ),
   },
@@ -134,27 +140,6 @@ const ABOUT_ME: Question[] = [
 
 const ABOUT_SITE: Question[] = [
   {
-    question: "Where should I start?",
-    answer: (
-      <>
-        Depends what you're after.{" "}
-        <NextLink href="/posts" className={styles.link}>
-          Posts
-        </NextLink>{" "}
-        are my writing.{" "}
-        <NextLink href="/projects" className={styles.link}>
-          Projects
-        </NextLink>{" "}
-        are the things I build, each with its own notes.{" "}
-        <NextLink href="/notes" className={styles.link}>
-          Notes
-        </NextLink>{" "}
-        lists every note and test across all of them, newest first, if you want
-        to see how things are made.
-      </>
-    ),
-  },
-  {
     question: "What is this site?",
     answer: (
       <>
@@ -167,10 +152,30 @@ const ABOUT_SITE: Question[] = [
     ),
   },
   {
+    question: "Where should I start?",
+    answer: (
+      <>
+        Depends on what you're after.{" "}
+        <NextLink href="/posts" className={styles.link}>
+          Posts
+        </NextLink>{" "}
+        is my writing.{" "}
+        <NextLink href="/projects" className={styles.link}>
+          Projects
+        </NextLink>{" "}
+        is the things I've made.{" "}
+        <NextLink href="/notes" className={styles.link}>
+          Notes
+        </NextLink>{" "}
+        is the knowledge base I maintain in order to help myself build software.
+      </>
+    ),
+  },
+  {
     question: "What's under the hood?",
     answer: (
       <>
-        More than a website. I created and maintain a content database, CMS, API, MCP server, and admin interface in order to organize and manage my projects and notes. The backend powering this website is a separate project I call{" "}
+        More than a website. I created a content database, CMS, API, and MCP server in order to organize and manage my projects and notes. The backend powering this website is a separate project I call{" "}
         <NextLink href="/projects/goatboat" className={styles.link}>
           goatboat
         </NextLink>
@@ -182,8 +187,7 @@ const ABOUT_SITE: Question[] = [
     question: "How long did this take to build?",
     answer: (
       <>
-        This version of the site is fairly recent, but the framework and methods
-        behind it have been refined over years of iteration.
+        This version of the site is fairly recent, but this site has seen many versions and the methods used to develop it have been refined over years of iteration.
       </>
     ),
   },
@@ -223,7 +227,7 @@ export default function AboutPage() {
         <Paragraph>
           Microsoft Paint is a good example of what I mean. You see, after all
           those years of playing Paint as a child, you might think I managed
-          to produce at least a few decent pieces of artwork. You would be wrong. All I ever managed to create in Paint were artistic abominations.
+          to produce at least a few decent pieces of artwork. You would be wrong. Everything I ever made in Paint was a disaster.
         </Paragraph>
         <figure className={styles.painting}>
           <Image
@@ -243,7 +247,7 @@ export default function AboutPage() {
         </figure>
         <Paragraph>
           So what was I doing then? Well, I liked playing with the tools themselves more than I liked drawing pictures with them. I remember the spray paint and the paint bucket the most. I loved resizing the spray paint and just…
-          spraying. I was very interested in how it randomly fills in pixels then eventually fills in perfectly.
+          spraying. I was very interested in how it randomly filled in pixels until it filled in perfectly.
         </Paragraph>
         <Paragraph>
           It's the same story
@@ -253,8 +257,7 @@ export default function AboutPage() {
         </Paragraph>
         <Paragraph>
           Fast forward to today. I am a software developer still driven by
-          that same core insight I felt as a child but didn't have the
-          words for: computers are incredibly powerful tools that are fun to
+          the same core insight I felt as a child but didn't fully recognize: computers are incredibly powerful tools that are fun to
           use. They can enable us to do incredible things perfectly, instantly,
           and at scale.
         </Paragraph>
