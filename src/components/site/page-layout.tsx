@@ -5,9 +5,10 @@ import { PageBody } from "@/components/layout/PageBody";
 import { Breadcrumbs } from "./breadcrumbs";
 import { NotesBar } from "./notes-bar";
 import { SiteNav } from "./nav";
-import { PageToc } from "./page-toc";
+import { PageToc, PageTocButton } from "./page-toc";
 import { PrevNext } from "./prev-next";
 import { RelatedPages } from "./related-pages";
+import type { TocEntry } from "@/lib/goatboat";
 import styles from "./page-layout.module.css";
 
 interface PageLayoutProps {
@@ -22,6 +23,8 @@ interface PageLayoutProps {
   hideRelated?: boolean;
   /** Pages whose headings aren't worth navigating (a short bio) turn the automatic table of contents off. */
   hideToc?: boolean;
+  /** Instead of a side column, just the "On this page" button under the nav, at every width, listing these entries. */
+  tocButton?: { title: string; entries: TocEntry[] };
   className?: string;
 }
 
@@ -35,11 +38,12 @@ export async function PageLayout({
   outsideTree,
   hideRelated,
   hideToc,
+  tocButton,
   className,
 }: PageLayoutProps) {
   // The 404 page renders at the requested path, so it must not check that path again
   if (!outsideTree) await requireVisible();
-  const item = outsideTree || ownAside || hideToc ? null : (await getCurrentPage())?.item;
+  const item = outsideTree || ownAside || hideToc || tocButton ? null : (await getCurrentPage())?.item;
   const autoToc = item?.toc && item.toc.length >= MIN_AUTO_TOC ? item : null;
   const aside = ownAside ?? (autoToc && <PageToc title={autoToc.title} entries={autoToc.toc!} />);
   const asideOnMobile = ownAside ? ownAsideOnMobile : "top";
@@ -60,9 +64,10 @@ export async function PageLayout({
           <SiteNav />
           {!outsideTree && <Breadcrumbs />}
         </div>
-        {notes && (
+        {(notes || tocButton) && (
           <div className={styles.notes}>
-            <NotesBar nav={notes.nav} />
+            {notes && <NotesBar nav={notes.nav} />}
+            {tocButton && <PageTocButton title={tocButton.title} entries={tocButton.entries} />}
           </div>
         )}
         {asideOnMobile === "top" && asideBlock}

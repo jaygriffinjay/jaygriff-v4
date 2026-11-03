@@ -13,3 +13,13 @@ export function PageToc({ title, entries }: { title: string; entries: TocEntry[]
     </Aside>
   );
 }
+
+/** Just the "On this page" button, at every width, for pages without the side column. Also listed in the mobile menu. */
+export function PageTocButton({ title, entries }: { title: string; entries: TocEntry[] }) {
+  return (
+    <>
+      <ReportToc title={title} titleId={slugifyHeading(title)} entries={entries} />
+      <TocDisclosure title={title} titleId={slugifyHeading(title)} entries={entries} buttonOnly />
+    </>
+  );
+}

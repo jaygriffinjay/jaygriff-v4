@@ -63,9 +63,9 @@
   @apply block;
 }
 
-/* the notes button under the nav row */
+/* the notes and contents buttons under the nav row */
 .notes {
-  @apply min-w-0 pt-4;
+  @apply flex min-w-0 flex-wrap items-center gap-x-5 gap-y-2 pt-4;
 }
 
 /* a notes page with an aside on a phone: the notes button and the contents button share one row under the nav */

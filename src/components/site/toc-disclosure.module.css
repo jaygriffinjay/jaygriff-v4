@@ -26,6 +26,12 @@
   color: var(--muted-foreground);
 }
 
+/* the same opener shown at every width, for pages that use it instead of the side column */
+.toggleAlways {
+  @apply link inline-flex cursor-pointer items-center gap-1.5 text-sm;
+  color: var(--muted-foreground);
+}
+
 /* the icon before the label */
 .toggleIcon {
   @apply size-4 shrink-0;
