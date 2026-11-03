@@ -13,9 +13,8 @@ const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: "Read Stuff",
     links: [
+      { label: "Notes", href: "/notes" },
       { label: "Posts", href: "/posts" },
-      { label: "Thoughts", href: "/thoughts" },
-      { label: "Designs", href: "/designs" },
     ],
   },
   {
@@ -31,12 +30,12 @@ const columns: { title: string; links: FooterLink[] }[] = [
     links: [
       { label: "GitHub", href: "https://github.com/jaygriffinjay" },
       { label: "LinkedIn", href: "https://linkedin.com/in/jaygriffinjay" },
-      { label: "Contact", href: "/contact" },
     ],
   },
   {
     title: "Other Stuff",
     links: [
+      { label: "Contact", href: "/contact" },
       { label: "License", href: "/license" },
       { label: "Source", href: "https://github.com/jaygriffinjay/jaygriff-v4" },
     ],
