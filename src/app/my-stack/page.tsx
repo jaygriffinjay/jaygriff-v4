@@ -1,11 +1,10 @@
 // goatboat: b00209fe-92a9-4881-8d51-57c8fee238b3
-import { H2 } from "@/components/typography";
+import { Lead } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
-import { PageToc } from "@/components/site/page-toc";
 import { slugifyHeading } from "@/lib/slugify-heading";
-import { ToolCard } from "./ToolCard";
-import { StatusKey } from "./StatusKey";
+import { StatusKey, StatusLegend } from "./StatusKey";
+import { ToolSections } from "./ToolSections";
 import { STATUS_ORDER } from "./tool-status";
 import { SECTIONS, type Tool } from "./tools";
 import styles from "./page.module.css";
@@ -18,33 +17,19 @@ const TOC = SECTIONS.map((section) => ({ depth: 2, text: section.label, id: slug
 
 export default function MyStackPage() {
   return (
-    <PageLayout hideRelated aside={<PageToc title="My stack" entries={TOC} />} asideOnMobile="top">
-      <PageHeader intro="The tools and software I use" separator={false} />
+    <PageLayout hideRelated tocButton={{ title: "My stack", entries: TOC }}>
+      <PageHeader separator={false} />
+      <div className={styles.intro}>
+        <StatusLegend />
+        <Lead>The tools and software I use</Lead>
+      </div>
 
       <div className={styles.page}>
         <StatusKey />
 
-        {SECTIONS.map((section) => {
-          const tools = byStatus(section.tools);
-          // Halves, not alternating, so the two columns stack back into order on a phone
-          const half = Math.ceil(tools.length / 2);
-          const columns = [tools.slice(0, half), tools.slice(half)];
-
-          return (
-            <section key={section.id} className={styles.sectionBody}>
-              <H2 className={styles.sectionHeading}>{section.label}</H2>
-              <div className={styles.toolGrid}>
-                {columns.map((column, index) => (
-                  <div key={index} className={styles.toolColumn}>
-                    {column.map((tool) => (
-                      <ToolCard key={tool.title} {...tool} />
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </section>
-          );
-        })}
+        <ToolSections
+          sections={SECTIONS.map((section) => ({ id: section.id, label: section.label, tools: byStatus(section.tools) }))}
+        />
       </div>
     </PageLayout>
   );

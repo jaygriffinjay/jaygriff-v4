@@ -1,33 +1,73 @@
 @reference "../globals.css";
 
-/* everything below the header, in one left-aligned column */
+/* everything below the header, at a reading width centred in the content column, like the About page */
 .page {
-  @apply flex flex-col gap-8;
+  @apply mx-auto flex w-full max-w-2xl flex-col gap-8;
 }
 
-/* the usage statuses, as one small wrapped row of chips */
-.key {
-  @apply text-muted-foreground flex flex-wrap items-center gap-2 text-xs;
+/* the legend's info button, then the intro line */
+.intro {
+  @apply flex items-center gap-2;
 }
 
-/* one status as a chip: bordered, and the border turns blue on hover like the site's other interactive cards; opens its meaning */
+/* the statuses, centred: a tidy 3×2 grid on a phone, so no lone label wraps onto its own line; one row from sm up */
+.keyList {
+  @apply text-muted-foreground mx-auto grid w-fit grid-cols-[repeat(3,auto)] gap-x-4 gap-y-1.5 text-xs sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-y-1;
+}
+
+/* a status label with its dot in front */
+.dotLabel {
+  @apply inline-flex items-center gap-1.5;
+}
+
+/* a status name: small heading-white text, in the row and the legend alike */
+.statusLabel {
+  @apply text-heading text-sm font-medium;
+}
+
+/* the one info button that opens the legend; nudged up to sit level with the intro text */
 .keyButton {
-  @apply border-border hover:border-hover hover:text-foreground focus-visible:focus-ring inline-flex cursor-pointer items-center gap-1.5 rounded-full border bg-transparent px-2.5 py-1 transition-colors;
+  @apply text-foreground hover:text-primary focus-visible:focus-ring relative -top-0.5 inline-flex shrink-0 cursor-pointer items-center rounded-full bg-transparent transition-colors [&>svg]:size-5;
 }
 
-/* the small info mark on every chip: the usual sign that there's more to read */
-.keyInfo {
-  @apply size-3 opacity-60;
-}
-
-/* the meaning, in a small card that matches the site's corner radius */
+/* the legend: wide enough for each status and its meaning on a line or two */
 .keyPopover {
-  @apply w-64 gap-0 rounded-lg p-3 text-sm;
+  @apply w-80 gap-3 rounded-lg p-4 text-sm sm:w-96;
 }
 
-/* asterisk after a tool name; its colour is the status. Hues are spread around the wheel and avoid the red/green/amber trio, which colour-blind readers can't tell apart */
+/* the legend's heading */
+.legendTitle {
+  @apply text-heading font-semibold;
+}
+
+/* the status name with its coloured dot, kept on one line */
+.legendLabel {
+  @apply text-heading align-top font-medium;
+}
+
+/* what the status means, wrapping within the popover */
+.legendMeaning {
+  @apply align-top whitespace-normal;
+}
+
+/* status dot; its colour is the status (bg-current takes the mark class's text colour). Hues are spread around the wheel and avoid the red/green/amber trio, which colour-blind readers can't tell apart */
 .statusMark {
-  @apply cursor-default text-lg leading-none font-bold;
+  @apply block size-2.5 shrink-0 cursor-default rounded-full bg-current;
+}
+
+/* Active has no dot; it keeps the dot's space so its name lines up with the others, and the gap shows the missing dot */
+.noDot {
+  @apply invisible;
+}
+
+/* the slot before a tool's logo where its status dot sits, empty for Active, so the dots line up down the list */
+.gutter {
+  @apply mr-1.5 flex w-2.5 shrink-0 justify-center;
+}
+
+/* empty space the size of a chevron on rows with no note, so their dots line up with the rows that have one */
+.chevronSpace {
+  @apply size-4 shrink-0;
 }
 
 /* occasional: emerald */
@@ -62,27 +102,27 @@
 
 /* category heading; offset so a jump from the contents lands clear of the sticky header */
 .sectionHeading {
-  @apply mb-3 scroll-mt-4 wide:scroll-mt-24;
+  @apply scroll-mt-4 wide:scroll-mt-24;
 }
 
-/* two side-by-side stacks. Each column is its own flow, so opening a card on one side can't move the other the way a shared grid row would */
-.toolGrid {
-  @apply grid w-full grid-cols-1 items-start gap-x-8 md:grid-cols-2;
+/* category heading on the left, the expand/collapse control on the right, sharing the heading's baseline */
+.headingRow {
+  @apply mb-3 flex items-baseline justify-between gap-4;
 }
 
-/* one column of tools */
-.toolColumn {
-  @apply flex flex-col gap-1;
+/* one compact column of tools, as wide as the sections block */
+.toolList {
+  @apply flex flex-col gap-0.5;
+}
+
+/* every section, filling the centred column so the rows have reading room */
+.sections {
+  @apply flex w-full flex-col gap-8;
 }
 
 /* a tool: small logo on the left, name and line on the right; the same padding with or without a note, so logos line up down the column */
 .toolCard {
-  @apply flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors duration-200;
-}
-
-/* every row tints on hover; there are no borders */
-.toolCard:hover {
-  @apply bg-muted/50;
+  @apply flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition-colors duration-200;
 }
 
 /* a tool with a note: the card stacks its row above the note, and the padding moves to the row */
@@ -90,19 +130,14 @@
   @apply flex-col items-stretch gap-0 p-0;
 }
 
-/* a card stays tinted while open, so the note reads as part of it */
-.toolCardOpen {
-  @apply bg-muted/40;
-}
-
 /* the clickable row of a card with a note */
 .toolTrigger {
-  @apply focus-visible:focus-ring flex w-full cursor-pointer items-center gap-3 rounded-lg bg-transparent px-3 py-2.5 text-left;
+  @apply focus-visible:focus-ring flex w-full cursor-pointer items-center gap-3 rounded-lg bg-transparent px-3 py-2 text-left;
 }
 
 /* shows the row opens */
 .toolChevron {
-  @apply text-muted-foreground ml-auto size-4 shrink-0 transition-transform;
+  @apply text-muted-foreground size-4 shrink-0 transition-transform;
 }
 
 /* chevron flipped while open */
@@ -110,9 +145,9 @@
   @apply rotate-180;
 }
 
-/* the opened note, indented to line up under the tool's name */
+/* the opened note, indented to line up under the tool's name (padding, dot, logo and gaps) */
 .toolNote {
-  @apply text-muted-foreground m-0 pr-3 pb-3 pl-16 text-sm leading-relaxed;
+  @apply text-muted-foreground m-0 pr-3 pb-3 pl-[5.75rem] text-sm leading-relaxed;
 }
 
 /* fixed-size box the logo sits in */
@@ -130,14 +165,14 @@
   filter: brightness(0) invert(1);
 }
 
-/* name and line stacked */
+/* name and line stacked, taking the row's spare width so the chevron sits at the end */
 .toolBody {
-  @apply flex min-w-0 flex-col;
+  @apply flex min-w-0 flex-1 flex-col;
 }
 
 /* tool name */
 .toolTitle {
-  @apply block text-sm leading-tight;
+  @apply block text-base leading-tight;
 }
 
 /* the short line under the name */

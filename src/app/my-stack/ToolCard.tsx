@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -8,13 +7,28 @@ import { TOOL_STATUS_META } from "./tool-status";
 import type { Tool } from "./tools";
 import styles from "./page.module.css";
 
-/** One tool: logo, name and a short line. A tool with a note opens to show it. */
-export function ToolCard({ logo, title, description, note, invert = false, status = "active" }: Tool) {
+/** One tool: logo, name and a short line. A tool with a note opens to show it; the list owns which are open. */
+export function ToolCard({
+  logo,
+  title,
+  description,
+  note,
+  invert = false,
+  status = "active",
+  open,
+  onToggle,
+}: Tool & { open: boolean; onToggle: () => void }) {
   const { label, markClass } = TOOL_STATUS_META[status];
-  const [open, setOpen] = useState(false);
 
   const body = (
     <>
+      <span className={styles.gutter}>
+        {markClass && (
+          <span className={cn(styles.statusMark, markClass)} title={`${title}: ${label}`}>
+            <span className={styles.srOnly}>{label}</span>
+          </span>
+        )}
+      </span>
       <div className={styles.toolLogo}>
         <Image
           src={logo}
@@ -25,26 +39,25 @@ export function ToolCard({ logo, title, description, note, invert = false, statu
         />
       </div>
       <div className={styles.toolBody}>
-        <strong className={styles.toolTitle}>
-          {title}
-          {markClass && (
-            <span className={cn(styles.statusMark, markClass)} title={`${title}: ${label}`}>
-              *<span className={styles.srOnly}> {label}</span>
-            </span>
-          )}
-        </strong>
+        <strong className={styles.toolTitle}>{title}</strong>
         <p className={styles.toolDescription}>{description}</p>
       </div>
     </>
   );
 
-  if (!note) return <div className={styles.toolCard}>{body}</div>;
+  if (!note)
+    return (
+      <div className={styles.toolCard}>
+        {body}
+        <span className={styles.chevronSpace} aria-hidden="true" />
+      </div>
+    );
 
   return (
-    <div className={cn(styles.toolCard, styles.toolCardNoted, open && styles.toolCardOpen)}>
+    <div className={cn(styles.toolCard, styles.toolCardNoted)}>
       <button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={onToggle}
         aria-expanded={open}
         className={styles.toolTrigger}
       >
