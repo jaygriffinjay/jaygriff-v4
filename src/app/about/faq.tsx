@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronsDownUpIcon, ChevronsUpDownIcon } from "lucide-react";
 import { H2 } from "@/components/typography";
+import { ExpandAllToggle } from "@/components/site/expand-all-toggle";
 import { QuestionList, type Question } from "@/components/site/question-list";
 import styles from "./faq.module.css";
 
@@ -20,12 +20,7 @@ export function Faq({ sections }: { sections: Section[] }) {
       <section key={heading} className={styles.section}>
         <div className={styles.headingRow}>
           <H2 className={styles.heading}>{heading}</H2>
-          {index === 0 && (
-            <button type="button" className={styles.toggle} onClick={() => setOpen(anyOpen ? [] : all)}>
-              {anyOpen ? <ChevronsDownUpIcon aria-hidden="true" /> : <ChevronsUpDownIcon aria-hidden="true" />}
-              {anyOpen ? "Collapse all" : "Expand all"}
-            </button>
-          )}
+          {index === 0 && <ExpandAllToggle anyOpen={anyOpen} onToggle={() => setOpen(anyOpen ? [] : all)} />}
         </div>
         <QuestionList
           items={items}
