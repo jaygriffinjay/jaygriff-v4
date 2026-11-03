@@ -64,7 +64,9 @@ export function ToolCard({
         {body}
         <ChevronDownIcon aria-hidden="true" className={cn(styles.toolChevron, open && styles.toolChevronOpen)} />
       </button>
-      {open && <p className={styles.toolNote}>{note}</p>}
+      <p hidden={!open} className={styles.toolNote}>
+        {note}
+      </p>
     </div>
   );
 }

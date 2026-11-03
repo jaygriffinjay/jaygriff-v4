@@ -31,8 +31,8 @@ export const SECTIONS: Section[] = [
     ],
   },
   {
-    id: "core-dev-tools",
-    label: "Core Dev Tools",
+    id: "daily-drivers",
+    label: "My Daily Drivers for Software Dev",
     tools: [
       { logo: "/tool-logos/react.svg", title: "React", description: "Components <3", note: "What I'm writing most of the day." },
       { logo: "/tool-logos/nextjs.svg", title: "Next.js", description: "React cloud wizardry", note: "Where the React lives. Almost everything I build starts as a Next.js app." },
@@ -45,12 +45,21 @@ export const SECTIONS: Section[] = [
       { logo: "/tool-logos/vscode.svg", title: "VS Code", description: "My IDE", note: "Where I live." },
       { logo: "/tool-logos/chromedevtools.svg", title: "Chrome DevTools", description: "My CSS broke again", note: "Where I fix and optimize my sites — layout bugs, network waterfalls, and everything that only breaks in the browser." },
       { logo: "/tool-logos/logo.svg", title: "jaygriff.com", description: "Pretty good imo", note: "Pretty helpful too. Highly recommend." },
-      { logo: "/tool-logos/cline.svg", title: "Cline", description: "Pretty solid!", invert: true, status: "occasional" },
-      { logo: "/tool-logos/openai.svg", title: "ChatGPT", description: "Openai changes it every day", invert: true },
-      { logo: "/tool-logos/claude.svg", title: "Claude", description: "Thanks Anthropic very cool" },
-      { logo: "/tool-logos/gemini.svg", title: "Gemini", description: "Pretty good all rounder" },
-      { logo: "/tool-logos/lovable.svg", title: "Lovable.dev", description: "Rapid prototyping", status: "occasional" },
-      { logo: "/tool-logos/bolt.svg", title: "Bolt.new", description: "UI generation", status: "occasional" },
+    ],
+  },
+  {
+    id: "backend-as-a-service",
+    label: "Backend as a Service",
+    tools: [
+      { logo: "/tool-logos/turso.svg", title: "Turso", description: "SQLite on the edge", note: "My primary database." },
+      { logo: "/tool-logos/neon.svg", title: "Neon", description: "Serverless Postgres" },
+      { logo: "/tool-logos/supabase.svg", title: "Supabase", description: "Postgres + auth + realtime", note: "Exploring it for projects that need Postgres" },
+    ],
+  },
+  {
+    id: "web-frameworks",
+    label: "Web Frameworks & Platforms",
+    tools: [
       { logo: "/tool-logos/netlify.svg", title: "Netlify", description: "Replaced by Vercel", status: "shelved" },
       { logo: "/tool-logos/django.svg", title: "Django", description: "Python web framework", status: "shelved" },
       { logo: "/tool-logos/flask.svg", title: "Flask", description: "Earlier projects", status: "benched" },
@@ -61,18 +70,15 @@ export const SECTIONS: Section[] = [
     ],
   },
   {
-    id: "data",
-    label: "Data",
+    id: "ai",
+    label: "AI Apps",
     tools: [
-      { logo: "/tool-logos/turso.svg", title: "Turso", description: "SQLite on the edge", note: "My primary database." },
-    ],
-  },
-  {
-    id: "backend-as-a-service",
-    label: "Backend as a Service",
-    tools: [
-      { logo: "/tool-logos/neon.svg", title: "Neon", description: "Serverless Postgres" },
-      { logo: "/tool-logos/supabase.svg", title: "Supabase", description: "Postgres + auth + realtime", note: "Exploring it for projects that need Postgres" },
+      { logo: "/tool-logos/openai.svg", title: "ChatGPT", description: "Openai changes it every day", invert: true },
+      { logo: "/tool-logos/claude.svg", title: "Claude", description: "Thanks Anthropic very cool" },
+      { logo: "/tool-logos/gemini.svg", title: "Gemini", description: "Pretty good all rounder" },
+      { logo: "/tool-logos/cline.svg", title: "Cline", description: "Pretty solid!", invert: true, status: "occasional" },
+      { logo: "/tool-logos/lovable.svg", title: "Lovable.dev", description: "Rapid prototyping", status: "occasional" },
+      { logo: "/tool-logos/bolt.svg", title: "Bolt.new", description: "UI generation", status: "occasional" },
     ],
   },
   {
@@ -81,7 +87,7 @@ export const SECTIONS: Section[] = [
     tools: [
       { logo: "/tool-logos/tailwind.svg", title: "Tailwind", description: "UTILITY FIRST!", note: "My styling foundation, paired with CSS Modules for component-scoped styles." },
       { logo: "/tool-logos/baseui.svg", title: "Base UI", description: "Accessible primitives" },
-      { logo: "/tool-logos/radix.svg", title: "Radix UI", description: "Accessible primitives", invert: true, status: "benched" },
+      { logo: "/tool-logos/radix.svg", title: "Radix UI", description: "Accessible primitives", invert: true, status: "shelved" },
       { logo: "/tool-logos/shadcn.svg", title: "shadcn/ui", description: "Composable components", invert: true, note: "Accessible, composable UI out of the box. Tailwind + Radix + shadcn is exactly the clean setup I was looking for." },
       { logo: "/tool-logos/emotion.png", title: "Emotion", description: "Previous site", status: "shelved", note: "CSS-in-JS on the previous version of this site." },
       { logo: "/tool-logos/mui.svg", title: "Material UI", description: "Solid components and docs", status: "shelved" },
@@ -102,7 +108,7 @@ export const SECTIONS: Section[] = [
     label: "Productivity",
     tools: [
       { logo: "/tool-logos/notion.svg", title: "Notion", description: "Main hub for writing", note: "Fast for capturing lots of content and syncs across all devices." },
-      { logo: "/tool-logos/obsidian.svg", title: "Obsidian", description: "Admire from afar", status: "occasional", note: "The hotkeys, settings, and aesthetic are amazing. I still don't actively use it." },
+      { logo: "/tool-logos/obsidian.svg", title: "Obsidian", description: "Admire from afar", status: "benched", note: "The hotkeys, settings, and aesthetic are amazing. I still don't actively use it." },
       { logo: "/tool-logos/excel.svg", title: "Excel", description: "Do not cite the deep magic to me, witch", note: "Former accountant, and yet: surprisingly little use for spreadsheets now that Notion and custom tools cover it." },
       { logo: "/tool-logos/sheets.svg", title: "Google Sheets", description: "Apps Script pretty cool", note: "Current use case: splitting expenses with my roommate." },
       { logo: "/tool-logos/office365.svg", title: "Office Suite", description: "For work if need be", note: "Used for work when required." },
@@ -114,7 +120,7 @@ export const SECTIONS: Section[] = [
     label: "Photo & Graphics",
     tools: [
       { logo: "/tool-logos/affinity.svg", title: "Affinity", description: "A dream come true", note: "Go-to for image and vector work — professional-grade tools without the Adobe subscription. Mostly practical stuff: cropping, aligning, background removal, optimisation, fixing aspect ratios." },
-      { logo: "/tool-logos/canva.svg", title: "Canva", description: "Use less often now" },
+      { logo: "/tool-logos/canva.svg", title: "Canva", description: "Use less often now", status: "occasional" },
       { logo: "/tool-logos/photoshop.svg", title: "Photoshop", description: "Expensive", status: "shelved" },
       { logo: "/tool-logos/photopea.svg", title: "Photopea", description: "Affinity wins", status: "shelved" },
       { logo: "/tool-logos/inkscape.svg", title: "Inkscape", description: "Replaced by Affinity", status: "shelved" },
@@ -149,18 +155,10 @@ export const SECTIONS: Section[] = [
     id: "following",
     label: "Following",
     tools: [
-      { logo: "/tool-logos/cursor.svg", title: "Cursor", description: "Very cool", invert: true },
-      { logo: "/tool-logos/claudecode.svg", title: "Claude Code", description: "Absolutely epic" },
-      { logo: "/tool-logos/githubcopilotsdk.svg", title: "GitHub Copilot SDK", description: "Sounds great" },
-      { logo: "/tool-logos/claude.svg", title: "Claude Cowork", description: "For normies" },
+      { logo: "/tool-logos/cursor.svg", title: "Cursor", description: "Very cool", invert: true, status: "benched" },
+      { logo: "/tool-logos/claudecode.svg", title: "Claude Code", description: "Absolutely epic", status: "benched" },
       { logo: "/tool-logos/codex.svg", title: "Codex", description: "OpenAI scrambling", status: "wishlist" },
       { logo: "/tool-logos/exo.svg", title: "Exo", description: "Cluster devices for distributed AI", status: "wishlist" },
-    ],
-  },
-  {
-    id: "want-to-use",
-    label: "Want to Use",
-    tools: [
       { logo: "/tool-logos/langchain.svg", title: "LangChain", description: "AI chains", invert: true, status: "wishlist", note: "Looks powerful for building AI applications and agent workflows. Haven't carved out the time." },
       { logo: "/tool-logos/langsmith.svg", title: "LangSmith", description: "Monitoring and debugging chains", invert: true, status: "wishlist" },
       { logo: "/tool-logos/terraform.svg", title: "Terraform", description: "Infrastructure as code", status: "wishlist" },
