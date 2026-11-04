@@ -5,6 +5,11 @@
   @apply gap-flow mx-auto flex w-full max-w-2xl flex-col items-center text-center;
 }
 
+/* the page title at the size of the section headings below it, in the link blue, so the page reads title, then sections, then questions */
+.title {
+  @apply text-primary text-h1;
+}
+
 /* portrait above the page title */
 .portrait {
   @apply border-border block aspect-square size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;

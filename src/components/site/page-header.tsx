@@ -4,13 +4,15 @@ import { currentPath, getCurrentPage, titleFromPath } from "@/lib/page-meta";
 import { cn } from "@/lib/utils";
 import styles from "./page-header.module.css";
 
-/** The current page's heading and intro, from its goatboat row. A page can pass `intro` for when the row has none, or turn the separator off. */
+/** The current page's heading and intro, from its goatboat row. A page can pass `intro` for when the row has none, turn the separator off, or style its title with `titleClassName`. */
 export async function PageHeader({
   className,
+  titleClassName,
   intro: fallbackIntro,
   separator = true,
 }: {
   className?: string;
+  titleClassName?: string;
   intro?: string;
   separator?: boolean;
 }) {
@@ -20,7 +22,7 @@ export async function PageHeader({
 
   return (
     <header className={cn(styles.header, className)}>
-      <Title>{title}</Title>
+      <Title className={titleClassName}>{title}</Title>
       {intro && <Lead className={styles.intro}>{intro}</Lead>}
       {separator && <Separator className={styles.separator} />}
     </header>

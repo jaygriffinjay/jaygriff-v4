@@ -21,7 +21,7 @@ const ABOUT_ME: Question[] = [
     question: "What kind of development do you do?",
     answer: (
       <>
-        I often build full-stack TypeScript apps with Next.js, usually in the form of a website. To do this I work with many an API, cloud service, or JavaScript library. I also constantly worry about performance, security, and scalability, despite my apps' general lack of need for any of those things. Further, I often find myself wrangling data, whether that's gathering it, modeling it, analyzing it, or making it look pretty. If you want to see what I've made, check out my{" "}
+        I often build full-stack TypeScript apps, usually in the form of a website. To do this I work with many an API, cloud service, or JavaScript library. I also constantly worry about performance, security, and scalability, despite many of my apps' general lack of need for any of those things. Further, I often find myself wrangling data, whether that's gathering it, modeling it, analyzing it, or making it look pretty. If you want to see what I've made, check out my{" "}
         <NextLink href="/projects" className={styles.link}>
           projects
         </NextLink>
@@ -206,7 +206,7 @@ export default function AboutPage() {
           priority
           className={styles.portrait}
         />
-        <PageHeader className={styles.header} intro="A bit about how I got here, plus a Q&A for fun." />
+        <PageHeader className={styles.header} titleClassName={styles.title} intro="A bit about how I got here, plus a Q&A for fun." />
       </div>
 
       <div className={styles.bio}>
