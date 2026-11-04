@@ -13,7 +13,7 @@ const ABOUT_ME: Question[] = [
     question: "Who are you?",
     answer: (
       <>
-        I'm Jay, a software developing person. This is my website, and that's a picture of me up there at the top of the page. I do other things too, like running, hiking, reading, and writing. 
+        I'm Jay, a software-developing person. This is my website, and that's a picture of me up there at the top of the page. I do other things too - like running, hiking, reading, and writing. 
       </>
     ),
   },
@@ -44,11 +44,15 @@ const ABOUT_ME: Question[] = [
     question: "What are you focused on right now?",
     answer: (
       <>
-        Currently I'm spending significant time on this website in order to get it to the point that it meets my standards. This website is one of my most important tools for developing software, as it helps me organize my work. Alongside it I'm building{" "}
+        Currently I'm spending significant time on{" "}
+        <NextLink href="/projects/jaygriff-v4" className={styles.link}>
+          this website
+        </NextLink>
+        . It's one of my most important tools for developing software because it helps me organize and publish my work. Alongside it I'm building{" "}
         <NextLink href="/projects/goatboat" className={styles.link}>
           goatboat
         </NextLink>
-        , the database, CMS, API, and MCP server that powers this site. When I'm not working on those, I frequently build lots of little tools and experiments. My newest work often shows up first in{" "}
+        , the backend that powers all my sites. When I'm not working on those, I frequently build lots of little tools and experiments. My newest work often shows up first in{" "}
         <NextLink href="/notes" className={styles.link}>
           my notes
         </NextLink>
@@ -60,7 +64,7 @@ const ABOUT_ME: Question[] = [
     question: "What are you focused on long term?",
     answer: (
       <>
-        I want to create thoughtful, useful paid apps end-to-end, from conception to production, and have them support my life and work indefinitely. Once said business equilibrium is established, I'd like to continue developing my ideas and contributing to projects I find meaningful.
+        I want to create thoughtful, useful paid apps end-to-end, from conception to production, and have them support my life and work. Once said business equilibrium is reached, I'd like to continue developing my ideas and contributing to projects I find meaningful.
       </>
     ),
   },
@@ -175,11 +179,11 @@ const ABOUT_SITE: Question[] = [
     question: "What's under the hood?",
     answer: (
       <>
-        More than a website. I created a content database, CMS, API, and MCP server in order to organize and manage my projects and notes. The backend powering this website is a separate project I call{" "}
+        More than a website. The backend powering this website is a separate project I call{" "}
         <NextLink href="/projects/goatboat" className={styles.link}>
           goatboat
         </NextLink>
-        .
+        . It's a content database, CMS, API, and MCP server that helps me manage the deluge of content generated from my work.
       </>
     ),
   },
