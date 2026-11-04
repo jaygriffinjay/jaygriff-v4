@@ -48,7 +48,7 @@ const ABOUT_ME: Question[] = [
         <NextLink href="/projects/goatboat" className={styles.link}>
           goatboat
         </NextLink>
-        , the database, CMS, API, and MCP server that powers this site. When I'm not working on those, I also spend time vibecoding a whole lot of random stuff. My newest work often shows up first in{" "}
+        , the database, CMS, API, and MCP server that powers this site. When I'm not working on those, I frequently build lots of little tools and experiments. My newest work often shows up first in{" "}
         <NextLink href="/notes" className={styles.link}>
           my notes
         </NextLink>
@@ -60,7 +60,7 @@ const ABOUT_ME: Question[] = [
     question: "What are you focused on long term?",
     answer: (
       <>
-        I want to build and maintain my own thoughtful apps end-to-end, from conception to production. I want to do so inside a software business that supports my life and work indefinitely. Once said business equilibrium is established, I'd like to continue developing my ideas and contributing to projects I find meaningful.
+        I want to create thoughtful, useful paid apps end-to-end, from conception to production, and have them support my life and work indefinitely. Once said business equilibrium is established, I'd like to continue developing my ideas and contributing to projects I find meaningful.
       </>
     ),
   },
