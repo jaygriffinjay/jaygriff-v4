@@ -1,0 +1,97 @@
+@reference "../../../../globals.css";
+
+/* the whole demo: what to break, which files exist, the layers, then why */
+.demo {
+  @apply flex flex-col gap-4;
+}
+
+/* the rows of choices */
+.controls {
+  @apply flex flex-col gap-2;
+}
+
+/* a label and its choices on one wrapping row */
+.group {
+  @apply flex flex-wrap items-baseline gap-x-4 gap-y-1;
+}
+
+/* "Break" or "Files" in front of a row of choices */
+.groupLabel {
+  @apply text-muted-foreground w-12 shrink-0 text-xs font-semibold tracking-widest uppercase;
+}
+
+/* one choice: a text control in the standard link style, muted at rest */
+.choice {
+  @apply link cursor-pointer text-sm;
+  color: var(--muted-foreground);
+}
+
+/* the chosen one, or a file that exists: underlined and bold, so it reads as selected without a fill */
+.choice[aria-pressed="true"] {
+  @apply font-semibold underline underline-offset-4;
+}
+
+/* the layers, outermost first */
+.stage {
+  @apply flex flex-col;
+}
+
+/* one layout drawn as a box around whatever it wraps */
+.layer {
+  @apply border-border bg-background flex flex-col gap-3 rounded-lg border p-3;
+}
+
+/* the nested layout, a shade lighter so the nesting reads */
+.layer .layer {
+  @apply bg-card;
+}
+
+/* a layout's file and what it is */
+.head {
+  @apply flex flex-wrap items-baseline gap-x-3 gap-y-1;
+}
+
+/* a file name */
+.file {
+  @apply text-primary text-sm;
+}
+
+/* a small description */
+.note {
+  @apply text-muted-foreground text-xs;
+}
+
+/* the page, when it renders fine */
+.page {
+  @apply border-primary/60 flex flex-wrap items-baseline gap-x-3 rounded-md border border-dashed px-3 py-2 text-sm;
+}
+
+/* what an error or not-found file draws in place of what it caught, outlined in red */
+.fallback {
+  @apply border-destructive/70 flex flex-col gap-1 rounded-md border px-3 py-2;
+}
+
+/* the fallback's message */
+.message {
+  @apply text-foreground m-0 text-sm;
+}
+
+/* the whole-document fallback, outlined in red like the others */
+.layer[data-fallback="true"] {
+  @apply border-destructive/70;
+}
+
+/* why it turned out this way, with a rule down its left coloured by outcome */
+.outcome {
+  @apply border-border border-l-2 pl-3 text-sm leading-relaxed;
+}
+
+/* nothing broken: blue rule */
+.outcome[data-kind="ok"] {
+  @apply border-primary;
+}
+
+/* something was caught: red rule */
+.outcome[data-kind="caught"] {
+  @apply border-destructive;
+}

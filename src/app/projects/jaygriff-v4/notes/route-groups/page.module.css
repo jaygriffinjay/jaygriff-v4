@@ -1,0 +1,6 @@
+@reference "../../../../globals.css";
+
+/* one tab's content: a sentence or two of explanation, then its demo */
+.panel {
+  @apply flex flex-col gap-4 pt-4;
+}
