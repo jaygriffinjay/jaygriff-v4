@@ -251,7 +251,7 @@ export default function AboutPage() {
         </figure>
         <Paragraph>
           So what was I doing then? Well, I liked playing with the tools themselves more than I liked drawing pictures with them. I remember the spray paint and the paint bucket the most. I loved resizing the spray paint and just…
-          spraying. I was very interested in how it randomly filled in pixels until it filled in perfectly.
+          spraying. I was very interested in how it randomly filled in pixels until they all fit perfectly.
         </Paragraph>
         <Paragraph>
           It's the same story
