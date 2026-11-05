@@ -112,9 +112,10 @@
     @apply line-through;
   }
 
-  /* marker highlight: a faint blue tint (like Copilot's chat bubbles) with text a step brighter */
+  /* marker highlight: a faint blue tint (like Copilot's chat bubbles) with text a step brighter; square-edged, and the side padding repeats on every line it wraps across */
   .highlight {
-    @apply bg-primary/20 text-heading rounded-sm px-1;
+    @apply bg-primary/20 text-heading px-1;
+    box-decoration-break: clone;
   }
 
   /* inline code, carried over from jaygriff v2: blue mono text on a faint lifted chip */

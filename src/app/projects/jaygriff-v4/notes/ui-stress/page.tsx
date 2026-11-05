@@ -24,15 +24,14 @@ import {
 import { CodeBlock } from "@/components/code-block/CodeBlock";
 import type { CodeFile } from "@/components/code-block/types";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
-import { PageBody } from "@/components/layout/PageBody";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
+import { PageTabs } from "@/components/site/page-tabs";
 import { QuestionList } from "@/components/site/question-list";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BeforeAfter } from "./before-after";
+import { HighlightDesigns } from "./highlight-designs";
 import { LinkCodeDesigns } from "./link-code-designs";
-import styles from "./page.module.css";
 
 const fence = "```";
 
@@ -150,6 +149,9 @@ ${fence}
 - [ ] an item with \`code\` and a [link](/about)
   - [x] a nested finished item
   - [ ] a nested open item
+- [x] a finished parent
+  - [ ] with an open child, which should not be struck
+- [ ] a long open item that has to wrap onto more than one line, to show where the text sits against the box
 
 1. [x] an ordered task
 2. [ ] another one
@@ -305,7 +307,7 @@ const cases: { title: string; check: string; content: React.ReactNode }[] = [
   },
   {
     title: "Task lists",
-    check: "The renderer doesn't map checkbox inputs, so see what a task list actually looks like: stray checkboxes, bullets next to them, alignment.",
+    check: "Checkboxes in place of bullets, the box lined up with its text, a finished item struck through without striking its nested items, and ordered tasks.",
     content: <MarkdownRenderer source={markdown.tasks} />,
   },
   {
@@ -431,41 +433,36 @@ export default function UiStressPage() {
         rest are components that markdown can't produce. Each has a line on what to look for.
       </Paragraph>
 
-      <Tabs defaultValue="cases">
-        <TabsList variant="line">
-          <TabsTrigger value="cases">All cases</TabsTrigger>
-          <TabsTrigger value="before-after">Before and after</TabsTrigger>
-          <TabsTrigger value="link-code">Code in links</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="cases" className={styles.panel}>
-          <PageBody>
-            {cases.map(({ title, check, content }) => (
+      <PageTabs
+        tabs={[
+          {
+            id: "cases",
+            label: "All cases",
+            children: cases.map(({ title, check, content }) => (
               <Fragment key={title}>
                 <H2>{title}</H2>
                 <Muted>{check}</Muted>
                 {content}
               </Fragment>
-            ))}
-          </PageBody>
-        </TabsContent>
-
-        <TabsContent value="before-after" className={styles.panel}>
-          <PageBody>
-            <Paragraph>
-              Bugs found here and since fixed, each shown twice to confirm the fix. The "before" side is rebuilt with CSS
-              that undoes the fix, since the old code is gone.
-            </Paragraph>
-            <BeforeAfter />
-          </PageBody>
-        </TabsContent>
-
-        <TabsContent value="link-code" className={styles.panel}>
-          <PageBody>
-            <LinkCodeDesigns />
-          </PageBody>
-        </TabsContent>
-      </Tabs>
+            )),
+          },
+          {
+            id: "before-after",
+            label: "Before and after",
+            children: (
+              <>
+                <Paragraph>
+                  Bugs found here and since fixed, each shown twice to confirm the fix. The "before" side is rebuilt with CSS
+                  that undoes the fix, since the old code is gone.
+                </Paragraph>
+                <BeforeAfter />
+              </>
+            ),
+          },
+          { id: "link-code", label: "Code in links", children: <LinkCodeDesigns /> },
+          { id: "highlights", label: "Highlights", children: <HighlightDesigns /> },
+        ]}
+      />
     </PageLayout>
   );
 }

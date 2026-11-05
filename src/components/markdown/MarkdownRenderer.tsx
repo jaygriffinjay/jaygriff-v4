@@ -1,4 +1,5 @@
 import NextLink from "next/link";
+import { Children, isValidElement } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Element, ElementContent } from "hast";
@@ -28,6 +29,14 @@ function textOf(node: Element | ElementContent | undefined): string {
   return "children" in node ? node.children.map(textOf).join("") : "";
 }
 
+// remark-gfm marks task lists and items with these classes
+const isTaskList = (className: string | undefined) => className?.includes("contains-task-list");
+const isTaskItem = (className: string | undefined) => className?.includes("task-list-item");
+
+// A nested list is sent to the item as a ul or ol element carrying its hast node
+const isNestedList = (child: React.ReactNode) =>
+  isValidElement<{ node?: Element }>(child) && ["ul", "ol"].includes(child.props.node?.tagName ?? "");
+
 function createComponents(): Components {
   // Duplicate headings get -1, -2, … like goatboat's TOC
   const seen = new Map<string, number>();
@@ -46,9 +55,24 @@ function createComponents(): Components {
     h5: ({ node, children }) => <H5 id={headingId(node)}>{children}</H5>,
     h6: ({ node, children }) => <H6 id={headingId(node)}>{children}</H6>,
     p: ({ children }) => <Paragraph>{children}</Paragraph>,
-    ul: ({ children }) => <List>{children}</List>,
-    ol: ({ children }) => <List ordered>{children}</List>,
-    li: ({ children }) => <ListItem>{children}</ListItem>,
+    ul: ({ className, children }) => <List className={isTaskList(className) ? styles.taskList : undefined}>{children}</List>,
+    ol: ({ className, children }) => (
+      <List ordered className={isTaskList(className) ? styles.taskList : undefined}>
+        {children}
+      </List>
+    ),
+    li: ({ className, children }) => {
+      if (!isTaskItem(className)) return <ListItem>{children}</ListItem>;
+      // The item's own text goes in a wrapper so a finished item's strikethrough stops short of its nested list
+      const kids = Children.toArray(children);
+      return (
+        <ListItem className={styles.task}>
+          <div className={styles.taskText}>{kids.filter((kid) => !isNestedList(kid))}</div>
+          {kids.filter(isNestedList)}
+        </ListItem>
+      );
+    },
+    input: ({ checked, disabled }) => <input type="checkbox" checked={checked} disabled={disabled} className={styles.checkbox} />,
     strong: ({ children }) => <Bold>{children}</Bold>,
     em: ({ children }) => <Italic>{children}</Italic>,
     del: ({ children }) => <Strikethrough>{children}</Strikethrough>,

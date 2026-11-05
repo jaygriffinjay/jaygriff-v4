@@ -1,0 +1,45 @@
+@reference "../../../../globals.css";
+
+/* one design: name, note, then a highlight long enough to wrap in a narrow box */
+.option {
+  @apply flex flex-col gap-2;
+}
+
+/* narrow column so the highlight has to wrap, whatever the window width */
+.narrow {
+  @apply max-w-xs;
+}
+
+/* the highlight as it was: rounded, but the box is sliced where the text wraps, so the rounding is lost at line breaks */
+.sliced {
+  box-decoration-break: slice;
+}
+
+/* rounded, with the ends repeated on every wrapped line, like inline code; this is what the site now uses */
+.cloned {
+  box-decoration-break: clone;
+}
+
+/* sharp corners, sliced across lines */
+.sharpSliced {
+  @apply rounded-none;
+  box-decoration-break: slice;
+}
+
+/* sharp corners, with the side padding repeated on every wrapped line */
+.sharpCloned {
+  @apply rounded-none;
+  box-decoration-break: clone;
+}
+
+/* a bigger radius, repeated on every line */
+.roundedMore {
+  @apply rounded-md;
+  box-decoration-break: clone;
+}
+
+/* no side padding, so wrapped lines meet the text edge; sharp */
+.sharpFlush {
+  @apply rounded-none px-0;
+  box-decoration-break: clone;
+}

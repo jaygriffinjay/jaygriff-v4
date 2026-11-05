@@ -19,3 +19,45 @@
 .image {
   @apply h-auto max-w-full rounded-lg;
 }
+
+/* a task list: no bullets or numbers, the checkboxes take their place */
+.taskList {
+  @apply list-none pl-0;
+}
+
+/* a task item, with room on the left for its checkbox */
+.task {
+  @apply relative pl-7;
+}
+
+/* the item's own text, apart from any nested list so a finished item's strikethrough doesn't reach its children */
+.taskText {
+  &:has(> .checkbox:checked, > p > .checkbox:checked) {
+    @apply line-through;
+    color: color-mix(in srgb, var(--foreground) 55%, transparent);
+  }
+}
+
+/* the checkbox drawn as a rounded box hung in the left margin, lined up with the first line of text */
+.checkbox {
+  @apply border-muted-foreground/55 absolute top-[0.3em] left-0 m-0 size-[1.05em] rounded-[4px] border-2 bg-transparent opacity-100;
+  appearance: none;
+
+  /* the tick, cut out of a solid fill so it takes the colour set when checked */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: transparent;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 85% no-repeat;
+  }
+
+  /* a finished item: filled blue with a dark tick */
+  &:checked {
+    @apply border-primary bg-primary;
+  }
+
+  &:checked::after {
+    background-color: var(--primary-foreground);
+  }
+}
