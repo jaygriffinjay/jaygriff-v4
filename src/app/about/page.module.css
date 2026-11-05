@@ -39,3 +39,13 @@
 .link {
   @apply link;
 }
+
+/* the two tabs are the page's main choice, so the rule under them is only as wide as the content below, centred like it */
+.tabList {
+  @apply mx-auto max-w-2xl;
+}
+
+/* each tab takes half the width, centred, at a larger size than the standard tab */
+.tab {
+  @apply flex-1 justify-center py-4 text-xl;
+}

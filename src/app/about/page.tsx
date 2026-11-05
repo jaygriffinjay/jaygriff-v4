@@ -4,6 +4,7 @@ import NextLink from "next/link";
 import { Paragraph, Small } from "@/components/typography";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
+import { PageTabs } from "@/components/site/page-tabs";
 import { type Question } from "@/components/site/question-list";
 import { Faq } from "./faq";
 import styles from "./page.module.css";
@@ -197,23 +198,9 @@ const ABOUT_SITE: Question[] = [
   },
 ];
 
-export default function AboutPage() {
+function Story() {
   return (
-    <PageLayout hideRelated hideToc>
-      <div className={styles.top}>
-        <Image
-          src="/images/me2.jpg"
-          alt="Jay Griffin"
-          width={200}
-          height={200}
-          quality={100}
-          priority
-          className={styles.portrait}
-        />
-        <PageHeader className={styles.header} titleClassName={styles.title} intro="A bit about how I got here, plus a Q&A for fun." />
-      </div>
-
-      <div className={styles.bio}>
+    <div className={styles.bio}>
         <Paragraph>
           I've been living inside computers since I was five.
         </Paragraph>
@@ -269,11 +256,42 @@ export default function AboutPage() {
           Despite the power and ease of using computers, it remains difficult to make something truly useful and impactful with them. I now work on software almost every single day trying to do that.
         </Paragraph>
       </div>
+  );
+}
 
-      <Faq
-        sections={[
-          { heading: "About me", items: ABOUT_ME },
-          { heading: "About this site", items: ABOUT_SITE },
+export default function AboutPage() {
+  return (
+    <PageLayout hideRelated hideToc>
+      <div className={styles.top}>
+        <Image
+          src="/images/me2.jpg"
+          alt="Jay Griffin"
+          width={200}
+          height={200}
+          quality={100}
+          priority
+          className={styles.portrait}
+        />
+        <PageHeader className={styles.header} titleClassName={styles.title} intro="A bit about how I got here, plus a Q&A for fun." separator={false} />
+      </div>
+
+      <PageTabs
+        listClassName={styles.tabList}
+        tabClassName={styles.tab}
+        tabs={[
+          { id: "story-time", label: "Story Time", children: <Story /> },
+          {
+            id: "q-and-a",
+            label: "Q&A",
+            children: (
+              <Faq
+                sections={[
+                  { heading: "About me", items: ABOUT_ME },
+                  { heading: "About this site", items: ABOUT_SITE },
+                ]}
+              />
+            ),
+          },
         ]}
       />
     </PageLayout>

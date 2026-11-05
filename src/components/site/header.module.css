@@ -23,3 +23,15 @@
   font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
   color: #fff;
 }
+
+/* on touch screens the name sits under the thumb while scrolling, so it gets no hover block or tap flash; it still links home */
+@media (hover: none) {
+  .title {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .title:hover {
+    @apply bg-transparent shadow-none outline-transparent;
+    color: #fff;
+  }
+}

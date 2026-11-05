@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import { PageBody } from "@/components/layout/PageBody";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import styles from "./page-tabs.module.css";
@@ -12,9 +12,12 @@ export interface PageTab {
   children: React.ReactNode;
 }
 
+// replaceState fires no event, so a tab click announces its own; back and forward onto a replaceState entry can fire popstate without hashchange
+const TAB_PICKED = "pagetabs:picked";
 const subscribeToHash = (onChange: () => void) => {
-  window.addEventListener("hashchange", onChange);
-  return () => window.removeEventListener("hashchange", onChange);
+  const events = ["hashchange", "popstate", TAB_PICKED];
+  events.forEach((name) => window.addEventListener(name, onChange));
+  return () => events.forEach((name) => window.removeEventListener(name, onChange));
 };
 const readHash = () => window.location.hash.slice(1);
 const serverHash = () => "";
@@ -23,24 +26,33 @@ const serverHash = () => "";
  * Several views of one topic on a page. Every panel is in the HTML, so crawlers and find-in-page see them all, and
  * the chosen tab is kept in the URL hash, so a tab can be linked to.
  */
-export function PageTabs({ tabs, className }: { tabs: PageTab[]; className?: string }) {
+export function PageTabs({
+  tabs,
+  className,
+  listClassName,
+  tabClassName,
+}: {
+  tabs: PageTab[];
+  className?: string;
+  listClassName?: string;
+  tabClassName?: string;
+}) {
   const hash = useSyncExternalStore(subscribeToHash, readHash, serverHash);
-  const [picked, setPicked] = useState<string | null>(null);
 
   const ids = tabs.map((tab) => tab.id);
-  // The hash wins so a pasted link or back button works; unknown hashes (heading anchors) are ignored
-  const active = [hash, picked].find((id) => id && ids.includes(id)) ?? ids[0];
+  // Unknown hashes (heading anchors) are ignored
+  const active = ids.includes(hash) ? hash : ids[0];
 
   const pick = (id: string) => {
     window.history.replaceState(null, "", `#${id}`);
-    setPicked(id);
+    window.dispatchEvent(new Event(TAB_PICKED));
   };
 
   return (
     <Tabs value={active} onValueChange={(value) => pick(String(value))} className={className}>
-      <TabsList variant="line">
+      <TabsList variant="line" className={listClassName}>
         {tabs.map((tab) => (
-          <TabsTrigger key={tab.id} value={tab.id}>
+          <TabsTrigger key={tab.id} value={tab.id} className={tabClassName}>
             {tab.label}
           </TabsTrigger>
         ))}
