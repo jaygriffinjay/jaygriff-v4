@@ -1,0 +1,6 @@
+@reference "../../app/globals.css";
+
+/* one tab's content, with room under the tab bar */
+.panel {
+  @apply pt-6;
+}
