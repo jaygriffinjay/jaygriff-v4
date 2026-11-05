@@ -28,9 +28,15 @@ applyTo: "**/*.module.css"
 
 Two single-class rules setting the same property on one element tie, and whichever CSS chunk loads last wins. That order changes between page loads, so the page flickers between the two. Don't fix it with `:where()`, nesting or `!important`; don't set the property twice.
 
-- **Typography is the exception: modules override it.** `typography.module.css` sits in `@layer components`, and unlayered CSS beats any layer, so a class passed to a typography component (`Title`, `H2`, `Paragraph`, …) always wins, whatever the load order. For a one-off look (a blue heading on one page, a different font on one title), set it in the page's own module. Only add to `typography.tsx` when a style is reused across the site.
+- **Typography is the exception: modules override it.** `typography.module.css` (and `Container.module.css`) sit in `@layer components`, and unlayered CSS beats any layer, so a class passed to a typography component (`Title`, `H2`, `Paragraph`, …) always wins, whatever the load order. For a one-off look (a blue heading on one page, a different font on one title), set it in the page's own module. Only add to `typography.tsx` when a style is reused across the site.
 - **Keep shared components' own modules out of layers** unless they're meant to be overridden the same way; two unlayered modules still tie.
 - **`PageBody` owns the vertical margin between a page's blocks.** A block directly inside it never sets its own `mt-*`/`mb-*`/`my-*`. For extra room, use padding (`pt-8`), which adds to the flow margin instead of replacing it.
+
+## Shared styles and state
+
+- **Shared utilities live in `src/styles/`** (`link`, `focus-ring`, `scrollbar-blue`). Check there before writing a new one.
+- **The `link` utility already restyles what's inside a link:** bold, italic and code take the link's colour, and `data-code-only` on a link adds the box-and-arrow icon after its code. Don't restyle those in a page module; read the comment at the top of `src/styles/link.css`.
+- **Pass state from a component to its CSS with a `data-` attribute** and an attribute selector (`data-kind`, `data-code-only`), not extra class names, for on/off or small enumerated states.
 
 ## Example
 
