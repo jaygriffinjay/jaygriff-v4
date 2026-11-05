@@ -1,0 +1,225 @@
+@reference "../../../../globals.css";
+
+/* one design: name, note, then the link at rest and hovered; also holds the icon shapes the designs pick from */
+.option {
+  @apply flex flex-col gap-2;
+  --chain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E");
+  --link-two: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 17H7A5 5 0 0 1 7 7h2'/%3E%3Cpath d='M15 7h2a5 5 0 1 1 0 10h-2'/%3E%3Cpath d='M8 12h8'/%3E%3C/svg%3E");
+  --external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E");
+  --corner: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 10 5 5-5 5'/%3E%3Cpath d='M4 4v7a4 4 0 0 0 4 4h12'/%3E%3C/svg%3E");
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+  --circle-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M8 12h8'/%3E%3Cpath d='m12 16 4-4-4-4'/%3E%3C/svg%3E");
+}
+
+/* the standard link style, as on every other link */
+.link {
+  @apply link;
+}
+
+/* holds the link in its hover look, since a real hover can't be shown on two copies at once */
+.pinned {
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+  box-shadow: 0 0 0 0.15em var(--primary);
+}
+
+/* underline the code text, 1px */
+.text code {
+  @apply underline underline-offset-2;
+}
+
+/* a 2px underline set lower */
+.thick code {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* a dotted underline */
+.dotted code {
+  text-decoration: underline dotted;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* a dashed underline */
+.dashed code {
+  text-decoration: underline dashed;
+  text-underline-offset: 3px;
+}
+
+/* a 1px line along the chip's own bottom edge, drawn as a background so it sits inside the chip */
+.chipEdge code {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+
+/* a 1px line just outside the chip's bottom edge */
+.chipUnder code {
+  box-shadow: 0 1px 0 0 currentColor;
+}
+
+/* the chip takes a blue tint */
+.tint code {
+  background-color: color-mix(in oklch, var(--primary) 20%, transparent);
+}
+
+/* a small arrow after the code */
+.arrow code::after {
+  content: " ↗";
+  font-size: 0.85em;
+}
+
+/* the arrow glyph in the code's own font, spaced from the code */
+.arrowGlyph code::after {
+  content: " ↗";
+  font-size: 0.85em;
+}
+
+/* the arrow glyph right against the last letter */
+.arrowTight code::after {
+  content: "↗";
+  font-size: 0.85em;
+}
+
+/* a plain right arrow */
+.arrowRight code::after {
+  content: " →";
+  font-size: 0.85em;
+}
+
+/* a small raised arrow, like a footnote mark */
+.arrowRaised code::after {
+  content: "↗";
+  font-size: 0.7em;
+  margin-left: 0.25em;
+  position: relative;
+  top: -0.35em;
+}
+
+/* the arrow at reduced strength */
+.arrowMuted code::after {
+  content: " ↗";
+  font-size: 0.85em;
+  opacity: 0.6;
+}
+
+/* a drawn up-right arrow (Lucide ArrowUpRight) in the text colour, as a mask over a solid colour */
+.arrowIconUp code::after {
+  content: "";
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.3em;
+  vertical-align: -0.08em;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7h10v10'/%3E%3Cpath d='M7 17 17 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* a drawn right arrow (Lucide ArrowRight) in the text colour, as a mask over a solid colour */
+.arrowIconRight code::after {
+  content: "";
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.3em;
+  vertical-align: -0.08em;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* the arrow after the whole chip, on the link itself */
+.arrowOutside::after {
+  content: "↗";
+  font-size: 0.85em;
+  margin-left: 0.15em;
+}
+
+/* the arrow slides up and right on a real hover or focus */
+.arrowNudge code::after {
+  content: "↗";
+  display: inline-block;
+  font-size: 0.85em;
+  margin-left: 0.25em;
+  transition: translate 150ms ease-out;
+}
+
+/* the nudge itself; motion-safe so it's skipped for anyone who asked for less */
+@media (prefers-reduced-motion: no-preference) {
+  .arrowNudge:is(:hover, :focus-visible) code::after {
+    translate: 2px -2px;
+  }
+}
+
+/* the icon after the code, or before it: a mask in the text colour, so it follows the link's colour on hover */
+.icon code::after,
+.iconLead code::before {
+  content: "";
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.3em;
+  vertical-align: -0.08em;
+  background-color: currentColor;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+/* a leading icon sits before the code, so the space goes after it */
+.iconLead code::before {
+  margin-left: 0;
+  margin-right: 0.3em;
+}
+
+/* a chain link after the code */
+.iconChain {
+  --icon: var(--chain);
+}
+
+/* a chain link before the code */
+.iconChainLead {
+  --icon: var(--chain);
+}
+
+/* a smaller, dimmed chain link after the code */
+.iconChainQuiet {
+  --icon: var(--chain);
+}
+
+.iconChainQuiet code::after {
+  width: 0.7em;
+  height: 0.7em;
+  opacity: 0.6;
+}
+
+/* the single-link chain after the code */
+.iconLinkTwo {
+  --icon: var(--link-two);
+}
+
+/* the box with an arrow leaving it, after the code */
+.iconExternal {
+  --icon: var(--external);
+}
+
+/* the turning arrow after the code */
+.iconCorner {
+  --icon: var(--corner);
+}
+
+/* a chevron after the code, smaller than the others */
+.iconChevron {
+  --icon: var(--chevron);
+}
+
+.iconChevron code::after {
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: 0.15em;
+}
+
+/* an arrow in a circle after the code */
+.iconCircle {
+  --icon: var(--circle-arrow);
+}

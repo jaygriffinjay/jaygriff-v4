@@ -24,10 +24,15 @@ import {
 import { CodeBlock } from "@/components/code-block/CodeBlock";
 import type { CodeFile } from "@/components/code-block/types";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
+import { PageBody } from "@/components/layout/PageBody";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
 import { QuestionList } from "@/components/site/question-list";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BeforeAfter } from "./before-after";
+import { LinkCodeDesigns } from "./link-code-designs";
+import styles from "./page.module.css";
 
 const fence = "```";
 
@@ -426,13 +431,41 @@ export default function UiStressPage() {
         rest are components that markdown can't produce. Each has a line on what to look for.
       </Paragraph>
 
-      {cases.map(({ title, check, content }) => (
-        <Fragment key={title}>
-          <H2>{title}</H2>
-          <Muted>{check}</Muted>
-          {content}
-        </Fragment>
-      ))}
+      <Tabs defaultValue="cases">
+        <TabsList variant="line">
+          <TabsTrigger value="cases">All cases</TabsTrigger>
+          <TabsTrigger value="before-after">Before and after</TabsTrigger>
+          <TabsTrigger value="link-code">Code in links</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="cases" className={styles.panel}>
+          <PageBody>
+            {cases.map(({ title, check, content }) => (
+              <Fragment key={title}>
+                <H2>{title}</H2>
+                <Muted>{check}</Muted>
+                {content}
+              </Fragment>
+            ))}
+          </PageBody>
+        </TabsContent>
+
+        <TabsContent value="before-after" className={styles.panel}>
+          <PageBody>
+            <Paragraph>
+              Bugs found here and since fixed, each shown twice to confirm the fix. The "before" side is rebuilt with CSS
+              that undoes the fix, since the old code is gone.
+            </Paragraph>
+            <BeforeAfter />
+          </PageBody>
+        </TabsContent>
+
+        <TabsContent value="link-code" className={styles.panel}>
+          <PageBody>
+            <LinkCodeDesigns />
+          </PageBody>
+        </TabsContent>
+      </Tabs>
     </PageLayout>
   );
 }
