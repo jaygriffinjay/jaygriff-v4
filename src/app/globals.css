@@ -90,6 +90,8 @@ html {
 
 body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  /* a word longer than its box wraps instead of overflowing it and making the whole page scroll sideways */
+  overflow-wrap: break-word;
   /* Safari reads the bounce setting from body as well as html */
   overscroll-behavior: none;
 }

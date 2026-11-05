@@ -61,16 +61,20 @@ function createComponents(): Components {
       const language = classes.find((c) => c.startsWith("language-"))?.slice("language-".length);
       return <CodeBlock code={textOf(code).replace(/\n$/, "")} language={language} />;
     },
-    a: ({ href = "", children }) =>
-      href.startsWith("/") || href.startsWith("#") ? (
-        <NextLink href={href} className={styles.link}>
+    a: ({ node, href = "", children }) => {
+      // A link that is only inline code looks like plain code, so it gets an underline; mixed text doesn't
+      const only = node?.children.length === 1 ? node.children[0] : null;
+      const codeOnly = only?.type === "element" && only.tagName === "code";
+      return href.startsWith("/") || href.startsWith("#") ? (
+        <NextLink href={href} className={styles.link} data-code-only={codeOnly || undefined}>
           {children}
         </NextLink>
       ) : (
-        <a href={href} className={styles.link}>
+        <a href={href} className={styles.link} data-code-only={codeOnly || undefined}>
           {children}
         </a>
-      ),
+      );
+    },
     table: ({ children }) => <Table>{children}</Table>,
     thead: ({ children }) => <TableHeader>{children}</TableHeader>,
     tbody: ({ children }) => <TableBody>{children}</TableBody>,
