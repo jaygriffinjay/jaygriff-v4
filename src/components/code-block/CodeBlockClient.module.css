@@ -2,10 +2,22 @@
 
 /* outer frame; VS Code dark+ editor background. No margin of its own: the page body sets the gaps */
 .block {
-  @apply overflow-hidden rounded-lg;
+  @apply relative overflow-hidden rounded-lg;
   background: #1e1e1e;
   box-shadow: 0 0 0 1px rgb(255 255 255 / 6%);
   font-family: var(--font-mono);
+  /* never inherit italics, e.g. from a blockquote around it */
+  font-style: normal;
+}
+
+/* fit: as wide as its code, up to the column's width, past which it scrolls as usual */
+.block[data-fit="true"] {
+  @apply w-fit max-w-full;
+}
+
+/* a size container takes no width from its content, which would collapse a fitted block; the wrap indent cap then measures against the viewport */
+.block[data-fit="true"] .code {
+  container-type: normal;
 }
 
 /* top bar: language label left, actions right; same background as the editor */
@@ -25,9 +37,40 @@
   color: #858585;
 }
 
+/* full-path tooltip on a file, copied from VS Code's dark hover: a plain dark card with a thin border and slight corners, no arrow. Wraps only at the edge of the screen */
+.tooltip {
+  @apply rounded-sm px-2 py-1 text-xs;
+  max-width: calc(100vw - 1rem);
+  /* appears and goes at once, like VS Code's, instead of the shared tooltip's fade and zoom */
+  animation: none;
+  background: #252526;
+  color: #cccccc;
+  border: 1px solid #454545;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 36%);
+  overflow-wrap: anywhere;
+}
+
 /* wrap + copy buttons */
 .actions {
   @apply ml-auto flex items-center gap-0.5;
+}
+
+/* without the header, the same buttons float in the top-right corner over the code; the box runs to the block's edges, so no sliver of code shows beside or above them */
+.floatingActions {
+  @apply absolute top-0 right-0 z-10 flex items-center gap-0.5 rounded-bl-md p-1.5;
+}
+
+/* the editor background behind them only while they show, so they cover the code under them without blocking it the rest of the time */
+.block:hover .floatingActions,
+.block:focus-within .floatingActions,
+.floatingActions:has(.action[aria-pressed="true"]) {
+  background: #1e1e1e;
+}
+
+@media (hover: none) {
+  .floatingActions {
+    background: #1e1e1e;
+  }
 }
 
 /* icon button in the header; hidden until the block is hovered or focused, lit up while wrap is on */
@@ -58,32 +101,45 @@
   }
 }
 
-/* VS Code tab strip for multi-file blocks; mobile only, the explorer takes over at sm */
+/* file strip for multi-file blocks below the site's wide breakpoint, where the explorer takes over; on the editor background like everything else. No scrollbar: instead an edge fades out while there are more files past it */
 .tabs {
-  @apply flex overflow-x-auto overscroll-x-none sm:hidden;
-  background: #252526;
+  @apply flex gap-0.5 overflow-x-auto overscroll-x-none px-1.5 pb-1 wide:hidden;
   scrollbar-width: none;
+  --fade-left: 0rem;
+  --fade-right: 0rem;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black var(--fade-left),
+    black calc(100% - var(--fade-right)),
+    transparent
+  );
+
+  &[data-more-left="true"] {
+    --fade-left: 3rem;
+  }
+
+  &[data-more-right="true"] {
+    --fade-right: 2rem;
+  }
 
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
-/* single file tab; active tab joins the editor with a blue top edge */
+/* one file in the strip; looks like an explorer row */
 .tab {
-  @apply shrink-0 px-3 py-1.5 text-xs whitespace-nowrap transition-colors;
-  color: #969696;
-  background: #2d2d2d;
-  border-right: 1px solid #252526;
+  @apply shrink-0 rounded-sm px-2.5 py-1 text-xs whitespace-nowrap;
+  color: #cccccc;
 
-  &:hover {
-    color: #cccccc;
+  &:hover,
+  &[aria-selected="true"] {
+    background: rgb(255 255 255 / 8%);
   }
 
   &[aria-selected="true"] {
-    color: #ffffff;
-    background: #1e1e1e;
-    box-shadow: inset 0 1px 0 var(--primary);
+    color: var(--primary);
   }
 }
 
@@ -92,30 +148,23 @@
   @apply flex;
 }
 
-/* file list beside the code; replaces the tabs from sm up */
+/* file list beside the code; replaces the tabs from the site's wide breakpoint up. On the editor background, with a little room so the highlights don't touch the edges */
 .explorer {
-  @apply hidden w-52 shrink-0 flex-col py-2 sm:flex;
-  background: #252526;
+  @apply hidden w-52 shrink-0 flex-col gap-0.5 px-1.5 pb-1.5 wide:flex;
 }
 
-/* small caps "Explorer" title */
-.explorerTitle {
-  @apply px-3 pb-2 text-[11px] tracking-wider uppercase;
-  color: #bbbbbb;
-}
-
-/* one file row in the explorer */
+/* one file row: a soft grey highlight with rounded corners on hover and when selected, like the copy and wrap buttons; the selected name in the site blue */
 .explorerItem {
-  @apply truncate px-3 py-1 text-left text-xs;
+  @apply truncate rounded-sm px-2.5 py-1 text-left text-xs;
   color: #cccccc;
 
-  &:hover {
-    background: #2a2d2e;
+  &:hover,
+  &[aria-current="true"] {
+    background: rgb(255 255 255 / 8%);
   }
 
   &[aria-current="true"] {
-    background: #37373d;
-    color: #ffffff;
+    color: var(--primary);
   }
 }
 
@@ -124,6 +173,8 @@
   @apply scrollbar-blue min-w-0 flex-1 overflow-x-auto overscroll-x-none;
   /* query container for the wrap indent cap */
   container-type: inline-size;
+  /* width of the line number gutter: w-8 + mr-5 */
+  --gutter: 3.25rem;
 
   & :global(pre) {
     @apply m-0 py-3 pr-4;
@@ -135,11 +186,11 @@
     counter-reset: line;
   }
 
-  /* hanging indent in both modes so tab stops measure from the code, not the gutter; 3.25rem = w-8 + mr-5 */
+  /* hanging indent in both modes so tab stops measure from the code, not the gutter */
   & :global(.line) {
     @apply inline-block;
-    padding-left: 3.25rem;
-    text-indent: -3.25rem;
+    padding-left: var(--gutter);
+    text-indent: calc(-1 * var(--gutter));
   }
 
   & :global(.line)::before {
@@ -160,6 +211,28 @@
 /* wrap mode: a line's wrapped rows hang at its own indentation (--indent, set per line in highlight.ts) plus 2ch, so they don't read as new lines; capped at 40% of the code area so deep lines keep room on phones */
 .block[data-wrap="true"] .code :global(.line) {
   --hang: min(calc(var(--indent, 0) * 1ch + 2ch), 40cqi);
-  padding-left: calc(3.25rem + var(--hang));
-  text-indent: calc(-1 * (3.25rem + var(--hang)));
+  padding-left: calc(var(--gutter) + var(--hang));
+  text-indent: calc(-1 * (var(--gutter) + var(--hang)));
+}
+
+/* no line numbers: the gutter goes, and the code gets ordinary left padding instead */
+.block[data-line-numbers="false"] .code {
+  --gutter: 0rem;
+
+  & :global(pre) {
+    @apply pl-4;
+  }
+
+  & :global(.line)::before {
+    display: none;
+  }
+}
+
+/* no header: room on the right of the code so the floating buttons don't cover the end of a short first line; room for copy alone unless the wrap button shows too */
+.block[data-header="false"] .code :global(pre) {
+  @apply pr-10;
+}
+
+.block[data-header="false"][data-wrap-button="true"] .code :global(pre) {
+  @apply pr-16;
 }

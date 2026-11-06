@@ -4,6 +4,12 @@ import type { CodeFile } from "./types";
 
 type CodeBlockProps = {
   className?: string;
+  /** Show the top bar with the language and path; without it, copy and wrap float over the code. Default true */
+  header?: boolean;
+  /** Show the line number gutter. Default true */
+  lineNumbers?: boolean;
+  /** Shrink the block to its code's width instead of filling the column */
+  fit?: boolean;
 } & (
   | { files: CodeFile[]; code?: never; language?: never; filename?: never }
   | { code: string; language?: string; filename?: string; files?: never }
@@ -31,5 +37,13 @@ export async function CodeBlock(props: CodeBlockProps) {
     }),
   );
 
-  return <CodeBlockClient files={highlighted} className={props.className} />;
+  return (
+    <CodeBlockClient
+      files={highlighted}
+      className={props.className}
+      header={props.header ?? true}
+      lineNumbers={props.lineNumbers ?? true}
+      fit={props.fit ?? false}
+    />
+  );
 }
