@@ -1,0 +1,26 @@
+@reference "../../app/globals.css";
+
+/* the sections, one after another */
+.sections {
+  @apply flex flex-col gap-5;
+}
+
+/* section heading with a rule under it, like the contents' "On this page" */
+.groupHeading {
+  @apply border-separator border-b pb-2;
+}
+
+/* the section's pages, a compact list under the heading */
+.pages {
+  @apply flex flex-col pt-3;
+}
+
+/* one page, muted until hovered or current, like a contents link */
+.page {
+  @apply text-muted-foreground hover:text-primary block border-l border-transparent py-1 pl-2 text-sm;
+}
+
+/* the page being read: blue, with the rule down its left */
+.pageCurrent {
+  @apply text-primary border-primary font-medium;
+}

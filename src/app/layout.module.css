@@ -11,3 +11,11 @@
 .shell {
   @apply mx-auto w-full max-w-[calc(var(--container-page)+3rem)] flex-1 px-4 pb-16 wide:px-6;
 }
+
+/* full desktop, on a page with the project notes column (see page-layout.module.css): the frame widens by that column and its 2rem gap, so the article keeps its width, and --notes-offset moves the header in to stay over the article */
+@media (width >= 80rem) {
+  .shell:has([data-notes-aside]) {
+    --notes-offset: calc(var(--container-notes) + 2rem);
+    max-width: calc(var(--container-page) + var(--notes-offset) + 3rem);
+  }
+}

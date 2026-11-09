@@ -98,3 +98,47 @@
 .main {
   @apply pt-8;
 }
+
+/* the notes aside: hidden until full desktop, where it replaces the notes button */
+.notesAside {
+  @apply hidden;
+}
+
+/* wraps the notes button so it can hide where the notes aside shows */
+.notesButton {
+  @apply contents;
+}
+
+/* Full desktop: the project's notes get their own column left of the article. 80rem is the notes frame (see .shell in layout.module.css) plus the shell's padding; keep the two in step. The gaps are their own tracks, so the notes gap (2rem) can be narrower than the contents gap (4rem) */
+@media (width >= 80rem) {
+  .columnsWithNotesAside {
+    @apply items-start gap-x-0 gap-y-0;
+    grid-template-columns: var(--container-notes) 2rem minmax(0, var(--container-content));
+    grid-template-areas: "notes-aside . panel";
+  }
+
+  .columnsWithNotesAside .panel {
+    grid-area: panel;
+  }
+
+  /* with the contents column too: notes, article, contents */
+  .columnsWithNotesAside.columnsWithAside {
+    grid-template-columns: var(--container-notes) 2rem minmax(0, var(--container-content)) 4rem var(--container-aside);
+    grid-template-areas: "notes-aside . nav . aside" "notes-aside . notes . aside" "notes-aside . main . aside";
+  }
+
+  /* sticky like the contents column, scrolling on its own when long; the padding leaves room for a link's hover block, and the negative margin keeps the content where it was */
+  .notesAside {
+    @apply sticky top-4 -m-2 block max-h-[calc(100dvh-2rem)] overflow-y-auto p-2;
+    grid-area: notes-aside;
+  }
+
+  .notesButton {
+    @apply hidden;
+  }
+
+  /* the button row had only the notes button, so it goes too */
+  .notesOnlyButton {
+    @apply hidden;
+  }
+}

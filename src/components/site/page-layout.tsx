@@ -4,6 +4,7 @@ import { getCurrentPage, requireVisible } from "@/lib/page-meta";
 import { PageBody } from "@/components/layout/PageBody";
 import { Breadcrumbs } from "./breadcrumbs";
 import { NotesBar } from "./notes-bar";
+import { NotesAside } from "./notes-aside";
 import { SiteNav } from "./nav";
 import { PageToc, PageTocButton } from "./page-toc";
 import { PrevNext } from "./prev-next";
@@ -56,17 +57,28 @@ export async function PageLayout({
         styles.columns,
         aside && styles.columnsWithAside,
         aside && notes && styles.columnsWithNotes,
+        notes && styles.columnsWithNotesAside,
         className,
       )}
     >
+      {/* the shell's CSS looks for data-notes-aside to widen the frame for it */}
+      {notes && (
+        <div className={styles.notesAside} data-notes-aside>
+          <NotesAside nav={notes.nav} />
+        </div>
+      )}
       <div className={cn(styles.panel, aside && styles.panelWithAside)}>
         <div className={styles.navRow}>
           <SiteNav />
           {!outsideTree && <Breadcrumbs />}
         </div>
         {(notes || tocButton) && (
-          <div className={styles.notes}>
-            {notes && <NotesBar nav={notes.nav} />}
+          <div className={cn(styles.notes, !tocButton && styles.notesOnlyButton)}>
+            {notes && (
+              <div className={styles.notesButton}>
+                <NotesBar nav={notes.nav} />
+              </div>
+            )}
             {tocButton && <PageTocButton title={tocButton.title} entries={tocButton.entries} />}
           </div>
         )}

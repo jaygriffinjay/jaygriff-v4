@@ -70,6 +70,11 @@
   --text-codeblock: clamp(0.75rem, 0.678rem + 0.308vw, 0.875rem); /* 12 → 14px */
 }
 
+/* The project notes column left of the article, on full desktop. `static` so the variable is always output: no utility class uses it, only the CSS modules' var() */
+@theme static {
+  --container-notes: 14rem;
+}
+
 /* The one width where the site switches between its phone and desktop layouts: the sticky header and menu, the contents above or beside the article. Use the `wide:` variant, and keep this in step with the matching width in mobile-menu.tsx. */
 @theme {
   --breakpoint-wide: 56rem;

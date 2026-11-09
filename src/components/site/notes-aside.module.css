@@ -1,0 +1,11 @@
+@reference "../../app/globals.css";
+
+/* the column's contents: the project's name, then its notes */
+.aside {
+  @apply flex flex-col gap-5;
+}
+
+/* the project's name, linking to its notes front page */
+.title {
+  @apply link text-heading self-start font-semibold;
+}

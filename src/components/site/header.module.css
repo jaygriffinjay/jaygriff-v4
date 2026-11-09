@@ -1,8 +1,12 @@
 @reference "../../app/globals.css";
 
-/* below the wide breakpoint: a slim bar stuck to the top with the name and menu button, full width past the shell's padding; from there up, the intro block above the nav */
+/* below the wide breakpoint: a slim bar stuck to the top with the name and menu button, full width past the shell's padding; from there up, the intro block above the nav, moved in past the notes column on pages that have one (--notes-offset, set in layout.module.css) */
 .header {
   @apply bg-background sticky top-0 z-40 -mx-4 px-4 py-2 wide:static wide:mx-0 wide:px-0 wide:pt-8;
+
+  @media (width >= 80rem) {
+    padding-left: var(--notes-offset, 0rem);
+  }
 }
 
 /* below the wide breakpoint: a soft fade under the bar, so content slides out from beneath it instead of being cut off */
