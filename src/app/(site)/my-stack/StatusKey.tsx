@@ -16,14 +16,7 @@ export function StatusLegend() {
         <InfoIcon aria-hidden="true" />
       </PopoverTrigger>
       <PopoverContent align="start" className={styles.keyPopover}>
-          <p className={styles.legendTitle}>What the statuses mean</p>
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Status</TableHead>
-                <TableHead>Meaning</TableHead>
-              </TableRow>
-            </TableHeader>
             <TableBody>
               {statuses.map((status) => {
                 const { label, hint, markClass } = TOOL_STATUS_META[status];

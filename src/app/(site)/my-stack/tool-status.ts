@@ -8,7 +8,7 @@ export const TOOL_STATUS_META: Record<ToolStatus, { label: string; hint: string;
   occasional: { label: "Occasional", hint: "Reach for it now and then", markClass: styles.markOccasional },
   benched: { label: "Benched", hint: "Still know it, but rarely need it", markClass: styles.markBenched },
   shelved: { label: "Shelved", hint: "Have experience, but no longer use it", markClass: styles.markShelved },
-  dabbled: { label: "Dabbled", hint: "Played with it, little experience, may not stick with it", markClass: styles.markDabbled },
+  dabbled: { label: "Dabbled", hint: "Played and experimented with it", markClass: styles.markDabbled },
   wishlist: { label: "Want to Learn", hint: "Not much experience with it, excited by it", markClass: styles.markWishlist },
 };
 
