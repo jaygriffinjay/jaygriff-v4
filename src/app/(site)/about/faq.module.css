@@ -1,0 +1,16 @@
+@reference "../../globals.css";
+
+/* one question section at the reading width, centred on the page; the top padding adds to the page's flow margin so each section starts with real separation */
+.section {
+  @apply mx-auto flex w-full max-w-2xl flex-col gap-2 pt-10;
+}
+
+/* section heading on the left, the expand/collapse control on the right, sharing the heading's baseline; room below before the questions */
+.headingRow {
+  @apply flex items-baseline justify-between gap-4 pb-3;
+}
+
+/* section heading at h1 size, in the link blue to stand apart from the white questions */
+.heading {
+  @apply text-primary text-h1;
+}

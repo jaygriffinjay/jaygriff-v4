@@ -1,6 +1,0 @@
-@reference "../../../../globals.css";
-
-/* query container for the indent cap, so 40cqi means 40% of the trial block's width */
-.trial {
-  container-type: inline-size;
-}

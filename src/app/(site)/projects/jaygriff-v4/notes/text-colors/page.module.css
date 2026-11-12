@@ -1,0 +1,167 @@
+@reference "../../../../../globals.css";
+
+/* heading above each part of the page */
+.sectionHeading {
+  @apply mt-12 mb-4;
+}
+
+/* ─── Token list ─── */
+
+/* stack of token rows */
+.tokens {
+  @apply flex flex-col gap-6;
+}
+
+/* one token: swatch on the left, details on the right; --t is the token's color */
+.token {
+  @apply flex gap-4;
+}
+
+/* colored square showing the token */
+.swatch {
+  @apply mt-1 size-10 shrink-0 rounded-md ring-1 ring-white/10;
+  background: var(--t);
+}
+
+/* details column */
+.tokenText {
+  @apply min-w-0;
+}
+
+/* token name and value */
+.tokenName {
+  @apply flex flex-wrap items-baseline gap-2;
+}
+
+/* raw value next to the name */
+.value {
+  @apply text-sm;
+}
+
+/* sample sentence in the token's color */
+.sample {
+  @apply mt-1;
+  color: var(--t);
+}
+
+/* "used by" and note lines */
+.meta {
+  @apply text-muted-foreground block;
+}
+
+/* each token's color */
+.tForeground {
+  --t: var(--foreground);
+}
+
+.tHeading {
+  --t: var(--heading);
+}
+
+.tMuted {
+  --t: var(--muted-foreground);
+}
+
+.tCard {
+  --t: var(--card-foreground);
+}
+
+.tPopover {
+  --t: var(--popover-foreground);
+}
+
+.tSecondary {
+  --t: var(--secondary-foreground);
+}
+
+.tAccent {
+  --t: var(--accent-foreground);
+}
+
+.tPrimary {
+  --t: var(--primary);
+}
+
+.tCode {
+  --t: var(--code);
+}
+
+/* ─── Before and after, per component ─── */
+
+/* note above the comparisons */
+.explainer {
+  @apply text-muted-foreground mb-6;
+}
+
+/* one token's set of comparisons */
+.group {
+  @apply mt-10;
+}
+
+/* token name */
+.groupTitle {
+  @apply mb-1;
+}
+
+/* the proposed change for this token */
+.groupChange {
+  @apply text-muted-foreground mb-5;
+}
+
+/* stack of component comparisons */
+.pairs {
+  @apply flex flex-col gap-8;
+}
+
+/* component name above each comparison */
+.pairName {
+  @apply text-heading text-sm font-semibold;
+}
+
+/* how to see the comparison, when it needs interaction */
+.pairNote {
+  @apply text-muted-foreground block;
+}
+
+/* before and after side by side, stacked on phones */
+.pairGrid {
+  @apply mt-3 grid gap-4 sm:grid-cols-2;
+}
+
+/* one side of a comparison */
+.pairCell {
+  @apply flex min-w-0 flex-col items-start gap-3 rounded-xl p-4 ring-1 ring-white/6;
+}
+
+/* "Before" / "After" label */
+.columnLabel {
+  @apply text-primary text-xs font-semibold tracking-widest uppercase;
+}
+
+/* "after" side, and its popups: the leftover text tokens pointed at the main ones */
+.consolidated {
+  --card-foreground: var(--foreground);
+  --popover-foreground: var(--foreground);
+  --secondary-foreground: var(--foreground);
+  --accent-foreground: var(--heading);
+}
+
+/* nav menu content sets its own color so the override reaches it inside the portaled popup */
+.navContent {
+  @apply text-popover-foreground;
+}
+
+/* bordered frame for the inline command menu */
+.frame {
+  @apply w-full rounded-xl ring-1 ring-white/10;
+}
+
+/* small bar chart */
+.chart {
+  @apply h-32 w-full;
+}
+
+/* right-click target for the context menu */
+.box {
+  @apply text-muted-foreground flex h-20 w-full items-center justify-center rounded-xl border border-dashed text-sm;
+}

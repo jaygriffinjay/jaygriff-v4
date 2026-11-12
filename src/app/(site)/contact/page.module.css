@@ -1,0 +1,48 @@
+@reference "../../globals.css";
+
+/* portrait and name, centred on the page */
+.top {
+  @apply gap-flow mx-auto flex w-full max-w-2xl flex-col items-center text-center;
+}
+
+/* portrait above my name, as on the About page */
+.portrait {
+  @apply border-border block aspect-square size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;
+}
+
+/* the contact rows, centred on the page under the portrait */
+.links {
+  @apply mx-auto flex w-full max-w-2xl flex-col items-center gap-4;
+}
+
+/* one destination: icon, label, arrow; the whole row is the link */
+.row {
+  @apply border-border bg-card hover:border-hover focus-visible:focus-ring grid min-h-20 w-full max-w-lg grid-cols-[3.25rem_1fr_3.25rem] items-center rounded-full border px-3 transition-colors;
+}
+
+/* round icon at the start of the row */
+.iconSlot {
+  @apply bg-primary text-primary-foreground flex size-13 items-center justify-center rounded-full [&>svg]:size-7;
+}
+
+/* destination label, centred and cut short if it won't fit */
+.label {
+  @apply text-foreground truncate text-center text-lg font-semibold;
+}
+
+/* arrow at the end of the row, nudging up and right on hover */
+.arrow {
+  @apply text-muted-foreground justify-self-center text-xl transition-transform;
+}
+
+/* the arrow's nudge */
+.row:hover .arrow {
+  @apply translate-x-0.5 -translate-y-0.5;
+}
+
+/* below 480px: a narrower icon and arrow column so a long email still fits */
+@media (width < 30rem) {
+  .row {
+    @apply grid-cols-[3rem_1fr_3rem] px-2;
+  }
+}

@@ -1,7 +1,0 @@
-@reference "../globals.css";
-
-/* draft/private badge above the title, local dev only */
-.draft {
-  @apply mb-4;
-}
-

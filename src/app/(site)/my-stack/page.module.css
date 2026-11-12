@@ -1,0 +1,186 @@
+@reference "../../globals.css";
+
+/* everything below the header, at a reading width centred in the content column, like the About page */
+.page {
+  @apply mx-auto flex w-full max-w-2xl flex-col gap-8;
+}
+
+/* the legend's info button, then the intro line */
+.intro {
+  @apply flex items-center gap-2;
+}
+
+/* the statuses, centred: a tidy 3×2 grid on a phone, so no lone label wraps onto its own line; one row from sm up */
+.keyList {
+  @apply text-muted-foreground mx-auto grid w-fit grid-cols-[repeat(3,auto)] gap-x-4 gap-y-1.5 text-xs sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-y-1;
+}
+
+/* a status label with its dot in front */
+.dotLabel {
+  @apply inline-flex items-center gap-1.5;
+}
+
+/* a status name: small heading-white text, in the row and the legend alike */
+.statusLabel {
+  @apply text-heading text-sm font-medium;
+}
+
+/* the one info button that opens the legend; nudged up to sit level with the intro text */
+.keyButton {
+  @apply text-foreground hover:text-primary focus-visible:focus-ring relative -top-0.5 inline-flex shrink-0 cursor-pointer items-center rounded-full bg-transparent transition-colors [&>svg]:size-5;
+}
+
+/* the legend: wide enough for each status and its meaning on a line or two */
+.keyPopover {
+  @apply w-80 gap-3 rounded-lg p-4 text-sm sm:w-96;
+}
+
+/* the legend's heading */
+.legendTitle {
+  @apply text-heading font-semibold;
+}
+
+/* the status name with its coloured dot, kept on one line */
+.legendLabel {
+  @apply text-heading align-top font-medium;
+}
+
+/* what the status means, wrapping within the popover */
+.legendMeaning {
+  @apply align-top whitespace-normal;
+}
+
+/* status dot; its colour is the status (bg-current takes the mark class's text colour). Hues are spread around the wheel and avoid the red/green/amber trio, which colour-blind readers can't tell apart */
+.statusMark {
+  @apply block size-2.5 shrink-0 cursor-default rounded-full bg-current;
+}
+
+/* Active has no dot; it keeps the dot's space so its name lines up with the others, and the gap shows the missing dot */
+.noDot {
+  @apply invisible;
+}
+
+/* the slot before a tool's logo where its status dot sits, empty for Active, so the dots line up down the list */
+.gutter {
+  @apply mr-1.5 flex w-2.5 shrink-0 justify-center;
+}
+
+/* empty space the size of a chevron on rows with no note, so their dots line up with the rows that have one */
+.chevronSpace {
+  @apply size-4 shrink-0;
+}
+
+/* occasional: emerald */
+.markOccasional {
+  @apply text-emerald-400;
+}
+
+/* benched: amber */
+.markBenched {
+  @apply text-amber-400;
+}
+
+/* dabbled: pink */
+.markDabbled {
+  @apply text-pink-400;
+}
+
+/* shelved: slate, faded because it's put away; red would read as an error */
+.markShelved {
+  @apply text-slate-400;
+}
+
+/* wishlist: sky */
+.markWishlist {
+  @apply text-sky-400;
+}
+
+/* one category: heading, then its tools */
+.sectionBody {
+  @apply w-full;
+}
+
+/* category heading; offset so a jump from the contents lands clear of the sticky header */
+.sectionHeading {
+  @apply scroll-mt-4 wide:scroll-mt-24;
+}
+
+/* category heading on the left, the expand/collapse control on the right, sharing the heading's baseline */
+.headingRow {
+  @apply mb-3 flex items-baseline justify-between gap-4;
+}
+
+/* one compact column of tools, as wide as the sections block */
+.toolList {
+  @apply flex flex-col gap-0.5;
+}
+
+/* every section, filling the centred column so the rows have reading room */
+.sections {
+  @apply flex w-full flex-col gap-8;
+}
+
+/* a tool: small logo on the left, name and line on the right; the same padding with or without a note, so logos line up down the column */
+.toolCard {
+  @apply flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition-colors duration-200;
+}
+
+/* a tool with a note: the card stacks its row above the note, and the padding moves to the row */
+.toolCardNoted {
+  @apply flex-col items-stretch gap-0 p-0;
+}
+
+/* the clickable row of a card with a note */
+.toolTrigger {
+  @apply focus-visible:focus-ring flex w-full cursor-pointer items-center gap-3 rounded-lg bg-transparent px-3 py-2 text-left;
+}
+
+/* shows the row opens */
+.toolChevron {
+  @apply text-muted-foreground size-4 shrink-0 transition-transform;
+}
+
+/* chevron flipped while open */
+.toolChevronOpen {
+  @apply rotate-180;
+}
+
+/* the opened note, indented to line up under the tool's name (padding, dot, logo and gaps) */
+.toolNote {
+  @apply text-muted-foreground m-0 pr-3 pb-3 pl-[5.75rem] text-sm leading-relaxed;
+}
+
+/* fixed-size box the logo sits in */
+.toolLogo {
+  @apply relative flex size-10 shrink-0 items-center justify-center;
+}
+
+/* logo, filling its box at the 40×40 it's declared at; object-contain fits non-square logos inside */
+.toolLogoImg {
+  @apply size-full object-contain;
+}
+
+/* turns a dark logo white so it shows on the dark background */
+.toolLogoInvert {
+  filter: brightness(0) invert(1);
+}
+
+/* name and line stacked, taking the row's spare width so the chevron sits at the end */
+.toolBody {
+  @apply flex min-w-0 flex-1 flex-col;
+}
+
+/* tool name */
+.toolTitle {
+  @apply block text-base leading-tight;
+}
+
+/* the short line under the name */
+.toolDescription {
+  @apply text-muted-foreground m-0 text-sm leading-snug;
+}
+
+/* text for screen readers only, after a status mark */
+.srOnly {
+  @apply sr-only;
+}

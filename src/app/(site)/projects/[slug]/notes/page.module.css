@@ -1,0 +1,30 @@
+@reference "../../../../globals.css";
+
+/* the README, rendered; padded rather than margined since PageBody owns the gap between blocks */
+.readme {
+  @apply pb-4;
+
+  & > * + * {
+    @apply mt-flow;
+  }
+}
+
+/* one section: its heading, then its pages */
+.section {
+  @apply pt-4;
+}
+
+/* the section's pages */
+.pages {
+  @apply mt-3 flex flex-col gap-3;
+}
+
+/* a page's title */
+.link {
+  @apply link font-medium;
+}
+
+/* the page's one-line summary under its title */
+.description {
+  @apply mt-0.5;
+}

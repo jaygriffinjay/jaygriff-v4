@@ -1,0 +1,100 @@
+@reference "../../../../../../globals.css";
+
+/* type, status, format and authorship badges */
+.badges {
+  @apply mt-6 flex flex-wrap gap-2;
+}
+
+/* item title */
+.title {
+  @apply mt-3 text-title;
+}
+
+/* summary under the title */
+.description {
+  @apply text-muted-foreground mt-3;
+}
+
+/* label/value grid of dates, project and tags */
+.facts {
+  @apply mt-6 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 text-sm;
+
+  & dt {
+    @apply text-muted-foreground;
+  }
+}
+
+/* box showing the link target and via credit */
+.linkBox {
+  @apply border-border bg-muted/40 mt-6 rounded-lg border p-4;
+}
+
+/* the linked page */
+.target {
+  @apply link font-semibold break-all;
+}
+
+/* "via" line in the link box */
+.via {
+  @apply text-muted-foreground mt-1 text-sm;
+}
+
+/* link to where I found it */
+.viaLink {
+  @apply link;
+}
+
+/* hero image */
+.hero {
+  @apply mt-6 h-auto w-full rounded-lg;
+}
+
+/* gallery grid */
+.gallery {
+  @apply mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3;
+}
+
+/* one gallery image */
+.galleryImage {
+  @apply aspect-[3/2] h-auto w-full rounded-md object-cover;
+}
+
+/* section headings: Children, On this page, Body, Raw row */
+.section {
+  @apply mt-10 mb-4 text-xl;
+}
+
+/* list of child nodes */
+.children {
+  @apply flex flex-col gap-2;
+}
+
+/* one child: title link plus badges */
+.child {
+  @apply flex flex-wrap items-center gap-2;
+}
+
+/* child title */
+.childLink {
+  @apply link;
+}
+
+/* stored table of contents */
+.toc {
+  @apply mt-3 flex flex-col gap-1 text-sm;
+}
+
+/* one TOC entry (h2) */
+.tocEntry {
+  @apply text-foreground;
+}
+
+/* h3 and deeper, indented under their h2 */
+.tocNested {
+  @apply text-muted-foreground pl-5;
+}
+
+/* placeholder text when there's no body to show */
+.note {
+  @apply text-muted-foreground text-sm;
+}

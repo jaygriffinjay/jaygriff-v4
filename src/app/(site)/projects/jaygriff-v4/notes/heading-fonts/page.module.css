@@ -1,0 +1,168 @@
+@reference "../../../../../globals.css";
+
+/* one candidate: same sample content, separated by a rule */
+.sample {
+  @apply border-t pt-8 pb-10;
+}
+
+/* candidate name above each sample */
+.label {
+  @apply text-muted-foreground mb-4 block text-sm;
+}
+
+/* sample page title, sized like the real ones */
+.title {
+  @apply text-title mb-2 font-bold tracking-tight;
+  font-family: var(--sample-font);
+  color: var(--sample-color, var(--heading));
+}
+
+/* muted line under the title, to compare against the heading color */
+.intro {
+  @apply text-muted-foreground mb-6;
+}
+
+/* sample section heading */
+.h2 {
+  @apply mt-6 mb-3;
+  font-family: var(--sample-font);
+  color: var(--sample-color, var(--heading));
+}
+
+/* sample subsection heading */
+.h3 {
+  @apply mt-6 mb-2;
+  font-family: var(--sample-font);
+  color: var(--sample-color, var(--heading));
+}
+
+/* inline link, to check headings don't read as links */
+.link {
+  @apply link;
+}
+
+/* one style group of candidates */
+.group {
+  @apply mt-12;
+}
+
+/* group name, e.g. "Geometric sans" */
+.groupLabel {
+  @apply text-primary mb-2 block text-xs font-semibold tracking-widest uppercase;
+}
+
+/* ─── Fonts already on the site; test fonts set --sample-font through next/font ─── */
+
+.geist {
+  --sample-font: var(--font-geist-sans);
+}
+
+.mono {
+  --sample-font: var(--font-jetbrains-mono);
+}
+
+/* ─── Heading color candidates; each sets --sample-color for its sample ─── */
+
+.pick1 {
+  --sample-color: #93748a;
+}
+
+.pick2 {
+  --sample-color: #7e5a9b;
+}
+
+.pick3 {
+  --sample-color: #a1869e;
+}
+
+.pick4 {
+  --sample-color: #f6f0ed;
+}
+
+.pick5 {
+  --sample-color: #ae8ca3;
+}
+
+.pick6 {
+  --sample-color: #e0e2db;
+}
+
+.pick7 {
+  --sample-color: #7b6d8d;
+}
+
+.pick8 {
+  --sample-color: #8b687f;
+}
+
+.pick9 {
+  --sample-color: #55917f;
+}
+
+.pick10 {
+  --sample-color: #b3cbb9;
+}
+
+.lavender1 {
+  --sample-color: oklch(0.88 0.06 285);
+}
+
+.lavender2 {
+  --sample-color: oklch(0.82 0.09 285);
+}
+
+.lavender3 {
+  --sample-color: oklch(0.8 0.1 285);
+}
+
+.lavender4 {
+  --sample-color: oklch(0.76 0.12 285);
+}
+
+.lavender5 {
+  --sample-color: oklch(0.72 0.14 283);
+}
+
+.lavender6 {
+  --sample-color: oklch(0.68 0.16 281);
+}
+
+.indigo {
+  --sample-color: oklch(0.62 0.19 280);
+}
+
+.dusty1 {
+  --sample-color: oklch(0.78 0.05 285);
+}
+
+.dusty2 {
+  --sample-color: oklch(0.72 0.06 285);
+}
+
+.gray1 {
+  --sample-color: #d6d6dc;
+}
+
+.gray2 {
+  --sample-color: #c8c8d0;
+}
+
+.gray3 {
+  --sample-color: #b8b8c2;
+}
+
+.gray4 {
+  --sample-color: #a9a9b3;
+}
+
+.gray5 {
+  --sample-color: #9a9aa5;
+}
+
+.gray6 {
+  --sample-color: #8b8b96;
+}
+
+.gray7 {
+  --sample-color: #7c7c88;
+}

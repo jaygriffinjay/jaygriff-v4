@@ -1,0 +1,94 @@
+@reference "../../../../../globals.css";
+
+/* page heading */
+.title {
+  @apply text-title;
+}
+
+/* intro line under the heading */
+.intro {
+  @apply text-muted-foreground mt-3;
+}
+
+/* stack of candidate blocks */
+.list {
+  @apply mt-10 flex flex-col gap-12;
+}
+
+/* ─── Candidate blues: each sets --blue for its block ─── */
+
+/* #7eb8ff, the current --primary */
+.current {
+  --blue: #7eb8ff;
+}
+
+/* GitHub dark-mode link color */
+.github {
+  --blue: #4493f8;
+}
+
+/* previous primary, now the heading color */
+.deepAzure {
+  --blue: oklch(0.6 0.16 255);
+}
+
+/* inline code blue */
+.code {
+  --blue: oklch(0.66 0.18 252);
+}
+
+/* older GitHub dark-mode link color */
+.githubClassic {
+  --blue: #58a6ff;
+}
+
+/* lighter, softer GitHub-dimmed style blue */
+.softSky {
+  --blue: #6cb6ff;
+}
+
+/* ─── Inside each block ─── */
+
+/* name + value row at the top of a block */
+.label {
+  @apply mb-4 flex items-center gap-3 border-b pb-2;
+}
+
+/* small square of the candidate color */
+.swatch {
+  @apply size-4 rounded-sm;
+  background: var(--blue);
+}
+
+/* candidate name */
+.name {
+  @apply text-sm font-semibold;
+}
+
+/* large heading in the candidate blue */
+.h2 {
+  @apply mb-2 text-2xl;
+  color: var(--blue);
+}
+
+/* smaller heading in the candidate blue */
+.h3 {
+  @apply mb-3 text-xl;
+  color: var(--blue);
+}
+
+/* link using the site link style, recolored to the candidate */
+.link {
+  @apply link;
+  --link-color: var(--blue);
+}
+
+/* plain text in the candidate blue */
+.text {
+  color: var(--blue);
+}
+
+/* meta line under the paragraph */
+.meta {
+  @apply text-muted-foreground mt-2 block;
+}

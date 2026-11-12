@@ -1,0 +1,155 @@
+@reference "../../../../../globals.css";
+
+/* a run of entries with no boxes; space alone separates them */
+.feed {
+  @apply flex flex-col gap-12 pt-4;
+}
+
+/* one page's preview: title, opening, then the footer */
+.entry {
+  @apply flex min-w-0 flex-col gap-3;
+}
+
+/* entry title; spacing comes from the entry's gap */
+.entryTitle {
+  @apply m-0;
+}
+
+/* page title as a link */
+.titleLink {
+  @apply link;
+}
+
+/* </> mark before a code page's title */
+.glyph {
+  @apply mr-2 inline size-[0.9em] align-[-0.1em];
+}
+
+/* the entry's last line: project badge, date, author, then what's left as the link */
+.footer {
+  @apply flex flex-wrap items-center gap-x-2 gap-y-1;
+}
+
+/* one footer item with the dot before it */
+.part {
+  @apply inline-flex items-center gap-2;
+}
+
+/* "… N more words" link that ends an entry */
+.more {
+  @apply link whitespace-nowrap;
+}
+
+/* rendered markdown opening, spaced like a page body */
+.rendered {
+  & > * + * {
+    @apply mt-flow;
+  }
+}
+
+/* run-in variant: entries stacked closer, like a column of notes */
+.runInFeed {
+  @apply flex flex-col gap-8 pt-4;
+}
+
+/* one run-in entry: the paragraph, then its footer */
+.runInEntry {
+  @apply flex flex-col gap-2;
+}
+
+/* hairline variant: a thin rule between entries and room on both sides of it */
+.ruledFeed {
+  @apply divide-separator flex flex-col divide-y pt-4;
+
+  & > * {
+    @apply py-8;
+  }
+
+  & > :first-child {
+    @apply pt-0;
+  }
+}
+
+/* book-break variant: a centered ⁂ between entries */
+.dinkusFeed {
+  @apply flex flex-col gap-14 pt-4;
+
+  & > * + *::before {
+    content: "⁂";
+    @apply text-muted-foreground -mt-10 mb-4 block text-center;
+  }
+}
+
+/* date-gutter variant: date in a narrow left column from the wide breakpoint */
+.gutterEntry {
+  @apply flex flex-col gap-1 wide:grid wide:grid-cols-[6.5rem_minmax(0,1fr)] wide:gap-6;
+}
+
+/* the hanging date, lined up with the title */
+.gutterDate {
+  @apply wide:pt-1.5;
+}
+
+/* one code-page option: its label, then the entry */
+.option {
+  @apply flex flex-col gap-4;
+}
+
+/* the option's name and what it does */
+.optionLabel {
+  @apply border-separator border-l-2 pl-3;
+}
+
+/* project badges in a row */
+.badges {
+  @apply flex flex-wrap gap-2 pt-2;
+}
+
+/* one day's group in the by-day stream: the day, then its entries */
+.day {
+  @apply flex flex-col gap-4;
+}
+
+/* stream variants: entries split by a hairline, with room on both sides of it */
+.streamFeed {
+  @apply divide-separator flex flex-col divide-y pt-2;
+
+  & > * {
+    @apply py-6;
+  }
+
+  & > :first-child {
+    @apply pt-0;
+  }
+
+  /* the last entry's padding would add to the gap before the next day heading */
+  & > :last-child {
+    @apply pb-0;
+  }
+}
+
+/* one stream entry: title, opening, word count, tag line */
+.streamEntry {
+  @apply flex min-w-0 flex-col gap-3;
+}
+
+/* date / project / tags under an entry, wrapping onto more lines when long */
+.tagLine {
+  @apply flex flex-wrap items-center gap-x-2 gap-y-1;
+}
+
+/* the entry's date, a permalink that only lights up on hover */
+.quietLink {
+  @apply link;
+  --link-color: var(--muted-foreground);
+}
+
+/* a tag in the tag line */
+.tagLink {
+  @apply link;
+}
+
+/* #hashtags, spaced apart with no commas */
+.hashTags {
+  @apply inline-flex flex-wrap gap-x-2;
+}

@@ -1,0 +1,145 @@
+@reference "../../../../../globals.css";
+
+/* ─── Candidates: each sets the border color its shapes turn on hover ─── */
+
+/* today's primary blue */
+.current {
+  --hover-border: #58a6ff;
+}
+
+/* GitHub's emphasis blue, a step deeper */
+.githubEmphasis {
+  --hover-border: #388bfd;
+}
+
+/* GitHub's button blue, deeper again */
+.githubBlue {
+  --hover-border: #1f6feb;
+}
+
+/* desaturated blue at a similar lightness */
+.steel {
+  --hover-border: oklch(0.62 0.09 250);
+}
+
+/* darker, greyer blue */
+.slate {
+  --hover-border: oklch(0.52 0.06 260);
+}
+
+/* primary faded 60% into the page color */
+.primary60 {
+  --hover-border: color-mix(in oklch, var(--primary) 60%, var(--background));
+}
+
+/* primary faded 40% into the page color */
+.primary40 {
+  --hover-border: color-mix(in oklch, var(--primary) 40%, var(--background));
+}
+
+/* the second theme color */
+.indigo {
+  --hover-border: oklch(0.62 0.19 280);
+}
+
+/* body text color, half strength: no blue */
+.neutral {
+  --hover-border: color-mix(in oklch, var(--foreground) 45%, transparent);
+}
+
+/* ─── Layout ─── */
+
+/* live shapes on the left, pinned shapes on the right; stacked on narrow screens */
+.compare {
+  @apply mt-4 grid gap-6 sm:grid-cols-2;
+}
+
+/* one set of the three shapes */
+.shapes {
+  @apply flex flex-col gap-3;
+}
+
+/* the two pills side by side */
+.pills {
+  @apply flex gap-2;
+}
+
+/* ─── Shapes, matching the site's own ─── */
+
+/* bordered box, like the step links */
+.card {
+  @apply border-separator flex flex-col gap-1 border p-4 transition-colors;
+}
+
+/* tag pill, like the notes table and my-stack filters */
+.pill {
+  @apply border-border text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs transition-colors;
+}
+
+/* full-width rounded bar, like the notes bar */
+.bar {
+  @apply border-border text-foreground rounded-lg border px-4 py-3 text-sm transition-colors;
+}
+
+/* the live set: border turns the candidate color on hover */
+.hoverable:hover {
+  border-color: var(--hover-border);
+}
+
+/* the pinned set: always in its hover state */
+.pinned {
+  border-color: var(--hover-border);
+}
+
+/* ─── Weights: each adds to the hover state of its shapes, in the chosen blue ─── */
+
+/* every weight sample uses the site's hover color */
+.weight {
+  --hover-border: var(--hover);
+}
+
+/* today's 1px border, nothing added */
+.border1 {
+  --hover-border: var(--hover);
+}
+
+/* 1px ring outside the border: 2px total */
+.ring2 :is(.hoverable:hover, .pinned) {
+  box-shadow: 0 0 0 1px var(--hover-border);
+}
+
+/* 2px ring outside the border: 3px total */
+.ring3 :is(.hoverable:hover, .pinned) {
+  box-shadow: 0 0 0 2px var(--hover-border);
+}
+
+/* 1px ring inside the border: 2px total, growing inward */
+.inset2 :is(.hoverable:hover, .pinned) {
+  box-shadow: inset 0 0 0 1px var(--hover-border);
+}
+
+/* page-colored gap, then a 2px ring, like styles/focus.css */
+.gapRing :is(.hoverable:hover, .pinned) {
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px var(--hover-border);
+}
+
+/* 2px outline floating 3px out, like the link utility's ring */
+.offsetOutline :is(.hoverable:hover, .pinned) {
+  outline: 2px solid var(--hover-border);
+  outline-offset: 3px;
+}
+
+/* 2px ring plus a faint blue fill */
+.ringTint :is(.hoverable:hover, .pinned) {
+  box-shadow: 0 0 0 1px var(--hover-border);
+  background-color: color-mix(in oklch, var(--hover-border) 12%, transparent);
+}
+
+/* 2px ring plus a soft glow */
+.ringGlow :is(.hoverable:hover, .pinned) {
+  box-shadow:
+    0 0 0 1px var(--hover-border),
+    0 0 14px color-mix(in oklch, var(--hover-border) 45%, transparent);
+}

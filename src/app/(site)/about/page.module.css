@@ -1,0 +1,51 @@
+@reference "../../globals.css";
+
+/* portrait, title and intro centred on the page over the content below, which stays left-aligned within the same width */
+.top {
+  @apply gap-flow mx-auto flex w-full max-w-2xl flex-col items-center text-center;
+}
+
+/* the page title at the size of the section headings below it, in the link blue, so the page reads title, then sections, then questions */
+.title {
+  @apply text-primary text-h1;
+}
+
+/* portrait above the page title */
+.portrait {
+  @apply border-border block aspect-square size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;
+}
+
+/* the header fills the block, so its separator spans the content width instead of shrinking to the text */
+.header {
+  @apply w-full;
+}
+
+/* narrative bio: paragraphs at the page's own rhythm, at a reading width centred on the page */
+.bio {
+  @apply gap-flow mx-auto flex w-full max-w-2xl flex-col leading-relaxed;
+}
+
+/* the Paint drawing in the story, centred, with its caption under it */
+.painting {
+  @apply my-2 flex flex-col items-center gap-2 text-center;
+}
+
+/* the drawing at its own size or smaller, kept blocky when scaled */
+.paintingImage {
+  @apply h-auto w-auto max-w-full [image-rendering:pixelated];
+}
+
+/* inline link inside an answer */
+.link {
+  @apply link;
+}
+
+/* the two tabs are the page's main choice, so the rule under them is only as wide as the content below, centred like it */
+.tabList {
+  @apply mx-auto max-w-2xl;
+}
+
+/* each tab takes half the width, centred, at a larger size than the standard tab */
+.tab {
+  @apply flex-1 justify-center py-4 text-xl;
+}

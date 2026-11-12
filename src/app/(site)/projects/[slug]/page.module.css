@@ -1,0 +1,6 @@
+@reference "../../../globals.css";
+
+/* the way into the project's notes */
+.link {
+  @apply link;
+}

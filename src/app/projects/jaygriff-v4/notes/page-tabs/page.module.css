@@ -1,6 +1,0 @@
-@reference "../../../../globals.css";
-
-/* a plain anchor between tabs, in the standard link style */
-.link {
-  @apply link;
-}

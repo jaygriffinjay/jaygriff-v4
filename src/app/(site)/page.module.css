@@ -1,0 +1,16 @@
+@reference "../globals.css";
+
+/* vertical rhythm for the page's content */
+.article {
+  @apply space-y-4;
+}
+
+/* extra room above the latest-posts feed; padding, because PageBody owns the margin between blocks */
+.latest {
+  @apply pt-8;
+}
+
+/* room between the feed and the link on to the full feed */
+.more {
+  @apply mt-6;
+}

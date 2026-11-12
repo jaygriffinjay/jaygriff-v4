@@ -1,0 +1,109 @@
+@reference "../../../../../globals.css";
+
+/* note above the samples */
+.intro {
+  @apply mt-6;
+}
+
+/* one variant, separated by a rule */
+.sample {
+  @apply mt-10 border-t pt-6;
+}
+
+/* variant name */
+.name {
+  @apply mb-1;
+}
+
+/* what the variant does */
+.note {
+  @apply text-muted-foreground mb-4 text-sm;
+}
+
+/* stacked links, like a page list */
+.list {
+  @apply mt-4 flex flex-col items-start gap-2;
+}
+
+/* ─── Variants ─── */
+
+/* today's link utility */
+.current {
+  @apply link;
+}
+
+/* shared base for the box variants: blue text, an invisible 1px outline that sits just off the text */
+.border100,
+.border70,
+.border50,
+.border30,
+.restingBorder,
+.borderTint,
+.grayToBlue {
+  @apply text-primary no-underline;
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+  box-decoration-break: clone;
+  transition:
+    outline-color 120ms ease,
+    color 120ms ease,
+    background-color 120ms ease;
+}
+
+.border100:hover,
+.border100:focus-visible {
+  outline-color: var(--primary);
+}
+
+.border70:hover,
+.border70:focus-visible {
+  outline-color: color-mix(in oklch, var(--primary) 70%, transparent);
+}
+
+.border50:hover,
+.border50:focus-visible {
+  outline-color: color-mix(in oklch, var(--primary) 50%, transparent);
+}
+
+.border30:hover,
+.border30:focus-visible {
+  outline-color: color-mix(in oklch, var(--primary) 30%, transparent);
+}
+
+/* faint box at rest */
+.restingBorder {
+  outline-color: color-mix(in oklch, var(--primary) 25%, transparent);
+}
+
+.restingBorder:hover,
+.restingBorder:focus-visible {
+  outline-color: var(--primary);
+}
+
+.borderTint:hover,
+.borderTint:focus-visible {
+  outline-color: var(--primary);
+  background-color: color-mix(in oklch, var(--primary) 10%, transparent);
+}
+
+/* starts as heading gray, turns blue with its box */
+.grayToBlue {
+  @apply text-heading;
+}
+
+.grayToBlue:hover,
+.grayToBlue:focus-visible {
+  @apply text-primary;
+  outline-color: var(--primary);
+}
+
+/* underline drawn as a border so its color can fade */
+.underline {
+  @apply text-primary border-b no-underline transition-colors;
+  border-color: color-mix(in oklch, var(--primary) 40%, transparent);
+}
+
+.underline:hover,
+.underline:focus-visible {
+  @apply border-primary outline-none;
+}

@@ -1,0 +1,56 @@
+@reference "../../../../../globals.css";
+
+/* a set of entries, separated by rules */
+.list {
+  @apply divide-separator mt-4 mb-10 flex flex-col divide-y;
+}
+
+/* layout A: the notes lead, so the entry is just a stack of paragraphs and the source card */
+.entryA {
+  @apply flex flex-col gap-3 py-6;
+}
+
+/* layout A: the linked page as a small card under the notes */
+.sourceCard {
+  @apply border-separator hover:bg-muted flex flex-col gap-0.5 rounded-md border px-3 py-2;
+}
+
+/* title of the linked page inside the card */
+.sourceTitle {
+  @apply text-primary text-sm font-medium;
+}
+
+/* host, via and date, quiet */
+.sourceMeta {
+  @apply text-muted-foreground text-xs;
+}
+
+/* layout B: link title, quiet meta line, then the notes */
+.entryB {
+  @apply flex flex-col gap-1 py-6;
+}
+
+/* layout B: the title of the linked page, linking out */
+.titleLink {
+  @apply link text-lg font-semibold;
+}
+
+/* layout B: notes set off from the title by a blue rule, as a quote would be */
+.notesBlock {
+  @apply border-primary mt-3 flex flex-col gap-3 border-l-2 pl-4;
+}
+
+/* layout C: a single source line, then the notes at body size */
+.entryC {
+  @apply flex flex-col gap-2 py-5;
+}
+
+/* layout C: host and date on one muted line */
+.sourceLine {
+  @apply text-muted-foreground text-xs;
+}
+
+/* layout C: the host, linking out */
+.inlineLink {
+  @apply link;
+}

@@ -1,0 +1,101 @@
+@reference "../../../../../globals.css";
+
+/* ─── Candidates: each sets the heading color for its sample ─── */
+
+/* today's heading white */
+.white {
+  --accent-heading: var(--heading);
+}
+
+/* GitHub attention amber */
+.amber {
+  --accent-heading: #d29922;
+}
+
+/* brighter, yellower amber */
+.gold {
+  --accent-heading: #e3b341;
+}
+
+/* GitHub severe orange */
+.orange {
+  --accent-heading: #f0883e;
+}
+
+/* soft warm peach */
+.peach {
+  --accent-heading: oklch(0.82 0.08 60);
+}
+
+/* GitHub success green, lightened */
+.green {
+  --accent-heading: #56d364;
+}
+
+/* teal, cool but off the blue */
+.teal {
+  --accent-heading: oklch(0.8 0.1 185);
+}
+
+/* GitHub purple, light */
+.lavender {
+  --accent-heading: #bc8cff;
+}
+
+/* GitHub's paler purple */
+.lavenderLight {
+  --accent-heading: #d2a8ff;
+}
+
+/* lavender with saturation cut by a quarter */
+.lavender12 {
+  --accent-heading: oklch(0.74 0.12 303);
+}
+
+/* lavender at about half saturation */
+.lavender09 {
+  --accent-heading: oklch(0.75 0.09 303);
+}
+
+/* dusty lavender, purple-tinted grey */
+.lavender06 {
+  --accent-heading: oklch(0.76 0.06 303);
+}
+
+/* pale lilac, near heading white */
+.lilac {
+  --accent-heading: oklch(0.82 0.07 305);
+}
+
+/* goatboat's dark-mode primary, used for its title */
+.goatboat {
+  --accent-heading: oklch(0.68 0.19 293);
+}
+
+/* the theme's indigo */
+.indigo {
+  --accent-heading: oklch(0.62 0.19 280);
+}
+
+/* GitHub sponsor pink */
+.pink {
+  --accent-heading: #f778ba;
+}
+
+/* ─── Sample ─── */
+
+/* one candidate: label, heading and questions, with room above the next */
+.sample {
+  @apply flex flex-col gap-2 pt-6;
+}
+
+/* sample heading at H2 size in the candidate color; a raw h2 so the color isn't fighting the typography class */
+.heading {
+  @apply text-h2 font-bold tracking-tight;
+  color: var(--accent-heading);
+}
+
+/* link inside an answer */
+.link {
+  @apply link;
+}
