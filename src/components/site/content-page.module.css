@@ -1,4 +1,4 @@
-@reference "../../globals.css";
+@reference "../../app/globals.css";
 
 /* draft/private badge above the title, local dev only */
 .draft {

@@ -18,8 +18,10 @@ export async function currentPath() {
  * If goatboat fails, returns null so code pages still render with fallbacks. Cached so one render logs once.
  */
 const getCurrentRow = cache(async () => {
+  // Outside the try: during the build, headers() throws to mark the page dynamic, and that must reach Next
+  const path = await currentPath();
   try {
-    const result = await getContentByPath(await currentPath());
+    const result = await getContentByPath(path);
     return !result || "redirectTo" in result ? null : result;
   } catch (err) {
     console.error(err);

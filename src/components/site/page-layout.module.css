@@ -109,7 +109,7 @@
   @apply contents;
 }
 
-/* Full desktop: the project's notes get their own column left of the article. 80rem is the notes frame (see .shell in layout.module.css) plus the shell's padding; keep the two in step. The gaps are their own tracks, so the notes gap (2rem) can be narrower than the contents gap (4rem) */
+/* Full desktop: the project's notes get their own column left of the article. 80rem is the notes frame (see .shell in site-chrome.module.css) plus the shell's padding; keep the two in step. The gaps are their own tracks, so the notes gap (2rem) can be narrower than the contents gap (4rem) */
 @media (width >= 80rem) {
   .columnsWithNotesAside {
     @apply items-start gap-x-0 gap-y-0;

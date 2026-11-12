@@ -1,4 +1,4 @@
-@reference "../globals.css";
+@reference "../../app/globals.css";
 
 /* centered page frame, padded in from the screen edges; max width is the page frame plus that padding; flex-1 pushes the footer to the bottom of short pages (body is a flex column) */
 .shell {
