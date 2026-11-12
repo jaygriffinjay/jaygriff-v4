@@ -1,8 +1,8 @@
 @reference "../../globals.css";
 
-/* one question section at the reading width, centred on the page; the top padding adds to the page's flow margin so each section starts with real separation */
+/* one question section at the reading width, centred on the page; the top padding adds to the page's flow margin so each section starts with real separation, except the first, which starts level with the Story tab's text */
 .section {
-  @apply mx-auto flex w-full max-w-2xl flex-col gap-2 pt-10;
+  @apply mx-auto flex w-full max-w-2xl flex-col gap-2 pt-10 first:pt-0;
 }
 
 /* section heading on the left, the expand/collapse control on the right, sharing the heading's baseline; room below before the questions */

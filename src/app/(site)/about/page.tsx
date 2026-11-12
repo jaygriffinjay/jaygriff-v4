@@ -14,7 +14,15 @@ const ABOUT_ME: Question[] = [
     question: "Who are you?",
     answer: (
       <>
-        I'm Jay, a software-developing person. This is my website, and that's a picture of me up there at the top of the page. I do other things too - like running, hiking, reading, and writing. 
+        I'm Jay, a software developer on the internet. This is my website, and that's a picture of me up there at the top of the page. I do other things too - like running, hiking, reading, and writing. 
+      </>
+    ),
+  },
+  {
+    question: "Why software development?",
+    answer: (
+      <>
+        I have many motivations driving my work. But two stand out. For app development, nothing would satisfy me more than creating something original that genuinely helps and delights people. And for platform development, I am drawn to the engineering behind powerful, scalable systems and enjoy the challenge of working on them.
       </>
     ),
   },
@@ -22,7 +30,7 @@ const ABOUT_ME: Question[] = [
     question: "What kind of development do you do?",
     answer: (
       <>
-        I often build full-stack TypeScript apps, usually in the form of a website. To do this I work with many an API, cloud service, or JavaScript library. I also constantly worry about performance, security, and scalability, despite many of my apps' general lack of need for any of those things. Further, I often find myself wrangling data, whether that's gathering it, modeling it, analyzing it, or making it look pretty. If you want to see what I've made, check out my{" "}
+        I mostly do full-stack web development with TypeScript. Much of what I make manifests itself as a website or something that powers websites. If you want to see what I've made, check out my{" "}
         <NextLink href="/projects" className={styles.link}>
           projects
         </NextLink>
@@ -31,7 +39,7 @@ const ABOUT_ME: Question[] = [
     ),
   },
   {
-    question: "What do you use to build software?",
+    question: "What do you use to make software?",
     answer: (
       <>
         Many of the tools I use to make software are listed in{" "}
@@ -184,7 +192,7 @@ const ABOUT_SITE: Question[] = [
         <NextLink href="/projects/goatboat" className={styles.link}>
           goatboat
         </NextLink>
-        . It's a content database, CMS, API, and MCP server that helps me manage the deluge of content generated from my work.
+        . It's a CMS featuring a content database, API, and MCP server that helps me manage the deluge of content generated from my work.
       </>
     ),
   },
