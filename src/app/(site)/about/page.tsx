@@ -14,15 +14,7 @@ const ABOUT_ME: Question[] = [
     question: "Who are you?",
     answer: (
       <>
-        I'm Jay, a software developer on the internet. This is my website, and that's a picture of me up there at the top of the page. I do other things too - like running, hiking, reading, and writing. 
-      </>
-    ),
-  },
-  {
-    question: "Why software development?",
-    answer: (
-      <>
-        I have many motivations driving my work. But two stand out. For app development, nothing would satisfy me more than creating something original that genuinely helps and delights people. And for platform development, I am drawn to the engineering behind powerful, scalable systems and enjoy the challenge of working on them.
+        I'm Jay, a software developer person. This is my website, and that's a picture of me up there at the top of the page. I do other things too - like running, hiking, reading, and writing. 
       </>
     ),
   },
@@ -35,6 +27,14 @@ const ABOUT_ME: Question[] = [
           projects
         </NextLink>
         .
+      </>
+    ),
+  },
+  {
+    question: "Why software development?",
+    answer: (
+      <>
+        I have many motivations driving my work. But two stand out. The first is my obsession with the internet. I am fascinated by the power of the internet and internet platforms, and I enjoy the challenge of working on them. And then second is my passion for app development. Nothing would satisfy me more than creating something original that genuinely helps and delights people.
       </>
     ),
   },
