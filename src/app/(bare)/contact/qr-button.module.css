@@ -1,0 +1,16 @@
+@reference "../../globals.css";
+
+/* round button beside a contact row; opens that row's QR card */
+.button {
+  @apply border-border bg-card text-primary hover:border-hover focus-visible:focus-ring flex size-14 shrink-0 cursor-pointer items-center justify-center rounded-full border transition-colors [&>svg]:size-7;
+}
+
+/* the open QR card: everything centred in a column, outlined in the link blue; scrolls on a screen too short for it, and a drag past its end doesn't carry on to the page behind */
+.dialog {
+  @apply ring-primary/60 max-h-[calc(100dvh-2rem)] items-center justify-items-center gap-4 overflow-y-auto overscroll-contain text-center;
+}
+
+/* the close button, in the link blue, with a 44px touch target */
+.close {
+  @apply bg-secondary text-primary hover:bg-muted focus-visible:focus-ring absolute top-3 right-3 flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors [&>svg]:size-6;
+}

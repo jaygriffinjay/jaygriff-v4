@@ -1,8 +1,20 @@
 @reference "../../globals.css";
 
+/* the whole page: no site header or footer here, so it fills the screen and centres the card on it */
+.page {
+  @apply gap-flow mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center px-4 py-12;
+}
+
 /* portrait and name, centred on the page */
 .top {
   @apply gap-flow mx-auto flex w-full max-w-2xl flex-col items-center text-center;
+}
+
+/* my name in Sekuya, white, the same size as in the QR cards; plain text, since the card has a website row for getting home */
+.name {
+  @apply text-4xl font-normal;
+  font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
+  color: #fff;
 }
 
 /* portrait above my name, as on the About page */
@@ -15,14 +27,74 @@
   @apply mx-auto flex w-full max-w-2xl flex-col items-center gap-4;
 }
 
-/* one destination: icon, label, arrow; the whole row is the link */
+/* a row and its QR button side by side, as wide as the row used to be on its own */
+.item {
+  @apply flex w-full max-w-lg items-center gap-3;
+}
+
+/* one destination: icon, label, arrow; the whole row is the link, as tall as the QR button beside it, and takes the width the button leaves */
 .row {
-  @apply border-border bg-card hover:border-hover focus-visible:focus-ring grid min-h-20 w-full max-w-lg grid-cols-[3.25rem_1fr_3.25rem] items-center rounded-full border px-3 transition-colors;
+  @apply border-border bg-card hover:border-hover focus-visible:focus-ring grid h-14 min-w-0 flex-1 grid-cols-[2.5rem_1fr_2.5rem] items-center rounded-full border px-2 transition-colors;
 }
 
 /* round icon at the start of the row */
 .iconSlot {
-  @apply bg-primary text-primary-foreground flex size-13 items-center justify-center rounded-full [&>svg]:size-7;
+  @apply bg-primary text-primary-foreground flex size-10 items-center justify-center rounded-full [&>svg]:size-5.5;
+}
+
+/* the site mark keeps its own blue and sits on no disc, a little smaller than the slot so it sits level with the other icons */
+.iconSlot:has([data-logo]) {
+  @apply bg-transparent;
+}
+
+.iconSlot > [data-logo] {
+  @apply size-7;
+}
+
+/* the QR card repeats the page at a smaller size: portrait, name, then what's being shared and the code */
+.cardPortrait {
+  @apply border-border block aspect-square size-32 rounded-full border-4 object-cover shadow-lg;
+}
+
+/* my name in the card, a size up from the page's */
+.cardName {
+  @apply text-4xl font-normal;
+  font-family: var(--font-sekuya), var(--font-geist-sans), sans-serif;
+  color: #fff;
+}
+
+/* the icon beside what's being shared */
+.cardHeading {
+  @apply flex items-center justify-center gap-3;
+}
+
+/* what's being shared, in the link blue */
+.cardKind {
+  @apply text-primary text-xl font-semibold;
+}
+
+/* the address itself, in bold under the heading */
+.cardDetail {
+  @apply text-foreground text-lg font-bold break-all;
+}
+
+/* the icon in the card: a small blue disc like the rows' */
+.cardIcon {
+  @apply bg-primary text-primary-foreground flex size-9 shrink-0 items-center justify-center rounded-full [&>svg]:size-5;
+}
+
+/* the site mark keeps its own blue and sits on no disc, a little larger */
+.cardIcon:has([data-logo]) {
+  @apply bg-transparent;
+}
+
+.cardIcon > [data-logo] {
+  @apply size-8;
+}
+
+/* the code: black on white whatever the theme, so every camera reads it, in a blue frame, as large as the card allows */
+.cardCode {
+  @apply border-primary block w-full max-w-64 rounded-xl border-4;
 }
 
 /* destination label, centred and cut short if it won't fit */
@@ -38,11 +110,4 @@
 /* the arrow's nudge */
 .row:hover .arrow {
   @apply translate-x-0.5 -translate-y-0.5;
-}
-
-/* below 480px: a narrower icon and arrow column so a long email still fits */
-@media (width < 30rem) {
-  .row {
-    @apply grid-cols-[3rem_1fr_3rem] px-2;
-  }
 }
