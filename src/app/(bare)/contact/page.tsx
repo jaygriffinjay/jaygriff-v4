@@ -14,11 +14,11 @@ const SITE = "https://jaygriff.com";
 
 /** `kind` heads the QR card and `detail` is the address shown under it; `qr` is what the code holds, so it's absolute even where the row's own link isn't. */
 const links: { href: string; label: string; kind: string; detail: string; icon: React.ReactNode; qr: string }[] = [
-  { href: "/", label: "jaygriff.com", kind: "Website", detail: "jaygriff.com", icon: <Logo data-logo />, qr: SITE },
-  { href: "mailto:jay@jaygriff.com", label: "Email", kind: "Email", detail: "jay@jaygriff.com", icon: <MailIcon />, qr: "mailto:jay@jaygriff.com" },
-  { href: "/resume", label: "Resume", kind: "Resume", detail: "jaygriff.com/resume", icon: <FileTextIcon />, qr: `${SITE}/resume` },
-  { href: "https://github.com/jaygriffinjay", label: "GitHub", kind: "GitHub", detail: "github.com/jaygriffinjay", icon: <GithubIcon />, qr: "https://github.com/jaygriffinjay" },
-  { href: "https://linkedin.com/in/jaygriffinjay", label: "LinkedIn", kind: "LinkedIn", detail: "linkedin.com/in/jaygriffinjay", icon: <LinkedinIcon />, qr: "https://linkedin.com/in/jaygriffinjay" },
+  { href: "/", label: "jaygriff.com", kind: "My Website", detail: "jaygriff.com", icon: <Logo data-logo />, qr: SITE },
+  { href: "mailto:jay@jaygriff.com", label: "Email", kind: "My Email", detail: "jay@jaygriff.com", icon: <MailIcon />, qr: "mailto:jay@jaygriff.com" },
+  { href: "/resume", label: "Resume", kind: "My Resume", detail: "jaygriff.com/resume", icon: <FileTextIcon />, qr: `${SITE}/resume` },
+  { href: "https://github.com/jaygriffinjay", label: "GitHub", kind: "My GitHub", detail: "github.com/jaygriffinjay", icon: <GithubIcon />, qr: "https://github.com/jaygriffinjay" },
+  { href: "https://linkedin.com/in/jaygriffinjay", label: "LinkedIn", kind: "My LinkedIn", detail: "linkedin.com/in/jaygriffinjay", icon: <LinkedinIcon />, qr: "https://linkedin.com/in/jaygriffinjay" },
 ];
 
 // Black on white whatever the theme, with a quiet zone, so every camera reads it

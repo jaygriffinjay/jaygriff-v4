@@ -10,7 +10,7 @@
   @apply ring-primary/60 max-h-[calc(100dvh-2rem)] items-center justify-items-center gap-4 overflow-y-auto overscroll-contain text-center;
 }
 
-/* the close button, in the link blue, with a 44px touch target */
+/* the close (×) button, the same as the mobile menu's: bare blue icon, big touch target, muted block on hover */
 .close {
-  @apply bg-secondary text-primary hover:bg-muted focus-visible:focus-ring absolute top-3 right-3 flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors [&>svg]:size-6;
+  @apply text-primary hover:bg-muted focus-visible:focus-ring absolute top-2 right-2 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md p-2 [&>svg]:size-9;
 }
