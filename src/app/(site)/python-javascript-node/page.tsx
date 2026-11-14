@@ -32,7 +32,7 @@ const cheatSheet = `
 /** A walk through Python, JavaScript and Node.js: where each one runs and what it can do. */
 export default function PythonJavascriptNodePage() {
   return (
-    <PageLayout>
+    <PageLayout hideToc>
       <PageHeader intro="Where Python, JavaScript and Node.js each run, what each one can do, and how they fit together, with working examples." />
 
       <H2>The short version</H2>
