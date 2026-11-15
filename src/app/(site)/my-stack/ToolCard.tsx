@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronDownIcon } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TOOL_STATUS_META } from "./tool-status";
 import type { Tool } from "./tools";
@@ -62,7 +62,7 @@ export function ToolCard({
         className={styles.toolTrigger}
       >
         {body}
-        <ChevronDownIcon aria-hidden="true" className={cn(styles.toolChevron, open && styles.toolChevronOpen)} />
+        <ChevronRightIcon aria-hidden="true" className={cn(styles.toolChevron, open && styles.toolChevronOpen)} />
       </button>
       <p hidden={!open} className={styles.toolNote}>
         {note}

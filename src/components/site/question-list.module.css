@@ -10,9 +10,9 @@
   @apply m-0;
 }
 
-/* the whole question row is the button: text, then the chevron at the end */
+/* the whole question row is the button: text, then the chevron at the end. The padding and negative margin put a muted highlight 0.75rem past the text on hover without moving the text; it appears instantly */
 .trigger {
-  @apply text-heading hover:text-primary focus-visible:focus-ring flex w-full cursor-pointer items-center justify-between gap-4 rounded-sm py-2.5 text-left transition-colors;
+  @apply text-heading hover:text-primary hover:bg-muted focus-visible:focus-ring -mx-3 flex w-[calc(100%+1.5rem)] cursor-pointer items-center justify-between gap-4 rounded-md px-3 py-2.5 text-left;
 }
 
 /* the question text */
@@ -22,12 +22,12 @@
 
 /* chevron at the end of the question */
 .chevron {
-  @apply text-muted-foreground size-4 shrink-0 transition-transform duration-200;
+  @apply text-muted-foreground size-4 shrink-0;
 }
 
-/* the chevron turned over while the answer is open */
+/* the chevron points right while closed and turns down while the answer is open */
 .trigger[aria-expanded="true"] .chevron {
-  @apply rotate-180;
+  @apply rotate-90;
 }
 
 /* the answer's sliding box. A link's hover block and ring reach about 7px past the text, so 8px of padding on the sides and top (cancelled by negative margins) keeps the clipping clear of them; the top strip overlaps the question, so it lets taps through */

@@ -10,9 +10,9 @@
   @apply mx-auto flex w-full max-w-3xl flex-col items-center gap-10 px-6 pt-12 pb-14;
 }
 
-/* the mark on its own, linking home */
+/* the mark on its own, linking home; brighter on hover, instantly */
 .brand {
-  @apply block h-fit w-fit opacity-85 transition-[opacity,filter] hover:opacity-100;
+  @apply block h-fit w-fit opacity-85 hover:opacity-100;
   filter: brightness(1);
 
   &:hover {

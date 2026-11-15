@@ -1,7 +1,7 @@
 "use client";
 
 import { Accordion } from "@base-ui/react/accordion";
-import { ChevronDownIcon } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
 import { Lead } from "@/components/typography";
 import { cn } from "@/lib/utils";
 import styles from "./question-list.module.css";
@@ -35,7 +35,7 @@ export function QuestionList({
           <Accordion.Header className={styles.header}>
             <Accordion.Trigger className={styles.trigger}>
               <span className={styles.question}>{question}</span>
-              <ChevronDownIcon aria-hidden="true" className={styles.chevron} />
+              <ChevronRightIcon aria-hidden="true" className={styles.chevron} />
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Panel className={styles.panel}>

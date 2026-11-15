@@ -130,19 +130,19 @@
   @apply flex-col items-stretch gap-0 p-0;
 }
 
-/* the clickable row of a card with a note */
+/* the clickable row of a card with a note; a muted highlight on hover, instantly */
 .toolTrigger {
-  @apply focus-visible:focus-ring flex w-full cursor-pointer items-center gap-3 rounded-lg bg-transparent px-3 py-2 text-left;
+  @apply focus-visible:focus-ring hover:bg-muted flex w-full cursor-pointer items-center gap-3 rounded-lg bg-transparent px-3 py-2 text-left;
 }
 
 /* shows the row opens */
 .toolChevron {
-  @apply text-muted-foreground size-4 shrink-0 transition-transform;
+  @apply text-muted-foreground size-4 shrink-0;
 }
 
-/* chevron flipped while open */
+/* chevron turned down while open */
 .toolChevronOpen {
-  @apply rotate-180;
+  @apply rotate-90;
 }
 
 /* the opened note, indented to line up under the tool's name (padding, dot, logo and gaps) */
