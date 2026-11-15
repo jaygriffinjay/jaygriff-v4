@@ -1,0 +1,106 @@
+@reference "../../../../../globals.css";
+
+/* ─── Speeds: each cell but the first overrides every transition inside it to one duration ─── */
+
+.t0 {
+  --speed: 0ms;
+}
+
+.t10 {
+  --speed: 10ms;
+}
+
+.t50 {
+  --speed: 50ms;
+}
+
+.t100 {
+  --speed: 100ms;
+}
+
+/* the override: !important because the real components set their durations in utility classes and shorthands */
+:is(.t0, .t10, .t50, .t100) :is(*, *::before, *::after) {
+  transition-duration: var(--speed) !important;
+}
+
+/* ─── Layout ─── */
+
+/* the five speeds of one element side by side; two to a row on a phone */
+.cells {
+  @apply mt-3 mb-10 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-5;
+}
+
+/* one speed: its label above the element */
+.cell {
+  @apply flex min-w-0 flex-col items-start gap-3;
+}
+
+/* the pagination numbers and the footer mark sit on a row */
+.inline {
+  @apply flex items-center gap-1;
+}
+
+/* ─── The elements, each with the classes the site's own uses ─── */
+
+/* an inline text link: the site's link utility, with its blue hover block */
+.link {
+  @apply link;
+}
+
+/* a filter choice, as in the notes table */
+.chip {
+  @apply border-border text-muted-foreground hover:border-hover hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-full border px-2.5 py-0.5 text-xs transition-colors;
+}
+
+/* a contact page row */
+.row {
+  @apply border-border bg-card hover:border-hover focus-visible:focus-ring flex h-14 w-full items-center justify-center rounded-full border px-2 text-sm transition-colors;
+}
+
+/* a contact page QR button */
+.qr {
+  @apply border-border bg-card text-primary hover:border-hover focus-visible:focus-ring flex size-14 shrink-0 cursor-pointer items-center justify-center rounded-full border transition-colors [&>svg]:size-7;
+}
+
+/* a page number in the pagination */
+.page {
+  @apply text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:focus-ring block min-w-9 rounded-md px-3 py-1 text-center text-sm transition-colors;
+}
+
+/* the expand all toggle on the About and My stack pages */
+.toggle {
+  @apply text-muted-foreground hover:text-foreground focus-visible:focus-ring inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-sm bg-transparent text-sm transition-colors [&>svg]:size-3.5;
+}
+
+/* the info button on My stack */
+.key {
+  @apply text-foreground hover:text-primary focus-visible:focus-ring inline-flex shrink-0 cursor-pointer items-center rounded-full bg-transparent transition-colors [&>svg]:size-5;
+}
+
+/* the footer mark: dimmed at rest, brighter on hover */
+.brand {
+  @apply block h-fit w-fit opacity-85 transition-[opacity,filter] hover:opacity-100;
+  filter: brightness(1);
+
+  &:hover {
+    filter: brightness(1.3) saturate(1.15);
+  }
+}
+
+.logo {
+  @apply h-10 w-auto shrink-0;
+}
+
+/* the back link on the 404 page, whose arrow nudges on hover */
+.backLink {
+  @apply link text-lg font-medium;
+}
+
+.arrow {
+  @apply inline-block transition-transform duration-200;
+}
+
+.backLink:hover .arrow,
+.backLink:focus-visible .arrow {
+  @apply -translate-x-1;
+}

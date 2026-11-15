@@ -1,0 +1,284 @@
+@reference "../../../../../globals.css";
+
+/* ─── Candidates: each sets the background a hovered accordion row or table row turns ─── */
+
+/* no background at all */
+.none {
+  --row-hover: transparent;
+}
+
+/* muted at 30%, the faintest step */
+.muted30 {
+  --row-hover: color-mix(in oklch, var(--muted) 30%, transparent);
+}
+
+/* muted at 50%: chosen for accordions, and what table rows use today */
+.muted50 {
+  --row-hover: color-mix(in oklch, var(--muted) 50%, transparent);
+}
+
+/* muted at 70% */
+.muted70 {
+  --row-hover: color-mix(in oklch, var(--muted) 70%, transparent);
+}
+
+/* muted, solid */
+.muted100 {
+  --row-hover: var(--muted);
+}
+
+/* secondary (graphite) at 60% */
+.secondary60 {
+  --row-hover: color-mix(in oklch, var(--secondary) 60%, transparent);
+}
+
+/* secondary, solid */
+.secondary100 {
+  --row-hover: var(--secondary);
+}
+
+/* accent, the theme's hover surface, at 60% */
+.accent60 {
+  --row-hover: color-mix(in oklch, var(--accent) 60%, transparent);
+}
+
+/* accent, solid */
+.accent100 {
+  --row-hover: var(--accent);
+}
+
+/* body text color at 4%: a neutral wash */
+.white4 {
+  --row-hover: color-mix(in oklch, var(--foreground) 4%, transparent);
+}
+
+/* body text color at 6% */
+.white6 {
+  --row-hover: color-mix(in oklch, var(--foreground) 6%, transparent);
+}
+
+/* body text color at 7% */
+.white7 {
+  --row-hover: color-mix(in oklch, var(--foreground) 7%, transparent);
+}
+
+/* body text color at 8% */
+.white8 {
+  --row-hover: color-mix(in oklch, var(--foreground) 8%, transparent);
+}
+
+/* body text color at 10% */
+.white10 {
+  --row-hover: color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+/* muted with 10% link blue mixed in */
+.mutedBlue10 {
+  --row-hover: color-mix(in oklch, var(--muted) 90%, var(--primary));
+}
+
+/* muted with 20% link blue mixed in */
+.mutedBlue20 {
+  --row-hover: color-mix(in oklch, var(--muted) 80%, var(--primary));
+}
+
+/* link blue at 5% */
+.blue5 {
+  --row-hover: color-mix(in oklch, var(--primary) 5%, transparent);
+}
+
+/* link blue at 8% */
+.blue8 {
+  --row-hover: color-mix(in oklch, var(--primary) 8%, transparent);
+}
+
+/* link blue at 12% */
+.blue12 {
+  --row-hover: color-mix(in oklch, var(--primary) 12%, transparent);
+}
+
+/* the card color, solid */
+.card {
+  --row-hover: var(--card);
+}
+
+/* brighter than accent: accent with 5% white mixed in */
+.accentWhite5 {
+  --row-hover: color-mix(in oklch, var(--accent) 95%, white);
+}
+
+/* accent with 10% white */
+.accentWhite10 {
+  --row-hover: color-mix(in oklch, var(--accent) 90%, white);
+}
+
+/* accent with 15% white */
+.accentWhite15 {
+  --row-hover: color-mix(in oklch, var(--accent) 85%, white);
+}
+
+/* accent with 15% link blue */
+.accentBlue15 {
+  --row-hover: color-mix(in oklch, var(--accent) 85%, var(--primary));
+}
+
+/* accent with 25% link blue */
+.accentBlue25 {
+  --row-hover: color-mix(in oklch, var(--accent) 75%, var(--primary));
+}
+
+/* body text color at 15% */
+.white15 {
+  --row-hover: color-mix(in oklch, var(--foreground) 15%, transparent);
+}
+
+/* body text color at 20% */
+.white20 {
+  --row-hover: color-mix(in oklch, var(--foreground) 20%, transparent);
+}
+
+/* link blue at 20% */
+.blue20 {
+  --row-hover: color-mix(in oklch, var(--primary) 20%, transparent);
+}
+
+/* ─── Shapes: every shape sample uses link blue at 8%, and sets how the highlight reaches and ends ─── */
+
+/* every sample's default reach and corners, which the shape classes below replace */
+.section {
+  --bleed: 0.75rem;
+  --radius: 0.375rem;
+}
+
+/* the color for the shape samples */
+.shapeColor {
+  --row-hover: color-mix(in oklch, var(--primary) 8%, transparent);
+}
+
+/* reaches 0.75rem past the text, rounded: the default */
+.rounded {
+  --bleed: 0.75rem;
+  --radius: 0.375rem;
+}
+
+/* the same reach, square corners */
+.square {
+  --bleed: 0.75rem;
+  --radius: 0;
+}
+
+/* stops at the text's edge */
+.flush {
+  --bleed: 0;
+  --radius: 0.25rem;
+}
+
+/* square, past the text, with a 2px blue bar on the left */
+.accent {
+  --bleed: 0.75rem;
+  --radius: 0;
+}
+
+/* ─── Layout ─── */
+
+/* live mock-ups on the left, pinned ones on the right; stacked on narrow screens. The wide gap leaves room for the highlight to reach past the text */
+.compare {
+  @apply mt-4 grid gap-10 sm:grid-cols-2;
+}
+
+/* an accordion and a table, one under the other */
+.demo {
+  @apply flex flex-col gap-3;
+}
+
+/* ─── Accordion mock-up: the site's question rows, built on <details> so they open without script ─── */
+
+/* the questions, one under another */
+.accordion {
+  @apply mb-4 flex flex-col;
+}
+
+/* a question row: text, then the chevron at the end; the padding and negative margin push the highlight out past the text without moving it */
+.summary {
+  @apply text-heading hover:text-primary flex cursor-pointer list-none items-center justify-between gap-4 py-2.5 text-left transition-colors;
+  margin-inline: calc(var(--bleed) * -1);
+  padding-inline: var(--bleed);
+  border-radius: var(--radius);
+}
+
+/* hides the browser's own disclosure triangle in Safari */
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+/* the question text */
+.question {
+  @apply text-base font-semibold;
+}
+
+/* points right while closed, down while open, instantly */
+.chevron {
+  @apply text-muted-foreground size-4 shrink-0;
+}
+
+.item[open] .chevron {
+  @apply rotate-90;
+}
+
+/* an open answer, with room under it */
+.answer {
+  @apply text-muted-foreground m-0 pb-4;
+}
+
+/* ─── Hover state: the live set on hover, the pinned set on its second row ─── */
+
+.hoverable .summary:hover,
+.pinned .item:nth-of-type(2) .summary {
+  background-color: var(--row-hover);
+}
+
+/* the pinned row's text is blue too, as it is under the pointer */
+.pinned .item:nth-of-type(2) .summary {
+  @apply text-primary;
+}
+
+/* table rows: the site's own table, with its hover background replaced by the candidate's */
+.hoverable .table tbody tr:hover,
+.pinned .table tbody tr:nth-child(2) {
+  background-color: var(--row-hover);
+}
+
+/* the left accent shape: a 2px bar on the highlighted accordion row and the table row's first cell */
+.accent :is(.hoverable .summary:hover, .pinned .item:nth-of-type(2) .summary, .hoverable .table tbody tr:hover td:first-child, .pinned .table tbody tr:nth-child(2) td:first-child) {
+  box-shadow: inset 2px 0 0 var(--primary);
+}
+
+/* ─── All at once: every candidate in one list, each row always in its hover state ─── */
+
+/* an accordion row held in its hover state, in its own candidate's color */
+.litItem {
+  @apply text-primary;
+  background-color: var(--row-hover);
+}
+
+/* a table row held in its hover state, in its own candidate's color */
+.litRow {
+  background-color: var(--row-hover);
+}
+
+/* ─── Try one: pick a candidate, then hover the live mock-ups ─── */
+
+/* the candidate buttons */
+.chips {
+  @apply flex flex-wrap gap-2;
+}
+
+/* one candidate button, in the site's pill style */
+.chip {
+  @apply border-border text-muted-foreground hover:border-hover focus-visible:focus-ring cursor-pointer rounded-full border px-2.5 py-0.5 text-xs transition-colors;
+}
+
+/* the chosen candidate */
+.chipOn {
+  @apply border-primary text-primary;
+}
