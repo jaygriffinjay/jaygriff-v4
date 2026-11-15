@@ -725,7 +725,7 @@ export function LibraryClient({ header }: { header: React.ReactNode }) {
           </Menubar>
         </Demo>
         <Demo name="Command">
-          <Command className={styles.frame}>
+          <Command className={styles.frame} defaultValue="home">
             <CommandInput placeholder="Search…" />
             <CommandList>
               <CommandEmpty>No results.</CommandEmpty>

@@ -224,7 +224,7 @@ export function Comparisons() {
         </Pair>
         <Pair name="Command">
           {() => (
-            <Command className={styles.frame}>
+            <Command className={styles.frame} defaultValue="home">
               <CommandInput placeholder="Search…" />
               <CommandList>
                 <CommandGroup heading="Pages">
