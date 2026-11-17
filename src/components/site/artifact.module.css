@@ -17,3 +17,8 @@
 .lg {
   @apply h-[min(36rem,80dvh)];
 }
+
+/* fills the space its parent leaves, edge to edge, for a page that is only the artifact */
+.fill {
+  @apply min-h-0 flex-1 rounded-none border-0;
+}

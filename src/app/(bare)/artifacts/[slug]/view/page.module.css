@@ -1,0 +1,21 @@
+@reference "../../../../globals.css";
+
+/* the whole screen: a bar above, the artifact below taking everything else */
+.page {
+  @apply flex h-dvh w-full flex-col;
+}
+
+/* thin bar with the way back and the raw file */
+.bar {
+  @apply border-border bg-background flex shrink-0 items-center justify-between gap-4 border-b px-4 py-2 text-sm;
+}
+
+/* link back to the artifact's own page */
+.back {
+  @apply link min-w-0 truncate;
+}
+
+/* link to the file on its own host */
+.raw {
+  @apply link text-muted-foreground shrink-0;
+}

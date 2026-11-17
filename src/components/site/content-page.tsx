@@ -1,3 +1,4 @@
+import NextLink from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Lead, Paragraph, Title } from "@/components/typography";
@@ -38,11 +39,11 @@ export async function ContentPage({ path }: { path: string }) {
       {item.description && <Lead>{item.description}</Lead>}
       {file && (
         <>
-          <Artifact src={file.url} title={item.title} size="lg" />
+          <Artifact src={file.url} title={item.title} size="lg" height={file.height} />
           <Paragraph>
-            <a href={file.url} className={styles.openAlone}>
+            <NextLink href={`${item.path}/view`} className={styles.openAlone}>
               Open on its own
-            </a>
+            </NextLink>
           </Paragraph>
         </>
       )}
