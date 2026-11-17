@@ -1,6 +1,6 @@
 // Client for goatboat's read API. Response types are hand-written to match its JSON.
 
-export const contentTypes = ["page", "post", "link", "image"] as const;
+export const contentTypes = ["page", "post", "link", "image", "artifact"] as const;
 
 export type ContentType = (typeof contentTypes)[number];
 export type Status = "draft" | "published" | "private";
@@ -12,7 +12,7 @@ export type Asset = {
   projectId: string | null;
   contentId: string | null;
   url: string;
-  kind: "image" | "video";
+  kind: "image" | "video" | "html";
   role: "thumbnail" | "hero" | "logo" | "gallery";
   alt: string | null;
   width: number | null;

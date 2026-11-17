@@ -47,3 +47,6 @@ local.db*
 
 # shared scratchpad for plans and temp files (see copilot-instructions.md)
 /scratch/
+
+# Claude artifacts: working files, hosted on R2, not in the repo
+/artifacts/

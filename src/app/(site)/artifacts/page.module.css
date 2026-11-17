@@ -1,0 +1,56 @@
+@reference "../../globals.css";
+
+/* row of tag filter links */
+.filters {
+  @apply flex flex-wrap gap-2;
+}
+
+/* one tag filter */
+.filter {
+  @apply border-border text-muted-foreground hover:text-foreground rounded-md border px-3 py-1 text-sm;
+}
+
+/* the filter for the tag currently shown */
+.filterActive {
+  @apply bg-muted text-foreground;
+}
+
+/* the cards, as many to a row as fit */
+.grid {
+  @apply grid gap-6 sm:grid-cols-2 wide:grid-cols-3;
+}
+
+/* one artifact: a link around its picture, title and description */
+.card {
+  @apply border-border hover:bg-muted focus-visible:focus-ring flex h-full flex-col overflow-hidden rounded-lg border;
+}
+
+/* the artifact's thumbnail */
+.cover {
+  @apply bg-muted aspect-video w-full object-cover;
+}
+
+/* stands in for the thumbnail when there isn't one */
+.noCover {
+  @apply bg-muted aspect-video w-full;
+}
+
+/* the text under the picture */
+.cardBody {
+  @apply flex flex-col gap-1 p-4;
+}
+
+/* the artifact's title */
+.cardTitle {
+  @apply mt-0 text-lg font-semibold;
+}
+
+/* the summary under the title */
+.cardDescription {
+  @apply text-muted-foreground text-sm;
+}
+
+/* the artifact's tags */
+.cardTags {
+  @apply mt-2 flex flex-wrap gap-1;
+}

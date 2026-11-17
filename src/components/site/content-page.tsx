@@ -1,7 +1,8 @@
 import { notFound, permanentRedirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Lead, Title } from "@/components/typography";
+import { Lead, Paragraph, Title } from "@/components/typography";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
+import { Artifact } from "@/components/site/artifact";
 import { ChildPages } from "@/components/site/child-pages";
 import { PageLayout } from "@/components/site/page-layout";
 import { PageToc } from "@/components/site/page-toc";
@@ -21,6 +22,7 @@ export async function ContentPage({ path }: { path: string }) {
 
   const { item } = result;
   if (!isVisible(item)) notFound();
+  const file = item.type === "artifact" ? item.assets.find((a) => a.kind === "html" && a.role === "hero") : undefined;
 
   return (
     <PageLayout
@@ -34,6 +36,16 @@ export async function ContentPage({ path }: { path: string }) {
       )}
       <Title id={slugifyHeading(item.title)}>{item.title}</Title>
       {item.description && <Lead>{item.description}</Lead>}
+      {file && (
+        <>
+          <Artifact src={file.url} title={item.title} size="lg" />
+          <Paragraph>
+            <a href={file.url} className={styles.openAlone}>
+              Open on its own
+            </a>
+          </Paragraph>
+        </>
+      )}
       {item.body && <MarkdownRenderer source={withoutLeadingTitle(item.body)} />}
       <ChildPages />
     </PageLayout>

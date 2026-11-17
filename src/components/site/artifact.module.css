@@ -1,0 +1,19 @@
+@reference "../../app/globals.css";
+
+/* the frame: a bordered box as wide as the column; the file inside draws its own background */
+.frame {
+  @apply border-border bg-background block w-full rounded-lg border;
+}
+
+/* heights: a small widget, the usual, and a full demo */
+.sm {
+  @apply h-64;
+}
+
+.md {
+  @apply h-96;
+}
+
+.lg {
+  @apply h-[min(36rem,80dvh)];
+}

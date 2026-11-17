@@ -5,3 +5,8 @@
   @apply mb-4;
 }
 
+/* the link to an artifact's file by itself */
+.openAlone {
+  @apply link;
+}
+
