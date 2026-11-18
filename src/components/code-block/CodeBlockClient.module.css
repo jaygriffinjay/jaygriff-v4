@@ -37,19 +37,6 @@
   color: #858585;
 }
 
-/* full-path tooltip on a file, copied from VS Code's dark hover: a plain dark card with a thin border and slight corners, no arrow. Wraps only at the edge of the screen */
-.tooltip {
-  @apply rounded-sm px-2 py-1 text-xs;
-  max-width: calc(100vw - 1rem);
-  /* appears and goes at once, like VS Code's, instead of the shared tooltip's fade and zoom */
-  animation: none;
-  background: #252526;
-  color: #cccccc;
-  border: 1px solid #454545;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 36%);
-  overflow-wrap: anywhere;
-}
-
 /* wrap + copy buttons */
 .actions {
   @apply ml-auto flex items-center gap-0.5;

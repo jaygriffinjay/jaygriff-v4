@@ -34,7 +34,7 @@ function PathTip({ path, element }: { path?: string; element: React.ReactElement
   return (
     <Tooltip trackCursorAxis="both">
       <TooltipTrigger delay={1000} render={element} />
-      <TooltipContent arrow={false} side="bottom" align="start" sideOffset={16} className={styles.tooltip}>{path}</TooltipContent>
+      <TooltipContent side="bottom" align="start" sideOffset={16}>{path}</TooltipContent>
     </Tooltip>
   );
 }
