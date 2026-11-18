@@ -67,7 +67,11 @@ export async function currentPageMetadata(): Promise<Metadata> {
   const { item } = page;
   const title = `${item.title} · ${SITE_NAME}`;
   const description = item.description ?? undefined;
-  const image = item.assets.find((a) => a.role === "hero") ?? item.assets.find((a) => a.role === "thumbnail");
+  // An artifact's hero is its html file, so its sharing image is the thumbnail
+  const image =
+    item.type === "artifact"
+      ? item.assets.find((a) => a.role === "thumbnail")
+      : (item.assets.find((a) => a.role === "hero") ?? item.assets.find((a) => a.role === "thumbnail"));
   const images = image
     ? [{ url: image.url, alt: image.alt ?? item.title, width: image.width ?? undefined, height: image.height ?? undefined }]
     : undefined;

@@ -1,24 +1,76 @@
 @reference "../../app/globals.css";
 
-/* the frame: a bordered box as wide as the column; the file inside draws its own background */
-.frame {
-  @apply border-border bg-background block w-full rounded-lg border;
+/* the box around the frame and its controls: the positioning context for the controls, and what holds the frame's place on the page while it's expanded */
+.root {
+  @apply relative;
 }
 
-/* heights: a small widget, the usual, and a full demo */
+/* the frame: a bordered box as wide as the column; the file inside draws its own background. Never shorter than its size. Named so the browser can morph it between inline and expanded */
+.frame {
+  @apply border-border bg-background block w-full rounded-lg border;
+  min-height: var(--frame-min, 0px);
+  view-transition-name: artifact-frame;
+}
+
+/* sizes, as the frame's minimum height: a small widget, the usual, and a full demo */
 .sm {
-  @apply h-64;
+  --frame-min: 16rem;
 }
 
 .md {
-  @apply h-96;
+  --frame-min: 24rem;
 }
 
 .lg {
-  @apply h-[min(36rem,80dvh)];
+  --frame-min: min(36rem, 80dvh);
 }
 
-/* fills the space its parent leaves, edge to edge, for a page that is only the artifact */
-.fill {
-  @apply min-h-0 flex-1 rounded-none border-0;
+/* the frame's height until the artifact reports its own */
+.pending {
+  height: var(--frame-min);
+}
+
+/* expanded: the frame covers the whole screen, above the site's header */
+.root[data-expanded] .frame {
+  @apply fixed inset-0 z-50 h-dvh rounded-none border-0;
+}
+
+/* the ellipsis button over the frame's top-right corner, on the same dark editor chip as a code block's buttons so it reads over any artifact; appears the moment the frame is hovered or focused or its menu is open, and stays while expanded */
+.controls {
+  @apply absolute top-1.5 right-1.5 z-10 rounded-lg p-0.5 opacity-0;
+  background: #1e1e1e;
+  view-transition-name: artifact-controls;
+}
+
+.root:hover .controls,
+.root:focus-within .controls,
+.controls:has([aria-expanded="true"]),
+.root[data-expanded] .controls {
+  @apply opacity-100;
+}
+
+.root[data-expanded] .controls {
+  @apply fixed top-3 right-3 z-50;
+}
+
+/* no hover on touch screens, so the button stays visible there */
+@media (hover: none) {
+  .controls {
+    @apply opacity-100;
+  }
+}
+
+/* the button itself, in the code block's greys; no focus ring, since it only shows while the frame is hovered or focused anyway */
+.control {
+  @apply inline-flex size-7 items-center justify-center rounded-md outline-none;
+  color: #858585;
+
+  & svg {
+    @apply size-4;
+  }
+
+  &:hover {
+    color: #e5e5e5;
+    background: rgb(255 255 255 / 8%);
+  }
 }

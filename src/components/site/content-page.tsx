@@ -1,7 +1,6 @@
-import NextLink from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Lead, Paragraph, Title } from "@/components/typography";
+import { Lead, Title } from "@/components/typography";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { Artifact } from "@/components/site/artifact";
 import { ChildPages } from "@/components/site/child-pages";
@@ -37,16 +36,7 @@ export async function ContentPage({ path }: { path: string }) {
       )}
       <Title id={slugifyHeading(item.title)}>{item.title}</Title>
       {item.description && <Lead>{item.description}</Lead>}
-      {file && (
-        <>
-          <Artifact src={file.url} title={item.title} size="lg" height={file.height} />
-          <Paragraph>
-            <NextLink href={`${item.path}/view`} className={styles.openAlone}>
-              Open on its own
-            </NextLink>
-          </Paragraph>
-        </>
-      )}
+      {file && <Artifact src={file.url} title={item.title} size="lg" />}
       {item.body && <MarkdownRenderer source={withoutLeadingTitle(item.body)} />}
       <ChildPages />
     </PageLayout>
