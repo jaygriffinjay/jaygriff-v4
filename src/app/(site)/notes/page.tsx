@@ -2,19 +2,21 @@
 import { NotesTable, type NotesRow } from "@/components/site/notes-table";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
-import { allNotesPages, listAllNotes } from "@/lib/notes";
+import { listNotes } from "@/lib/goatboat";
 
-/** Every notes page and test across projects, as one table to search, filter and sort. */
+/** Every note as one table to search, filter and sort. Any page under a notes path counts, with or without a project or section. */
 export default async function NotesPage() {
-  const rows: NotesRow[] = allNotesPages(await listAllNotes()).map((page) => ({
-    path: page.path,
-    title: page.title,
-    description: page.description,
-    code: page.source === "approute",
-    project: page.project.title,
-    section: page.section.title,
-    publishedAt: page.publishedAt ?? "",
-    updatedAt: page.updatedAt ?? "",
+  const rows: NotesRow[] = (await listNotes()).map((note) => ({
+    path: note.path,
+    title: note.title,
+    description: note.description,
+    tags: (note.tags ?? []).join(" "),
+    code: note.source === "approute",
+    project: note.project?.title ?? "",
+    projectSlug: note.project?.slug ?? "",
+    section: note.section?.title ?? "",
+    publishedAt: note.publishedAt ?? "",
+    updatedAt: note.updatedAt,
   }));
 
   return (

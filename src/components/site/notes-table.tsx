@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { cloneElement, useMemo, useState, type PointerEvent, type ReactElement, type ReactNode } from "react";
 import NextLink from "next/link";
-import { ArrowDown, ArrowUp, CodeXml, Search, X } from "lucide-react";
+import { ArrowDown, ArrowUp, CodeXml } from "lucide-react";
 import {
   columnFilteringFeature,
   createColumnHelper,
@@ -20,17 +20,45 @@ import {
   type SortingState,
 } from "@tanstack/react-table";
 import { Muted } from "@/components/typography";
-import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { ANY, NotesControls, type FilterOption } from "./notes-controls";
 import styles from "./notes-table.module.css";
+
+/** What the notes are sorted by: a column and which way it runs. The headings set it. */
+type NotesSortKey = "published" | "changed" | "title" | "project";
+type NotesSort = { key: NotesSortKey; desc: boolean };
+
+/** Newest first */
+const DEFAULT_SORT: NotesSort = { key: "published", desc: true };
+
+const SORT_KEYS: Record<NotesSortKey, string> = { published: "Published", changed: "Changed", title: "Note", project: "Project" };
+
+/** Dates start with the newest, text with A. */
+const startsDescending = (key: NotesSortKey) => key === "published" || key === "changed";
+
+/** The sort a click on a heading gives: the other way if it's already the sort, else the heading's own start. */
+const sortedBy = (current: NotesSort, key: NotesSortKey): NotesSort =>
+  current.key === key ? { key, desc: !current.desc } : { key, desc: startsDescending(key) };
+
+/** The distinct values of a field with how many rows have each, the biggest first. */
+const tally = (values: string[]): FilterOption[] => {
+  const counts = new Map<string, number>();
+  for (const value of values) if (value) counts.set(value, (counts.get(value) ?? 0) + 1);
+  return [...counts].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+};
 
 export type NotesRow = {
   path: string;
   title: string;
   description: string | null;
+  /** Space-separated, so the search covers them; not shown */
+  tags: string;
   code: boolean;
   project: string;
+  /** For linking to the project's notes */
+  projectSlug: string;
   section: string;
   publishedAt: string;
   updatedAt: string;
@@ -56,192 +84,164 @@ const helper = createColumnHelper<typeof features, NotesRow>();
 const columns = helper.columns([
   helper.accessor("title", { sortFn: "alphanumeric", filterFn: "includesString" }),
   helper.accessor("description", { enableSorting: false, filterFn: "includesString" }),
-  helper.accessor("project", { sortFn: "text", filterFn: "equals", enableGlobalFilter: false }),
+  helper.accessor("tags", { enableSorting: false, filterFn: "includesString" }),
+  // A note with no project goes last, whichever way the projects run
+  helper.accessor((row) => row.project || undefined, { id: "project", sortFn: "text", sortUndefined: "last", filterFn: "equals", enableGlobalFilter: false }),
   helper.accessor("section", { sortFn: "text", filterFn: "equals", enableGlobalFilter: false }),
   helper.accessor("publishedAt", { sortFn: "text", sortDescFirst: true, enableGlobalFilter: false }),
   helper.accessor("updatedAt", { sortFn: "text", sortDescFirst: true, enableGlobalFilter: false }),
 ]);
 
-const HEADERS: Record<string, string> = {
-  title: "Page",
-  description: "Summary",
-  project: "Project",
-  section: "Section",
-  publishedAt: "Published",
-  updatedAt: "Changed",
-};
+const COLUMN: Record<NotesSortKey, string> = { published: "publishedAt", changed: "updatedAt", title: "title", project: "project" };
 
-const NEWEST: SortingState = [{ id: "publishedAt", desc: true }];
+/** A heading that sorts the table by its column; tapping it again turns the sort around. */
+function SortHead({
+  sortKey,
+  sort,
+  onSort,
+  className,
+  end,
+}: {
+  sortKey: NotesSortKey;
+  sort: NotesSort;
+  onSort: (sort: NotesSort) => void;
+  className?: string;
+  /** Sits at the right of its column, over right-aligned dates */
+  end?: boolean;
+}) {
+  const active = sort.key === sortKey;
+  const Arrow = sort.desc ? ArrowDown : ArrowUp;
+  const button = (
+    <button type="button" className={cn(styles.sortButton, active && styles.sortActive)} onClick={() => onSort(sortedBy(sort, sortKey))}>
+      {SORT_KEYS[sortKey]}
+      {active && <Arrow aria-hidden="true" className={styles.arrow} />}
+    </button>
+  );
+  return (
+    <TableHead className={className} aria-sort={active ? (sort.desc ? "descending" : "ascending") : undefined}>
+      {end ? <span className={styles.alignEnd}>{button}</span> : button}
+    </TableHead>
+  );
+}
+
+/** Wraps an element that may cut its text short; hovering shows `tip`, but only if something is actually cut. */
+function Clipped({ element, tip, children }: { element: ReactElement<{ onPointerEnter?: (e: PointerEvent<HTMLElement>) => void }>; tip: ReactNode; children: ReactNode }) {
+  const [clipped, setClipped] = useState(false);
+  const measure = (e: PointerEvent<HTMLElement>) => setClipped(e.currentTarget.scrollWidth > e.currentTarget.clientWidth);
+  return (
+    <Tooltip disabled={!clipped}>
+      <TooltipTrigger render={cloneElement(element, { onPointerEnter: measure })}>{children}</TooltipTrigger>
+      <TooltipContent side="bottom" align="start">
+        {tip}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
 
 /**
- * Every notes page and test in one table, all in the browser: search, filter by project, section and kind,
- * and sort by several columns at once. Each column heading tapped adds to the sort, in order.
+ * Every note in one table: the title, where it lives and its dates.
+ * The headings sort it, the search bar narrows it, and the filter button picks a project or section.
  */
 export function NotesTable({ rows }: { rows: NotesRow[] }) {
-  const [sorting, setSorting] = useState<SortingState>(NEWEST);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
-  const [kind, setKind] = useState<"all" | "code" | "md">("all");
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<NotesSort>(DEFAULT_SORT);
+  const [project, setProject] = useState(ANY);
+  const [section, setSection] = useState(ANY);
 
-  const data = useMemo(() => (kind === "all" ? rows : rows.filter((r) => r.code === (kind === "code"))), [rows, kind]);
-  const projects = useMemo(() => [...new Set(rows.map((r) => r.project))], [rows]);
-  const sections = useMemo(() => [...new Set(rows.map((r) => r.section))], [rows]);
+  const projects = useMemo(() => tally(rows.map((r) => r.project)), [rows]);
+  // A picked project narrows the sections to its own, and their counts to its notes
+  const sections = useMemo(() => tally(rows.filter((r) => project === ANY || r.project === project).map((r) => r.section)), [rows, project]);
+  const pickProject = (next: string) => {
+    setProject(next);
+    if (next !== ANY && section !== ANY && !rows.some((r) => r.project === next && r.section === section)) setSection(ANY);
+  };
+  const filtering = project !== ANY || section !== ANY;
+  const columnFilters: ColumnFiltersState = [
+    ...(project !== ANY ? [{ id: "project", value: project }] : []),
+    ...(section !== ANY ? [{ id: "section", value: section }] : []),
+  ];
+
+  // Projects share a sort, so the newest of a project's notes come first
+  const sorting: SortingState = [
+    { id: COLUMN[sort.key], desc: sort.desc },
+    ...(sort.key === "project" ? [{ id: "publishedAt", desc: true }] : []),
+  ];
 
   const table = useTable({
     features,
     columns,
-    data,
-    state: { sorting, columnFilters, globalFilter },
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onGlobalFilterChange: setGlobalFilter,
+    data: rows,
+    state: { sorting, columnFilters, globalFilter: query },
     globalFilterFn: "includesString",
-    enableMultiSort: true,
-    // Every tap adds to the sort, so it works on phones without Shift
-    isMultiSortEvent: () => true,
-    maxMultiSortColCount: 3,
   });
 
-  const filterOf = (id: string) => columnFilters.find((f) => f.id === id)?.value as string | undefined;
-  const setFilter = (id: string, value?: string) =>
-    setColumnFilters((prev) => [...prev.filter((f) => f.id !== id), ...(value ? [{ id, value }] : [])]);
   const visible = table.getRowModel().rows;
-  // On phones only one date fits: the one sorted by first, else Published
-  const byChanged = sorting.find((s) => s.id === "publishedAt" || s.id === "updatedAt")?.id === "updatedAt";
-
-  const chip = (active: boolean, onClick: () => void, label: string) => (
-    <button
-      key={label}
-      type="button"
-      className={cn(styles.chip, active && styles.chipActive)}
-      aria-pressed={active}
-      onClick={onClick}
-    >
-      {label}
-    </button>
-  );
+  const byChanged = sort.key === "changed";
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.filters}>
-        <label className={styles.search}>
-          <Search aria-hidden="true" className={styles.searchIcon} />
-          <Input
-            type="search"
-            placeholder="Search titles and summaries"
-            aria-label="Search titles and summaries"
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-          />
-        </label>
-        <div className={styles.filterRow}>
-          <Muted className={styles.filterLabel}>Project</Muted>
-          {chip(!filterOf("project"), () => setFilter("project"), "All")}
-          {projects.map((p) => chip(filterOf("project") === p, () => setFilter("project", p), p))}
-        </div>
-        <div className={styles.filterRow}>
-          <Muted className={styles.filterLabel}>Section</Muted>
-          {chip(!filterOf("section"), () => setFilter("section"), "All")}
-          {sections.map((s) => chip(filterOf("section") === s, () => setFilter("section", s), s))}
-        </div>
-        <div className={styles.filterRow}>
-          <Muted className={styles.filterLabel}>Kind</Muted>
-          {chip(kind === "all", () => setKind("all"), "All")}
-          {chip(kind === "code", () => setKind("code"), "Code")}
-          {chip(kind === "md", () => setKind("md"), "Markdown")}
-        </div>
-      </div>
+      <NotesControls
+        query={query}
+        onQuery={setQuery}
+        project={project}
+        onProject={pickProject}
+        projects={projects}
+        section={section}
+        onSection={setSection}
+        sections={sections}
+      />
 
       <div className={styles.status}>
         <Muted>
-          {visible.length} {visible.length === 1 ? "page" : "pages"}
-          {sorting.length > 0 && (
-            <>
-              {" · sorted by "}
-              {sorting.map((s) => `${HEADERS[s.id]} ${s.desc ? "↓" : "↑"}`).join(", then ")}
-            </>
-          )}
+          {visible.length === rows.length ? `${rows.length} notes` : `${visible.length} of ${rows.length} notes`}
+          {filtering && ` · ${[project !== ANY && project, section !== ANY && section].filter(Boolean).join(" · ")}`}
         </Muted>
-        {(sorting.length !== 1 || sorting[0].id !== "publishedAt" || !sorting[0].desc) && (
-          <button type="button" className={styles.reset} onClick={() => setSorting(NEWEST)}>
-            <X aria-hidden="true" className={styles.resetIcon} />
-            Newest first
+        {filtering && (
+          <button
+            type="button"
+            className={styles.clear}
+            onClick={() => {
+              setProject(ANY);
+              setSection(ANY);
+            }}
+          >
+            Clear filters
           </button>
         )}
       </div>
 
       <Table className={styles.table}>
         <TableHeader>
-          {table.getHeaderGroups().map((group) => (
-            <TableRow key={group.id}>
-              {group.headers.map((header) => {
-                const id = header.column.id;
-                const sorted = header.column.getIsSorted();
-                const index = header.column.getSortIndex();
-                const className = cn(
-                  id === "description" && styles.descriptionHead,
-                  (id === "project" || id === "section") && styles.fit,
-                  (id === "publishedAt" || id === "updatedAt") && styles.date,
-                  id === "publishedAt" && byChanged && styles.wideDate,
-                  id === "updatedAt" && !byChanged && styles.wideDate,
-                );
-                if (!header.column.getCanSort())
-                  return (
-                    <TableHead key={header.id} className={className}>
-                      {HEADERS[id]}
-                    </TableHead>
-                  );
-                const Arrow = sorted === "asc" ? ArrowUp : ArrowDown;
-                return (
-                  <TableHead
-                    key={header.id}
-                    className={className}
-                    aria-sort={sorted ? (sorted === "asc" ? "ascending" : "descending") : undefined}
-                  >
-                    <button
-                      type="button"
-                      className={cn(styles.sortButton, sorted && styles.sortActive)}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      {HEADERS[id]}
-                      {sorted && <Arrow aria-hidden="true" className={styles.arrow} />}
-                      {sorted && sorting.length > 1 && <span className={styles.sortIndex}>{index + 1}</span>}
-                    </button>
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
+          <TableRow>
+            <SortHead sortKey="title" sort={sort} onSort={setSort} className={styles.headTitle} />
+            <SortHead sortKey="project" sort={sort} onSort={setSort} className={styles.headWhere} />
+            <SortHead sortKey="published" sort={sort} onSort={setSort} className={cn(styles.headDate, byChanged && styles.wideDate)} end />
+            <SortHead sortKey="changed" sort={sort} onSort={setSort} className={cn(styles.headDate, !byChanged && styles.wideDate)} end />
+          </TableRow>
         </TableHeader>
         <TableBody>
           {visible.map((row) => {
-            const page = row.original;
+            const note = row.original;
+            const where = [note.project, note.section].filter(Boolean).join(" · ");
             return (
               <TableRow key={row.id}>
-                <TableCell className={styles.pageCell}>
-                  <NextLink href={page.path} className={styles.title}>
-                    {page.code && <CodeXml aria-label="Code page" className={styles.glyph} />}
-                    {page.title}
-                  </NextLink>
-                  <Muted className={styles.narrowMeta}>
-                    {page.project} · {page.section}
-                  </Muted>
+                <TableCell className={styles.titleCell}>
+                  <Clipped element={<NextLink href={note.path} className={styles.title} />} tip={note.title}>
+                    {note.code && <CodeXml aria-label="Code page" className={styles.glyph} />}
+                    {note.title}
+                  </Clipped>
+                  {where && <Muted className={styles.narrowMeta}>{where}</Muted>}
                 </TableCell>
-                <TableCell className={styles.description} title={page.description ?? undefined}>
-                  {page.description}
+                <TableCell className={styles.whereCell}>
+                  {note.project && (
+                    <NextLink href={`/projects/${note.projectSlug}/notes`} className={styles.project}>
+                      {note.project}
+                    </NextLink>
+                  )}
+                  {note.section && <span className={styles.section}> · {note.section}</span>}
                 </TableCell>
-                <TableCell className={styles.fit}>
-                  <button type="button" className={styles.quiet} onClick={() => setFilter("project", page.project)}>
-                    {page.project}
-                  </button>
-                </TableCell>
-                <TableCell className={styles.fit}>
-                  <button type="button" className={styles.quiet} onClick={() => setFilter("section", page.section)}>
-                    {page.section}
-                  </button>
-                </TableCell>
-                <TableCell className={cn(styles.date, byChanged && styles.wideDate)}>{dateOf(page.publishedAt)}</TableCell>
-                <TableCell className={cn(styles.date, !byChanged && styles.wideDate)}>{dateOf(page.updatedAt)}</TableCell>
+                <TableCell className={cn(styles.dateCell, byChanged && styles.wideDate)}>{dateOf(note.publishedAt)}</TableCell>
+                <TableCell className={cn(styles.dateCell, !byChanged && styles.wideDate)}>{dateOf(note.updatedAt)}</TableCell>
               </TableRow>
             );
           })}

@@ -1,6 +1,6 @@
 import { cache } from "react";
-import { getNotesNav, listProjects, type NotesNav, type NotesPage } from "@/lib/goatboat";
-import { getCurrentPage, isVisible } from "@/lib/page-meta";
+import { getNotesNav, type NotesNav, type NotesPage } from "@/lib/goatboat";
+import { getCurrentPage } from "@/lib/page-meta";
 
 /** The current page's project notes, when the page sits in a notes section. Null if goatboat fails, so pages still render. */
 export const getCurrentNotes = cache(async () => {
@@ -21,14 +21,3 @@ export const notesSequence = (nav: NotesNav) =>
 
 /** Where a project's notes start: its first page. */
 export const notesStart = (nav: NotesNav): NotesPage | undefined => nav.sections[0]?.pages[0];
-
-/** Every visible project that has notes, with its notes nav, in project order. */
-export async function listAllNotes() {
-  const projects = (await listProjects()).filter(isVisible);
-  const navs = await Promise.all(projects.map((p) => getNotesNav(p.slug)));
-  return navs.filter((nav): nav is NotesNav => !!nav && nav.sections.length > 0);
-}
-
-/** Every notes page across projects, each with its project and section, in nav order. */
-export const allNotesPages = (navs: NotesNav[]) =>
-  navs.flatMap((nav) => notesSequence(nav).map((page) => ({ ...page, project: nav.project })));

@@ -1,63 +1,43 @@
 @reference "../../app/globals.css";
 
-/* filters, the count line, then the table */
+/* the search and filter bars, the count, then the table */
 .wrap {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col gap-3;
 }
 
-/* search box, then the three chip rows */
-.filters {
-  @apply flex flex-col gap-2;
-}
-
-/* magnifier beside the search input */
-.search {
-  @apply mb-1 flex items-center gap-2;
-}
-
-/* the magnifier */
-.searchIcon {
-  @apply text-muted-foreground size-4 shrink-0;
-}
-
-/* one filter: its label, then its chips, wrapping on narrow screens */
-.filterRow {
-  @apply flex flex-wrap items-center gap-1.5;
-}
-
-/* "Project", "Section", "Kind", in a fixed width so the chips line up */
-.filterLabel {
-  @apply w-16 shrink-0;
-}
-
-/* one filter choice */
-.chip {
-  @apply border-border text-muted-foreground hover:border-hover hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-full border px-2.5 py-0.5 text-xs transition-colors;
-}
-
-/* the choice in effect */
-.chipActive {
-  @apply border-primary bg-primary text-primary-foreground hover:text-primary-foreground;
-}
-
-/* how many pages and the sort in effect, with the reset on the right */
+/* how many notes show and what's narrowing them, with the clear at the right */
 .status {
-  @apply flex flex-wrap items-center justify-between gap-2;
+  @apply flex flex-wrap items-center justify-between gap-x-3 gap-y-1;
 }
 
-/* back to newest first */
-.reset {
-  @apply text-muted-foreground hover:text-foreground focus-visible:focus-ring inline-flex cursor-pointer items-center gap-1 rounded-md text-xs;
+/* back to every note */
+.clear {
+  @apply text-muted-foreground hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-sm text-sm transition-colors;
 }
 
-/* the × on the reset */
-.resetIcon {
-  @apply size-3.5;
-}
-
-/* the table spans the column */
+/* the table spans the column; fixed columns let the summary take what the others leave and truncate */
 .table {
-  @apply w-full;
+  @apply w-full table-fixed;
+}
+
+/* the note column: takes all the width the other columns leave */
+.headTitle {
+  @apply w-auto;
+}
+
+/* project and section header, only when there's room; sized so even the longest title still fits beside it */
+.headWhere {
+  @apply hidden wide:table-cell wide:w-48;
+}
+
+/* a date header; wide enough for the longest date, since a date that doesn't fit spills out of its right edge and the years stop lining up */
+.headDate {
+  @apply w-28;
+}
+
+/* a heading's text at the right, over its dates; the header cell's own left alignment can't be overridden from here */
+.alignEnd {
+  @apply block text-right;
 }
 
 /* a column heading that sorts the table */
@@ -65,29 +45,29 @@
   @apply hover:text-foreground focus-visible:focus-ring inline-flex cursor-pointer items-center gap-1 rounded-sm;
 }
 
-/* a heading the table is sorted by */
+/* the heading the table is sorted by */
 .sortActive {
   @apply text-foreground;
 }
 
-/* which way a sorted column runs */
+/* which way the sorted column runs */
 .arrow {
   @apply size-3.5;
 }
 
-/* where a column sits in a multi-column sort */
-.sortIndex {
-  @apply bg-muted text-muted-foreground rounded-sm px-1 text-[0.65rem] leading-4 tabular-nums;
+/* the date column not leading on a phone, shown only when there's room for both */
+.wideDate {
+  @apply hidden wide:table-cell;
 }
 
-/* page title, and on phones where it lives; wraps only on phones */
-.pageCell {
-  @apply whitespace-normal wide:whitespace-nowrap;
+/* the title cell: wraps on phones, and on a wide screen the link cuts its text with an ellipsis */
+.titleCell {
+  @apply whitespace-normal;
 }
 
-/* page title link */
+/* page title link, one line cut with an ellipsis on a wide screen */
 .title {
-  @apply link font-medium;
+  @apply link inline-block max-w-full align-bottom font-medium wide:truncate;
 }
 
 /* </> before a code page's title */
@@ -95,38 +75,28 @@
   @apply mr-1.5 inline size-[0.9em] align-[-0.1em];
 }
 
-/* summary header, only when there's room */
-.descriptionHead {
-  @apply hidden w-full wide:table-cell;
-}
-
-/* one-line summary taking the spare width, cut with an ellipsis; max-w-0 lets it shrink instead of widening the table */
-.description {
-  @apply text-muted-foreground hidden max-w-0 truncate wide:table-cell;
-}
-
-/* project and section under the title on phones, where those columns are hidden */
+/* project and section under the title on phones, where their column is hidden */
 .narrowMeta {
   @apply wide:hidden;
 }
 
-/* project and section columns: as narrow as their content, and only when there's room */
-.fit {
-  @apply hidden w-px whitespace-nowrap wide:table-cell;
+/* the project and section cell, only when there's room */
+.whereCell {
+  @apply hidden truncate wide:table-cell;
 }
 
-/* project or section in a row, filtering the table to it */
-.quiet {
-  @apply link cursor-pointer;
+/* the project, linking to its notes */
+.project {
+  @apply link;
   --link-color: var(--muted-foreground);
 }
 
-/* date column, as narrow as the date and kept on one line */
-.date {
-  @apply text-muted-foreground w-px text-right whitespace-nowrap tabular-nums;
+/* the section after the project */
+.section {
+  @apply text-muted-foreground;
 }
 
-/* the date column not leading the sort, only when there's room for both */
-.wideDate {
-  @apply hidden wide:table-cell;
+/* a date, at the right of its column */
+.dateCell {
+  @apply text-muted-foreground text-right whitespace-nowrap tabular-nums;
 }

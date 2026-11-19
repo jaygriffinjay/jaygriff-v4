@@ -1,0 +1,121 @@
+@reference "../../app/globals.css";
+
+/* the search bar and the filter button, side by side */
+.controls {
+  @apply flex items-center gap-2;
+}
+
+/* the search bar: a flat strip with its magnifier, taking the spare width */
+.search {
+  @apply bg-card border-border focus-within:border-ring flex h-10 min-w-0 flex-1 items-center gap-2 rounded-lg border px-3;
+}
+
+/* the magnifier */
+.searchIcon {
+  @apply text-muted-foreground size-4 shrink-0;
+}
+
+/* the text field inside the search bar, with no frame of its own */
+.input {
+  @apply placeholder:text-muted-foreground h-full min-w-0 flex-1 bg-transparent text-sm outline-none;
+}
+
+/* the filter button: a square bar the height of the search bar */
+.filterButton {
+  @apply bg-card border-border hover:bg-muted/50 focus-visible:focus-ring inline-flex h-10 min-w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border px-2.5 transition-colors;
+}
+
+/* the filter icon, blue while a filter is on */
+.filterIcon {
+  @apply text-muted-foreground size-4 transition-colors;
+}
+
+.filterIcon[data-on="true"] {
+  @apply text-primary;
+}
+
+/* the panel the button opens: wide enough for projects in two columns, with room to breathe */
+.panel {
+  @apply w-[min(40rem,calc(100vw-2rem))] gap-5 rounded-lg p-5;
+}
+
+/* the panel's title and hint at the left, its clear button at the right */
+.panelHead {
+  @apply flex items-start justify-between gap-4;
+}
+
+.panelText {
+  @apply flex flex-col gap-0.5;
+}
+
+/* the title, with the filter icon in the site's blue */
+.panelTitle {
+  @apply text-heading inline-flex items-center gap-2 text-base font-semibold;
+}
+
+.panelIcon {
+  @apply text-primary size-4;
+}
+
+/* one line saying what the panel is for */
+.panelHint {
+  @apply text-muted-foreground text-sm;
+}
+
+/* back to no filters */
+.clear {
+  @apply text-muted-foreground hover:text-primary focus-visible:focus-ring cursor-pointer rounded-sm text-sm transition-colors disabled:pointer-events-none disabled:opacity-40;
+}
+
+/* the projects and sections, scrolling if there are many; a gutter is kept for the scrollbar so it never covers a bar */
+.scroll {
+  @apply scrollbar-blue flex max-h-[min(34rem,75dvh)] flex-col gap-6 overflow-y-auto pr-4;
+  scrollbar-gutter: stable;
+}
+
+/* a heading over its bars */
+.group {
+  @apply flex flex-col gap-3;
+}
+
+/* a group's label, a rule running out from it, and how many choices there are */
+.groupHead {
+  @apply flex items-center gap-3;
+}
+
+.groupLabel {
+  @apply text-primary;
+}
+
+.rule {
+  @apply bg-separator h-px flex-1;
+}
+
+.groupCount {
+  @apply text-muted-foreground text-xs tabular-nums;
+}
+
+/* the bars: one column on a phone, two beside it */
+.options {
+  @apply grid grid-cols-1 gap-2 sm:grid-cols-2;
+}
+
+/* one project or section to pick: its name at the left, how many notes it has at the right. Hovering lights it with the muted highlight, instantly, as in the Q&A and the stack */
+.option {
+  @apply border-separator text-foreground hover:bg-muted focus-visible:focus-ring flex min-w-0 cursor-pointer items-center justify-between gap-3 rounded-lg border bg-transparent px-3 py-2.5 text-left text-sm;
+}
+
+/* the one picked: a solid blue bar with dark text, like the current page in the pagination */
+.option[data-picked="true"] {
+  @apply border-primary bg-primary text-primary-foreground hover:bg-primary;
+}
+
+/* the name, cut with an ellipsis if it runs long; it takes the bar's text color */
+.name {
+  @apply truncate font-medium;
+}
+
+/* how many notes it holds, in the bar's color, softened */
+.number {
+  @apply shrink-0 text-xs tabular-nums opacity-60;
+}

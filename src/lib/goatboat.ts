@@ -180,6 +180,23 @@ export async function getNotesNav(project: string) {
   return (await get<{ data: NotesNav }>(`/notes/${encodeURIComponent(project)}`))?.data ?? null;
 }
 
+export type NoteListItem = {
+  path: string;
+  title: string;
+  description: string | null;
+  tags: string[] | null;
+  publishedAt: string | null;
+  updatedAt: string;
+  source: "db" | "approute";
+  project: { slug: string; title: string } | null;
+  section: { slug: string; title: string } | null;
+};
+
+/** Every published note, newest first, whether or not it has a project or section. */
+export async function listNotes() {
+  return (await get<{ data: NoteListItem[] }>("/notes"))?.data ?? [];
+}
+
 export async function listTags() {
   return (await get<{ data: Tag[] }>("/tags"))?.data ?? [];
 }
