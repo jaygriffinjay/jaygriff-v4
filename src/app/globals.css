@@ -64,7 +64,7 @@
   /* Space around headings on the same 375px to 1024px scale: above a section heading, and between a heading and what follows */
   --spacing-heading-above: clamp(1.375rem, 1.158rem + 0.925vw, 1.75rem); /* 22 → 28px */
   --spacing-heading-below: clamp(0.5rem, 0.356rem + 0.616vw, 0.75rem); /* 8 → 12px */
-  --spacing-flow: clamp(0.625rem, 0.408rem + 0.925vw, 1rem); /* 10 → 16px, between paragraphs and other blocks; not named "block", which Tailwind reads as inline-block's size */
+  --spacing-flow: clamp(0.625rem, 0.553rem + 0.308vw, 0.75rem); /* 10 → 12px, between paragraphs and other blocks; not named "block", which Tailwind reads as inline-block's size */
 
   /* Code block text on the same scale; not named "code", which is already the inline code color */
   --text-codeblock: clamp(0.75rem, 0.678rem + 0.308vw, 0.875rem); /* 12 → 14px */
