@@ -1,0 +1,81 @@
+@reference "../../../../../globals.css";
+
+/* one option: a block of sample copy with its own line height and gaps, set by the three variables below */
+.sample {
+  @apply border-separator border-t pt-6;
+  --lh: 1.625;
+  --gap: var(--spacing-flow);
+  --list-gap: 0.25rem;
+  line-height: var(--lh);
+
+  /* the space between the sample's blocks */
+  & > * + * {
+    margin-top: var(--gap);
+  }
+
+  /* lines inside a paragraph, list or quote; these beat the typography layer */
+  & :is(p, ul, ol, blockquote) {
+    line-height: var(--lh);
+  }
+
+  /* the space between list items replaces the typography's own */
+  & li {
+    margin-block: 0;
+  }
+
+  & li + li {
+    margin-top: var(--list-gap);
+  }
+}
+
+/* what the option's numbers are, above its heading */
+.detail {
+  @apply block;
+}
+
+/* the option's name; its gap comes from the sample like any other block */
+.heading {
+  @apply mt-2;
+}
+
+/* A: what the site does now */
+.today {
+  --lh: 1.625;
+  --gap: var(--spacing-flow);
+  --list-gap: 0.25rem;
+}
+
+/* B: a little tighter all round */
+.slightly {
+  --lh: 1.55;
+  --gap: 0.875rem;
+  --list-gap: 0.2rem;
+}
+
+/* C: tight */
+.tight {
+  --lh: 1.5;
+  --gap: 0.75rem;
+  --list-gap: 0.125rem;
+}
+
+/* D: tighter */
+.tighter {
+  --lh: 1.45;
+  --gap: 0.625rem;
+  --list-gap: 0.125rem;
+}
+
+/* E: as tight as it goes before inline code chips start to touch */
+.tightest {
+  --lh: 1.4;
+  --gap: 0.5rem;
+  --list-gap: 0;
+}
+
+/* F: gaps measured in lines, so they follow the line height: half a line between blocks, 0.15 between list items */
+.lines {
+  --lh: 1.5;
+  --gap: 0.5lh;
+  --list-gap: 0.15lh;
+}

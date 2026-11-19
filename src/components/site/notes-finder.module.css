@@ -1,0 +1,120 @@
+@reference "../../app/globals.css";
+
+/* search and menu, the count line, then the notes */
+.wrap {
+  @apply flex flex-col gap-3;
+}
+
+/* the search box and the one menu, side by side */
+.controls {
+  @apply flex items-center gap-2;
+}
+
+/* the search bar: a flat strip with its magnifier, taking the spare width */
+.search {
+  @apply bg-card border-border focus-within:border-ring flex h-10 min-w-0 flex-1 items-center gap-2 rounded-lg border px-3;
+}
+
+/* the magnifier */
+.searchIcon {
+  @apply text-muted-foreground size-4 shrink-0;
+}
+
+/* the text field inside the search bar, with no frame of its own */
+.input {
+  @apply placeholder:text-muted-foreground h-full min-w-0 flex-1 bg-transparent text-sm outline-none;
+}
+
+/* the sort and filter bar: the same strip as the search bar, wide enough that the menu under it is too */
+.menuButton {
+  @apply bg-card border-border hover:bg-muted/50 focus-visible:focus-ring inline-flex h-10 min-w-44 shrink-0 cursor-pointer items-center justify-between gap-2 rounded-lg border px-3 text-sm transition-colors;
+}
+
+/* the bar's icon and label */
+.menuLabel {
+  @apply inline-flex items-center gap-2;
+}
+
+/* the sliders icon */
+.menuIcon {
+  @apply text-muted-foreground size-4;
+}
+
+/* how many sorts and filters are in effect */
+.count {
+  @apply bg-primary text-primary-foreground inline-flex size-5 items-center justify-center rounded-sm text-xs;
+}
+
+/* in a filter's menu row, the choice in effect, pushed to the right */
+.current {
+  @apply text-muted-foreground ml-auto pl-4 text-xs;
+}
+
+/* how many notes show and what's narrowing them, with the reset at the right */
+.status {
+  @apply flex flex-wrap items-center justify-between gap-x-3 gap-y-1;
+}
+
+/* back to newest first with no filters */
+.reset {
+  @apply text-muted-foreground hover:text-foreground focus-visible:focus-ring cursor-pointer rounded-md text-xs;
+}
+
+/* a month's heading and its notes */
+.group {
+  @apply flex flex-col;
+}
+
+/* a month's heading; the first one sits flush with the count line */
+.month {
+  @apply block pt-4 pb-1 pl-3;
+}
+
+.group:first-of-type .month {
+  @apply pt-0;
+}
+
+/* one month's notes */
+.list {
+  @apply flex flex-col;
+}
+
+/* one note on a single line: its title and summary at the left, its project and date at the right */
+.row {
+  @apply hover:bg-muted/50 flex items-baseline gap-x-4 rounded-lg px-3 py-1.5 transition-colors;
+}
+
+/* the title and summary, one line cut with an ellipsis where it runs out of room */
+.text {
+  @apply min-w-0 flex-1 truncate;
+}
+
+/* the title, as a standard link */
+.title {
+  @apply link font-medium;
+}
+
+/* </> before a code page's title */
+.glyph {
+  @apply mr-1.5 inline size-3.5 align-[-2px];
+}
+
+/* the summary, after the title */
+.summary {
+  @apply text-muted-foreground ml-3;
+}
+
+/* the project and the date, at the right of the row */
+.meta {
+  @apply flex shrink-0 items-baseline gap-4;
+}
+
+/* the project, linking to its notes; only when there's room */
+.project {
+  @apply link hidden max-w-56 truncate text-sm sm:inline-block;
+}
+
+/* the date the list is sorted by */
+.date {
+  @apply text-muted-foreground whitespace-nowrap;
+}
