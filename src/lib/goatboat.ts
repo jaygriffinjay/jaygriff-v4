@@ -112,7 +112,7 @@ export type ContentPage = {
   related?: PageLink[];
 };
 
-async function get<T>(path: string, params?: Record<string, string | number | undefined>) {
+async function get<T>(path: string, params?: Record<string, string | number | boolean | undefined>) {
   const base = process.env.GOATBOAT_URL;
   if (!base) throw new Error("GOATBOAT_URL is not set");
   const token = process.env.GOATBOAT_READ_TOKEN;
