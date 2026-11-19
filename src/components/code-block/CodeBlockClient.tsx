@@ -33,7 +33,7 @@ function PathTip({ path, element }: { path?: string; element: React.ReactElement
   if (!path) return element;
   return (
     <Tooltip trackCursorAxis="both">
-      <TooltipTrigger delay={1000} render={element} />
+      <TooltipTrigger render={element} />
       <TooltipContent side="bottom" align="start" sideOffset={16}>{path}</TooltipContent>
     </Tooltip>
   );
