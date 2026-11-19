@@ -144,7 +144,7 @@ async function get<T>(path: string, params?: Record<string, string | number | un
   return json as T;
 }
 
-type FeedQuery = { type?: ContentType | "all"; tag?: string; limit?: number; offset?: number };
+type FeedQuery = { type?: ContentType | "all"; tag?: string; hideStructure?: boolean; limit?: number; offset?: number };
 
 /** Published content, newest first. Without a type, pages are left out; "all" includes them. */
 export async function listContent(query: FeedQuery = {}) {

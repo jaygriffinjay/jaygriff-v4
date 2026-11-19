@@ -25,10 +25,10 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   return { alternates: { canonical: pageHref(BASE_PATH, page) } };
 }
 
-/** Every published row of every type, newest first. */
+/** Every published row of every type, newest first, except each project's home and notes home, which only hold the others together. */
 export default async function NewPage({ searchParams }: Props) {
   const page = parsePage((await searchParams).page);
-  const { items, total } = await listFeed({ type: "all", limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE });
+  const { items, total } = await listFeed({ type: "all", hideStructure: true, limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE });
   const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
   if (page > pageCount) notFound();
 
