@@ -1,0 +1,233 @@
+@reference "../../globals.css";
+
+/* the whole page, centred; --stalk is the beanstalk's green (with a lighter and a darker shade), --stem how far a branch reaches from it */
+.page {
+  --stalk-light: oklch(0.86 0.14 140);
+  --stalk: oklch(0.72 0.15 145);
+  --stalk-dark: oklch(0.5 0.12 145);
+  --stem: clamp(1.5rem, 5vw, 4rem);
+  @apply mx-auto w-full max-w-5xl px-4 pt-6 pb-24;
+}
+
+/* the flower at the top of the stalk: a ring of petals round a disc that holds the title and the line about the page. A square, centred, with a short stem down to where the stalk starts */
+.flower {
+  @apply relative mx-auto aspect-square;
+  width: min(34rem, 100%);
+  container-type: inline-size;
+
+  /* the stem from the flower down into the stalk */
+  &::after {
+    content: "";
+    @apply absolute top-full left-1/2 h-10 w-2 -translate-x-1/2;
+    background: linear-gradient(to right, var(--stalk-dark), var(--stalk), var(--stalk-dark));
+  }
+}
+
+/* the petals, spread round the disc: each is an oval with its base at the flower's centre, turned by --i twelfths of a circle */
+.petals {
+  @apply absolute inset-0;
+
+  & span {
+    @apply absolute;
+    top: 1%;
+    left: 37%;
+    width: 26%;
+    height: 49%;
+    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    transform-origin: 50% 100%;
+    transform: rotate(calc(var(--i) * 30deg));
+    background: linear-gradient(to bottom, var(--stalk-light), var(--stalk) 60%, var(--stalk-dark));
+    opacity: 0.85;
+    box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--stalk-dark) 70%, transparent);
+  }
+
+  & span:nth-child(1) { --i: 0; }
+  & span:nth-child(2) { --i: 1; }
+  & span:nth-child(3) { --i: 2; }
+  & span:nth-child(4) { --i: 3; }
+  & span:nth-child(5) { --i: 4; }
+  & span:nth-child(6) { --i: 5; }
+  & span:nth-child(7) { --i: 6; }
+  & span:nth-child(8) { --i: 7; }
+  & span:nth-child(9) { --i: 8; }
+  & span:nth-child(10) { --i: 9; }
+  & span:nth-child(11) { --i: 10; }
+  & span:nth-child(12) { --i: 11; }
+}
+
+/* the disc in the middle: a dark round face ringed in green, with the title and the line centred in it */
+.intro {
+  @apply bg-background absolute flex flex-col items-center justify-center gap-3 rounded-full text-center;
+  inset: 17%;
+  padding: 9%;
+  border: 3px solid var(--stalk-dark);
+  box-shadow: 0 0 2.5rem color-mix(in oklch, var(--stalk) 35%, transparent);
+}
+
+/* the title: big and tight, in a green that deepens from leaf to stalk */
+.title {
+  @apply m-0 leading-none font-bold tracking-tight text-balance;
+  font-size: clamp(1.25rem, 5.5cqw, 2.5rem);
+  background: linear-gradient(to bottom, var(--stalk-light), var(--stalk) 55%, var(--stalk-dark));
+  background-clip: text;
+  color: transparent;
+}
+
+/* the line under it, in gray, small enough to fit the disc */
+.lead {
+  @apply text-muted-foreground m-0 text-balance;
+  font-size: clamp(0.75rem, 2.4cqw, 1rem);
+  line-height: 1.4;
+}
+
+/* the stalk: one thick green line down the middle, rounded at the top, that every era and branch sits on */
+.stalk {
+  @apply relative m-0 list-none p-0;
+
+  &::before {
+    content: "";
+    @apply absolute top-0 bottom-0 left-1/2 w-2 -translate-x-1/2 rounded-full;
+    background: linear-gradient(to right, var(--stalk-dark), var(--stalk), var(--stalk-dark));
+  }
+}
+
+/* one era: its node on the stalk, then its branches */
+.era {
+  @apply relative pt-10;
+}
+
+/* the era's name on a label sitting across the stalk, edged in its green */
+.eraNode {
+  @apply bg-background relative z-10 mx-auto flex w-fit flex-col items-center gap-0.5 rounded-lg border px-4 py-2;
+  border-color: var(--stalk-dark);
+}
+
+/* the era's name, in the light green */
+.eraTitle {
+  color: var(--stalk-light);
+}
+
+/* the years it covers, small under the name */
+.eraYears {
+  @apply text-muted-foreground font-mono text-xs;
+}
+
+/* the era's branches, one per row */
+.branches {
+  @apply m-0 flex list-none flex-col gap-3 p-0 pt-4;
+}
+
+/* one branch: half the width, on its side of the stalk, with a curved stem from the stalk to its leaf. A size container, so its card can be as wide as its half and no wider */
+.branch {
+  @apply relative flex w-1/2;
+  container-type: inline-size;
+
+  &[data-side="right"] {
+    @apply ml-auto justify-start;
+    padding-left: var(--stem);
+  }
+
+  &[data-side="left"] {
+    @apply justify-end;
+    padding-right: var(--stem);
+  }
+
+  /* the stem: a curve from the stalk out to the leaf */
+  &::before {
+    content: "";
+    @apply absolute top-1/2 h-4;
+    width: var(--stem);
+    border-top: 3px solid var(--stalk);
+  }
+
+  &[data-side="right"]::before {
+    @apply left-0 rounded-tl-full;
+  }
+
+  &[data-side="left"]::before {
+    @apply right-0 rounded-tr-full;
+  }
+}
+
+/* the leaf: the name, and the details that open from it; never wider than its half of the page */
+.leaf {
+  @apply relative min-w-0;
+}
+
+/* the name: a small green-edged pill; a version that served the site is bigger and filled. A long name wraps rather than running past the edge of a phone */
+.name {
+  @apply border-separator text-foreground focus-visible:focus-ring inline-block max-w-full cursor-pointer rounded-full border px-3 py-1 font-mono text-sm transition-colors;
+  overflow-wrap: anywhere;
+
+  .leaf:hover &,
+  .leaf:focus-within & {
+    border-color: var(--stalk);
+  }
+
+  .branch[data-shipped] & {
+    @apply px-4 py-1.5 text-base font-semibold;
+    background: var(--stalk-dark);
+    border-color: var(--stalk);
+    color: white;
+  }
+}
+
+/* what it was: hidden until the leaf is pointed at or focused, then a card under the name, opening away from the stalk. At most the width of its half of the page, so it never runs off the edge */
+.details {
+  @apply bg-popover border-separator absolute top-full z-20 mt-2 hidden flex-col gap-2 rounded-lg border p-3 text-left shadow-lg;
+  width: min(18rem, calc(100cqw - var(--stem)));
+
+  .leaf:hover &,
+  .leaf:focus-within & {
+    @apply flex;
+  }
+
+  .branch[data-side="left"] & {
+    @apply right-0;
+  }
+
+  .branch[data-side="right"] & {
+    @apply left-0;
+  }
+
+  /* fills the gap between the name and the card, so the pointer can cross it to the card's link without the card closing */
+  &::before {
+    content: "";
+    @apply absolute inset-x-0 bottom-full h-2;
+  }
+}
+
+/* the month it started */
+.date {
+  @apply text-muted-foreground font-mono text-xs uppercase;
+}
+
+/* a line about it */
+.summary {
+  @apply text-foreground text-sm leading-snug;
+}
+
+/* what it was built with, as small tags */
+.stack {
+  @apply m-0 flex list-none flex-wrap gap-1.5 p-0;
+
+  & li {
+    @apply bg-muted text-muted-foreground rounded px-1.5 py-0.5 text-xs;
+  }
+}
+
+/* a link to its source, for the ones whose name already links to the site itself */
+.repo {
+  @apply link w-fit text-xs;
+}
+
+/* beside the current site's name: a small light-green tag, so it's clear which one this is */
+.here {
+  @apply ml-2 align-middle font-mono text-xs tracking-wider uppercase;
+  color: var(--stalk-light);
+}
+
+/* the current site's pill glows a little, the newest growth at the top of the stalk */
+.branch[data-current] .name {
+  box-shadow: 0 0 1.25rem color-mix(in oklch, var(--stalk) 45%, transparent);
+}

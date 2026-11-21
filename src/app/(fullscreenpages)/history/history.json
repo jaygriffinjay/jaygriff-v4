@@ -1,0 +1,46 @@
+{
+  "eras": [
+    { "id": "fullstack", "title": "jaygriff.com goes full-stack", "years": "2026" },
+    { "id": "next16", "title": "jaygriff.com on Next.js 16", "years": "2026" },
+    { "id": "react", "title": "jaygriff.com as a React app", "years": "2025" },
+    { "id": "next14", "title": "The move to Next.js", "years": "2024" },
+    { "id": "hugo", "title": "jaygriffinjay.com on Hugo", "years": "2024" },
+    { "id": "before", "title": "Before a real site", "years": "2018–2023" }
+  ],
+  "attempts": [
+    { "name": "jaygriff-v4", "era": "fullstack", "date": "2026-10", "shipped": true, "current": true, "url": "https://jaygriff.com", "stack": ["Next.js 16", "Tailwind 4", "shadcn/ui", "goatboat"], "summary": "The current site, on Next.js 16 and Tailwind 4 with goatboat." },
+    { "name": "docs", "era": "fullstack", "date": "2026-10", "repo": "https://github.com/jaygriffinjay/docs", "stack": ["Mintlify"], "summary": "A Mintlify docs starter." },
+    { "name": "goatboat", "era": "fullstack", "date": "2026-10", "page": "/projects/goatboat", "stack": ["Next.js 16", "Drizzle", "libSQL"], "summary": "The content database and API the site now reads from." },
+    { "name": "strapi-test", "era": "fullstack", "date": "2026-10", "stack": ["Strapi"], "summary": "A headless CMS, tried and set aside." },
+    { "name": "my-directus-project", "era": "fullstack", "date": "2026-10", "stack": ["Directus", "Next.js"], "summary": "Another headless CMS, tried and set aside." },
+
+    { "name": "jaygriff-v3", "era": "fullstack", "date": "2026-03", "shipped": true, "url": "https://v3.jaygriff.com", "repo": "https://github.com/jaygriffinjay/jaygriff-v3", "stack": ["Next.js 16", "Tailwind 4", "shadcn/ui", "libSQL"], "summary": "A database inside the site, with an admin UI." },
+    { "name": "my-website-v3", "era": "next16", "date": "2026-02", "stack": ["Next.js"], "summary": "Only a build folder is left." },
+    { "name": "posts", "era": "next16", "date": "2026-01", "stack": ["Markdown"], "summary": "All my writing in one repo, apart from any site." },
+    { "name": "jaygriff-v2", "era": "next16", "date": "2026-01", "shipped": true, "url": "https://v2.jaygriff.com", "repo": "https://github.com/jaygriffinjay/jaygriff-v2", "stack": ["Next.js 16", "Emotion", "Markdown"], "summary": "Markdown in a content folder, rendered by the site." },
+    { "name": "my-website-v2", "era": "next16", "date": "2026-01", "repo": "https://github.com/jaygriffinjay/my-website-v2", "stack": ["Vite", "React", "Emotion"], "summary": "One day on Vite before switching to Next.js." },
+
+    { "name": "website", "era": "react", "date": "2025-06", "stack": ["Vite", "React", "styled-components"], "summary": "Another start on jaygriff.com, three commits." },
+    { "name": "typescript-blog", "era": "react", "date": "2025-06", "stack": ["Vite", "React", "TypeScript"], "summary": "A TypeScript blog, started and left the same day." },
+    { "name": "typescript-website", "era": "react", "date": "2025-06", "stack": ["Vite", "React", "TypeScript"], "summary": "Trying to make a new website with a TypeScript stack." },
+    { "name": "jaygriff-v1", "era": "react", "date": "2025-05", "shipped": true, "url": "https://v1.jaygriff.com", "repo": "https://github.com/jaygriffinjay/jaygriff-v1", "stack": ["Vite", "React 19", "TypeScript", "styled-components"], "summary": "Started as react-blog-testing, then became the site." },
+    { "name": "mdxtest1", "era": "react", "date": "2025-05", "stack": ["Vite", "React", "MDX"], "summary": "Getting MDX posts working." },
+    { "name": "jaygriff-ss", "era": "react", "date": "2025-03", "stack": ["Vite", "React 19"], "summary": "The first repo for the new jaygriff.com domain." },
+
+    { "name": "jaygriff-v0", "era": "next14", "date": "2024-08", "shipped": true, "url": "https://v0.jaygriff.com", "stack": ["Next.js 14", "JavaScript", "Tailwind 3"], "summary": "Header, footer, theme switch, about page and blog." },
+    { "name": "jaygriffinjay-next", "era": "next14", "date": "2024-08", "stack": ["Next.js 14"], "summary": "The same day as v0, a copy nested in a folder." },
+    { "name": "nextapp4", "era": "next14", "date": "2024-08", "stack": ["Next.js 14", "Prisma"], "summary": "Next.js with a database." },
+    { "name": "nextapp1–3", "era": "next14", "date": "2024-07", "stack": ["Next.js 14", "Tailwind 3"], "summary": "Learning Next.js, three apps in a day." },
+
+    { "name": "jays-website-3", "era": "hugo", "date": "2024-08", "stack": ["Hugo", "Tailwind 3"], "summary": "Hugo and Tailwind once more." },
+    { "name": "hugo templates", "era": "hugo", "date": "2024-08", "stack": ["Hugo", "Tailwind 3"], "summary": "Three Hugo and Tailwind templates in four days." },
+    { "name": "jays-website2", "era": "hugo", "date": "2024-07", "shipped": true, "stack": ["Hugo", "Tailwind 3", "Vercel"], "summary": "jaygriffinjay.com on Vercel. No longer online." },
+    { "name": "hugoapp2", "era": "hugo", "date": "2024-02", "stack": ["Hugo"], "summary": "A second Hugo site, with a theme." },
+    { "name": "jays-website", "era": "hugo", "date": "2024-01", "shipped": true, "stack": ["Hugo", "Netlify"], "summary": "The first jaygriffinjay.com. No longer online." },
+
+    { "name": "jaygriffinjay.github.io", "era": "before", "date": "2023-04", "url": "https://jaygriffinjay.github.io", "repo": "https://github.com/jaygriffinjay/jaygriffinjay.github.io", "stack": ["GitHub Pages", "HTML"], "summary": "My Site, on GitHub Pages." },
+    { "name": "eleventy", "era": "before", "date": "2023-04", "stack": ["Eleventy"], "summary": "A static site generator, with a dev container for it." },
+    { "name": "blog", "era": "before", "date": "2023-02", "stack": ["HTML", "CSS"], "summary": "One page and a stylesheet, meant to grow into a blog." },
+    { "name": "Blogatory", "era": "before", "date": "2018-08", "repo": "https://github.com/jaygriffinjay/Blogatory", "stack": ["Jigsaw", "PHP", "Netlify"], "summary": "A blog from a static site template. The very first try." }
+  ]
+}
