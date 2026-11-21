@@ -1,16 +1,23 @@
 import { H2, Paragraph, Title } from "@/components/typography";
-import { Feed } from "@/components/site/feed";
+import { HomeFeed } from "@/components/site/home-feed";
 import { PageLayout } from "@/components/site/page-layout";
 import { MainAside } from "@/components/site/main-aside";
 import { StepLink, StepLinks } from "@/components/site/step-links";
-import { listContent } from "@/lib/goatboat";
+import { getContentByPath, listContent, type ContentItem } from "@/lib/goatboat";
 import styles from "./page.module.css";
 
 const LATEST = 10;
 
+/** The newest content as full pages, so each entry has its body, project, authors and picture. */
+async function latestPages() {
+  const feed = await listContent({ limit: LATEST });
+  const pages = await Promise.all(feed.map((item) => getContentByPath(item.path)));
+  return pages.flatMap((page): ContentItem[] => (page && !("redirectTo" in page) ? [page.item] : []));
+}
+
 export default async function Home() {
   // The feed is an extra, so the intro still shows if goatboat is down
-  const latest = await listContent({ limit: LATEST }).catch((err) => {
+  const latest = await latestPages().catch((err) => {
     console.error(err);
     return [];
   });
@@ -25,8 +32,10 @@ export default async function Home() {
       </article>
       {latest.length > 0 && (
         <section aria-labelledby="latest-heading" className={styles.latest}>
-          <H2 id="latest-heading">Latest</H2>
-          <Feed items={latest} />
+          <H2 id="latest-heading" className={styles.latestHeading}>
+            Latest
+          </H2>
+          <HomeFeed items={latest} className={styles.feed} />
           <StepLinks className={styles.more}>
             <StepLink direction="next" href="/new" label="The full feed" title="Everything new" />
           </StepLinks>

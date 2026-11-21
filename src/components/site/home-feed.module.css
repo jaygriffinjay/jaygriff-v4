@@ -1,0 +1,121 @@
+@reference "../../app/globals.css";
+
+/* the by-day stream: a run of days with no boxes */
+.feed {
+  @apply flex flex-col gap-10;
+}
+
+/* one day's group: the day, then its entries */
+.day {
+  @apply flex flex-col gap-4;
+}
+
+/* the day's heading; the entries' own spacing handles the gap below it */
+.dayHeading {
+  @apply m-0;
+}
+
+/* a day's entries, split by a hairline with room on both sides of it */
+.stream {
+  @apply divide-separator flex flex-col divide-y pt-2;
+
+  & > * {
+    @apply py-8;
+  }
+
+  & > :first-child {
+    @apply pt-0;
+  }
+
+  /* the last entry's padding would add to the gap before the next day heading */
+  & > :last-child {
+    @apply pb-0;
+  }
+}
+
+/* one entry: picture, title, opening, what's left, details */
+.entry {
+  @apply flex min-w-0 flex-col gap-3;
+}
+
+/* the title with its type badge after it, wrapping if the title is long */
+.titleRow {
+  @apply flex flex-wrap items-center gap-x-3 gap-y-1;
+}
+
+/* entry title; its spacing comes from the entry's gap */
+.title {
+  @apply m-0;
+}
+
+/* a standard link: the title, the count, a tag */
+.link {
+  @apply link;
+}
+
+/* </> before a code page's title */
+.glyph {
+  @apply mr-2 inline size-[0.9em] align-[-0.1em];
+}
+
+/* the entry's picture: as wide as the column, cropped from the top so a screenshot keeps its header */
+.hero {
+  @apply block w-full;
+}
+
+.image {
+  @apply border-border bg-muted w-full rounded-lg border object-cover object-top;
+}
+
+/* the picture's shape: widescreen, or a shorter strip, or widescreen between the title and the opening */
+.hero[data-shape="above"] .image,
+.hero[data-shape="between"] .image {
+  @apply aspect-video;
+}
+
+.hero[data-shape="wide"] .image {
+  @apply aspect-[2/1];
+}
+
+/* rendered markdown opening, spaced like a page body */
+.rendered {
+  & > * + * {
+    @apply mt-flow;
+  }
+}
+
+/* the details line under an entry, wrapping onto more lines when long */
+.tagLine {
+  @apply flex flex-wrap items-center gap-x-2 gap-y-1;
+}
+
+/* one item on the details line, with the middle dot before it */
+.part {
+  @apply inline-flex items-center gap-2;
+}
+
+/* the time, a link to the entry that only lights up on hover */
+.quietLink {
+  @apply link;
+  --link-color: var(--muted-foreground);
+}
+
+/* the project's name, a link to its homepage */
+.projectLink {
+  @apply link inline-flex items-center gap-1.5;
+}
+
+/* the small box before the project's name */
+.projectIcon {
+  @apply size-[0.9em];
+}
+
+/* the middle dot between details, a bit larger than the text; no line height of its own so it doesn't push the line apart */
+.dot {
+  @apply text-[1.5em] leading-none;
+}
+
+/* #hashtags, spaced apart with no commas */
+.hashTags {
+  @apply inline-flex flex-wrap gap-x-2;
+}

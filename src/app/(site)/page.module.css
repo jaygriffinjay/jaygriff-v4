@@ -10,6 +10,16 @@
   @apply pt-8;
 }
 
+/* a rule under the "Latest" heading, like the ones between entries */
+.latestHeading {
+  @apply border-separator border-b pb-2;
+}
+
+/* room between the heading's rule and the first day */
+.feed {
+  @apply mt-6;
+}
+
 /* room between the feed and the link on to the full feed */
 .more {
   @apply mt-6;
