@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { H2, Lead, Muted, Title } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
@@ -16,7 +16,13 @@ export default async function ProjectNotesPage({ params }: Props) {
     listProjects().then((all) => all.find((p) => p.slug === slug)),
     getNotesNav(slug),
   ]);
-  if (!project || !isVisible(project)) notFound();
+  if (!project) {
+    // A renamed project's old address redirects to its new one
+    const moved = await getContentByPath(`/projects/${slug}/notes`);
+    if (moved && "redirectTo" in moved) permanentRedirect(moved.redirectTo);
+    notFound();
+  }
+  if (!isVisible(project)) notFound();
 
   const sections = nav?.sections ?? [];
   const readmePath = sections.find((s) => s.slug === "readme")?.pages[0]?.path;

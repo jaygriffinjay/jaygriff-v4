@@ -1,8 +1,8 @@
 import NextLink from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Lead, Paragraph, Title } from "@/components/typography";
 import { PageLayout } from "@/components/site/page-layout";
-import { getNotesNav, listProjects } from "@/lib/goatboat";
+import { getContentByPath, getNotesNav, listProjects } from "@/lib/goatboat";
 import { isVisible } from "@/lib/page-meta";
 import styles from "./page.module.css";
 
@@ -12,7 +12,13 @@ type Props = { params: Promise<{ slug: string }> };
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = (await listProjects()).find((p) => p.slug === slug);
-  if (!project || !isVisible(project)) notFound();
+  if (!project) {
+    // A renamed project's old address redirects to its new one
+    const moved = await getContentByPath(`/projects/${slug}`);
+    if (moved && "redirectTo" in moved) permanentRedirect(moved.redirectTo);
+    notFound();
+  }
+  if (!isVisible(project)) notFound();
   const hasNotes = !!(await getNotesNav(slug))?.sections.length;
 
   return (
