@@ -50,6 +50,12 @@ src/
 - `app/[...path]` renders goatboat pages by path with `MarkdownRenderer`. Drafts render only in local dev.
 - `GOATBOAT_URL` (not a secret) points at production or a local goatboat. `GOATBOAT_READ_TOKEN` is the site's one secret: server-side only, never `NEXT_PUBLIC_`, and read-only on goatboat's side.
 
+## Assets (R2)
+
+- Images live in goatboat's public bucket at `assets.jaygriff.com`, uploaded with `aws s3 cp … --profile artifacts` and attached to a page as a goatboat asset (proposed, like any change).
+- **New files are named by their content, never by route:** `img/<first 16 hex of sha256>.<ext>`, flat, with `--cache-control "public, max-age=31536000, immutable"`. goatboat's asset rows are the index; never organise the bucket into folders.
+- Screenshots of pages (thumbnails for the feed) use `shot-scraper` at 1280×720, JPEG quality 85, with the Next.js dev badge removed (`--javascript "document.querySelectorAll('nextjs-portal').forEach(e => e.remove())"`).
+
 ## Scratch
 
 - `scratch/` (gitignored) is a shared scratchpad: plans we're discussing, one markdown file per topic, plus any temp files or scripts. Use it instead of `/tmp`. Plans that touch both repos live in `../goatboat/scratch/`.
