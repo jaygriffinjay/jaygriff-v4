@@ -1,0 +1,557 @@
+@reference "../../app/globals.css";
+
+/* the whole width of the window, below the site's header and nav. A size container, so everything inside can size itself from its width (cqw) as well as the screen's height; it also keeps the glow behind everything inside it. Clips what spills out of it (the glow, the tilted slides) so the page never scrolls further than its content. --hero-w is how wide the centered artifact is: most of the screen, but never so wide that its shape would be taller than the screen leaves room for (the 16rem is the site header, nav and breadcrumbs above it and the room round it, so the artifact and everything over it fill one screen; the tags and cards are below the fold). It's 16:9, the shape of the screenshots, so a screenshot fits its frame whole and the live artifact swaps in over it without a jump */
+.arcade {
+  --hero-w: min(84cqw, calc((100dvh - 16rem) * 16 / 9));
+  --hero-h: calc(var(--hero-w) * 9 / 16);
+  @apply relative w-full overflow-clip;
+  container-type: inline-size;
+}
+
+/* the carousel, then the tag rail (or, in a card, the artifact's details), centered in a column. --top is the room above the carousel, --band the room above and below the artifact inside it, and --bezel how far a card stands out from the artifact */
+.stage {
+  --top: 0.5rem;
+  --band: 2.5rem;
+  --chin: 1.5rem;
+  --bezel: 0.5rem;
+  @apply relative flex flex-col items-center;
+  padding-top: var(--top);
+}
+
+/* the carousel's frame: the full width of the screen, as tall as the artifact plus a band of room above and below it, for its shadow. Sideways swipes are ours, not the browser's; up and down still scroll the page */
+.track {
+  @apply relative w-full;
+  height: calc(var(--hero-h) + 2 * var(--band));
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
+}
+
+/* a big dark pool under the whole page, centered on the artifact and covering most of it, a touch darker than the page itself, so everything stands off the background. It sits below every other layer, text included */
+.glow {
+  @apply pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[320%] w-[150%] -translate-x-1/2 -translate-y-1/2;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 60%), rgb(0 0 0 / 32%) 60%, transparent);
+}
+
+/* the slides, stacked in the middle and moved sideways in 3D: the centered one faces front, its neighbors tilt towards it. Much taller than the track, equally above and below, so the deep shadows aren't cut off; fading only at the left and right ends. Only the slides themselves take clicks */
+.slides {
+  @apply pointer-events-none absolute overflow-x-clip;
+  inset: -10rem 0;
+  perspective: 2200px;
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+/* one artifact: always the same size, then moved, pushed back, tilted and shrunk by how far it is from the center. The step is in its own widths, so the neighbors sit just clear of the centered slide and mostly behind it */
+.slide {
+  --step: 0;
+  --depth: 0px;
+  --tilt: 0deg;
+  --scale: 1;
+  --fade: 1;
+  @apply bg-muted pointer-events-auto absolute top-1/2 left-1/2 aspect-video overflow-hidden rounded-xl transition-[transform,opacity] duration-500 ease-out motion-reduce:transition-none;
+  width: var(--hero-w);
+  transform: translate(-50%, -50%) translateX(calc(var(--step) * 100%)) translateZ(var(--depth)) rotateY(var(--tilt)) scale(var(--scale));
+  opacity: var(--fade);
+  box-shadow: 0 20px 60px -20px rgb(0 0 0 / 70%);
+
+  /* the centered one, in front, with a deep shadow so it pops */
+  &[data-offset="0"] {
+    @apply z-10;
+    box-shadow:
+      0 50px 120px -20px rgb(0 0 0 / 90%),
+      0 0 0 1px rgb(255 255 255 / 8%);
+  }
+
+  &[data-offset="-1"],
+  &[data-offset="1"] {
+    --depth: -160px;
+    --scale: 0.88;
+    --fade: 0.8;
+  }
+
+  /* the left neighbor faces right, the right one faces left */
+  &[data-offset="-1"] {
+    --step: -0.7;
+    --tilt: 42deg;
+  }
+
+  &[data-offset="1"] {
+    --step: 0.7;
+    --tilt: -42deg;
+  }
+
+  /* further out: pushed back and invisible, waiting to slide in */
+  &[data-offset="-2"],
+  &[data-offset="-3"] {
+    --step: -1.3;
+    --depth: -400px;
+    --tilt: 55deg;
+    --scale: 0.7;
+    --fade: 0;
+  }
+
+  &[data-offset="2"],
+  &[data-offset="3"] {
+    --step: 1.3;
+    --depth: -400px;
+    --tilt: -55deg;
+    --scale: 0.7;
+    --fade: 0;
+  }
+
+  /* a neighbor lights up when you point at it */
+  &:not([data-offset="0"]):hover {
+    --fade: 1;
+  }
+}
+
+/* the picture and live artifact part of a slide: all of it */
+.media {
+  @apply absolute inset-0 overflow-hidden rounded-[inherit];
+}
+
+/* the artifact's screenshot, under the live frame */
+.thumb {
+  @apply object-cover object-top;
+}
+
+/* stands in for the screenshot when there isn't one */
+.noThumb {
+  @apply bg-muted absolute inset-0;
+}
+
+/* the live artifact, faded in over its screenshot once it has loaded. It runs at the size the screenshots were taken (1280x720) and is scaled to its frame by --fit, so it lays out just like the screenshot it replaces, at any size */
+.frame {
+  @apply bg-background absolute top-0 left-0 origin-top-left border-0 opacity-0 transition-opacity duration-300;
+  width: 1280px;
+  height: 720px;
+  transform: scale(var(--fit, 1));
+
+  &[data-loaded] {
+    @apply opacity-100;
+  }
+}
+
+/* while a menu is open the artifact lets the pointer through to the page: a pointer inside the artifact's own frame sends the page nothing, so the menu never saw it leave and stayed open */
+.arcade:has(.menuButton[data-popup-open]) .frame {
+  @apply pointer-events-none;
+}
+
+/* covers the live artifact until it's clicked, which opens its card; so it can't take the mouse, the scroll or the keys by itself, and swipes over it reach the carousel */
+.shield {
+  @apply absolute inset-0 z-[5] cursor-pointer;
+}
+
+/* covers a neighbor so clicking anywhere on it centers it */
+.pick {
+  @apply focus-visible:focus-ring absolute inset-0 cursor-pointer;
+}
+
+/* the dark behind the card, over the whole window including the site's header and footer: clicking it closes the card, like the dark round a lightbox. It's put straight into the page's body, below the arcade (which is raised above it while a card is open) */
+.backdrop {
+  @apply fixed inset-0 z-[45] cursor-pointer;
+  background: rgb(0 0 0 / 55%);
+  animation: fadeIn 200ms ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* the top of the card: a thin-bordered panel behind the artifact, a bezel bigger than it at the sides and bottom and a slim chin above it that holds the menu, open at the bottom, where the details panel continues it */
+.cardBg {
+  @apply bg-card border-foreground/15 absolute left-1/2 -translate-x-1/2 rounded-t-[1.25rem] border border-b-0;
+  top: calc(var(--top) + var(--band) - var(--chin));
+  width: calc(var(--hero-w) + 2 * var(--bezel));
+  height: calc(var(--hero-h) + var(--chin) + var(--bezel));
+  animation: fadeIn 250ms ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/* the rest of the card: the details, straight under the artifact in the same panel, closing the card just below the last line. Pulled up over the carousel's lower band so it starts a bezel under the artifact; roomy inside, with the text inset from the edge; scrolls if there's more than fits the screen (3.5rem is the site bar above the arcade, 1.5rem is left under the card) */
+.card {
+  @apply bg-card border-foreground/15 relative z-20 flex flex-col gap-3 overflow-y-auto rounded-b-[1.25rem] border border-t-0 pt-4 pb-6;
+  max-height: max(6rem, calc(100dvh - 3.5rem - var(--top) - var(--band) - var(--hero-h) - var(--bezel) - 1.5rem));
+  width: calc(var(--hero-w) + 2 * var(--bezel));
+  margin-top: calc(var(--bezel) - var(--band));
+  padding-inline: calc(var(--bezel) + 0.75rem);
+  animation: fadeIn 250ms ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* the menu's place in the chin, at the right end */
+.cardMenu {
+  @apply absolute top-0.5 right-3;
+}
+
+/* the menu's button: a slim blue bar with an ellipsis in it, with the usual white highlight behind it when pointed at or open */
+.menuButton {
+  @apply text-primary hover:bg-foreground/10 aria-expanded:bg-foreground/10 inline-flex h-5 w-11 cursor-pointer items-center justify-center rounded-md transition-colors;
+
+  /* opening it by hover or by keyboard leaves it focused, and it never shows a focus border */
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  & svg {
+    @apply size-5;
+  }
+}
+
+/* the artifact's name in its card: big, and in the site's blue */
+.cardTitle {
+  @apply text-primary m-0 leading-tight font-semibold tracking-tight;
+  font-size: clamp(1.25rem, 2cqw, 1.75rem);
+}
+
+/* the artifact's description, in the body color at a size that reads easily, running the full width of the card */
+.description {
+  @apply text-foreground leading-relaxed;
+  font-size: clamp(1.0625rem, 1.6cqw, 1.3125rem);
+}
+
+/* the tag rail, under the carousel: the tags as tiles, laid out like masonry turned on its side: one row, then two, then three as there are more tags, each tag going to the shortest row. Scrolls sideways on its own when there are more than fit, and sits centered when there aren't. Its font size is the one size everything in it is built from (in em), growing smoothly with the window from 12px up to 16px */
+.rail {
+  @apply relative z-20 mt-2 mb-8 w-full overflow-x-auto px-8 py-4;
+  font-size: clamp(0.75rem, 0.4rem + 0.55cqw, 1rem);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+/* the rows, as wide as they need: centered in the rail when they fit and from its left edge when they don't (the margins go to nothing, so it never starts cut off) */
+.railInner {
+  @apply mx-auto flex w-max items-center;
+}
+
+/* the rows of tags, stacked; they're different lengths, each ending where its tags do */
+.railRows {
+  @apply flex flex-col;
+  gap: 0.67em;
+}
+
+/* one row of tags */
+.railRow {
+  @apply flex;
+  gap: 0.67em;
+}
+
+/* the search, centered above the tags: at rest only a blue magnifying glass. Pointing at it, putting the cursor in it, or having words typed brings out a field and the two things to search in. On a wide window they sit either side of the glass, laid out of the flow so nothing moves, the glass included; on a narrow one they open in a row under it */
+.searchZone {
+  @apply relative z-30 mx-auto mt-1 flex w-fit flex-col items-center;
+
+  &:hover,
+  &:focus-within,
+  &[data-active] {
+    & .searchGlass {
+      @apply bg-foreground/10;
+    }
+
+    & .searchField,
+    & .searchOptions {
+      @apply not-sr-only flex;
+    }
+
+    & .searchField {
+      width: min(20rem, 88cqw);
+    }
+
+    & .searchOptions {
+      @apply gap-5 py-2;
+    }
+  }
+
+  @container (min-width: 40rem) {
+    &:hover,
+    &:focus-within,
+    &[data-active] {
+      & .searchField {
+        @apply absolute top-1/2 left-full w-64 -translate-y-1/2 pl-3;
+      }
+
+      & .searchOptions {
+        @apply absolute top-1/2 right-full -translate-y-1/2 py-0 pr-3 whitespace-nowrap;
+      }
+    }
+  }
+}
+
+/* the magnifying glass: blue, with a roomy target and the usual white highlight behind it. It's the label of the field, so clicking it puts the cursor there */
+.searchGlass {
+  @apply text-primary hover:bg-foreground/10 inline-flex size-10 cursor-pointer items-center justify-center rounded-md transition-colors;
+
+  & svg {
+    @apply size-6;
+
+    @container (min-width: 40rem) {
+      @apply size-7;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/* the field's place: out of sight but still there to tab to and click through to at rest, so the cursor can go in it */
+.searchField {
+  @apply sr-only;
+}
+
+/* the field: no box, just a line under it that goes blue when the cursor's in it, with the browser's own clear button left out (Esc clears it). 16px so a phone doesn't zoom in on it */
+.searchInput {
+  @apply text-foreground border-separator focus:border-primary w-full min-w-0 border-b bg-transparent py-1 text-base tracking-wide outline-none;
+
+  &::placeholder {
+    @apply text-muted-foreground;
+  }
+
+  &::-webkit-search-cancel-button {
+    @apply hidden;
+  }
+}
+
+/* what to search in: two checkboxes in a row */
+.searchOptions {
+  @apply sr-only items-center;
+}
+
+/* one of them: the box and its name, muted, brightening when pointed at */
+.option {
+  @apply text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center gap-2 text-sm tracking-wide select-none;
+}
+
+/* the box drawn like a task list's: a rounded square, filled blue with a dark tick when checked */
+.optionBox {
+  @apply border-muted-foreground/55 focus-visible:focus-ring relative m-0 size-4 shrink-0 cursor-pointer rounded-[4px] border-2 bg-transparent;
+  appearance: none;
+
+  /* the tick, cut out of a solid fill so it takes the colour set when checked */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: transparent;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 85% no-repeat;
+  }
+
+  &:checked {
+    @apply border-primary bg-primary;
+  }
+
+  &:checked::after {
+    background-color: var(--primary-foreground);
+  }
+}
+
+/* one tag: a small bordered tile with its name and count. Pointing at it lifts it a little with an overshoot; the chosen one is filled solid blue with dark text, like a selected page elsewhere on the site */
+.railTag {
+  @apply text-muted-foreground border-separator focus-visible:focus-ring flex shrink-0 cursor-pointer items-baseline rounded-md border;
+  gap: 0.67em;
+  padding: 0.5em 1em;
+  transition:
+    transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    color 200ms,
+    background-color 200ms,
+    border-color 200ms;
+
+  &:hover {
+    @apply text-foreground bg-muted;
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  &[aria-pressed="true"] {
+    @apply bg-primary text-primary-foreground border-primary;
+
+    & .railName,
+    & .railCount {
+      @apply text-primary-foreground;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/* the tag's name, in small bold all-caps type, in blue */
+.railName {
+  @apply text-primary font-semibold tracking-wider whitespace-nowrap uppercase;
+  font-size: 1em;
+}
+
+/* how many artifacts have the tag, smaller than its name but in the full body color so it's easy to read */
+.railCount {
+  @apply text-foreground font-mono font-semibold tabular-nums;
+  font-size: 0.92em;
+}
+
+/* the artifacts of the chosen tag, under the tag rail: most of the width, with a margin of a few rem each side on wide screens, and never wider than 96rem. Not tied to the screen's height like the artifact is */
+.cards {
+  @apply mx-auto mb-16 flex flex-col gap-4;
+  width: min(88cqw, 96rem);
+}
+
+/* the section's heading row: what's shown on the left, how many on the right, over a thin rule */
+.cardsHead {
+  @apply border-separator flex items-center justify-between gap-4 border-b pb-2;
+}
+
+/* the chosen tag, or all */
+.cardsTitle {
+  @apply text-heading m-0 text-sm font-semibold tracking-widest uppercase;
+}
+
+/* "6 items", small and dim */
+.cardsCount {
+  @apply text-muted-foreground font-mono text-xs tracking-widest uppercase;
+}
+
+/* said when a search finds nothing */
+.noResults {
+  @apply text-muted-foreground m-0 py-4;
+}
+
+/* the cards, as many to a row as fit */
+.cardGrid {
+  @apply m-0 grid list-none gap-4 p-0;
+  grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr));
+}
+
+/* one artifact: its screenshot, name and a line about it, in a bordered tile. Clicking it puts it in the carousel; the one in the carousel is outlined in blue */
+.miniCard {
+  @apply border-border bg-card hover:border-primary/60 focus-visible:focus-ring flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl border text-left transition-colors;
+
+  &[aria-current] {
+    @apply border-primary;
+  }
+}
+
+/* the screenshot, the shape of the screenshots */
+.miniThumb {
+  @apply bg-muted relative aspect-video w-full;
+}
+
+/* the name and the line under the screenshot */
+.miniBody {
+  @apply flex flex-col gap-1 px-3.5 pt-3 pb-3.5;
+}
+
+.miniTitle {
+  @apply text-heading font-semibold tracking-tight;
+}
+
+.miniDescription {
+  @apply text-muted-foreground line-clamp-2 text-sm leading-relaxed;
+}
+
+/* a card open: the arcade is raised above the dark behind it and takes no clicks itself, so the dark gets them; only the card and the artifact do. The artifact's top doesn't move, and its neighbors fade out. The page can't scroll, so everything has to fit the screen: the artifact is held smaller on a short screen (never under 16rem wide) to leave 18.5rem of height for the site bar, the room round the artifact and the details, which scroll inside their panel if there's more than fits. The glow is off, so the dark is the same over the site bar as under it */
+.arcade[data-card] {
+  --hero-w: min(84cqw, max(16rem, calc((100dvh - 18.5rem) * 16 / 9)));
+  @apply pointer-events-none z-50;
+
+  & .glow {
+    @apply hidden;
+  }
+  /* hidden but still taking up room, so the page doesn't get shorter under the card and move it */
+  & .cards {
+    @apply invisible;
+  }
+
+  /* the stage spans the whole width and sits over the dark, so it lets clicks through to it; only the card and the artifact take them */
+  & .stage {
+    @apply pointer-events-none;
+  }
+
+  & .cardBg,
+  & .card {
+    @apply pointer-events-auto;
+  }
+
+  & .track {
+    @apply pointer-events-none;
+  }
+
+  & .slide[data-offset="0"] {
+    box-shadow: none;
+  }
+
+  & .slide:not([data-offset="0"]) {
+    --fade: 0;
+    @apply pointer-events-none;
+  }
+}
+
+/* the arcade filling the whole window, over the site's header and footer too, which only a card can do (its fullscreen button): no card, no rail, nothing but the artifact, edge to edge. Its one control is the menu in the corner */
+.arcade[data-pseudo] {
+  @apply bg-background pointer-events-auto fixed inset-0 z-[60];
+
+  & .cards,
+  & .rail,
+  & .cardBg,
+  & .card,
+  & .glow,
+  & .slide:not([data-offset="0"]) {
+    @apply hidden;
+  }
+
+  & .stage {
+    @apply p-0;
+  }
+
+  & .track {
+    height: 100dvh;
+  }
+
+  & .slides {
+    @apply overflow-visible;
+    inset: 0;
+    perspective: none;
+    mask-image: none;
+  }
+
+  & .slide[data-offset="0"] {
+    @apply inset-0 aspect-auto rounded-none;
+    width: auto;
+    height: auto;
+    transform: none;
+    box-shadow: none;
+  }
+
+  & .media {
+    @apply rounded-none;
+  }
+
+  /* filling the page, the artifact runs at the page's own size, unscaled */
+  & .frame {
+    @apply size-full;
+    transform: none;
+  }
+}
+
+/* the corner of the artifact that wakes the menu when the pointer comes near; taking clicks even inside a card, whose track doesn't */
+.fillHot {
+  @apply pointer-events-auto absolute top-0 right-0 z-30 h-20 w-28;
+}
+
+/* the menu's button, in the top-right corner over the artifact, on a dark plate exactly the size of the bar (no padding, so no square shows round the highlight) so the blue reads on anything: invisible until the artifact first fills the page, or the pointer is near */
+.fillMenu {
+  @apply absolute top-3 right-3 flex rounded-md opacity-0 transition-opacity duration-200;
+  background: #1e1e1e;
+
+  &[data-shown] {
+    @apply opacity-100;
+  }
+}

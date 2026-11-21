@@ -55,13 +55,15 @@ export function ReportToc({ title, titleId, entries }: PageToc) {
   return null;
 }
 
-/** Phone-only hamburger that opens a full-screen overlay with the page's headings and the footer. */
+/** Hamburger that opens a full-screen overlay with the page's headings and the footer. Phone-only unless `always`, for a header with no nav links of its own. */
 export function MobileMenu({
   footer,
   className,
+  always,
 }: {
   footer?: React.ReactNode;
   className?: string;
+  always?: boolean;
 }) {
   const pathname = usePathname();
   const { toc, crumbs } = useContext(MenuContext);
@@ -98,15 +100,16 @@ export function MobileMenu({
 
   // Past the wide breakpoint (56rem, set in globals.css) the hamburger is hidden, so the overlay can't stay open
   useEffect(() => {
+    if (always) return;
     const wide = window.matchMedia("(min-width: 56rem)");
     const closeIfWide = () => wide.matches && setOpen(false);
     wide.addEventListener("change", closeIfWide);
     return () => wide.removeEventListener("change", closeIfWide);
-  }, []);
+  }, [always]);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen} onOpenChangeComplete={scrollToPending}>
-      <Dialog.Trigger className={cn(styles.trigger, className)} aria-label="Open menu">
+      <Dialog.Trigger className={cn(styles.trigger, !always && styles.phoneOnly, className)} aria-label="Open menu">
         <MenuIcon aria-hidden="true" />
       </Dialog.Trigger>
 

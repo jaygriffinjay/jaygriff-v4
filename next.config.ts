@@ -3,8 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
-  // Lets a phone on the home network load the dev server by the laptop's address
-  allowedDevOrigins: ["192.168.*.*"],
+  // Lets a phone on the home network or the tailnet load the dev server by the laptop's address
+  allowedDevOrigins: ["192.168.*.*", "100.*.*.*", "*.ts.net"],
   // Next 16 only serves the qualities listed here; 100 is for the portrait
   images: {
     qualities: [75, 100],

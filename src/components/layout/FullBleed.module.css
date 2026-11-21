@@ -1,0 +1,12 @@
+@reference "../../app/globals.css";
+
+/* as wide as the window, and centered on the middle of the frame it sits in: the negative margins undo the frame on both sides */
+.bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* 100vw counts the scrollbar, so the full-width part is a few pixels wider than what's visible; the page clips that sideways instead of growing a horizontal scrollbar. Only on pages that use this */
+:global(body):has(.bleed) {
+  overflow-x: clip;
+}

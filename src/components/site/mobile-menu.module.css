@@ -1,8 +1,13 @@
 @reference "../../app/globals.css";
 
-/* big blue hamburger beside the site name; below the wide breakpoint only. Negative margins keep it from making the title row taller */
+/* big blue hamburger beside the site name. Negative margins keep it from making the title row taller */
 .trigger {
-  @apply text-primary hover:bg-muted focus-visible:focus-ring -my-2 -mr-2 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md p-2 wide:hidden [&>svg]:size-9;
+  @apply text-primary hover:bg-muted focus-visible:focus-ring -my-2 -mr-2 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md p-2 [&>svg]:size-9;
+}
+
+/* below the wide breakpoint only, where the header has no nav links of its own */
+.phoneOnly {
+  @apply wide:hidden;
 }
 
 /* full-screen overlay holding the menu; padded like the page shell + header so the top row lines up. It's its own scroller, so the page's overscroll setting doesn't cover it and it needs its own */

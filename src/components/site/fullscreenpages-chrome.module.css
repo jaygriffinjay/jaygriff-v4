@@ -1,0 +1,11 @@
+@reference "../../app/globals.css";
+
+/* the slim top bar, the full width of the window and padded like the phone header at every size: the name in the top left corner and the menu in the top right, closing in on each other as the window narrows. Not stuck to the top, so a page's own dark layers cover it like the rest */
+.bar {
+  @apply flex items-center justify-between gap-4 px-4 py-2;
+}
+
+/* the page, edge to edge; flex-1 pushes the footer to the bottom of short pages (body is a flex column) */
+.main {
+  @apply w-full flex-1;
+}
