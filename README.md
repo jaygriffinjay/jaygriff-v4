@@ -1,29 +1,42 @@
-# jaygriff.com
+# Bootstrap Fullstack Webapp
 
-The source for my website, **[jaygriff.com](https://jaygriff.com)**, version 4.
+An opinionated Next.js starter. Clone it, delete what you don't need, start building.
 
-The site is read-only: its pages come from goatboat, my content database and API, and the site renders them.
-
-Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4 and shadcn/ui.
-
-The old versions are still up: [v0](https://v0.jaygriff.com), [v1](https://v1.jaygriff.com), [v2](https://v2.jaygriff.com) and [v3](https://v3.jaygriff.com).
-
-## Running it
-
-It needs a goatboat to read from: set `GOATBOAT_URL` and `GOATBOAT_READ_TOKEN`.
+## Getting Started
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000).
+
+## Stack
+
+- **Next.js 16** (App Router) + **React 19**
+- **Tailwind CSS v4** — configured in `globals.css`, no `tailwind.config.js`
+- **shadcn/ui** (Base UI) — components live in `src/components/ui/`; add more with `npx shadcn add <component>`
+- **Typography components** — `src/components/typography/` replaces raw `<h1>`, `<p>`, etc.
+- **One theme** — a single dark-toned palette in `globals.css`; no light/dark modes
+- **react-hook-form + zod**, **recharts**, **sonner**, **lucide-react**
+
+## Project Structure
+
+```
+src/
+  app/          # Layout, globals.css (theme tokens), fonts
+  components/
+    site/       # Site header, nav strip (edit routes.ts), page layout, aside pieces
+    typography/ # Text components
+    ui/         # shadcn components
+.github/        # Copilot instructions and UI skill
+```
 
 ## Scripts
 
 ```bash
 npm run dev    # Start the development server
 npm run build  # Build for production
+npm run start  # Serve the production build
 npm run lint   # Run ESLint
-npm test       # Run the tests
 ```
