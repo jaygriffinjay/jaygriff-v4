@@ -48,10 +48,13 @@ export const titleFromPath = (path: string) => {
 
 const SITE_NAME = "Jay Griffin";
 
-// Vercel sets the production domain; locally, links point at the dev server
-const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
+// Production is always the real domain; a preview or local server links to itself
+export const siteUrl =
+  process.env.VERCEL_ENV === "production"
+    ? "https://jaygriff.com"
+    : process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000";
 
 /** Full SEO metadata for the current page, from its goatboat row. */
 export async function currentPageMetadata(): Promise<Metadata> {
