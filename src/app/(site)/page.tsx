@@ -8,10 +8,16 @@ import styles from "./page.module.css";
 
 const LATEST = 10;
 
-/** The newest content as full pages, so each entry has its body, project, authors and picture. */
+/** The newest content as full pages, so each entry has its body, project, authors and picture. Pages stay out of the feed, except those tagged showcase. */
 async function latestPages() {
-  const feed = await listContent({ limit: LATEST });
-  const pages = await Promise.all(feed.map((item) => getContentByPath(item.path)));
+  const [feed, showcase] = await Promise.all([
+    listContent({ limit: LATEST }),
+    listContent({ type: "page", tag: "showcase", limit: LATEST }),
+  ]);
+  const newest = [...feed, ...showcase]
+    .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""))
+    .slice(0, LATEST);
+  const pages = await Promise.all(newest.map((item) => getContentByPath(item.path)));
   return pages.flatMap((page): ContentItem[] => (page && !("redirectTo" in page) ? [page.item] : []));
 }
 
