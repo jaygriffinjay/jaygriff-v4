@@ -1,0 +1,22 @@
+Copyright (c) 2026 Jay Griffin
+
+This repository is dual-licensed: the software is under the MIT License
+(LICENSE-CODE), and the writing, images and other creative content are
+under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International License (LICENSE-CONTENT).
+
+  Code      Everything that makes the site run is MIT. Code samples that
+            appear in the writing are MIT too, so use them freely.
+
+  Content   The writing, photographs and illustrations, wherever they are
+            in the repository, are CC BY-NC-SA 4.0: you may share and adapt
+            them for non-commercial purposes, as long as you credit Jay
+            Griffin and share your version under the same license.
+
+These licenses don't cover things that aren't mine to license: the logos
+and trademarks of other tools and companies (shown only to identify them),
+the fonts (each under its own license, whose text sits beside the font
+files), and the dependencies listed in package.json.
+
+For commercial use of the content, or anything else not covered here,
+get in touch: https://jaygriff.com/contact
