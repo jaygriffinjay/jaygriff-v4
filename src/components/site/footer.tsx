@@ -36,7 +36,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: "Other Stuff",
     links: [
       { label: "Contact", href: "/contact" },
-      { label: "License", href: "/license" },
+      { label: "License", href: "https://github.com/jaygriffinjay/jaygriff-v4/blob/main/LICENSE" },
       { label: "Source", href: "https://github.com/jaygriffinjay/jaygriff-v4" },
     ],
   },
