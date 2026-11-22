@@ -1,8 +1,24 @@
 @reference "../../app/globals.css";
 
-/* the feed and its end control, in one column */
+/* the feed and its loading affordance, in one column */
 .container {
   @apply flex flex-col gap-4;
+}
+
+/* one-pixel intersection target at the end of the automatic feed */
+.sentinel {
+  @apply h-px w-full;
+}
+
+/* compact loading state while the next server-rendered batch arrives */
+.loading {
+  @apply flex justify-center py-8;
+}
+
+/* rotating blue arc */
+.spinner {
+  @apply size-7 animate-spin rounded-full border-[3px] border-transparent border-t-primary border-r-primary;
+  animation-duration: 1.5s;
 }
 
 /* the load-more action at the end of the feed */

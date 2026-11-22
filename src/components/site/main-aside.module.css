@@ -9,3 +9,8 @@
 .link {
   @apply link;
 }
+
+/* the full-feed link in its own aside section */
+.feedLink {
+  @apply link inline-block;
+}

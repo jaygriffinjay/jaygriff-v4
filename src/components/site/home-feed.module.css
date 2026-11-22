@@ -7,34 +7,51 @@
 
 /* one day's group: the day, then its entries */
 .day {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col;
 }
 
-/* the day's heading; the entries' own spacing handles the gap below it */
+/* the day's heading, spaced from its entries */
 .dayHeading {
-  @apply m-0;
+  @apply m-0 pb-3 text-h2;
 }
 
-/* a day's entries, split by a hairline with room on both sides of it */
+/* a day's entries, with room before the first item */
 .stream {
-  @apply divide-separator flex flex-col divide-y pt-2;
+  @apply relative flex flex-col pt-2;
 
-  & > * {
+  &::before {
+    content: "";
+    @apply border-l border-separator absolute -left-4;
+    top: 0.5rem;
+    bottom: 3px;
+  }
+
+  & > .entry {
     @apply py-8;
   }
 
-  & > :first-child {
+  & > .entry:first-of-type {
     @apply pt-0;
   }
 
   /* the last entry's padding would add to the gap before the next day heading */
-  & > :last-child {
+  & > .entry:last-of-type {
     @apply pb-0;
   }
 }
 
-/* one entry: picture, title, opening, what's left, details */
+/* one entry: the outer spacing around its content */
 .entry {
+  @apply min-w-0;
+}
+
+/* the image and content block with its spine in the outer gutter */
+.entryFrame {
+  @apply flex min-w-0 flex-col gap-3;
+}
+
+/* an item's title, body and details */
+.entryContent {
   @apply flex min-w-0 flex-col gap-3;
 }
 
@@ -45,7 +62,7 @@
 
 /* entry title; its spacing comes from the entry's gap */
 .title {
-  @apply m-0;
+  @apply m-0 text-h3;
 }
 
 /* a standard link: the title, the count, a tag */

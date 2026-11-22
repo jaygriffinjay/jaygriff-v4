@@ -15,6 +15,13 @@ export function MainAside() {
         </Muted>
       </AsideSection>
 
+      <AsideSection title="Everything New">
+        <Muted>Every post, project update, note, and link in one feed.</Muted>
+        <NextLink href="/new" className={styles.feedLink}>
+          Browse the full feed
+        </NextLink>
+      </AsideSection>
+
       <AsideSection title="Elsewhere">
         <ul className={styles.list}>
           <li>

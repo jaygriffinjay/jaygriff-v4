@@ -67,7 +67,6 @@ function Hero({ item, shape }: { item: ContentItem; shape: "above" | "wide" | "b
     </NextLink>
   );
 }
-
 /** What's left after the opening, in brackets: words for prose, sections for a code page. Nothing when there's no more; the title is the way in. */
 function Count({ item, moreWords }: { item: ContentItem; moreWords?: number }) {
   const left = moreWords ?? sectionsIn(item);
@@ -83,7 +82,6 @@ function Count({ item, moreWords }: { item: ContentItem; moreWords?: number }) {
     </Paragraph>
   );
 }
-
 /** Where a tag leads: artifacts to the artifacts page filtered by it, everything else to the notes feed. */
 const tagHref = (item: ContentItem, tag: string) =>
   item.type === "artifact"
@@ -139,33 +137,36 @@ function Entry({ item, hero }: { item: ContentItem; hero: HeroStyle }) {
   const opening = item.intro ?? item.description;
   return (
     <article className={styles.entry}>
-      {(hero === "above" || hero === "wide") && <Hero item={item} shape={hero} />}
-      <div className={styles.titleRow}>
-        <H4 className={styles.title}>
-          <NextLink href={item.path} className={styles.link}>
-            {isCode && <CodeXml aria-label="Code page" className={styles.glyph} />}
-            {item.title}
-          </NextLink>
-        </H4>
-        <Badge variant="outline" render={item.type === "artifact" ? <NextLink href="/artifacts" /> : undefined}>
-          {item.type}
-        </Badge>
-      </div>
-      {hero === "between" && <Hero item={item} shape="between" />}
-      {cut ? (
-        <div className={styles.rendered}>
-          <MarkdownRenderer source={cut.markdown} />
+      <div className={styles.entryFrame}>
+        {(hero === "above" || hero === "wide") && <Hero item={item} shape={hero} />}
+        <div className={styles.entryContent}>
+          <div className={styles.titleRow}>
+            <H4 className={styles.title}>
+              <NextLink href={item.path} className={styles.link}>
+                {isCode && <CodeXml aria-label="Code page" className={styles.glyph} />}
+                {item.title}
+              </NextLink>
+            </H4>
+            <Badge variant="outline" render={item.type === "artifact" ? <NextLink href="/artifacts" /> : undefined}>
+              {item.type}
+            </Badge>
+          </div>
+          {hero === "between" && <Hero item={item} shape={hero} />}
+          {cut ? (
+            <div className={styles.rendered}>
+              <MarkdownRenderer source={cut.markdown} />
+            </div>
+          ) : (
+            opening && <Paragraph>{opening}</Paragraph>
+          )}
+          <Count item={item} moreWords={cut?.moreWords} />
+          <TagLine item={item} />
         </div>
-      ) : (
-        opening && <Paragraph>{opening}</Paragraph>
-      )}
-      <Count item={item} moreWords={cut?.moreWords} />
-      <TagLine item={item} />
+      </div>
     </article>
   );
 }
 
-/** The home page's latest content as a by-day stream: a day heading, then each entry with its picture, opening, what's left and a line of details. */
 export function HomeFeed({
   items,
   hero = "wide",

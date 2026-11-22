@@ -157,6 +157,12 @@ export async function listFeed(query: FeedQuery = {}) {
   return { items: res?.data ?? [], total: res?.total ?? 0 };
 }
 
+/** One homepage batch with full item data and a lookahead flag. */
+export async function getHomeFeed(limit: number) {
+  const res = await get<{ data: ContentItem[]; hasMore: boolean }>("/content/home-feed", { limit });
+  return { items: res?.data ?? [], hasMore: res?.hasMore ?? false };
+}
+
 /** The page at a path, `{ redirectTo }` if it moved, or null if nothing lives there. */
 export async function getContentByPath(path: string) {
   const res = await get<{ data: ContentPage } | { redirectTo: string }>("/content/by-path", { path });
