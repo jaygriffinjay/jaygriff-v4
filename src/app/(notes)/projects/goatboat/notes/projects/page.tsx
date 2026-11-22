@@ -25,7 +25,8 @@ export default async function ProjectsTestPage() {
                 alt={project.thumbnail.alt ?? ""}
                 width={1200}
                 height={630}
-                unoptimized
+                sizes="(min-width: 56rem) 22rem, (min-width: 40rem) 45vw, calc(100vw - 2rem)"
+                unoptimized={project.thumbnail.url.endsWith(".svg")}
                 className={styles.thumbnail}
               />
             )}

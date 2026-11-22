@@ -60,7 +60,8 @@ function ArtifactCard({ item }: { item: FeedItem }) {
             alt={item.cover.alt ?? ""}
             width={item.cover.width ?? 640}
             height={item.cover.height ?? 360}
-            unoptimized
+            sizes="(min-width: 56rem) 18rem, (min-width: 40rem) calc(50vw - 1.5rem), calc(100vw - 2rem)"
+            unoptimized={item.cover.url.endsWith(".svg")}
             className={styles.cover}
           />
         ) : (

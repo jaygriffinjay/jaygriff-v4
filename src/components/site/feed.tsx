@@ -29,7 +29,8 @@ function FeedEntry({ item }: { item: FeedItem }) {
           alt={item.cover.alt ?? ""}
           width={item.cover.width ?? 1200}
           height={item.cover.height ?? 630}
-          unoptimized
+          sizes="(min-width: 40rem) 12rem, calc(100vw - 2rem)"
+          unoptimized={item.cover.url.endsWith(".svg")}
           className={styles.cover}
         />
       )}

@@ -2,9 +2,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Feed } from "@/components/site/feed";
+import { InfiniteFeed } from "@/components/site/infinite-feed";
 import { PageHeader } from "@/components/site/page-header";
 import { PageLayout } from "@/components/site/page-layout";
-import { Pagination } from "@/components/site/pagination";
+import { cookies } from "next/headers";
 import { listFeed } from "@/lib/goatboat";
 import { pageHref } from "@/lib/page-href";
 
@@ -27,16 +28,28 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 
 /** Every published row of every type, newest first, except each project's home and notes home, which only hold the others together. */
 export default async function NewPage({ searchParams }: Props) {
-  const page = parsePage((await searchParams).page);
-  const { items, total } = await listFeed({ type: "all", hideStructure: true, limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE });
+  const params = await searchParams;
+  const page = parsePage(params.page);
+  const cookieStore = await cookies();
+  const loaded = Number(cookieStore.get("load-more-feed-new")?.value);
+  const loadedCount = Number.isInteger(loaded) && loaded >= PAGE_SIZE ? Math.min(loaded, 500) : PAGE_SIZE;
+  const offset = (page - 1) * PAGE_SIZE;
+  const { items, total } = await listFeed({ type: "all", hideStructure: true, limit: loadedCount, offset });
   const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
   if (page > pageCount) notFound();
+  const pageItemsCount = Math.max(0, total - offset);
 
   return (
     <PageLayout hideRelated>
       <PageHeader />
-      <Feed items={items} />
-      <Pagination page={page} pageCount={pageCount} basePath={BASE_PATH} />
+      <InfiniteFeed
+        feedKey="new"
+        loadedCount={Math.min(loadedCount, pageItemsCount)}
+        maxCount={pageItemsCount}
+        batchSize={PAGE_SIZE}
+      >
+        <Feed items={items} />
+      </InfiniteFeed>
     </PageLayout>
   );
 }

@@ -60,7 +60,7 @@ function Hero({ item, shape }: { item: ContentItem; shape: "above" | "wide" | "b
         alt=""
         width={1280}
         height={720}
-        sizes="(min-width: 56rem) 42rem, 100vw"
+        sizes="(min-width: 56rem) 42rem, calc(100vw - 2rem)"
         unoptimized={image.url.endsWith(".svg")}
         className={styles.image}
       />

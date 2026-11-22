@@ -52,9 +52,10 @@ src/
 
 ## Assets (R2)
 
-- Images live in goatboat's public bucket at `assets.jaygriff.com`, uploaded with `aws s3 cp … --profile artifacts` and attached to a page as a goatboat asset (proposed, like any change).
+- Images live in the separate public R2 bucket `jaygriff`, served from `assets.jaygriff.com`. The `jaygriff-artifacts` bucket is for artifact HTML files, not site images. Upload images with `aws s3 cp … --profile artifacts` and attach them to a goatboat page as an asset (proposed, like any change).
 - **New files are named by their content, never by route:** `img/<first 16 hex of sha256>.<ext>`, flat, with `--cache-control "public, max-age=31536000, immutable"`. goatboat's asset rows are the index; never organise the bucket into folders.
-- Screenshots of pages (thumbnails for the feed) use `shot-scraper` at 1280×720, JPEG quality 85, with the Next.js dev badge removed (`--javascript "document.querySelectorAll('nextjs-portal').forEach(e => e.remove())"`).
+- All `next/image` uses share `src/lib/cloudflare-image-loader.ts`. It transforms raster images on `assets.jaygriff.com`; local images, other hosts, and SVGs pass through unchanged. Keep image widths bounded in `next.config.ts`.
+- Screenshots of pages (thumbnails for the feed) use `shot-scraper` at 1280×720 and are kept as lossless PNG originals in R2. Do not JPEG-compress the source; Cloudflare makes optimized delivery variants. Remove the Next.js dev badge (`--javascript "document.querySelectorAll('nextjs-portal').forEach(e => e.remove())"`).
 
 ## Scratch
 

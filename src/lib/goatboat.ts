@@ -63,7 +63,7 @@ export type Project = {
   sortOrder: number;
   createdAt: string;
   updatedAt: string;
-  thumbnail: { projectId: string | null; url: string; alt: string | null } | null;
+  thumbnail: { id: number; projectId: string | null; url: string; alt: string | null; width: number | null; height: number | null } | null;
 };
 
 export type ContentItem = {

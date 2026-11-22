@@ -75,7 +75,8 @@ function FeedEntry({ item }: { item: FeedItem }) {
           alt={item.cover.alt ?? ""}
           width={item.cover.width ?? 1200}
           height={item.cover.height ?? 630}
-          unoptimized
+          sizes="8rem"
+          unoptimized={item.cover.url.endsWith(".svg")}
           className={styles.cover}
         />
       )}

@@ -11,7 +11,7 @@ import { isVisible } from "@/lib/page-meta";
 import styles from "./page.module.css";
 
 // Square thumbnails with a logo in the middle: they fill the box from the middle. Every other thumbnail is a screenshot that fills it from the top
-const CENTERED = new Set(["jaygriff-v2", "goatboat"]);
+const CENTERED = new Set(["jaygriff-v2", "jaygriff-v3", "goatboat"]);
 
 /** My projects, in the order set in goatboat. Drafts show only in local dev. */
 export default async function ProjectsPage() {
@@ -57,7 +57,8 @@ function ProjectEntry({ project, notes }: { project: Project; notes: number }) {
             alt=""
             width={480}
             height={300}
-            sizes="(min-width: 40rem) 12rem, 100vw"
+            quality={100}
+            sizes="(min-width: 40rem) 12rem, calc(100vw - 2rem)"
             // The image optimizer won't serve an svg
             unoptimized={project.thumbnail.url.endsWith(".svg")}
             data-centered={CENTERED.has(project.slug)}

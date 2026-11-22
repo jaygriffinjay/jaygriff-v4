@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { LayersIcon } from "lucide-react";
 import type { NotesNav } from "@/lib/goatboat";
@@ -11,10 +11,11 @@ import styles from "./notes-bar.module.css";
 /** Opens a panel with every section and page of the project whose notes you're reading. */
 export function NotesBar({ nav }: { nav: NotesNav }) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  return <NotesBarPanel key={pathname} nav={nav} />;
+}
 
-  // Picking a page lands on it, so close the panel then
-  useEffect(() => setOpen(false), [pathname]);
+function NotesBarPanel({ nav }: { nav: NotesNav }) {
+  const [open, setOpen] = useState(false);
 
   return (
     <NavPanel

@@ -12,12 +12,12 @@
 
 /* one entry: optional cover beside the text */
 .item {
-  @apply flex gap-4 py-5;
+  @apply flex flex-col gap-3 py-5 sm:flex-row sm:gap-4;
 }
 
 /* thumbnail or hero image */
 .cover {
-  @apply bg-muted h-20 w-32 shrink-0 rounded-md object-cover;
+  @apply bg-muted aspect-video w-full rounded-md object-cover sm:w-48 sm:shrink-0;
 }
 
 /* text column of an entry */

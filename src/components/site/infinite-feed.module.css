@@ -1,0 +1,22 @@
+@reference "../../app/globals.css";
+
+/* the feed and its end control, in one column */
+.container {
+  @apply flex flex-col gap-4;
+}
+
+/* the load-more action at the end of the feed */
+.controls {
+  @apply flex justify-center pt-2;
+}
+
+/* the manual load-more button styled like a standard text link */
+.button {
+  @apply link inline-flex cursor-pointer items-center justify-center disabled:cursor-wait disabled:opacity-50;
+}
+
+/* the caps label inherits the link's color and hover state */
+.label {
+  @apply text-sm tracking-normal;
+  color: inherit;
+}

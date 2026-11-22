@@ -110,7 +110,8 @@ export default async function ContentPage({ params }: { params: Promise<{ path: 
           alt={hero.alt ?? ""}
           width={hero.width ?? 1600}
           height={hero.height ?? 1000}
-          unoptimized
+          sizes="(min-width: 56rem) 48rem, calc(100vw - 2rem)"
+          unoptimized={hero.url.endsWith(".svg")}
           className={styles.hero}
         />
       )}
@@ -124,7 +125,8 @@ export default async function ContentPage({ params }: { params: Promise<{ path: 
               alt={asset.alt ?? ""}
               width={asset.width ?? 1200}
               height={asset.height ?? 800}
-              unoptimized
+              sizes="(min-width: 56rem) 15rem, (min-width: 40rem) 30vw, 45vw"
+              unoptimized={asset.url.endsWith(".svg")}
               className={styles.galleryImage}
             />
           ))}

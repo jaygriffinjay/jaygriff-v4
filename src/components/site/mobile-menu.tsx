@@ -6,6 +6,7 @@ import NextLink from "next/link";
 import { Dialog } from "@base-ui/react/dialog";
 import { MenuIcon, XIcon } from "lucide-react";
 import { useActiveHeading } from "@/hooks/use-active-heading";
+import { useResetFeedCounts } from "@/hooks/use-reset-feed-counts";
 import { CapsLabel } from "@/components/typography";
 import type { TocEntry } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
@@ -30,6 +31,7 @@ const MenuContext = createContext<{
 });
 
 export function MobileMenuProvider({ children }: { children: React.ReactNode }) {
+  useResetFeedCounts();
   const [toc, setToc] = useState<PageToc | null>(null);
   const [crumbs, setCrumbs] = useState<Crumb[] | null>(null);
   return <MenuContext.Provider value={{ toc, setToc, crumbs, setCrumbs }}>{children}</MenuContext.Provider>;
@@ -66,6 +68,18 @@ export function MobileMenu({
   always?: boolean;
 }) {
   const pathname = usePathname();
+  return <MobileMenuContent key={pathname} footer={footer} className={className} always={always} />;
+}
+
+function MobileMenuContent({
+  footer,
+  className,
+  always,
+}: {
+  footer?: React.ReactNode;
+  className?: string;
+  always?: boolean;
+}) {
   const { toc, crumbs } = useContext(MenuContext);
   // Tracked here, where it keeps running while the menu is closed, so the list is already right when it opens
   const [activeId] = useActiveHeading(
@@ -94,9 +108,6 @@ export function MobileMenu({
     pendingTop.current = id === toc?.titleId;
     setOpen(false);
   };
-
-  // Following any link inside the menu lands on a new page, so close it then
-  useEffect(() => setOpen(false), [pathname]);
 
   // Past the wide breakpoint (56rem, set in globals.css) the hamburger is hidden, so the overlay can't stay open
   useEffect(() => {
