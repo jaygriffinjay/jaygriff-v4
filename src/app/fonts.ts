@@ -21,6 +21,16 @@ export const jetbrainsMono = localFont({
   ],
 });
 
+export const inter = localFont({
+  variable: "--font-inter",
+  src: [
+    { path: "./fonts/Inter-VariableFont_opsz,wght.ttf", weight: "100 900", style: "normal" },
+    { path: "./fonts/Inter-Italic-VariableFont_opsz,wght.ttf", weight: "100 900", style: "italic" },
+  ],
+  display: "swap",
+  preload: false,
+});
+
 // display face for the site name, carried over from jaygriff v2; self-hosted because
 // next/font/google has no fallback metrics for it and warns on every build
 export const sekuya = localFont({
@@ -30,6 +40,6 @@ export const sekuya = localFont({
   display: "swap",
 });
 
-export const fontVariables = [geistSans, geistMono, jetbrainsMono, sekuya]
+export const fontVariables = [geistSans, geistMono, jetbrainsMono, sekuya, inter]
   .map((f) => f.variable)
   .join(" ");

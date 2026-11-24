@@ -42,5 +42,6 @@
 
 /* footer links use the shared site link treatment at compact navigation size */
 .link {
-  @apply link text-sm;
+  @apply link text-sm font-medium;
+  font-family: var(--font-inter), var(--font-geist-sans), sans-serif;
 }

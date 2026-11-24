@@ -3,11 +3,12 @@
 /* the sections, one after another */
 .sections {
   @apply flex flex-col gap-5;
+  font-family: var(--font-inter), sans-serif;
 }
 
 /* section heading with a rule under it, like the contents' "On this page" */
 .groupHeading {
-  @apply border-separator border-b pb-2;
+  @apply border-border border-b pb-2;
 }
 
 /* the section's pages, a compact list under the heading */
@@ -22,5 +23,5 @@
 
 /* the page being read: blue, with the rule down its left */
 .pageCurrent {
-  @apply text-primary border-primary font-medium;
+  @apply text-primary font-bold;
 }

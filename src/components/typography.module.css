@@ -43,12 +43,12 @@
 
   /* standard paragraph */
   .paragraph {
-    @apply text-base leading-normal;
+    @apply text-base leading-6;
   }
 
   /* muted paragraph at body size (Lead) */
   .lead {
-    @apply text-muted-foreground text-base leading-normal;
+    @apply text-muted-foreground text-base leading-6;
   }
 
   /* small muted paragraph (Muted) */
@@ -61,6 +61,7 @@
   /* small, bold, all-caps label (CapsLabel) */
   .capsLabel {
     @apply text-heading block text-xs font-semibold tracking-widest uppercase;
+    font-family: var(--font-inter), var(--font-geist-sans), sans-serif;
   }
 
   /* fine print / secondary text */

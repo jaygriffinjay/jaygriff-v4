@@ -18,4 +18,5 @@
 /* nav link; same blue text + hover block as every other link */
 .navLink {
   @apply link text-sm font-medium;
+  font-family: var(--font-inter), var(--font-geist-sans), sans-serif;
 }

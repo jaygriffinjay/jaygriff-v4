@@ -7,10 +7,10 @@
 
 /* rule under the section's caps label */
 .heading {
-  @apply border-separator border-b pb-2;
+  @apply border-border border-b pb-2;
 }
 
 /* section content below the heading */
 .body {
-  @apply pt-3 text-sm;
+  @apply pt-3 text-[0.9375rem] leading-6;
 }
