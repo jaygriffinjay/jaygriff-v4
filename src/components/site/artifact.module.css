@@ -89,7 +89,7 @@
 
 /* the button itself: a dark editor chip like a code block's buttons, so it reads over any artifact; hovering it lightens that chip, and it keeps the lighter look while its menu is open. No focus ring, since it only shows while the frame is hovered or focused anyway */
 .control {
-  @apply inline-flex size-7 items-center justify-center rounded-lg outline-none;
+  @apply inline-flex size-7 items-center justify-center rounded-md outline-none;
   color: #858585;
   background: #1e1e1e;
 
