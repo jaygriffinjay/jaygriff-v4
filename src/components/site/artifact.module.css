@@ -73,9 +73,9 @@
     @apply opacity-100;
   }
 
-  /* an invisible margin around the button, so it shows as the pointer approaches, not only once it's on top of it */
+  /* an invisible margin around the button, so it shows as the pointer approaches, not only once it's on top of it; behind the button, so the button itself still gets the pointer */
   &::before {
-    @apply absolute -inset-6;
+    @apply absolute -inset-6 -z-10;
     content: "";
   }
 }
