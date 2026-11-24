@@ -39,7 +39,7 @@ export function Artifact({
   size?: keyof typeof sizes;
   /** A picture standing in for the artifact, as in a feed. With one, no frame is loaded until Fullscreen is chosen, and minimizing removes it again. */
   poster?: React.ReactNode;
-  /** The path of the artifact's own page, for the menu's About. */
+  /** The path of the artifact's own page. A card that gives one gets the menu once expanded, with About pointing here; without one (a list that is already all artifacts), expanded is just a Minimize button. */
   href?: string;
   className?: string;
 }) {
@@ -143,7 +143,7 @@ export function Artifact({
       )}
       {hasPoster && expanded && !loaded && <Spinner className={styles.spinner} />}
       <div className={styles.controls}>
-        {!hasPoster || !expanded ? (
+        {!(hasPoster && expanded && href) ? (
           // One plain button, with no menu to wonder about: it goes fullscreen, or on the artifact's own page, back. A card shows it all the time; the page shows it on hover
           <button
             type="button"

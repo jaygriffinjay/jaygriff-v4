@@ -87,30 +87,20 @@
   }
 }
 
-/* the button itself: a dark editor chip like a code block's buttons, so it reads over any artifact; hovering it lightens that chip, and it keeps the lighter look while its menu is open. No focus ring, since it only shows while the frame is hovered or focused anyway */
+/* the button itself, the same size everywhere (a card, an artifact's page, fullscreen): a dark editor chip like a code block's buttons, so it reads over any artifact; hovering it lightens that chip, and it keeps the lighter look while its menu is open. No focus ring, since it only shows while the frame is hovered or focused anyway */
 .control {
-  @apply inline-flex size-7 items-center justify-center rounded-md outline-none;
+  @apply inline-flex size-9 items-center justify-center rounded-md outline-none;
   color: #858585;
   background: #1e1e1e;
 
   & svg {
-    @apply size-4;
+    @apply size-5;
   }
 
   &:hover,
   &[aria-expanded="true"] {
     color: #e5e5e5;
     background: #2e2e2e;
-  }
-}
-
-/* the bigger button: on a full screen, where it's the only thing, and on an artifact's own page, where it's the one control */
-.root[data-expanded] .control,
-.root:not([data-poster]) .control {
-  @apply size-9;
-
-  & svg {
-    @apply size-5;
   }
 }
 
