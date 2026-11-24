@@ -1,16 +1,26 @@
 @reference "../../app/globals.css";
 
-/* link list in the Elsewhere section */
-.list {
-  @apply space-y-2;
+/* the homepage introduction above the full-feed link */
+.introduction {
+  @apply flex flex-col items-center gap-3 text-center wide:items-start wide:text-left;
 }
 
-/* external profile link in the Elsewhere section */
-.link {
-  @apply link;
+/* page title sized for the sidebar */
+.introTitle {
+  @apply m-0 text-h2;
+}
+
+/* introduction copy at sidebar body size */
+.introCopy {
+  @apply m-0 text-[0.9375rem] leading-6;
 }
 
 /* the full-feed link in its own aside section */
 .feedLink {
   @apply link inline-block;
+}
+
+/* links replacing the home page's About and Notes nav items */
+.exploreLinks {
+  @apply flex flex-wrap gap-x-4 gap-y-2;
 }
