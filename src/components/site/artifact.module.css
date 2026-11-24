@@ -57,9 +57,9 @@
   @apply text-muted-foreground pointer-events-none fixed top-1/2 left-1/2 z-50 size-6 -translate-x-1/2 -translate-y-1/2;
 }
 
-/* shown the moment the frame is hovered or focused or its menu is open */
+/* shown the moment the frame is hovered or its buttons are focused from the keyboard or its menu is open. Keyboard focus only: a mouse click leaves focus on the button, which would keep it showing after the pointer left */
 .root:not([data-expanded]):hover .controls,
-.root:not([data-expanded]):focus-within .controls,
+.root:not([data-expanded]):has(:focus-visible) .controls,
 .controls:has([aria-expanded="true"]) {
   @apply opacity-100;
 }
@@ -69,7 +69,7 @@
   @apply fixed top-3 right-3 z-50;
 
   &:hover,
-  &:focus-within {
+  &:has(:focus-visible) {
     @apply opacity-100;
   }
 
@@ -104,8 +104,9 @@
   }
 }
 
-/* expanded: a slightly bigger button, as it's the only thing on a full screen */
-.root[data-expanded] .control {
+/* the bigger button: on a full screen, where it's the only thing, and on an artifact's own page, where it's the one control */
+.root[data-expanded] .control,
+.root:not([data-poster]) .control {
   @apply size-9;
 
   & svg {
