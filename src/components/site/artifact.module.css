@@ -39,7 +39,23 @@
 .controls {
   @apply absolute top-1.5 right-1.5 z-10 rounded-lg p-0.5 opacity-0;
   background: #1e1e1e;
+}
+
+/* named so the browser can morph it too; a transition name must be unique on the page, so a poster's controls (one per feed entry) are named only while expanded or morphing */
+.root:not([data-poster]) .controls,
+.root[data-expanded] .controls,
+.root[data-morphing] .controls {
   view-transition-name: artifact-controls;
+}
+
+/* a poster's picture takes the frame's name while the card is morphing and not expanded, so the browser grows it into the frame and shrinks the frame back into it; never while expanded, when the frame holds the name */
+.root[data-poster][data-morphing]:not([data-expanded]) img {
+  view-transition-name: artifact-frame;
+}
+
+/* the spinner over a poster's frame while the artifact loads: centered on the screen, above the frame, and not in the way of the controls */
+.spinner {
+  @apply text-muted-foreground pointer-events-none fixed top-1/2 left-1/2 z-50 size-6 -translate-x-1/2 -translate-y-1/2;
 }
 
 .root:hover .controls,

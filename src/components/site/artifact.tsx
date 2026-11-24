@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 import styles from "./artifact.module.css";
 
@@ -26,6 +27,7 @@ export function Artifact({
   src,
   title,
   size = "md",
+  poster,
   className,
 }: {
   /** The full URL of the artifact's HTML file, where it's hosted. */
@@ -34,12 +36,17 @@ export function Artifact({
   title: string;
   /** The frame's minimum height, and its height until the artifact reports its own. */
   size?: keyof typeof sizes;
+  /** A picture standing in for the artifact, as in a feed. With one, no frame is loaded until Fullscreen is chosen, and minimizing removes it again. */
+  poster?: React.ReactNode;
   className?: string;
 }) {
+  const hasPoster = poster !== undefined;
   const root = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLIFrameElement>(null);
   const [height, setHeight] = useState<number | null>(null);
   const [expanded, setExpanded] = useState(false);
+  // A poster's frame loads on demand; this is whether it has yet, so a spinner can cover the wait
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
@@ -63,23 +70,30 @@ export function Artifact({
     const apply = () => {
       // The expanded frame leaves the page's flow, so its box keeps the height meanwhile
       if (next) el.style.height = `${el.offsetHeight}px`;
+      if (next) setLoaded(false);
       if (animate) flushSync(() => setExpanded(next));
       else setExpanded(next);
       if (!next) el.style.removeProperty("height");
-      const url = new URL(location.href);
-      if (next) url.searchParams.set("fullscreen", "");
-      else url.searchParams.delete("fullscreen");
-      history.replaceState(history.state, "", url);
+      // A poster's page is the feed, which has no single artifact to link to
+      if (!hasPoster) {
+        const url = new URL(location.href);
+        if (next) url.searchParams.set("fullscreen", "");
+        else url.searchParams.delete("fullscreen");
+        history.replaceState(history.state, "", url);
+      }
     };
     const smooth = animate && typeof document.startViewTransition === "function" && !matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (smooth) document.startViewTransition(apply);
-    else apply();
-  }, []);
+    if (smooth) {
+      // A transition name must be unique on the page, so a feed's artifacts carry theirs only while one of them morphs
+      el.setAttribute("data-morphing", "");
+      document.startViewTransition(apply).finished.finally(() => el.removeAttribute("data-morphing"));
+    } else apply();
+  }, [hasPoster]);
 
   // A link with ?fullscreen opens the artifact expanded
   useEffect(() => {
-    if (new URLSearchParams(location.search).has("fullscreen")) toggle(true, false);
-  }, [toggle]);
+    if (!hasPoster && new URLSearchParams(location.search).has("fullscreen")) toggle(true, false);
+  }, [toggle, hasPoster]);
 
   // The page behind an expanded artifact doesn't scroll
   useLayoutEffect(() => {
@@ -106,19 +120,25 @@ export function Artifact({
   const sized = height !== null;
 
   return (
-    <div ref={root} className={styles.root} data-expanded={expanded ? "" : undefined}>
-      <iframe
-        ref={frame}
-        src={src}
-        title={title}
-        // Scripts run, but with no origin: no cookies or storage, no top-level navigation, no popups or forms
-        sandbox="allow-scripts allow-downloads allow-pointer-lock"
-        allowFullScreen
-        referrerPolicy="no-referrer"
-        loading="lazy"
-        height={sized ? height : undefined}
-        className={cn(styles.frame, sizes[size], !sized && styles.pending, className)}
-      />
+    <div ref={root} className={styles.root} data-expanded={expanded ? "" : undefined} data-poster={hasPoster ? "" : undefined}>
+      {poster}
+      {/* With a poster, the frame exists only while expanded, so nothing loads until Fullscreen is chosen */}
+      {(!hasPoster || expanded) && (
+        <iframe
+          ref={frame}
+          src={src}
+          title={title}
+          // Scripts run, but with no origin: no cookies or storage, no top-level navigation, no popups or forms
+          sandbox="allow-scripts allow-downloads allow-pointer-lock"
+          allowFullScreen
+          referrerPolicy="no-referrer"
+          loading={hasPoster ? "eager" : "lazy"}
+          height={sized ? height : undefined}
+          onLoad={() => setLoaded(true)}
+          className={cn(styles.frame, sizes[size], !sized && styles.pending, className)}
+        />
+      )}
+      {hasPoster && expanded && !loaded && <Spinner className={styles.spinner} />}
       <div className={styles.controls}>
         {/* Opens on hover, with no wait, like the menu on a Claude artifact */}
         <DropdownMenu>

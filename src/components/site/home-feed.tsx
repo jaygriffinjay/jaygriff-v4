@@ -5,6 +5,7 @@ import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { H3, H4, Muted, Paragraph } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
 import { excerpt } from "@/lib/excerpt";
+import { Artifact } from "./artifact";
 import type { ContentItem } from "@/lib/goatboat";
 import { cn } from "@/lib/utils";
 import styles from "./home-feed.module.css";
@@ -52,7 +53,7 @@ const sectionsIn = (item: ContentItem) => (item.toc ?? []).filter((e) => e.depth
 function Hero({ item, shape }: { item: ContentItem; shape: "above" | "wide" | "between" }) {
   const image = heroOf(item);
   if (!image) return null;
-  return (
+  const picture = (
     // The title already links to the page, so this link stays out of the tab order
     <NextLink href={item.path} className={styles.hero} data-shape={shape} tabIndex={-1} aria-hidden="true">
       <Image
@@ -66,6 +67,9 @@ function Hero({ item, shape }: { item: ContentItem; shape: "above" | "wide" | "b
       />
     </NextLink>
   );
+  // An artifact's picture gets the ellipsis menu; its Fullscreen loads the html file from where it's hosted, right here in the feed
+  const file = item.type === "artifact" ? item.assets.find((a) => a.kind === "html") : undefined;
+  return file ? <Artifact src={file.url} title={item.title} poster={picture} /> : picture;
 }
 /** What's left after the opening, in brackets: words for prose, sections for a code page. Nothing when there's no more; the title is the way in. */
 function Count({ item, moreWords }: { item: ContentItem; moreWords?: number }) {
