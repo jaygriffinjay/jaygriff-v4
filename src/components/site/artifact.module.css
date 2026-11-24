@@ -57,16 +57,27 @@
   @apply text-muted-foreground pointer-events-none fixed top-1/2 left-1/2 z-50 size-6 -translate-x-1/2 -translate-y-1/2;
 }
 
-/* shown the moment the frame is hovered or focused or its menu is open; expanded, the same, so the artifact fills the screen until the pointer moves */
-.root:hover .controls,
-.root:focus-within .controls,
+/* shown the moment the frame is hovered or focused or its menu is open */
+.root:not([data-expanded]):hover .controls,
+.root:not([data-expanded]):focus-within .controls,
 .controls:has([aria-expanded="true"]) {
   @apply opacity-100;
 }
 
-/* expanded: the buttons leave the frame's box and sit over the screen's corner */
+/* expanded: the buttons leave the frame's box and sit over the screen's corner. The frame fills the screen, so the pointer is always over it; instead they show when the pointer comes near the corner, or when they're focused */
 .root[data-expanded] .controls {
   @apply fixed top-3 right-3 z-50;
+
+  &:hover,
+  &:focus-within {
+    @apply opacity-100;
+  }
+
+  /* an invisible margin around the button, so it shows as the pointer approaches, not only once it's on top of it */
+  &::before {
+    @apply absolute -inset-6;
+    content: "";
+  }
 }
 
 /* no hover on touch screens, so the button stays visible there */
@@ -96,6 +107,20 @@
 /* expanded: a slightly bigger button, as it's the only thing on a full screen */
 .root[data-expanded] .control {
   @apply size-9;
+
+  & svg {
+    @apply size-5;
+  }
+}
+
+/* the menu inside an expanded card's artifact, a little roomier to match the bigger button */
+.menu {
+  @apply min-w-48 p-1.5;
+}
+
+/* one row of that menu */
+.menuItem {
+  @apply gap-3 px-3 py-2 text-base;
 
   & svg {
     @apply size-5;

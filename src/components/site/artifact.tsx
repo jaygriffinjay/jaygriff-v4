@@ -164,23 +164,23 @@ export function Artifact({
             >
               <EllipsisIcon />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => toggle(false)}>
+            <DropdownMenuContent align="end" className={styles.menu}>
+              <DropdownMenuItem className={styles.menuItem} onClick={() => toggle(false)}>
                 <Minimize2Icon />
                 Minimize
               </DropdownMenuItem>
               {href && (
-                <DropdownMenuItem render={<NextLink href={href} />}>
+                <DropdownMenuItem className={styles.menuItem} render={<NextLink href={href} />}>
                   <ExternalLinkIcon />
                   About
                 </DropdownMenuItem>
               )}
-              <DropdownMenuItem render={<NextLink href="/artifacts" />}>
+              <DropdownMenuItem className={styles.menuItem} render={<NextLink href="/artifacts" />}>
                 <LayoutGridIcon />
                 More
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem render={<NextLink href="/about" />}>Made by Jay</DropdownMenuItem>
+              <DropdownMenuItem className={styles.menuItem} render={<NextLink href="/about" />}>Made by Jay</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )}
