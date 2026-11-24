@@ -35,10 +35,9 @@
   @apply fixed inset-0 z-50 h-dvh rounded-none border-0;
 }
 
-/* the ellipsis button over the frame's top-right corner, on the same dark editor chip as a code block's buttons so it reads over any artifact; appears the moment the frame is hovered or focused or its menu is open, and stays while expanded */
+/* where the button sits: the frame's top-right corner, hidden until the frame is hovered or focused or the menu is open, and showing all the time on touch screens (below). It only positions; the button is the dark chip */
 .controls {
-  @apply absolute top-1.5 right-1.5 z-10 rounded-lg p-0.5 opacity-0;
-  background: #1e1e1e;
+  @apply absolute top-1.5 right-1.5 z-10 opacity-0;
 }
 
 /* named so the browser can morph it too; a transition name must be unique on the page, so a poster's controls (one per feed entry) are named only while expanded or morphing */
@@ -58,20 +57,16 @@
   @apply text-muted-foreground pointer-events-none fixed top-1/2 left-1/2 z-50 size-6 -translate-x-1/2 -translate-y-1/2;
 }
 
+/* shown the moment the frame is hovered or focused or its menu is open; expanded, the same, so the artifact fills the screen until the pointer moves */
 .root:hover .controls,
 .root:focus-within .controls,
-.controls:has([aria-expanded="true"]),
-.root[data-expanded] .controls {
+.controls:has([aria-expanded="true"]) {
   @apply opacity-100;
 }
 
+/* expanded: the buttons leave the frame's box and sit over the screen's corner */
 .root[data-expanded] .controls {
   @apply fixed top-3 right-3 z-50;
-}
-
-/* a card's expand button is always showing: it's the way in, so it shouldn't wait for a hover to be found */
-.root[data-poster] .controls {
-  @apply opacity-100;
 }
 
 /* no hover on touch screens, so the button stays visible there */
@@ -81,17 +76,28 @@
   }
 }
 
-/* the button itself, in the code block's greys; no focus ring, since it only shows while the frame is hovered or focused anyway */
+/* the button itself: a dark editor chip like a code block's buttons, so it reads over any artifact; hovering it lightens that chip, and it keeps the lighter look while its menu is open. No focus ring, since it only shows while the frame is hovered or focused anyway */
 .control {
-  @apply inline-flex size-7 items-center justify-center rounded-md outline-none;
+  @apply inline-flex size-7 items-center justify-center rounded-lg outline-none;
   color: #858585;
+  background: #1e1e1e;
 
   & svg {
     @apply size-4;
   }
 
-  &:hover {
+  &:hover,
+  &[aria-expanded="true"] {
     color: #e5e5e5;
-    background: rgb(255 255 255 / 8%);
+    background: #2e2e2e;
+  }
+}
+
+/* expanded: a slightly bigger button, as it's the only thing on a full screen */
+.root[data-expanded] .control {
+  @apply size-9;
+
+  & svg {
+    @apply size-5;
   }
 }
