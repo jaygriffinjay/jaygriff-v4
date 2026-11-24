@@ -1,0 +1,159 @@
+@reference "../../../../../globals.css";
+
+/* one interactive specimen with its font controls above */
+.preview {
+  @apply w-full min-w-0;
+}
+
+/* search and cycling controls */
+.toolbar {
+  @apply mb-5 flex flex-wrap items-end justify-between gap-3;
+}
+
+/* font picker label and input */
+.pickerLabel {
+  @apply flex min-w-0 flex-1 flex-col gap-1.5;
+}
+
+/* small label above the family input */
+.labelText {
+  @apply text-muted-foreground text-xs;
+}
+
+/* searchable font-family field */
+.picker {
+  @apply bg-input/50 focus-visible:focus-ring h-9 min-w-0 rounded-md border border-border px-3 text-sm text-foreground outline-none;
+}
+
+/* font count and previous/next buttons */
+.navigation {
+  @apply flex shrink-0 items-center gap-1;
+}
+
+/* current position in the catalog */
+.count {
+  @apply mr-2 whitespace-nowrap;
+}
+
+/* previous/next icon control */
+.step {
+  @apply text-primary hover:bg-muted focus-visible:focus-ring inline-flex size-9 items-center justify-center rounded-md disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+/* arrow glyph in the cycle controls */
+.step svg {
+  @apply size-5;
+}
+
+/* catalog-load error status */
+.error {
+  @apply text-destructive mb-4 text-sm;
+}
+
+/* the actual tagline, header, navigation, and footer share one selected family */
+.specimen {
+  @apply w-full min-w-0;
+}
+
+/* selected family name and category */
+.familyName {
+  @apply mb-3 block;
+}
+
+/* tagline sample at the site's body size and color */
+.tagline {
+  @apply mb-4 text-base leading-6;
+}
+
+/* the real header and nav, blending into the page above the tagline */
+.headerPreview {
+  @apply my-4;
+}
+
+/* keep the actual header from sticking over the rest of the specimen */
+.headerPreview .sampleHeader {
+  position: static;
+}
+
+/* keep the real footer in the specimen's selected family */
+.footerPreview {
+  font-family: inherit;
+}
+
+/* separate local Inter variable-font controls from the Google font catalog */
+.interSection {
+  @apply border-border mt-8 border-t pt-6;
+}
+
+/* Inter variable specimen heading */
+.interTitle {
+  @apply mb-4;
+}
+
+/* paired Inter axis controls, stacked on narrow screens */
+.variableControls {
+  @apply mb-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2;
+}
+
+/* one variable axis and its range */
+.axisControl {
+  @apply min-w-0;
+}
+
+/* axis name and live numeric value */
+.axisHeading {
+  @apply mb-1 flex items-baseline justify-between gap-3;
+}
+
+/* axis name above its slider */
+.axisName {
+  @apply text-foreground text-sm font-medium;
+}
+
+/* current axis value */
+.axisValue {
+  @apply font-mono text-foreground text-sm tabular-nums;
+}
+
+/* native Inter axis range control */
+.axisSlider {
+  @apply block h-5 w-full cursor-pointer appearance-none bg-transparent;
+  touch-action: pan-y;
+}
+
+/* keyboard focus ring for the axis control */
+.axisSlider:focus-visible {
+  @apply focus-ring;
+}
+
+/* WebKit track styling */
+.axisSlider::-webkit-slider-runnable-track {
+  @apply h-1 rounded-full bg-input;
+}
+
+/* Firefox track styling */
+.axisSlider::-moz-range-track {
+  @apply h-1 rounded-full bg-input;
+}
+
+/* WebKit thumb styling */
+.axisSlider::-webkit-slider-thumb {
+  @apply size-4 appearance-none rounded-full border-0 bg-white;
+  margin-top: -6px;
+}
+
+/* Firefox thumb styling */
+.axisSlider::-moz-range-thumb {
+  @apply size-4 rounded-full border-0 bg-white;
+}
+
+/* minimum and maximum axis values */
+.axisRange {
+  @apply text-muted-foreground flex justify-between text-xs;
+}
+
+/* Inter family applied to the real site elements below */
+.interSpecimen {
+  @apply w-full min-w-0;
+  font-family: var(--font-inter), var(--font-geist-sans), sans-serif;
+}

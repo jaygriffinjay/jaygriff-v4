@@ -1,0 +1,128 @@
+@reference "../../../../../globals.css";
+
+/* the test page's intro and comparison sections */
+.page {
+  @apply flex flex-col gap-10;
+}
+
+/* title and notes about the test variants */
+.intro {
+  @apply flex flex-col gap-3;
+}
+
+/* one frame treatment applied to the same set of entries */
+.variant {
+  @apply flex flex-col gap-4;
+}
+
+/* comparison heading without extra browser heading margins */
+.heading {
+  @apply m-0;
+}
+
+/* the three content types shown for each treatment */
+.entries {
+  @apply flex flex-col gap-6;
+}
+
+/* one isolated item frame under test */
+.entry {
+  @apply min-w-0;
+}
+
+/* image and writing content inside a frame with room for test rails */
+.frame {
+  @apply relative flex min-w-0 flex-col gap-3 px-6 pb-4;
+}
+
+/* vertical rail centered in the frame, at the selected length */
+.verticalRail {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1px;
+  transform: translateY(-50%);
+  background-color: var(--color-separator);
+
+  &[data-length="short"] { height: 25%; }
+  &[data-length="medium"] { height: 50%; }
+  &[data-length="long"] { height: 75%; }
+  &[data-length="full"] { height: 100%; }
+}
+
+/* horizontal rail centered at the frame bottom, at the selected length */
+.horizontalRail {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 1px;
+  transform: translateX(-50%);
+  background-color: var(--color-separator);
+
+  &[data-length="short"] { width: 25%; }
+  &[data-length="medium"] { width: 50%; }
+  &[data-length="long"] { width: 75%; }
+  &[data-length="full"] { width: 100%; }
+}
+
+/* shadow cast leftward from the vertical rail */
+.verticalRail[data-shadow="true"] {
+  filter: drop-shadow(-0.4rem 0 0.4rem color-mix(in oklch, var(--primary) 36%, transparent));
+}
+
+/* shadow cast downward from the horizontal rail */
+.horizontalRail[data-shadow="true"] {
+  filter: drop-shadow(0 0.4rem 0.4rem color-mix(in oklch, var(--primary) 36%, transparent));
+}
+
+/* sample image within the frame */
+.image {
+  @apply border-border bg-muted aspect-[2/1] w-full rounded-md border object-cover object-top;
+}
+
+/* entry title, copy, and metadata */
+.content {
+  @apply flex min-w-0 flex-col gap-3;
+}
+
+/* title and type badge */
+.titleRow {
+  @apply flex flex-wrap items-center gap-x-3 gap-y-1;
+}
+
+/* entry title without browser-default margins */
+.title {
+  @apply m-0;
+}
+
+/* description for items without body text */
+.description {
+  @apply m-0;
+}
+
+/* rendered writing excerpt */
+.body {
+  & > * + * {
+    @apply mt-flow;
+  }
+}
+
+/* excerpt continuation note */
+.more {
+  @apply m-0;
+}
+
+/* sample author, time, project, and tags */
+.metadata {
+  @apply flex flex-wrap items-center gap-x-3 gap-y-1;
+}
+
+/* hashtag group */
+.tags {
+  @apply flex flex-wrap gap-x-2 gap-y-1;
+}
+
+/* project identifier */
+.project {
+  @apply text-primary;
+}

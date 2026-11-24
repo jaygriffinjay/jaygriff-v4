@@ -1,0 +1,6 @@
+@reference "../../../../../globals.css";
+
+/* the one interactive preview of the tagline, header, navigation, and footer */
+.preview {
+  @apply w-full min-w-0;
+}
