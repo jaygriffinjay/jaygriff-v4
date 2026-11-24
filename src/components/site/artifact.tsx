@@ -143,13 +143,18 @@ export function Artifact({
       )}
       {hasPoster && expanded && !loaded && <Spinner className={styles.spinner} />}
       <div className={styles.controls}>
-        {hasPoster && !expanded ? (
-          // A card's only control: one plain way in, with no menu to wonder about. The options wait inside the artifact
-          <button type="button" className={styles.control} aria-label={`Open ${title} fullscreen`} onClick={() => toggle(true)}>
-            <Maximize2Icon />
+        {!hasPoster || !expanded ? (
+          // One plain button, with no menu to wonder about: it goes fullscreen, or on the artifact's own page, back. A card shows it all the time; the page shows it on hover
+          <button
+            type="button"
+            className={styles.control}
+            aria-label={expanded ? "Minimize" : hasPoster ? `Open ${title} fullscreen` : "Fullscreen"}
+            onClick={() => toggle(!expanded)}
+          >
+            {expanded ? <Minimize2Icon /> : <Maximize2Icon />}
           </button>
         ) : (
-          // Opens on hover, with no wait, like the menu on a Claude artifact
+          // Inside a card's artifact there's more to say, since the page behind it is the feed: opens on hover, with no wait
           <DropdownMenu>
             <DropdownMenuTrigger
               openOnHover
@@ -160,11 +165,10 @@ export function Artifact({
               <EllipsisIcon />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => toggle(!expanded)}>
-                {expanded ? <Minimize2Icon /> : <Maximize2Icon />}
-                {expanded ? "Minimize" : "Fullscreen"}
+              <DropdownMenuItem onClick={() => toggle(false)}>
+                <Minimize2Icon />
+                Minimize
               </DropdownMenuItem>
-              {/* A card's artifact can say where it lives; an artifact on its own page is already there */}
               {href && (
                 <DropdownMenuItem render={<NextLink href={href} />}>
                   <ExternalLinkIcon />
