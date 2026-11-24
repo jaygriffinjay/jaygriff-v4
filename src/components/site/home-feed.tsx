@@ -69,7 +69,7 @@ function Hero({ item, shape }: { item: ContentItem; shape: "above" | "wide" | "b
   );
   // An artifact's picture gets the ellipsis menu; its Fullscreen loads the html file from where it's hosted, right here in the feed
   const file = item.type === "artifact" ? item.assets.find((a) => a.kind === "html") : undefined;
-  return file ? <Artifact src={file.url} title={item.title} poster={picture} /> : picture;
+  return file ? <Artifact src={file.url} title={item.title} poster={picture} href={item.path} /> : picture;
 }
 /** What's left after the opening, in brackets: words for prose, sections for a code page. Nothing when there's no more; the title is the way in. */
 function Count({ item, moreWords }: { item: ContentItem; moreWords?: number }) {

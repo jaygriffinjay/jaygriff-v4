@@ -3,11 +3,13 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import NextLink from "next/link";
-import { EllipsisIcon, Maximize2Icon, Minimize2Icon } from "lucide-react";
+import { EllipsisIcon, ExternalLinkIcon, LinkIcon, Maximize2Icon, Minimize2Icon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -28,6 +30,7 @@ export function Artifact({
   title,
   size = "md",
   poster,
+  href,
   className,
 }: {
   /** The full URL of the artifact's HTML file, where it's hosted. */
@@ -38,6 +41,8 @@ export function Artifact({
   size?: keyof typeof sizes;
   /** A picture standing in for the artifact, as in a feed. With one, no frame is loaded until Fullscreen is chosen, and minimizing removes it again. */
   poster?: React.ReactNode;
+  /** The path of the artifact's own page, for the menu's About and Copy link. */
+  href?: string;
   className?: string;
 }) {
   const hasPoster = poster !== undefined;
@@ -47,6 +52,18 @@ export function Artifact({
   const [expanded, setExpanded] = useState(false);
   // A poster's frame loads on demand; this is whether it has yet, so a spinner can cover the wait
   const [loaded, setLoaded] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyLink = async () => {
+    if (!href) return;
+    try {
+      await navigator.clipboard.writeText(new URL(href, location.origin).href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // The browser refused the clipboard; there's nothing else to do
+    }
+  };
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
@@ -140,26 +157,51 @@ export function Artifact({
       )}
       {hasPoster && expanded && !loaded && <Spinner className={styles.spinner} />}
       <div className={styles.controls}>
-        {/* Opens on hover, with no wait, like the menu on a Claude artifact */}
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            openOnHover
-            delay={0}
-            closeDelay={200}
-            render={<button type="button" className={styles.control} aria-label="Artifact options" />}
-          >
-            <EllipsisIcon />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => toggle(!expanded)}>
-              {expanded ? <Minimize2Icon /> : <Maximize2Icon />}
-              {expanded ? "Minimize" : "Fullscreen"}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem render={<NextLink href="/about" />}>Made by Jay</DropdownMenuItem>
-            <DropdownMenuItem render={<NextLink href="/artifacts" />}>More artifacts</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {hasPoster && !expanded ? (
+          // A card's only control: one plain way in, with no menu to wonder about. The options wait inside the artifact
+          <button type="button" className={styles.control} aria-label={`Open ${title} fullscreen`} onClick={() => toggle(true)}>
+            <Maximize2Icon />
+          </button>
+        ) : (
+          // Opens on hover, with no wait, like the menu on a Claude artifact
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              openOnHover
+              delay={0}
+              closeDelay={200}
+              render={<button type="button" className={styles.control} aria-label="Artifact options" />}
+            >
+              <EllipsisIcon />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {/* Inside a card's artifact, the menu answers where you are and where to go next */}
+              {hasPoster && (
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel>{title}</DropdownMenuLabel>
+                </DropdownMenuGroup>
+              )}
+              <DropdownMenuItem onClick={() => toggle(!expanded)}>
+                {expanded ? <Minimize2Icon /> : <Maximize2Icon />}
+                {expanded ? "Minimize" : "Fullscreen"}
+              </DropdownMenuItem>
+              {href && (
+                <>
+                  <DropdownMenuItem render={<NextLink href={href} />}>
+                    <ExternalLinkIcon />
+                    About
+                  </DropdownMenuItem>
+                  <DropdownMenuItem closeOnClick={false} onClick={copyLink}>
+                    <LinkIcon />
+                    {copied ? "Copied" : "Copy link"}
+                  </DropdownMenuItem>
+                </>
+              )}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem render={<NextLink href="/about" />}>Made by Jay</DropdownMenuItem>
+              <DropdownMenuItem render={<NextLink href="/artifacts" />}>More artifacts</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </div>
   );

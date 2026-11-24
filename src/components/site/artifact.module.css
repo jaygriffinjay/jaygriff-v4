@@ -69,6 +69,11 @@
   @apply fixed top-3 right-3 z-50;
 }
 
+/* a card's expand button is always showing: it's the way in, so it shouldn't wait for a hover to be found */
+.root[data-poster] .controls {
+  @apply opacity-100;
+}
+
 /* no hover on touch screens, so the button stays visible there */
 @media (hover: none) {
   .controls {
