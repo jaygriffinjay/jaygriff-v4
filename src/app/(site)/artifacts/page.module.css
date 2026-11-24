@@ -20,9 +20,14 @@
   @apply grid gap-6 sm:grid-cols-2 wide:grid-cols-3;
 }
 
-/* one artifact: a link around its picture, title and description */
+/* one artifact: its picture, then a link around its title, description and tags; lights up when either is hovered */
 .card {
-  @apply border-border hover:bg-muted focus-visible:focus-ring flex h-full flex-col overflow-hidden rounded-lg border;
+  @apply border-border hover:bg-muted flex h-full flex-col overflow-hidden rounded-lg border;
+}
+
+/* the link around the picture */
+.coverLink {
+  @apply block;
 }
 
 /* the artifact's thumbnail */
@@ -35,9 +40,9 @@
   @apply bg-muted aspect-video w-full;
 }
 
-/* the text under the picture */
-.cardBody {
-  @apply flex flex-col gap-1 p-4;
+/* the link around the text under the picture, filling the rest of the card */
+.cardLink {
+  @apply focus-visible:focus-ring flex flex-1 flex-col gap-1 p-4;
 }
 
 /* the artifact's title */

@@ -35,22 +35,49 @@
   @apply fixed inset-0 z-50 h-dvh rounded-none border-0;
 }
 
-/* the ellipsis button over the frame's top-right corner, on the same dark editor chip as a code block's buttons so it reads over any artifact; appears the moment the frame is hovered or focused or its menu is open, and stays while expanded */
+/* where the button sits: the frame's top-right corner, hidden until the frame is hovered or focused or the menu is open, and showing all the time on touch screens (below). It only positions; the button is the dark chip */
 .controls {
-  @apply absolute top-1.5 right-1.5 z-10 rounded-lg p-0.5 opacity-0;
-  background: #1e1e1e;
+  @apply absolute top-1.5 right-1.5 z-10 opacity-0;
+}
+
+/* named so the browser can morph it too; a transition name must be unique on the page, so a poster's controls (one per feed entry) are named only while expanded or morphing */
+.root:not([data-poster]) .controls,
+.root[data-expanded] .controls,
+.root[data-morphing] .controls {
   view-transition-name: artifact-controls;
 }
 
-.root:hover .controls,
-.root:focus-within .controls,
-.controls:has([aria-expanded="true"]),
-.root[data-expanded] .controls {
+/* a poster's picture takes the frame's name while the card is morphing and not expanded, so the browser grows it into the frame and shrinks the frame back into it; never while expanded, when the frame holds the name */
+.root[data-poster][data-morphing]:not([data-expanded]) img {
+  view-transition-name: artifact-frame;
+}
+
+/* the spinner over a poster's frame while the artifact loads: centered on the screen, above the frame, and not in the way of the controls */
+.spinner {
+  @apply text-muted-foreground pointer-events-none fixed top-1/2 left-1/2 z-50 size-6 -translate-x-1/2 -translate-y-1/2;
+}
+
+/* shown the moment the frame is hovered or its buttons are focused from the keyboard or its menu is open. Keyboard focus only: a mouse click leaves focus on the button, which would keep it showing after the pointer left */
+.root:not([data-expanded]):hover .controls,
+.root:not([data-expanded]):has(:focus-visible) .controls,
+.controls:has([aria-expanded="true"]) {
   @apply opacity-100;
 }
 
+/* expanded: the buttons leave the frame's box and sit over the screen's corner. The frame fills the screen, so the pointer is always over it; instead they show when the pointer comes near the corner, or when they're focused */
 .root[data-expanded] .controls {
   @apply fixed top-3 right-3 z-50;
+
+  &:hover,
+  &:has(:focus-visible) {
+    @apply opacity-100;
+  }
+
+  /* an invisible margin around the button, so it shows as the pointer approaches, not only once it's on top of it; behind the button, so the button itself still gets the pointer */
+  &::before {
+    @apply absolute -inset-6 -z-10;
+    content: "";
+  }
 }
 
 /* no hover on touch screens, so the button stays visible there */
@@ -60,17 +87,33 @@
   }
 }
 
-/* the button itself, in the code block's greys; no focus ring, since it only shows while the frame is hovered or focused anyway */
+/* the button itself, the same size everywhere (a card, an artifact's page, fullscreen): a dark editor chip like a code block's buttons, so it reads over any artifact; hovering it lightens that chip, and it keeps the lighter look while its menu is open. No focus ring, since it only shows while the frame is hovered or focused anyway */
 .control {
-  @apply inline-flex size-7 items-center justify-center rounded-md outline-none;
+  @apply inline-flex size-9 items-center justify-center rounded-md outline-none;
   color: #858585;
+  background: #1e1e1e;
 
   & svg {
-    @apply size-4;
+    @apply size-5;
   }
 
-  &:hover {
+  &:hover,
+  &[aria-expanded="true"] {
     color: #e5e5e5;
-    background: rgb(255 255 255 / 8%);
+    background: #2e2e2e;
+  }
+}
+
+/* the menu inside an expanded card's artifact, a little roomier to match the bigger button */
+.menu {
+  @apply min-w-48 p-1.5;
+}
+
+/* one row of that menu */
+.menuItem {
+  @apply gap-3 px-3 py-2 text-base;
+
+  & svg {
+    @apply size-5;
   }
 }
