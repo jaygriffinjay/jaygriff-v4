@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import NextLink from "next/link";
-import { EllipsisIcon, Maximize2Icon, Minimize2Icon } from "lucide-react";
+import { EllipsisIcon, ExternalLinkIcon, LayoutGridIcon, Maximize2Icon, Minimize2Icon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -165,8 +165,16 @@ export function Artifact({
                 {expanded ? "Minimize" : "Fullscreen"}
               </DropdownMenuItem>
               {/* A card's artifact can say where it lives; an artifact on its own page is already there */}
-              {href && <DropdownMenuItem render={<NextLink href={href} />}>About</DropdownMenuItem>}
-              <DropdownMenuItem render={<NextLink href="/artifacts" />}>More</DropdownMenuItem>
+              {href && (
+                <DropdownMenuItem render={<NextLink href={href} />}>
+                  <ExternalLinkIcon />
+                  About
+                </DropdownMenuItem>
+              )}
+              <DropdownMenuItem render={<NextLink href="/artifacts" />}>
+                <LayoutGridIcon />
+                More
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem render={<NextLink href="/about" />}>Made by Jay</DropdownMenuItem>
             </DropdownMenuContent>
