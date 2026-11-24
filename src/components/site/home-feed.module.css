@@ -94,7 +94,7 @@
 }
 
 .image {
-  @apply bg-muted w-full rounded-lg object-cover object-top;
+  @apply bg-muted w-full rounded-lg border border-border object-cover object-top;
 }
 
 /* the picture's shape: widescreen, or a shorter strip, or widescreen between the title and the opening */
