@@ -3,10 +3,10 @@ import { cn } from "@/lib/utils";
 import styles from "./nav.module.css";
 
 const navRoutes = [
-  { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "Posts", href: "/posts" },
   { label: "Notes", href: "/notes" },
+  { label: "Artifacts", href: "/artifacts" },
   { label: "About", href: "/about" },
 
 ];
