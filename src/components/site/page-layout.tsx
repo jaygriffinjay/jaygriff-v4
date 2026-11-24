@@ -14,8 +14,14 @@ import styles from "./page-layout.module.css";
 
 interface PageLayoutProps {
   children: React.ReactNode;
+  /** Full-bleed page background rendered behind the content panel. */
+  background?: React.ReactNode;
   /** Page-specific side column: a sticky right rail on desktop. */
   aside?: React.ReactNode;
+  /** Keep the page-specific aside in document flow instead of pinning it during scroll. */
+  stickyAside?: boolean;
+  /** Hide the shared site navigation row on pages with their own primary controls. */
+  hideNav?: boolean;
   /** Where the aside goes when the page is one column: above the article (a table of contents) or below it. */
   asideOnMobile?: "top" | "bottom";
   /** For pages with no place in the tree (the 404): no breadcrumbs, related pages or prev/next. */
@@ -34,7 +40,10 @@ const MIN_AUTO_TOC = 2;
 
 export async function PageLayout({
   children,
+  background,
   aside: ownAside,
+  stickyAside = true,
+  hideNav = false,
   asideOnMobile: ownAsideOnMobile = "bottom",
   outsideTree,
   hideRelated,
@@ -48,7 +57,7 @@ export async function PageLayout({
   const autoToc = item?.toc && item.toc.length >= MIN_AUTO_TOC ? item : null;
   const aside = ownAside ?? (autoToc && <PageToc title={autoToc.title} entries={autoToc.toc!} />);
   const asideOnMobile = ownAside ? ownAsideOnMobile : "top";
-  const asideBlock = aside && <div className={styles.aside}>{aside}</div>;
+  const asideBlock = aside && <div className={styles.aside} data-sticky={stickyAside ? undefined : "false"}>{aside}</div>;
   const notes = outsideTree ? null : await getCurrentNotes();
 
   return (
@@ -68,10 +77,12 @@ export async function PageLayout({
         </div>
       )}
       <div className={cn(styles.panel, aside && styles.panelWithAside)}>
-        <div className={styles.navRow}>
-          <SiteNav />
-          {!outsideTree && <Breadcrumbs />}
-        </div>
+        {!hideNav && (
+          <div className={styles.navRow}>
+            <SiteNav />
+            {!outsideTree && <Breadcrumbs />}
+          </div>
+        )}
         {(notes || tocButton) && (
           <div className={cn(styles.notes, !tocButton && styles.notesOnlyButton)}>
             {notes && (
@@ -90,6 +101,7 @@ export async function PageLayout({
         </main>
         {asideOnMobile === "bottom" && asideBlock}
       </div>
+        {background && <div className={styles.background}>{background}</div>}
     </div>
   );
 }

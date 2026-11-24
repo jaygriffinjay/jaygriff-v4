@@ -1,5 +1,6 @@
 import Image from "next/image";
 import NextLink from "next/link";
+import type { ReactNode } from "react";
 import { Box, CodeXml } from "lucide-react";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { H3, H4, Muted, Paragraph } from "@/components/typography";
@@ -11,6 +12,12 @@ import styles from "./home-feed.module.css";
 
 /** Where an entry's picture goes: above its title, above it but shorter, between the title and the opening, or not at all. */
 export type HeroStyle = "above" | "wide" | "between" | "none";
+export type MetadataField = "time" | "project" | "tags" | "authors";
+export type MetadataOrder = readonly MetadataField[];
+export type MetadataLayout = "inline" | "project-tags";
+
+const DEFAULT_METADATA_ORDER: MetadataOrder = ["time", "authors", "project", "tags"];
+const DEFAULT_METADATA_LAYOUT: MetadataLayout = "project-tags";
 
 // Jay is in Central time; the server's own zone (UTC on Vercel) would shift times and even days
 const TIME_ZONE = "America/Chicago";
@@ -33,9 +40,13 @@ const timeOf = (item: ContentItem) =>
         .toLowerCase()
     : null;
 
-/** Entries in groups of one day each, newest day first. */
-function byDay(items: ContentItem[]) {
-  const sorted = [...items].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+/** Entries in groups of one day each, in the requested chronological direction. */
+function byDay(items: ContentItem[], sort: "latest" | "oldest") {
+  const sorted = [...items].sort((a, b) =>
+    sort === "oldest"
+      ? (a.publishedAt ?? "").localeCompare(b.publishedAt ?? "")
+      : (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
+  );
   const days = new Map<string, ContentItem[]>();
   for (const item of sorted) days.set(dayOf(item), [...(days.get(dayOf(item)) ?? []), item]);
   return [...days];
@@ -61,7 +72,7 @@ function Hero({ item, shape }: { item: ContentItem; shape: "above" | "wide" | "b
         width={1280}
         height={720}
         sizes="(min-width: 56rem) 42rem, calc(100vw - 2rem)"
-        unoptimized={image.url.endsWith(".svg")}
+        unoptimized={image.url.startsWith("/") || image.url.endsWith(".svg")}
         className={styles.image}
       />
     </NextLink>
@@ -88,22 +99,32 @@ const tagHref = (item: ContentItem, tag: string) =>
     ? `/artifacts?tag=${encodeURIComponent(tag)}`
     : `/projects/goatboat/notes/feed?tag=${encodeURIComponent(tag)}`;
 
-/** Time, project, hashtags and authors, with middle dots between. */
-function TagLine({ item }: { item: ContentItem }) {
+/** Time, project, hashtags and authors in the selected order. */
+function TagLine({
+  item,
+  order,
+  layout,
+  separators,
+}: {
+  item: ContentItem;
+  order: MetadataOrder;
+  layout: MetadataLayout;
+  separators: boolean;
+}) {
   const time = timeOf(item);
-  const parts = [
-    time && (
+  const parts: Record<MetadataField, ReactNode | null> = {
+    time: time ? (
       <NextLink key="time" href={item.path} className={styles.quietLink}>
         {time}
       </NextLink>
-    ),
-    item.project && (
+    ) : null,
+    project: item.project ? (
       <NextLink key="project" href={`/projects/${item.project.slug}`} className={styles.projectLink}>
         <Box aria-hidden className={styles.projectIcon} />
         {item.project.title}
       </NextLink>
-    ),
-    item.tags?.length ? (
+    ) : null,
+    tags: item.tags?.length ? (
       <span key="tags" className={styles.hashTags}>
         {item.tags.map((tag) => (
           <NextLink key={tag} href={tagHref(item, tag)} className={styles.link}>
@@ -112,26 +133,52 @@ function TagLine({ item }: { item: ContentItem }) {
         ))}
       </span>
     ) : null,
-    item.authors?.length ? <span key="authors">{item.authors.join(", ")}</span> : null,
-  ].filter(Boolean);
-
-  return (
-    <Muted className={styles.tagLine}>
-      {parts.map((part, i) => (
-        <span key={i} className={styles.part}>
-          {i > 0 && (
-            <span aria-hidden className={styles.dot}>
-              ·
-            </span>
-          )}
-          {part}
+    authors: item.authors?.length ? <span>{item.authors.join(", ")}</span> : null,
+  };
+  const visibleParts = order.filter((field) => parts[field] !== null);
+  const renderParts = (fields: MetadataField[]) =>
+    fields
+      .filter((field) => parts[field] !== null)
+      .map((field) => (
+        <span key={field} className={styles.part}>
+          {parts[field]}
         </span>
-      ))}
+      ));
+  return (
+    <Muted
+      className={styles.tagLine}
+      data-layout={layout}
+      data-separators={separators ? "true" : undefined}
+    >
+      {layout === "project-tags" ? (
+        <>
+          <span className={styles.metadataRow}>{renderParts(order.filter((field) => field !== "tags"))}</span>
+          {parts.tags && <span className={styles.tagGroup}>{parts.tags}</span>}
+        </>
+      ) : (
+        visibleParts.map((field) => (
+          <span key={field} className={styles.part}>
+            {parts[field]}
+          </span>
+        ))
+      )}
     </Muted>
   );
 }
 
-function Entry({ item, hero }: { item: ContentItem; hero: HeroStyle }) {
+function Entry({
+  item,
+  hero,
+  metadataOrder,
+  metadataLayout,
+  metadataSeparators,
+}: {
+  item: ContentItem;
+  hero: HeroStyle;
+  metadataOrder: MetadataOrder;
+  metadataLayout: MetadataLayout;
+  metadataSeparators: boolean;
+}) {
   const cut = item.body ? excerpt(item.body) : null;
   const isCode = item.source === "approute";
   const opening = item.intro ?? item.description;
@@ -160,7 +207,12 @@ function Entry({ item, hero }: { item: ContentItem; hero: HeroStyle }) {
             opening && <Paragraph>{opening}</Paragraph>
           )}
           <Count item={item} moreWords={cut?.moreWords} />
-          <TagLine item={item} />
+          <TagLine
+            item={item}
+            order={metadataOrder}
+            layout={metadataLayout}
+            separators={metadataSeparators}
+          />
         </div>
       </div>
     </article>
@@ -169,21 +221,36 @@ function Entry({ item, hero }: { item: ContentItem; hero: HeroStyle }) {
 
 export function HomeFeed({
   items,
+  sort = "latest",
   hero = "wide",
+  metadataOrder = DEFAULT_METADATA_ORDER,
+  metadataLayout = DEFAULT_METADATA_LAYOUT,
+  metadataSeparators = false,
   className,
 }: {
   items: ContentItem[];
+  sort?: "latest" | "oldest";
   hero?: HeroStyle;
+  metadataOrder?: MetadataOrder;
+  metadataLayout?: MetadataLayout;
+  metadataSeparators?: boolean;
   className?: string;
 }) {
   return (
     <div className={cn(styles.feed, className)}>
-      {byDay(items).map(([day, dayItems]) => (
+      {byDay(items, sort).map(([day, dayItems]) => (
         <section key={day} className={styles.day}>
           <H3 className={styles.dayHeading}>{day}</H3>
           <div className={styles.stream}>
             {dayItems.map((item) => (
-              <Entry key={item.id} item={item} hero={hero} />
+              <Entry
+                key={item.id}
+                item={item}
+                hero={hero}
+                metadataOrder={metadataOrder}
+                metadataLayout={metadataLayout}
+                metadataSeparators={metadataSeparators}
+              />
             ))}
           </div>
         </section>

@@ -144,7 +144,15 @@ async function get<T>(path: string, params?: Record<string, string | number | bo
   return json as T;
 }
 
-type FeedQuery = { type?: ContentType | "all"; tag?: string; hideStructure?: boolean; limit?: number; offset?: number };
+type FeedQuery = {
+  type?: ContentType | "all";
+  tag?: string;
+  hideStructure?: boolean;
+  projectOnly?: boolean;
+  sort?: "latest" | "oldest";
+  limit?: number;
+  offset?: number;
+};
 
 /** Published content, newest first. Without a type, pages are left out; "all" includes them. */
 export async function listContent(query: FeedQuery = {}) {
@@ -158,8 +166,8 @@ export async function listFeed(query: FeedQuery = {}) {
 }
 
 /** One homepage batch with full item data and a lookahead flag. */
-export async function getHomeFeed(limit: number) {
-  const res = await get<{ data: ContentItem[]; hasMore: boolean }>("/content/home-feed", { limit });
+export async function getHomeFeed(limit: number, sort: "latest" | "oldest" = "latest") {
+  const res = await get<{ data: ContentItem[]; hasMore: boolean }>("/content/home-feed", { limit, sort });
   return { items: res?.data ?? [], hasMore: res?.hasMore ?? false };
 }
 

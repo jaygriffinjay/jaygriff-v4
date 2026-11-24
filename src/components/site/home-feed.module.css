@@ -21,8 +21,10 @@
 
   &::before {
     content: "";
-    @apply border-l border-separator absolute -left-4;
-    top: 0.5rem;
+    @apply border-l border-border absolute;
+    left: 0.28em;
+    font-size: var(--text-h2);
+    top: 0;
     bottom: 3px;
   }
 
@@ -47,7 +49,18 @@
 
 /* the image and content block with its spine in the outer gutter */
 .entryFrame {
-  @apply flex min-w-0 flex-col gap-3;
+  @apply flex min-w-0 flex-col gap-3 pl-6 pr-0;
+}
+
+/* let the feed use the full content width on phones, without the desktop rail */
+@media (width < 56rem) {
+  .stream::before {
+    content: none;
+  }
+
+  .entryFrame {
+    @apply pl-0;
+  }
 }
 
 /* an item's title, body and details */
@@ -81,7 +94,7 @@
 }
 
 .image {
-  @apply border-border bg-muted w-full rounded-lg border object-cover object-top;
+  @apply bg-muted w-full rounded-lg object-cover object-top;
 }
 
 /* the picture's shape: widescreen, or a shorter strip, or widescreen between the title and the opening */
@@ -104,11 +117,28 @@
 /* the details line under an entry, wrapping onto more lines when long */
 .tagLine {
   @apply flex flex-wrap items-center gap-x-2 gap-y-1;
+
 }
 
-/* one item on the details line, with the middle dot before it */
+/* one metadata group */
 .part {
   @apply inline-flex items-center gap-2;
+}
+
+/* the two related metadata groups in the paired layout */
+.metadataRow {
+  @apply flex flex-wrap items-center gap-x-2 gap-y-1;
+}
+
+/* tags flow after the primary metadata and wrap as one group */
+.tagGroup {
+  @apply inline-flex min-w-0 max-w-full;
+}
+
+/* optional separator for compact, single-line playground examples */
+.tagLine[data-separators="true"] .part:not(:last-child)::after {
+  content: "·";
+  @apply text-[1.5em] leading-none;
 }
 
 /* the time, a link to the entry that only lights up on hover */
@@ -125,11 +155,6 @@
 /* the small box before the project's name */
 .projectIcon {
   @apply size-[0.9em];
-}
-
-/* the middle dot between details, a bit larger than the text; no line height of its own so it doesn't push the line apart */
-.dot {
-  @apply text-[1.5em] leading-none;
 }
 
 /* #hashtags, spaced apart with no commas */

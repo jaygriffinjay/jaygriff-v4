@@ -1,0 +1,53 @@
+@reference "../../app/globals.css";
+
+/* the toolbar and feed; the feed's own top margin is the only space under the rule */
+.controls {
+  @apply flex w-full flex-col;
+}
+
+/* filter and sort selects aligned above the feed, with the rule closing the intro right above the body content */
+.toolbar {
+  @apply flex items-center justify-end gap-3 border-b border-border pb-2;
+}
+
+/* square-cornered bar that opens a filter or sort menu */
+.trigger {
+  @apply inline-flex h-8 items-center gap-2 rounded-lg bg-transparent px-3 text-foreground outline-none transition-colors focus-visible:focus-ring;
+}
+
+/* all-caps value shown in each menu trigger */
+.label {
+  @apply text-heading;
+}
+
+/* brighten only the label for the open dropdown */
+.trigger[data-popup-open] .label {
+  @apply text-accent-foreground;
+}
+
+/* dropdown arrow in the menu triggers */
+.chevron {
+  @apply size-4 shrink-0 text-heading;
+}
+
+/* option list width for the menu popover */
+.menu {
+  @apply min-w-36;
+}
+
+/* menu option hover highlight, matching the muted rows on /my-stack */
+.item:hover,
+.item:focus {
+  @apply bg-accent text-accent-foreground;
+}
+
+/* highlighted CapsLabel text follows the menu's foreground */
+.item:hover > span,
+.item:focus > span {
+  color: var(--accent-foreground);
+}
+
+/* active server-rendered feed panel */
+.panel {
+  @apply min-w-0;
+}

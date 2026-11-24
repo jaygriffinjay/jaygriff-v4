@@ -1,0 +1,138 @@
+@reference "../../app/globals.css";
+
+/* place the tagline below the inset banner */
+.profile {
+  @apply -mb-1 block;
+  padding-top: calc(var(--profile-banner, 14rem) - 1rem + var(--profile-inset, 16px));
+}
+
+/* reduce the empty profile reservation so the feed controls keep the banner's bottom inset */
+.profile[data-tagline-dismissed="true"] {
+  padding-top: calc(var(--profile-banner, 14rem) - 2rem + var(--profile-inset, 16px));
+}
+
+/* the inset bounds of the transparent iframe layer in PageLayout's full-bleed background slot */
+.stage {
+  position: absolute;
+  top: var(--profile-inset, 16px);
+  left: calc(50% - 50vw + var(--profile-inset, 16px));
+  width: calc(100vw - var(--profile-inset, 16px) - var(--profile-inset, 16px));
+  height: var(--profile-banner, 14rem);
+  z-index: 0;
+  overflow: clip;
+  pointer-events: none;
+}
+
+/* expanded, the canvas follows the full document height */
+.stage[data-expanded="true"] {
+  height: var(--canvas-height, var(--profile-banner, 14rem));
+}
+
+/* sandboxed particle simulation */
+.simulation {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* the easter egg control spot sits 4px inside the banner's top-left corner */
+.controls {
+  position: absolute;
+  top: calc(clamp(14px, 1.5vw, 16px) + 4px);
+  left: calc(clamp(14px, 1.5vw, 16px) + 4px);
+  z-index: 70;
+  display: flex;
+  height: 52px;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* a roomier invisible spot around the controls to find them by, kept behind the buttons so it never takes their clicks */
+.controls::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 -24px 0 -8px;
+}
+
+/* keep controls pinned inside the banner corner while the canvas is expanded */
+.controls[data-expanded="true"] {
+  position: fixed;
+}
+
+/* the buttons in a row, invisible until the spot is pointed at or keyboard-focused (on a touch screen, which has no hover, they're always there). Play/pause is first and the other icons open out to its right */
+.group {
+  @apply flex items-center opacity-0 transition-opacity duration-200;
+}
+
+.controls:hover .group,
+.controls:has(:focus-visible) .group {
+  @apply opacity-100;
+}
+
+@media (hover: none) {
+  .group {
+    @apply opacity-100;
+  }
+}
+
+/* one icon button, the same as the hamburger: big, blue, muted block behind it when pointed at or focused by keyboard, no words */
+.button {
+  @apply text-primary hover:bg-muted focus-visible:focus-ring inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md p-2 [&>svg]:size-9;
+}
+
+/* put back and fullscreen: only there once there's something to put back or enlarge, and only while the bar is pointed at; on a touch screen they're always there */
+.more {
+  @apply hidden;
+}
+
+.controls:hover .more,
+.controls:has(:focus-visible) .more {
+  @apply inline-flex;
+}
+
+@media (hover: none) {
+  .more {
+    @apply inline-flex;
+  }
+}
+
+/* the h1 stays for screen readers and search while the banner shows the name */
+.srOnly {
+  @apply sr-only;
+}
+
+/* the closing link on the tagline */
+.learnMore {
+  @apply link;
+}
+
+/* Inter dresses the homepage tagline while keeping its body-text size and colors */
+.tagline {
+  font-family: var(--font-inter), var(--font-geist-sans), sans-serif;
+}
+
+/* tagline copy and its dismiss control */
+.taglineMessage {
+  @apply flex items-start gap-2;
+}
+
+/* icon-only control for dismissing the one-time introduction */
+.dismissTagline {
+  @apply text-muted-foreground focus-visible:focus-ring inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md;
+}
+
+/* dismissal icon */
+.dismissTagline svg {
+  @apply size-4;
+  transition: transform 100ms ease-out;
+}
+
+/* slight shrink while the dismiss button is pressed */
+.dismissTagline:active svg {
+  transform: scale(0.9);
+}

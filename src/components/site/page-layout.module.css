@@ -3,6 +3,12 @@
 /* single column by default */
 .columns {
   @apply grid;
+  position: relative;
+}
+
+/* optional full-bleed background behind the page panel */
+.background {
+  @apply pointer-events-none absolute inset-0 z-0;
 }
 
 /* with an aside: one column in DOM order, so the aside's place in the JSX is its place on mobile */
@@ -24,7 +30,13 @@
 @media (width >= 56rem) {
   .columnsWithAside {
     @apply grid-cols-[minmax(0,var(--container-content))_var(--container-aside)] gap-x-8 gap-y-0;
+    position: relative;
     grid-template-areas: "nav aside" "notes aside" "main aside";
+  }
+
+  /* no notes leaves the middle row empty, which otherwise expands around the aside while main loads */
+  .columnsWithAside:not(.columnsWithNotes) {
+    grid-template-areas: "nav aside" "main aside";
   }
 
   .panelWithAside .navRow {
@@ -44,6 +56,14 @@
     @apply sticky top-4 -m-2 max-h-[calc(100dvh-2rem)] w-[calc(100%+1rem)] max-w-[calc(var(--container-aside)+1rem)] overflow-y-auto p-2;
     grid-area: aside;
   }
+
+  /* a page-specific aside may opt out of the pinned, independently scrolling rail */
+  .aside[data-sticky="false"] {
+    @apply static max-h-none overflow-visible;
+    grid-row: 2;
+    margin-top: 0;
+    padding-top: 2rem;
+  }
 }
 
 /* with room to spare, the gap between article and aside opens back up */
@@ -56,6 +76,8 @@
 /* content column: nav row on top, page content below; same width with or without an aside */
 .panel {
   @apply max-w-content min-w-0;
+  position: relative;
+  z-index: 1;
 }
 
 /* nav row and breadcrumb strip, at every width */

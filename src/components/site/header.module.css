@@ -39,3 +39,8 @@
     color: #fff;
   }
 }
+
+/* the home page's banner (marked data-home-banner) replaces the site name, and the page links onward itself, so there's no header at all */
+:global(body):has([data-home-banner]) .header {
+  display: none;
+}
