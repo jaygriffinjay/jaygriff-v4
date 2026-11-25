@@ -11,7 +11,7 @@ import styles from "./home-profile.module.css";
 
 type SimulationMode = "formed" | "moving" | "paused" | "returning";
 
-export function HomeProfileSimulation({ artifactHtml }: { artifactHtml: string }) {
+export function HomeProfileSimulation({ src }: { src: string }) {
   const frame = useRef<HTMLIFrameElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const bannerHeight = useRef(0);
@@ -37,7 +37,7 @@ export function HomeProfileSimulation({ artifactHtml }: { artifactHtml: string }
     announce();
     window.addEventListener("resize", announce);
     return () => window.removeEventListener("resize", announce);
-  }, [announce, artifactHtml, mounted]);
+  }, [announce, src, mounted]);
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
@@ -94,7 +94,7 @@ export function HomeProfileSimulation({ artifactHtml }: { artifactHtml: string }
     <div ref={stage} className={styles.stage} data-expanded={expanded ? "true" : undefined}>
       <iframe
         ref={frame}
-        srcDoc={artifactHtml}
+        src={src}
         title="Jay Griffin particle wordmark"
         sandbox="allow-scripts"
         className={styles.simulation}

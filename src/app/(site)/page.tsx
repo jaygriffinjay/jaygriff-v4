@@ -1,5 +1,3 @@
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
 import { Suspense } from "react";
 import { Muted } from "@/components/typography";
 import { Feed } from "@/components/site/feed";
@@ -9,7 +7,7 @@ import { HomeFeedControls } from "@/components/site/home-feed-controls";
 import { InfiniteFeed } from "@/components/site/infinite-feed";
 import { PageLayout } from "@/components/site/page-layout";
 import { ProjectEntry } from "@/components/site/project-entry";
-import { getHomeFeed, listFeed, listNotes, listProjects } from "@/lib/goatboat";
+import { getContentByPath, getHomeFeed, listFeed, listNotes, listProjects } from "@/lib/goatboat";
 import type { FeedItem, NoteListItem } from "@/lib/goatboat";
 import type { FeedKey, HomeFeedFilter, HomeFeedSort } from "@/components/site/infinite-feed-actions";
 import { isVisible } from "@/lib/page-meta";
@@ -21,13 +19,16 @@ const FEED_BATCH_SIZE = 20;
 const MAX_FEED_COUNT = 500;
 const filters: HomeFeedFilter[] = ["cool", "all", "projects", "posts", "notes"];
 
-async function getProfileArtifactHtml() {
-  if (process.env.NODE_ENV !== "development") return null;
-  try {
-    return await readFile(resolve(process.cwd(), "../goatboat/scratch/home-profile-field.html"), "utf8");
-  } catch {
+const BANNER_PATH = "/artifacts/home-profile-field";
+
+/** Where the banner artifact's html file is hosted, or null when it isn't published (or goatboat can't be reached). */
+async function getBannerUrl() {
+  const page = await getContentByPath(BANNER_PATH).catch((error) => {
+    console.error(error);
     return null;
-  }
+  });
+  if (!page || "redirectTo" in page || !isVisible(page.item)) return null;
+  return page.item.assets.find((a) => a.kind === "html" && a.role === "hero")?.url ?? null;
 }
 
 function parseFilter(value?: string): HomeFeedFilter {
@@ -176,12 +177,12 @@ export default async function Home() {
   const activeFilter = parseFilter(cookieStore.get("home-feed-filter")?.value);
   const activeSort = parseSort(cookieStore.get("home-feed-sort")?.value);
   const taglineDismissed = cookieStore.has("home-tagline-dismissed");
-  const profileArtifactHtml = await getProfileArtifactHtml();
+  const bannerUrl = await getBannerUrl();
 
   return (
     <PageLayout
       background={
-        profileArtifactHtml ? <HomeProfileSimulation artifactHtml={profileArtifactHtml} /> : null
+        bannerUrl ? <HomeProfileSimulation src={bannerUrl} /> : null
       }
       hideNav
       hideRelated
