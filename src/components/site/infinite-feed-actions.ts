@@ -2,8 +2,8 @@
 
 import { cookies } from "next/headers";
 
-export type FeedKey = "home" | "new" | "projects" | "pages" | "posts" | "notes";
-export type HomeFeedFilter = "cool" | "all" | "projects" | "pages" | "posts" | "notes";
+export type FeedKey = "home" | "new" | "projects" | "posts" | "notes";
+export type HomeFeedFilter = "cool" | "all" | "projects" | "posts" | "notes";
 export type HomeFeedSort = "latest" | "oldest";
 
 export async function setInfiniteFeedCount(feedKey: FeedKey, count: number) {
@@ -32,7 +32,7 @@ export async function clearInfiniteFeedCounts() {
 }
 
 export async function setHomeFeedPreferences(filter: HomeFeedFilter, sort: HomeFeedSort) {
-  const filters: HomeFeedFilter[] = ["cool", "all", "projects", "pages", "posts", "notes"];
+  const filters: HomeFeedFilter[] = ["cool", "all", "projects", "posts", "notes"];
   const sorts: HomeFeedSort[] = ["latest", "oldest"];
   if (!filters.includes(filter) || !sorts.includes(sort)) return;
 

@@ -17,7 +17,6 @@ const filters: { value: HomeFeedFilter; label: string }[] = [
   { value: "cool", label: "Cool" },
   { value: "all", label: "All" },
   { value: "projects", label: "Projects" },
-  { value: "pages", label: "Pages" },
   { value: "posts", label: "Posts" },
   { value: "notes", label: "Notes" },
 ];

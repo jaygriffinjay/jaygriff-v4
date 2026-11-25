@@ -19,7 +19,7 @@ import styles from "./page.module.css";
 const COOL_BATCH_SIZE = 10;
 const FEED_BATCH_SIZE = 20;
 const MAX_FEED_COUNT = 500;
-const filters: HomeFeedFilter[] = ["cool", "all", "projects", "pages", "posts", "notes"];
+const filters: HomeFeedFilter[] = ["cool", "all", "projects", "posts", "notes"];
 
 async function getProfileArtifactHtml() {
   if (process.env.NODE_ENV !== "development") return null;
@@ -147,7 +147,7 @@ async function LatestFeed({ filter, sort }: { filter: HomeFeedFilter; sort: Home
     );
   }
 
-  const type = filter === "pages" ? "page" : filter === "posts" ? "post" : "all";
+  const type = filter === "posts" ? "post" : "all";
   const feed = await listFeed({
     type,
     hideStructure: true,
