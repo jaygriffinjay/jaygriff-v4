@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { MobileMenuProvider } from "@/components/site/mobile-menu";
 import { currentPageMetadata } from "@/lib/page-meta";
 import styles from "./layout.module.css";
+import { Analytics } from "@vercel/analytics/next";
 
 // Every page's <head> comes from its goatboat row, found by the current path
 export const generateMetadata = currentPageMetadata;
@@ -20,6 +21,7 @@ export default function RootLayout({
         <TooltipProvider>
           <MobileMenuProvider>{children}</MobileMenuProvider>
         </TooltipProvider>
+        <Analytics />
       </body>
     </html>
   );
